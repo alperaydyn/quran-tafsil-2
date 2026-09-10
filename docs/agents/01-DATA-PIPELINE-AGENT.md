@@ -7,16 +7,17 @@ Bu belge, Kur'an metninin çekilmesi, normalleştirilmesi, morfolojik köklerin 
 ## 1. Görev ve Kapsam
 
 Data Pipeline Ajanı, `data-pipeline/` dizini altında çalışır ve aşağıdaki sorumlulukları üstlenir:
-1. **Açık Veri Çekme (Ingestion):** Tanzil.net (Uthmani metin), Quran.com (çeviri/meal), Quranic Arabic Corpus (morfoloji).
+1. **Açık Veri Çekme (Ingestion):** Tanzil.net / Uthmani metin (`data-pipeline/uthmani.txt`), Quran.com (çeviri/meal), Quranic Arabic Corpus (morfoloji).
+   - **`uthmani.txt` Kaynağı:** Pipe-separated (`id|sureno|ayetno|text`). Toplam 114 Sure, **6234 ayet**. (Tevbe Suresi 127 ayettir; seeder Uthmani imlasını birebir korur).
 2. **Normalizasyon ve Hiyerarşik Yapılandırma:**
-   - Sure (114 sure meta verisi: ad, nüzul sırası, dönem).
-   - Ayet (6236 ayet: Arapça Uthmani, meal, fonetik transliterasyon).
+   - Sure: 114 sure meta verisi (`scripts/surah-metadata.json`: ad, nüzul sırası, dönem).
+   - Ayet: 6234 ayet Uthmani metni + Medine Mushafı koordinatları (`scripts/quran-pages-juz.json`: 604 sayfa, 30 cüz).
    - Ayet Blokları (anlam bütünlüğü tematik grupları).
    - Cümle ve Alt Cümle Segmentasyonu (`cumle_index`).
 3. **Kavram Etiketleme Motoru:** Cümle içindeki kavramların `[<kavram>]` sözdizimiyle etiketlenmesi.
 4. **Morfolojik Kök ve Frekans Matrisi:** Üçlü/dörtlü kök harfleri, lemma, vezin/bâb kalıbı ve Kur'an frekanslarının indekslenmesi.
 5. **Ses Zaman Damgaları (Word Timestamps):** Kâri tilavet ses kayıtları için kelime seviyesinde `start_ms` ve `end_ms` zaman damgalarının (Whisper forced alignment) üretilmesi.
-6. **PostgreSQL Seeder:** Çıktıların `data-pipeline/seed/` altında standart JSON formatında hazırlanması ve veritabanına aktarımı.
+6. **PostgreSQL Seeder:** Çıktıların `data-pipeline/seed/quran_seed.sql` formatında hazırlanması ve veritabanına aktarımı (`npm run db:seed`).
 
 ---
 

@@ -1,0 +1,38 @@
+{
+  "name": "tafsil-backend",
+  "version": "1.0.0",
+  "description": "tafsil.net — Fastify API & AI/RAG Backend",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:seed": "tsx src/db/seed.ts",
+    "db:status": "tsx src/db/status.ts"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/rate-limit": "^9.1.0",
+    "@fastify/sensible": "^5.5.0",
+    "@fastify/static": "^10.1.2",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^6.1.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^5.12.3",
+    "ioredis": "^5.3.2",
+    "pg": "^8.11.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/pg": "^8.11.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "UNLICENSED"
+}

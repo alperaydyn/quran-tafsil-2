@@ -1,0 +1,1028 @@
+[
+  {
+    "id": 1,
+    "ad_tr": "Fâtiha",
+    "ad_ar": "الفاتحة",
+    "nuzul_sirasi": 5,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 7,
+    "aciklama": "Açılış, başlangıç, Kur’an’ın özü"
+  },
+  {
+    "id": 2,
+    "ad_tr": "Bakara",
+    "ad_ar": "البقرة",
+    "nuzul_sirasi": 87,
+    "donem": "medine",
+    "ayet_sayisi": 286,
+    "aciklama": "İnek, toplumsal hukuk, itikat ve şeriat esasları"
+  },
+  {
+    "id": 3,
+    "ad_tr": "Âl-i İmrân",
+    "ad_ar": "آل عمران",
+    "nuzul_sirasi": 89,
+    "donem": "medine",
+    "ayet_sayisi": 200,
+    "aciklama": "İmran ailesi, tevhid, Uhud savaşı ve sabır"
+  },
+  {
+    "id": 4,
+    "ad_tr": "Nisâ",
+    "ad_ar": "النساء",
+    "nuzul_sirasi": 92,
+    "donem": "medine",
+    "ayet_sayisi": 176,
+    "aciklama": "Kadınlar, aile hukuku, adalet ve emanet"
+  },
+  {
+    "id": 5,
+    "ad_tr": "Mâide",
+    "ad_ar": "المائدة",
+    "nuzul_sirasi": 112,
+    "donem": "medine",
+    "ayet_sayisi": 120,
+    "aciklama": "Sofra, ahitler, helal-haram ve kardeşlik"
+  },
+  {
+    "id": 6,
+    "ad_tr": "En'âm",
+    "ad_ar": "الأنعام",
+    "nuzul_sirasi": 55,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 165,
+    "aciklama": "Kurban ve ehil hayvanlar, tefekkür, tevhid"
+  },
+  {
+    "id": 7,
+    "ad_tr": "A'râf",
+    "ad_ar": "الأعراف",
+    "nuzul_sirasi": 39,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 206,
+    "aciklama": "Yüksek mevkiler, peygamberler tarihi ve ibret"
+  },
+  {
+    "id": 8,
+    "ad_tr": "Enfâl",
+    "ad_ar": "الأنفال",
+    "nuzul_sirasi": 88,
+    "donem": "medine",
+    "ayet_sayisi": 75,
+    "aciklama": "Savaş ganimetleri, Bedir zaferi ve sadakat"
+  },
+  {
+    "id": 9,
+    "ad_tr": "Tevbe",
+    "ad_ar": "التوبة",
+    "nuzul_sirasi": 113,
+    "donem": "medine",
+    "ayet_sayisi": 127,
+    "aciklama": "Tövbe, nifakla mücadele ve samimiyet"
+  },
+  {
+    "id": 10,
+    "ad_tr": "Yûnus",
+    "ad_ar": "يونس",
+    "nuzul_sirasi": 51,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 109,
+    "aciklama": "Yunus peygamber, vahiy ve ilahi rahmet"
+  },
+  {
+    "id": 11,
+    "ad_tr": "Hûd",
+    "ad_ar": "هود",
+    "nuzul_sirasi": 52,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 123,
+    "aciklama": "Hud peygamber, kavimlerin helaki ve istikamet"
+  },
+  {
+    "id": 12,
+    "ad_tr": "Yûsuf",
+    "ad_ar": "يوسف",
+    "nuzul_sirasi": 53,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 111,
+    "aciklama": "Yusuf peygamber, ahsenü'l-kasas (kıssaların en güzeli)"
+  },
+  {
+    "id": 13,
+    "ad_tr": "Ra'd",
+    "ad_ar": "الرعد",
+    "nuzul_sirasi": 96,
+    "donem": "medine",
+    "ayet_sayisi": 43,
+    "aciklama": "Gök gürültüsü, kevni ayetler ve hakikat"
+  },
+  {
+    "id": 14,
+    "ad_tr": "İbrâhîm",
+    "ad_ar": "إبراهيم",
+    "nuzul_sirasi": 72,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 52,
+    "aciklama": "İbrahim peygamber, tevhid ve şükür"
+  },
+  {
+    "id": 15,
+    "ad_tr": "Hicr",
+    "ad_ar": "الحجر",
+    "nuzul_sirasi": 54,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 99,
+    "aciklama": "Hicr vadisi, Kur'an'ın korunması"
+  },
+  {
+    "id": 16,
+    "ad_tr": "Nahl",
+    "ad_ar": "النحل",
+    "nuzul_sirasi": 70,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 128,
+    "aciklama": "Bal arısı, ilahi nimetler ve tefekkür"
+  },
+  {
+    "id": 17,
+    "ad_tr": "İsrâ",
+    "ad_ar": "الإسراء",
+    "nuzul_sirasi": 50,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 111,
+    "aciklama": "Gece yürüyüşü, Miraç ve ahlaki ilkeler"
+  },
+  {
+    "id": 18,
+    "ad_tr": "Kehf",
+    "ad_ar": "الكهف",
+    "nuzul_sirasi": 69,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 110,
+    "aciklama": "Mağara arkadaşları, fitneler ve hikmet"
+  },
+  {
+    "id": 19,
+    "ad_tr": "Meryem",
+    "ad_ar": "مريم",
+    "nuzul_sirasi": 44,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 98,
+    "aciklama": "Hz. Meryem, Zekeriya ve İsa mucizesi"
+  },
+  {
+    "id": 20,
+    "ad_tr": "Tâhâ",
+    "ad_ar": "طه",
+    "nuzul_sirasi": 45,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 135,
+    "aciklama": "Taha, Hz. Musa'nın risaleti ve tebliğ"
+  },
+  {
+    "id": 21,
+    "ad_tr": "Enbiyâ",
+    "ad_ar": "الأنبياء",
+    "nuzul_sirasi": 73,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 112,
+    "aciklama": "Peygamberler ve ortak tevhid çağrısı"
+  },
+  {
+    "id": 22,
+    "ad_tr": "Hac",
+    "ad_ar": "الحج",
+    "nuzul_sirasi": 103,
+    "donem": "medine",
+    "ayet_sayisi": 78,
+    "aciklama": "Hac ibadeti, kıyamet ve kurban"
+  },
+  {
+    "id": 23,
+    "ad_tr": "Mü'minûn",
+    "ad_ar": "المؤمنون",
+    "nuzul_sirasi": 74,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 118,
+    "aciklama": "Müminlerin vasıfları ve kurtuluş"
+  },
+  {
+    "id": 24,
+    "ad_tr": "Nûr",
+    "ad_ar": "النور",
+    "nuzul_sirasi": 102,
+    "donem": "medine",
+    "ayet_sayisi": 64,
+    "aciklama": "İlahi nur, iffet ve toplumsal ahlak"
+  },
+  {
+    "id": 25,
+    "ad_tr": "Furkân",
+    "ad_ar": "الفرقان",
+    "nuzul_sirasi": 42,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 77,
+    "aciklama": "Hak ile batılı ayıran ölçü"
+  },
+  {
+    "id": 26,
+    "ad_tr": "Şuarâ",
+    "ad_ar": "الشعراء",
+    "nuzul_sirasi": 47,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 227,
+    "aciklama": "Şairler, peygamberlerin mücadelesi"
+  },
+  {
+    "id": 27,
+    "ad_tr": "Neml",
+    "ad_ar": "النمل",
+    "nuzul_sirasi": 48,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 93,
+    "aciklama": "Karınca, Süleyman peygamber ve Belkıs"
+  },
+  {
+    "id": 28,
+    "ad_tr": "Kasas",
+    "ad_ar": "القصص",
+    "nuzul_sirasi": 49,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 88,
+    "aciklama": "Tarihi kıssalar, Musa ve Firavun"
+  },
+  {
+    "id": 29,
+    "ad_tr": "Ankebût",
+    "ad_ar": "العنكبوت",
+    "nuzul_sirasi": 85,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 69,
+    "aciklama": "Örümcek ağı misali, imtihan"
+  },
+  {
+    "id": 30,
+    "ad_tr": "Rûm",
+    "ad_ar": "الروم",
+    "nuzul_sirasi": 84,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 60,
+    "aciklama": "Bizanslılar, tarihin akışı ve kevnî ayetler"
+  },
+  {
+    "id": 31,
+    "ad_tr": "Lokmân",
+    "ad_ar": "لقمان",
+    "nuzul_sirasi": 57,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 34,
+    "aciklama": "Lokman hekimin oğluna öğütleri, hikmet"
+  },
+  {
+    "id": 32,
+    "ad_tr": "Secde",
+    "ad_ar": "السجدة",
+    "nuzul_sirasi": 75,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 30,
+    "aciklama": "Secde, yaratılış ve diriliş"
+  },
+  {
+    "id": 33,
+    "ad_tr": "Ahzâb",
+    "ad_ar": "الأحزاب",
+    "nuzul_sirasi": 90,
+    "donem": "medine",
+    "ayet_sayisi": 73,
+    "aciklama": "Gruplar, Hendek savaşı ve Hz. Peygamber'in konumu"
+  },
+  {
+    "id": 34,
+    "ad_tr": "Sebe'",
+    "ad_ar": "سبإ",
+    "nuzul_sirasi": 58,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 54,
+    "aciklama": "Sebe kavmi, şükür ve nankörlük"
+  },
+  {
+    "id": 35,
+    "ad_tr": "Fâtır",
+    "ad_ar": "فاطر",
+    "nuzul_sirasi": 43,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 45,
+    "aciklama": "Yaratan, melekler ve ilahi kudret"
+  },
+  {
+    "id": 36,
+    "ad_tr": "Yâsîn",
+    "ad_ar": "يس",
+    "nuzul_sirasi": 41,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 83,
+    "aciklama": "Kur'an'ın kalbi, diriliş ve tebliğ"
+  },
+  {
+    "id": 37,
+    "ad_tr": "Sâffât",
+    "ad_ar": "الصافات",
+    "nuzul_sirasi": 56,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 182,
+    "aciklama": "Sıra sıra dizilenler, melekler ve tevhid"
+  },
+  {
+    "id": 38,
+    "ad_tr": "Sâd",
+    "ad_ar": "ص",
+    "nuzul_sirasi": 38,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 88,
+    "aciklama": "Sad harfi, peygamberlerin imtihanı"
+  },
+  {
+    "id": 39,
+    "ad_tr": "Zümer",
+    "ad_ar": "الزمر",
+    "nuzul_sirasi": 59,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 75,
+    "aciklama": "Zümreler, ihlas ve Allah'ın rahmeti"
+  },
+  {
+    "id": 40,
+    "ad_tr": "Mü'min (Gâfir)",
+    "ad_ar": "غافر",
+    "nuzul_sirasi": 60,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 85,
+    "aciklama": "Bağışlayan, Firavun ailesinden inanan adam"
+  },
+  {
+    "id": 41,
+    "ad_tr": "Fussilet",
+    "ad_ar": "فصلت",
+    "nuzul_sirasi": 61,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 54,
+    "aciklama": "Ayrıntılı açıklanmış ayetler"
+  },
+  {
+    "id": 42,
+    "ad_tr": "Şûrâ",
+    "ad_ar": "الشورى",
+    "nuzul_sirasi": 62,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 53,
+    "aciklama": "İstişare ve vahyin mahiyeti"
+  },
+  {
+    "id": 43,
+    "ad_tr": "Zuhruf",
+    "ad_ar": "الزخرف",
+    "nuzul_sirasi": 63,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 89,
+    "aciklama": "Altın süs, dünya hayatının faniliği"
+  },
+  {
+    "id": 44,
+    "ad_tr": "Duhân",
+    "ad_ar": "الدخان",
+    "nuzul_sirasi": 64,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 59,
+    "aciklama": "Duman, kıyamet alameti"
+  },
+  {
+    "id": 45,
+    "ad_tr": "Câsiye",
+    "ad_ar": "الجاثية",
+    "nuzul_sirasi": 65,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 37,
+    "aciklama": "Diz çökenler, mahşer günü dehşeti"
+  },
+  {
+    "id": 46,
+    "ad_tr": "Ahkâf",
+    "ad_ar": "الأحقاف",
+    "nuzul_sirasi": 66,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 35,
+    "aciklama": "Kum tepeleri, Ad kavmi"
+  },
+  {
+    "id": 47,
+    "ad_tr": "Muhammed",
+    "ad_ar": "محمد",
+    "nuzul_sirasi": 95,
+    "donem": "medine",
+    "ayet_sayisi": 38,
+    "aciklama": "Hz. Muhammed, cihat ve teslimiyet"
+  },
+  {
+    "id": 48,
+    "ad_tr": "Fetih",
+    "ad_ar": "الفتح",
+    "nuzul_sirasi": 111,
+    "donem": "medine",
+    "ayet_sayisi": 29,
+    "aciklama": "Hudeybiye barışı ve açık fetih"
+  },
+  {
+    "id": 49,
+    "ad_tr": "Hucurât",
+    "ad_ar": "الحجرات",
+    "nuzul_sirasi": 106,
+    "donem": "medine",
+    "ayet_sayisi": 18,
+    "aciklama": "Odalar, ahlak ve mümin kardeşliği"
+  },
+  {
+    "id": 50,
+    "ad_tr": "Kâf",
+    "ad_ar": "ق",
+    "nuzul_sirasi": 34,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 45,
+    "aciklama": "Kaf harfi, diriliş ve ölüm"
+  },
+  {
+    "id": 51,
+    "ad_tr": "Zâriyât",
+    "ad_ar": "الذاريات",
+    "nuzul_sirasi": 67,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 60,
+    "aciklama": "Esip savuran rüzgarlar"
+  },
+  {
+    "id": 52,
+    "ad_tr": "Tûr",
+    "ad_ar": "الطور",
+    "nuzul_sirasi": 76,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 49,
+    "aciklama": "Tur dağı, ahiret sahneleri"
+  },
+  {
+    "id": 53,
+    "ad_tr": "Necm",
+    "ad_ar": "النجم",
+    "nuzul_sirasi": 23,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 62,
+    "aciklama": "Kayan yıldız, miraç ve vahiy"
+  },
+  {
+    "id": 54,
+    "ad_tr": "Kamer",
+    "ad_ar": "القمر",
+    "nuzul_sirasi": 37,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 55,
+    "aciklama": "Ay, kıyametin yakınlığı"
+  },
+  {
+    "id": 55,
+    "ad_tr": "Rahmân",
+    "ad_ar": "الرحمن",
+    "nuzul_sirasi": 97,
+    "donem": "medine",
+    "ayet_sayisi": 78,
+    "aciklama": "Sonsuz merhamet sahibi ve nimetleri"
+  },
+  {
+    "id": 56,
+    "ad_tr": "Vâkıa",
+    "ad_ar": "الواقعة",
+    "nuzul_sirasi": 46,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 96,
+    "aciklama": "Kaçınılmaz kıyamet ve 3 sınıf insan"
+  },
+  {
+    "id": 57,
+    "ad_tr": "Hadîd",
+    "ad_ar": "الحديد",
+    "nuzul_sirasi": 94,
+    "donem": "medine",
+    "ayet_sayisi": 29,
+    "aciklama": "Demir, infak ve iman"
+  },
+  {
+    "id": 58,
+    "ad_tr": "Mücâdele",
+    "ad_ar": "المجادلة",
+    "nuzul_sirasi": 105,
+    "donem": "medine",
+    "ayet_sayisi": 22,
+    "aciklama": "Hakkını arayan kadın, gizli konuşmalar"
+  },
+  {
+    "id": 59,
+    "ad_tr": "Haşr",
+    "ad_ar": "الحشر",
+    "nuzul_sirasi": 101,
+    "donem": "medine",
+    "ayet_sayisi": 24,
+    "aciklama": "Sürgün, Medine muhasarası ve Esmâü'l-Hüsnâ"
+  },
+  {
+    "id": 60,
+    "ad_tr": "Mümtehine",
+    "ad_ar": "الممتحنة",
+    "nuzul_sirasi": 91,
+    "donem": "medine",
+    "ayet_sayisi": 13,
+    "aciklama": "Sınanan kadın, dostluk sınırları"
+  },
+  {
+    "id": 61,
+    "ad_tr": "Saff",
+    "ad_ar": "الصف",
+    "nuzul_sirasi": 109,
+    "donem": "medine",
+    "ayet_sayisi": 14,
+    "aciklama": "Saflar, söz ile amel tutarlılığı"
+  },
+  {
+    "id": 62,
+    "ad_tr": "Cuma",
+    "ad_ar": "الجمعة",
+    "nuzul_sirasi": 110,
+    "donem": "medine",
+    "ayet_sayisi": 11,
+    "aciklama": "Cuma namazı, Kitap ehli meseli"
+  },
+  {
+    "id": 63,
+    "ad_tr": "Münâfikûn",
+    "ad_ar": "المنافقون",
+    "nuzul_sirasi": 104,
+    "donem": "medine",
+    "ayet_sayisi": 11,
+    "aciklama": "Münafıkların psikolojisi ve tavırları"
+  },
+  {
+    "id": 64,
+    "ad_tr": "Tegâbün",
+    "ad_ar": "التغابن",
+    "nuzul_sirasi": 108,
+    "donem": "medine",
+    "ayet_sayisi": 18,
+    "aciklama": "Kazanma ve kaybetme günü"
+  },
+  {
+    "id": 65,
+    "ad_tr": "Talâk",
+    "ad_ar": "الطلاق",
+    "nuzul_sirasi": 99,
+    "donem": "medine",
+    "ayet_sayisi": 12,
+    "aciklama": "Boşanma hukuku ve takva"
+  },
+  {
+    "id": 66,
+    "ad_tr": "Tahrîm",
+    "ad_ar": "التحريم",
+    "nuzul_sirasi": 107,
+    "donem": "medine",
+    "ayet_sayisi": 12,
+    "aciklama": "Haram kılma, aile mahremiyeti"
+  },
+  {
+    "id": 67,
+    "ad_tr": "Mülk",
+    "ad_ar": "الملك",
+    "nuzul_sirasi": 77,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 30,
+    "aciklama": "Mülk ve hakimiyet, ölüm ve hayat imtihanı"
+  },
+  {
+    "id": 68,
+    "ad_tr": "Kalem",
+    "ad_ar": "القلم",
+    "nuzul_sirasi": 2,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 52,
+    "aciklama": "Kalem, peygamberin yüce ahlakı"
+  },
+  {
+    "id": 69,
+    "ad_tr": "Hâkka",
+    "ad_ar": "الحاقة",
+    "nuzul_sirasi": 78,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 52,
+    "aciklama": "Gerçekleşecek kıyamet"
+  },
+  {
+    "id": 70,
+    "ad_tr": "Meâric",
+    "ad_ar": "المعارج",
+    "nuzul_sirasi": 79,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 44,
+    "aciklama": "Yükseliş dereceleri"
+  },
+  {
+    "id": 71,
+    "ad_tr": "Nûh",
+    "ad_ar": "نوح",
+    "nuzul_sirasi": 71,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 28,
+    "aciklama": "Nuh peygamberin tebliği ve duası"
+  },
+  {
+    "id": 72,
+    "ad_tr": "Cin",
+    "ad_ar": "الجن",
+    "nuzul_sirasi": 40,
+    "donem": "orta_mekke",
+    "ayet_sayisi": 28,
+    "aciklama": "Cinlerin Kur'an dinlemesi ve tevhidi"
+  },
+  {
+    "id": 73,
+    "ad_tr": "Müzzemmil",
+    "ad_ar": "المزمل",
+    "nuzul_sirasi": 3,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 20,
+    "aciklama": "Örtünen, gece ibadeti"
+  },
+  {
+    "id": 74,
+    "ad_tr": "Müddessir",
+    "ad_ar": "المدثر",
+    "nuzul_sirasi": 4,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 56,
+    "aciklama": "Bürünen, kalk ve uyar"
+  },
+  {
+    "id": 75,
+    "ad_tr": "Kıyâme",
+    "ad_ar": "القيامة",
+    "nuzul_sirasi": 31,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 40,
+    "aciklama": "Kıyamet ve insanın kendini kınaması"
+  },
+  {
+    "id": 76,
+    "ad_tr": "İnsân",
+    "ad_ar": "الإنسان",
+    "nuzul_sirasi": 98,
+    "donem": "medine",
+    "ayet_sayisi": 31,
+    "aciklama": "İnsanın varoluşu ve cennet nimetleri"
+  },
+  {
+    "id": 77,
+    "ad_tr": "Mürselât",
+    "ad_ar": "المرسلات",
+    "nuzul_sirasi": 33,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 50,
+    "aciklama": "Gönderilen rüzgarlar ve melekler"
+  },
+  {
+    "id": 78,
+    "ad_tr": "Nebe'",
+    "ad_ar": "النبإ",
+    "nuzul_sirasi": 80,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 40,
+    "aciklama": "Büyük haber, diriliş"
+  },
+  {
+    "id": 79,
+    "ad_tr": "Nâziât",
+    "ad_ar": "النازعات",
+    "nuzul_sirasi": 81,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 46,
+    "aciklama": "Söküp çıkaranlar, ölüm"
+  },
+  {
+    "id": 80,
+    "ad_tr": "Abese",
+    "ad_ar": "عبس",
+    "nuzul_sirasi": 24,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 42,
+    "aciklama": "Yüzünü ekşitti, insana saygı"
+  },
+  {
+    "id": 81,
+    "ad_tr": "Tekvîr",
+    "ad_ar": "التكوير",
+    "nuzul_sirasi": 7,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 29,
+    "aciklama": "Güneşin dürülmesi"
+  },
+  {
+    "id": 82,
+    "ad_tr": "İnfitâr",
+    "ad_ar": "الانفطار",
+    "nuzul_sirasi": 82,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 19,
+    "aciklama": "Göğün yarılması"
+  },
+  {
+    "id": 83,
+    "ad_tr": "Mutaffifîn",
+    "ad_ar": "المطففين",
+    "nuzul_sirasi": 86,
+    "donem": "gec_mekke",
+    "ayet_sayisi": 36,
+    "aciklama": "Ölçüde hile yapanlar"
+  },
+  {
+    "id": 84,
+    "ad_tr": "İnşikâk",
+    "ad_ar": "الانشقاق",
+    "nuzul_sirasi": 83,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 25,
+    "aciklama": "Göğün parçalanması"
+  },
+  {
+    "id": 85,
+    "ad_tr": "Bürûc",
+    "ad_ar": "البروج",
+    "nuzul_sirasi": 27,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 22,
+    "aciklama": "Burçlar, Ashab-ı Uhdud"
+  },
+  {
+    "id": 86,
+    "ad_tr": "Târık",
+    "ad_ar": "الطارق",
+    "nuzul_sirasi": 36,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 17,
+    "aciklama": "Sabah yıldızı, insanın yaratılışı"
+  },
+  {
+    "id": 87,
+    "ad_tr": "A'lâ",
+    "ad_ar": "الأعلى",
+    "nuzul_sirasi": 8,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 19,
+    "aciklama": "En yüce olan, tesbih"
+  },
+  {
+    "id": 88,
+    "ad_tr": "Gâşiye",
+    "ad_ar": "الغاشية",
+    "nuzul_sirasi": 68,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 26,
+    "aciklama": "Kuşatıp kaplayan felaket"
+  },
+  {
+    "id": 89,
+    "ad_tr": "Fecr",
+    "ad_ar": "الفجر",
+    "nuzul_sirasi": 10,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 30,
+    "aciklama": "Tan yeri, geçmiş kavimler"
+  },
+  {
+    "id": 90,
+    "ad_tr": "Beled",
+    "ad_ar": "البلد",
+    "nuzul_sirasi": 35,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 20,
+    "aciklama": "Şehir (Mekke), sarp yokuş"
+  },
+  {
+    "id": 91,
+    "ad_tr": "Şems",
+    "ad_ar": "الشمس",
+    "nuzul_sirasi": 26,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 15,
+    "aciklama": "Güneş, nefsi arındırma"
+  },
+  {
+    "id": 92,
+    "ad_tr": "Leyl",
+    "ad_ar": "الليل",
+    "nuzul_sirasi": 9,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 21,
+    "aciklama": "Gece, cömertlik ve cimrilik"
+  },
+  {
+    "id": 93,
+    "ad_tr": "Duhâ",
+    "ad_ar": "الضحى",
+    "nuzul_sirasi": 11,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 11,
+    "aciklama": "Kuşluk vakti, ilahi teselli"
+  },
+  {
+    "id": 94,
+    "ad_tr": "İnşirâh",
+    "ad_ar": "الشرح",
+    "nuzul_sirasi": 12,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 8,
+    "aciklama": "Gönül ferahlığı"
+  },
+  {
+    "id": 95,
+    "ad_tr": "Tîn",
+    "ad_ar": "التين",
+    "nuzul_sirasi": 28,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 8,
+    "aciklama": "İncir, insanın ahsen-i takvim yaratılışı"
+  },
+  {
+    "id": 96,
+    "ad_tr": "Alak",
+    "ad_ar": "العلق",
+    "nuzul_sirasi": 1,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 19,
+    "aciklama": "İlk vahiy: Oku"
+  },
+  {
+    "id": 97,
+    "ad_tr": "Kadir",
+    "ad_ar": "القدر",
+    "nuzul_sirasi": 25,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 5,
+    "aciklama": "Kadir gecesi ve vahyin inişi"
+  },
+  {
+    "id": 98,
+    "ad_tr": "Beyyine",
+    "ad_ar": "البينة",
+    "nuzul_sirasi": 100,
+    "donem": "medine",
+    "ayet_sayisi": 8,
+    "aciklama": "Açık delil, dinin özü"
+  },
+  {
+    "id": 99,
+    "ad_tr": "Zilzâl",
+    "ad_ar": "الزلزلة",
+    "nuzul_sirasi": 93,
+    "donem": "medine",
+    "ayet_sayisi": 8,
+    "aciklama": "Büyük sarsıntı"
+  },
+  {
+    "id": 100,
+    "ad_tr": "Âdiyât",
+    "ad_ar": "العاديات",
+    "nuzul_sirasi": 14,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 11,
+    "aciklama": "Koşan atlar, insanın nankörlüğü"
+  },
+  {
+    "id": 101,
+    "ad_tr": "Kâria",
+    "ad_ar": "القارعة",
+    "nuzul_sirasi": 30,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 11,
+    "aciklama": "Yürekleri hoplatan kıyamet"
+  },
+  {
+    "id": 102,
+    "ad_tr": "Tekâsür",
+    "ad_ar": "التكاثر",
+    "nuzul_sirasi": 16,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 8,
+    "aciklama": "Çoklukla övünme tutkusu"
+  },
+  {
+    "id": 103,
+    "ad_tr": "Asr",
+    "ad_ar": "العصر",
+    "nuzul_sirasi": 13,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 3,
+    "aciklama": "Zaman, kurtuluşun 4 şartı"
+  },
+  {
+    "id": 104,
+    "ad_tr": "Hümeze",
+    "ad_ar": "الهمزة",
+    "nuzul_sirasi": 32,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 9,
+    "aciklama": "Dedikodu ve mal biriktirme"
+  },
+  {
+    "id": 105,
+    "ad_tr": "Fîl",
+    "ad_ar": "الفيل",
+    "nuzul_sirasi": 19,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 5,
+    "aciklama": "Fil ordusu ve Kabe'nin korunması"
+  },
+  {
+    "id": 106,
+    "ad_tr": "Kureyş",
+    "ad_ar": "قريش",
+    "nuzul_sirasi": 29,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 4,
+    "aciklama": "Kureyş kabilesi ve güven nimeti"
+  },
+  {
+    "id": 107,
+    "ad_tr": "Mâûn",
+    "ad_ar": "الماعون",
+    "nuzul_sirasi": 17,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 7,
+    "aciklama": "Yardım, gösteriş ve yetimi itme"
+  },
+  {
+    "id": 108,
+    "ad_tr": "Kevser",
+    "ad_ar": "الكوثر",
+    "nuzul_sirasi": 15,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 3,
+    "aciklama": "Bitmez tükenmez hayır ve nimet"
+  },
+  {
+    "id": 109,
+    "ad_tr": "Kâfirûn",
+    "ad_ar": "الكافرون",
+    "nuzul_sirasi": 18,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 6,
+    "aciklama": "İnançta uzlaşmazlık, sizin dininiz size"
+  },
+  {
+    "id": 110,
+    "ad_tr": "Nasr",
+    "ad_ar": "النصر",
+    "nuzul_sirasi": 114,
+    "donem": "medine",
+    "ayet_sayisi": 3,
+    "aciklama": "İlahi yardım ve fetih"
+  },
+  {
+    "id": 111,
+    "ad_tr": "Tebbet (Mesed)",
+    "ad_ar": "المسد",
+    "nuzul_sirasi": 6,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 5,
+    "aciklama": "Ebu Leheb'in elleri kurusun"
+  },
+  {
+    "id": 112,
+    "ad_tr": "İhlâs",
+    "ad_ar": "الإخلاص",
+    "nuzul_sirasi": 22,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 4,
+    "aciklama": "Tevhidin katıksız ifadesi"
+  },
+  {
+    "id": 113,
+    "ad_tr": "Felak",
+    "ad_ar": "الفلق",
+    "nuzul_sirasi": 20,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 5,
+    "aciklama": "Sabahın aydınlığına sığınma"
+  },
+  {
+    "id": 114,
+    "ad_tr": "Nâs",
+    "ad_ar": "الناس",
+    "nuzul_sirasi": 21,
+    "donem": "erken_mekke",
+    "ayet_sayisi": 6,
+    "aciklama": "İnsanların Rabbine sığınma"
+  }
+]

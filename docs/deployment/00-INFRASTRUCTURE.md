@@ -113,6 +113,26 @@ docker --version
 docker compose version
 ```
 
+### 4.1 PostgreSQL ve `pgvector` Yapılandırması
+
+VPS üzerinde halihazırda çalışan `postgres` adlı PostgreSQL 16 konteyneri bulunmaktadır (port `5432`). Tafsil veritabanı bu servis üzerinde barındırılır:
+
+- **Veritabanı Adı:** `tafsil_net_db`
+- **Kullanıcı:** `tafsil_user_001`
+- **Şifre:** `tafsil_user_xxxx`
+- **Port:** `5432`
+
+> [!IMPORTANT]
+> **`pgvector` Eklentisi:**  
+> Standart PostgreSQL 16 konteynerinde semantik vektör aramaları için `pgvector` eklentisi kurulmalıdır:
+> ```bash
+> # Konteynere pgvector paketini kur
+> docker exec postgres apt-get update -qq && docker exec postgres apt-get install -y postgresql-16-pgvector
+> 
+> # Tafsil veritabanında eklentiyi aktifleştir
+> docker exec postgres psql -U admin@a3gents.com -d tafsil_net_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
+> ```
+
 ---
 
 ## 5. Nginx Kurulumu (Host Reverse Proxy)

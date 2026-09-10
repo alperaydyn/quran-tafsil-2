@@ -1,0 +1,12 @@
+{
+  "name": "tafsil-data-pipeline",
+  "version": "1.0.0",
+  "description": "tafsil.net — Data Pipeline & Lexicon Engine ETL Scripts",
+  "type": "module",
+  "scripts": {
+    "generate:metadata": "python3 scripts/generate-metadata.py",
+    "generate:seed": "python3 scripts/generate-sql-seed.py",
+    "seed:all": "python3 scripts/generate-metadata.py && python3 scripts/generate-sql-seed.py"
+  },
+  "license": "UNLICENSED"
+}

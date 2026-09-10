@@ -19,7 +19,7 @@ Fastify (Node.js) backend API'nin Hostinger VPS üzerinde Docker konteynerleri, 
 
 ---
 
-## 2. Docker Compose Servisleri
+## 2. Docker Compose Servisleri ve VPS PostgreSQL Konfigürasyonu
 
 Tüm veritabanı ve altyapı servisleri `backend/docker-compose.yml` ile yönetilir. Detaylı yapılandırma için bkz: [backend/docker-compose.yml](file:///Users/alperaydin/Projects/kuran-tafsil-net/backend/docker-compose.yml)
 
@@ -27,47 +27,54 @@ Tüm veritabanı ve altyapı servisleri `backend/docker-compose.yml` ile yöneti
 
 | Servis | Konteyner Adı | Port (Host) | Açıklama |
 |---|---|---|---|
-| `postgres` | `tafsil-postgres` | 5432 | PostgreSQL 16 + pgvector |
+| `postgres` | `postgres` (veya `tafsil-postgres`) | 5432 | PostgreSQL 16 + pgvector |
 | `redis` | `tafsil-redis` | 6379 | Redis 7 (AOF + RDB) |
-| `pgbouncer` | `tafsil-pgbouncer` | 6432 | Bağlantı havuzlama |
+| `pgbouncer` | `tafsil-pgbouncer` | 6432 | Bağlantı havuzlama (Transaction Mode) |
 
-### İlk Kurulum
-
-```bash
-# VPS'e bağlan
-ssh hostinger
-
-# Proje dizinine geç
-cd /opt/tafsil/backend
-
-# Docker servislerini başlat
-docker compose up -d
-
-# Servislerin sağlık durumunu kontrol et
-docker compose ps
-docker compose logs --tail=20 postgres
-```
+> [!IMPORTANT]
+> **VPS Mevcut PostgreSQL Durumu ve `pgvector` Notu:**
+> VPS üzerinde hâlihazırda çalışan bir `postgres` (PostgreSQL 16) konteyneri mevcuttur. Bu konteyner içinde `tafsil_net_db` veritabanı ve `tafsil_user_001` kullanıcısı tanımlıdır.
+> Standart PostgreSQL 16 imajında `vector` eklentisi varsayılan bulunmadığı için şu komutla kurulmalıdır:
+> ```bash
+> docker exec postgres apt-get update -qq && docker exec postgres apt-get install -y postgresql-16-pgvector
+> docker exec postgres psql -U admin@a3gents.com -d tafsil_net_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
+> ```
 
 ---
 
-## 3. Veritabanı Migration Stratejisi
+## 3. Geliştirici Ortamı: SSH Tüneli ile VPS Veritabanına Erişim
+
+Geliştirici yerel Mac/PC ortamında çalışırken veritabanı portlarını dış internete açmak yerine güvenli SSH tüneli kullanır:
 
 ```bash
-# Migration dosyalarını çalıştır
-cd /opt/tafsil/backend
+# Yerel terminalde tüneli açın:
+ssh -N -L 5432:localhost:5432 hostinger
+```
+*(Önemli: PgBouncer servisi VPS üzerinde henüz aktif edilmemişse `-L 6432:localhost:6432` parametresi verilmemelidir; aksi takdirde `channel X: open failed: connect failed: Connection refused` hatası döner).*
+
+---
+
+## 4. Veritabanı Migration ve Seed Stratejisi
+
+Sistemde iki bağlantı adresi tanımlıdır:
+- `DATABASE_URL` (Port 6432): PgBouncer üzerinden çalışma zamanı sorguları.
+- `DATABASE_URL_DIRECT` (Port 5432): Migration, DDL ve seeder için doğrudan PostgreSQL bağlantısı.
+
+```bash
+# Migration dosyalarını çalıştır (11 tablo, HNSW ve GIN indeksleri)
 npm run db:migrate
 
-# Seed verilerini yükle (ilk kurulumda)
+# Seed verilerini yükle (114 sure ve uthmani.txt 6234 ayet)
 npm run db:seed
 
-# Migration durumunu kontrol et
+# Veritabanı tablo durumunu ve pgvector eklentisini kontrol et
 npm run db:status
 ```
 
 ### Migration Akışı
-1. Geliştirici yeni migration dosyasını `src/db/migrations/` altında oluşturur.
-2. CI/CD pipeline'ı deploy sırasında otomatik olarak `npm run db:migrate` çalıştırır.
-3. Geri alma (rollback) gerektiğinde: `npm run db:rollback`
+1. Geliştirici yeni migration dosyasını `src/db/migrations/` altında oluşturur (örn: `001_init_schema.sql`).
+2. `npm run db:migrate` doğrudan `DATABASE_URL_DIRECT` portuna (5432) bağlanarak şemayı günceller.
+3. `npm run db:seed` `data-pipeline/seed/quran_seed.sql` dosyasını transaction güvenliğiyle aktarır.
 
 ---
 
