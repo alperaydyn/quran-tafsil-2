@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics=""><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet"><style>body{margin:0;background:#EDEAE3;font-family:'Instrument Sans',system-ui,sans-serif}a{color:#3F5F86}a:hover{color:#2C4463}.dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#171613;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 'Instrument Sans',sans-serif;color:#171613}.dv-opts{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#171613;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11.5px/1.3 'Instrument Sans',sans-serif;color:rgba(0,0,0,.55)}.dv-opt:target .dv-oid{background:#3F5F86;color:#fff}.dv-next{margin:26px 0 0;font:12px/1.6 'Instrument Sans',sans-serif;color:rgba(0,0,0,.5)}.ph{width:390px;background:#0E0D0B;border-radius:48px;padding:11px;box-shadow:0 30px 70px rgba(23,22,19,.22)}.phi{border-radius:38px;overflow:hidden;background:#F4F1EA;height:812px;display:flex;flex-direction:column;position:relative}</style></helmet>
+<section class="dv-turn" id="t4">
+<div class="dv-thd"><a class="dv-tid" href="#t4">4</a><span class="dv-tname">Anlama çalışmaları — <a class="dv-oid" href="#1b">1b</a>'deki “Anla” sekmesine bağlı oturumlar</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="4a"><div class="dv-olabel"><a class="dv-oid" href="#4a">4a</a>Çalışma listesi — sabitleme ve paylaşma (raptiyeye dokun)</div>
+<div class="dv-card ph" data-screen-label="11 Anlama calismalari">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="font:400 16px Newsreader,serif;color:{{ ink }}">Anlama çalışmaları</div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">⋯</span></div>
+<div style="flex:1;overflow-y:auto;padding:16px 22px 18px">
+<div style="background:{{ surf }};border:1px solid {{ line }};border-radius:16px;padding:14px 15px">
+<div style="font:400 15px/1.5 Newsreader,serif;color:{{ mut }}">Bir soru yaz — ilgili kavramları, sureleri ve ayetleri bir araya getirip sana okuma sırası hazırlarım.</div>
+<div style="margin-top:12px;height:42px;border-radius:21px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:500 13px 'Instrument Sans';cursor:pointer">Yeni çalışma başlat</div>
+</div>
+<sc-if value="{{ anHasPin }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin:20px 0 10px"><span style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">SABİTLENENLER</span><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }}">{{ anPinCount }}</span></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ anPinned }}" as="c" hint-placeholder-count="1">
+<div style="{{ c.card }}">
+<div style="display:flex;align-items:flex-start;gap:10px"><div style="flex:1"><div style="font:400 17px/1.35 Newsreader,serif;color:{{ ink }}">{{ c.title }}</div><div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-top:4px">{{ c.q }}</div></div><span onClick="{{ c.onPin }}" style="{{ c.pin }}">{{ c.pinIcon }}</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:11px;flex-wrap:wrap"><span style="{{ c.chip }}">{{ c.st }}</span><span style="font:400 11.5px 'Instrument Sans';color:{{ faint }};flex:1">{{ c.meta }}</span><span onClick="{{ c.onShare }}" style="font:500 11.5px 'Instrument Sans';color:{{ acc }};cursor:pointer">Paylaş</span></div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin:20px 0 10px"><span style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">TÜM ÇALIŞMALAR</span><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }}">{{ anRestCount }}</span></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ anRest }}" as="c" hint-placeholder-count="3">
+<div style="{{ c.card }}">
+<div style="display:flex;align-items:flex-start;gap:10px"><div style="flex:1"><div style="font:400 17px/1.35 Newsreader,serif;color:{{ ink }}">{{ c.title }}</div><div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-top:4px">{{ c.q }}</div></div><span onClick="{{ c.onPin }}" style="{{ c.pin }}">{{ c.pinIcon }}</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:11px;flex-wrap:wrap"><span style="{{ c.chip }}">{{ c.st }}</span><span style="font:400 11.5px 'Instrument Sans';color:{{ faint }};flex:1">{{ c.meta }}</span><span onClick="{{ c.onShare }}" style="font:500 11.5px 'Instrument Sans';color:{{ acc }};cursor:pointer">Paylaş</span></div>
+</div>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ anShareOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;bottom:0;background:{{ surf }};border-top:1px solid {{ line }};border-radius:22px 22px 0 0;padding:16px 22px 20px;box-shadow:0 -18px 40px rgba(0,0,0,.13)">
+<div style="display:flex;align-items:baseline;justify-content:space-between"><div style="font:400 16px Newsreader,serif;color:{{ ink }}">Çalışmayı paylaş</div><span onClick="{{ anShareClose }}" style="font:400 15px 'Instrument Sans';color:{{ faint }};cursor:pointer">×</span></div>
+<div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-top:3px">Özet, okuma sırası ve notların birlikte gider.</div>
+<div style="display:flex;gap:8px;margin-top:13px">
+<div style="flex:1;border:1px solid {{ line }};border-radius:13px;padding:11px 8px;text-align:center;font:500 11.5px 'Instrument Sans';color:{{ ink }}">Uygulama içinde</div>
+<div style="flex:1;border:1px solid {{ line }};border-radius:13px;padding:11px 8px;text-align:center;font:500 11.5px 'Instrument Sans';color:{{ ink }}">Bağlantı kopyala</div>
+<div style="flex:1;border:1px solid {{ line }};border-radius:13px;padding:11px 8px;text-align:center;font:500 11.5px 'Instrument Sans';color:{{ ink }}">Sosyal medya</div>
+</div>
+<div style="margin-top:12px;background:{{ band }};border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px"><div style="flex:1;font:400 11.5px/1.4 'Instrument Sans';color:{{ mut }}">Kişisel notlarım paylaşıma dahil edilmesin</div><span style="{{ anNoteSw }}"><span style="{{ anNoteKnob }}"></span></span></div>
+</div>
+</sc-if>
+</div></div></div>
+
+<div class="dv-opt" id="4b"><div class="dv-olabel"><a class="dv-oid" href="#4b">4b</a>Çalışma — ayetler toplanıyor / özet ve okuma sırası (sekmelere dokun)</div>
+<div class="dv-card ph" data-screen-label="12 Anlama calismasi">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="text-align:center"><div style="font:400 16px Newsreader,serif;color:{{ ink }}">İlim ve cömertlik</div><div style="font:400 10.5px 'Instrument Sans';letter-spacing:.1em;color:{{ acc }};margin-top:1px">ÇALIŞMA · 3 GÜNDÜR AÇIK</div></div><span onClick="{{ anShareOpen4b }}" style="font:400 15px Newsreader,serif;color:{{ mut }};cursor:pointer">↗</span></div>
+<div style="padding:13px 22px 0"><div style="display:flex;background:{{ band }};border-radius:11px;padding:3px;gap:2px">
+<div onClick="{{ anSetRun }}" style="{{ anChipRun }}"><span style="{{ anChipRunT }}">Toplanıyor</span></div>
+<div onClick="{{ anSetRes }}" style="{{ anChipRes }}"><span style="{{ anChipResT }}">Özet ve okuma sırası</span></div>
+</div></div>
+<div style="flex:1;overflow-y:auto;padding:16px 22px 18px">
+<sc-if value="{{ anIsRun }}" hint-placeholder-val="{{ true }}">
+<div style="background:{{ surf }};border:1px solid {{ line }};border-radius:16px;padding:15px">
+<div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">SORDUĞUN</div>
+<div style="font:400 16px/1.5 Newsreader,serif;color:{{ ink }};margin-top:6px">“İlmin cömertlikle ilişkisi nedir, Kur'an bunu nerede kuruyor?”</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:2px;margin-top:18px">
+<sc-for list="{{ anSteps }}" as="st" hint-placeholder-count="4">
+<div style="display:flex;gap:12px">
+<div style="display:flex;flex-direction:column;align-items:center;width:16px;flex:none"><span style="{{ st.dot }}">{{ st.mark }}</span><span style="{{ st.line }}"></span></div>
+<div style="flex:1;padding-bottom:14px"><div style="{{ st.title }}">{{ st.t }}</div><div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-top:2px">{{ st.sub }}</div>
+<sc-if value="{{ st.showTags }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><sc-for list="{{ anTags }}" as="tg" hint-placeholder-count="3"><span style="{{ tg.style }}">{{ tg.t }}</span></sc-for></div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="background:{{ accSoft }};border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:11px"><span style="font:500 12px 'Instrument Sans';color:{{ acc }}">◴</span><div style="flex:1;font:400 11.5px/1.45 'Instrument Sans';color:{{ ink }}">Özet yazılıyor — tahmini 20 saniye. Uygulamadan çıkabilirsin, hazır olunca haber veririm.</div></div>
+</sc-if>
+<sc-if value="{{ anIsRes }}" hint-placeholder-val="{{ false }}">
+<div style="background:{{ surf }};border:1px solid {{ line }};border-radius:16px;padding:15px 16px">
+<div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">ÖZET</div>
+<div style="font:400 16px/1.65 Newsreader,serif;color:{{ ink }};margin-top:7px;text-wrap:pretty">Kur'an öğretmeyi bir cömertlik fiili olarak kuruyor: Alak'ta “Rabbin en cömert olandır” cümlesinin hemen ardından kalemle öğretmekten söz edilir. Bilgi, sahip olunan bir mülk değil, verilen bir ikramdır.</div>
+<div style="font:400 15px/1.65 Newsreader,serif;color:{{ mut }};margin-top:10px;text-wrap:pretty">Aynı bağ Rahman'da tekrar kurulur; Bakara'da isimlerin öğretilmesi bu ikramın ilk örneğidir. Karşı kutupta, öğrendiğini kendinden sayan tavır tuğyan olarak anılır.</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px"><sc-for list="{{ anTags }}" as="tg" hint-placeholder-count="3"><span style="{{ tg.style }}">{{ tg.t }}</span></sc-for></div>
+</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin:20px 0 4px"><span style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">OKUMA SIRASI</span><span style="font:400 11.5px 'Instrument Sans';color:{{ acc }}">2 / 5 okundu</span></div>
+<div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-bottom:11px">Sırayla oku; her ayetten bu çalışmaya geri dönersin.</div>
+<div style="display:flex;flex-direction:column;gap:9px">
+<sc-for list="{{ anQueue }}" as="q" hint-placeholder-count="5">
+<div style="{{ q.row }}"><span style="{{ q.num }}">{{ q.n }}</span><div style="flex:1"><div style="display:flex;align-items:baseline;gap:8px"><div style="font:500 13.5px 'Instrument Sans';color:{{ ink }}">{{ q.ref }}</div><div style="font:400 11px 'Instrument Sans';color:{{ faint }}">{{ q.st }}</div></div><div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-top:2px">{{ q.why }}</div></div><span style="font:400 15px Newsreader,serif;color:{{ faint }}">›</span></div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="border-top:1px solid {{ line }};background:{{ surf }};padding:11px 20px 15px;display:flex;align-items:center;gap:10px">
+<div style="flex:1;height:42px;border-radius:21px;background:{{ band }};display:flex;align-items:center;padding:0 15px;font:400 12.5px 'Instrument Sans';color:{{ mut }}">Bu çalışmaya soru ekle…</div>
+<div style="width:42px;height:42px;border-radius:21px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:400 13px 'Instrument Sans';cursor:pointer">↑</div>
+</div>
+</div></div></div>
+
+<div class="dv-opt" id="4c"><div class="dv-olabel"><a class="dv-oid" href="#4c">4c</a>Yeni soru — konu ayrıldığında çalışmayı bölme teklifi (butonlara dokun)</div>
+<div class="dv-card ph" data-screen-label="13 Yeni soru">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="font:400 16px Newsreader,serif;color:{{ ink }}">İlim ve cömertlik</div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">↗</span></div>
+<div style="flex:1;overflow-y:auto;padding:16px 22px 18px;display:flex;flex-direction:column;gap:12px">
+<div style="align-self:flex-end;max-width:80%;background:{{ ink }};color:{{ surf }};border-radius:16px 16px 5px 16px;padding:12px 14px;font:400 13.5px/1.5 'Instrument Sans'">Kalemle öğretmek neden bu kadar öne çıkıyor?</div>
+<div style="align-self:flex-start;max-width:86%;background:{{ surf }};border:1px solid {{ line }};border-radius:16px 16px 16px 5px;padding:12px 14px;font:400 14px/1.6 Newsreader,serif;color:{{ ink }}">Bu soru mevcut çalışmanın içinde kalıyor. Okuma sırasına 96:4 ve 68:1 eklendi.</div>
+<div style="align-self:flex-end;max-width:80%;background:{{ ink }};color:{{ surf }};border-radius:16px 16px 5px 16px;padding:12px 14px;font:400 13.5px/1.5 'Instrument Sans'">Peki sabır ayetleri hangi surelerde yoğunlaşıyor?</div>
+<sc-if value="{{ anSplitOpen }}" hint-placeholder-val="{{ true }}">
+<div style="align-self:stretch;background:{{ accSoft }};border-radius:16px;padding:14px 15px">
+<div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ acc }}">BU SORU BAŞKA BİR KONU</div>
+<div style="font:400 15px/1.6 Newsreader,serif;color:{{ ink }};margin-top:6px;text-wrap:pretty">Sabır, bu çalışmadaki kavramlarla kesişmiyor. Ayrı bir çalışma açarsam ikisi de kendi okuma sırasını korur.</div>
+<div style="display:flex;gap:8px;margin-top:13px">
+<div onClick="{{ anSplitYes }}" style="flex:1;height:40px;border-radius:20px;background:{{ acc }};color:#FFFFFF;display:flex;align-items:center;justify-content:center;font:500 12.5px 'Instrument Sans';cursor:pointer">Yeni çalışma aç</div>
+<div onClick="{{ anSplitNo }}" style="flex:1;height:40px;border-radius:20px;border:1px solid {{ acc }};color:{{ acc }};display:flex;align-items:center;justify-content:center;font:500 12.5px 'Instrument Sans';cursor:pointer">Burada kalsın</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ anSplitDone }}" hint-placeholder-val="{{ false }}">
+<div style="align-self:stretch;background:{{ surf }};border:1px solid {{ acc }};border-radius:16px;padding:14px 15px">
+<div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ acc }}">YENİ ÇALIŞMA AÇILDI</div>
+<div style="font:400 17px/1.35 Newsreader,serif;color:{{ ink }};margin-top:6px">Sabır ayetleri</div>
+<div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-top:4px">Soru taşındı · ayetler toplanıyor</div>
+<div style="margin-top:12px;display:flex;align-items:center;gap:9px"><span style="font:500 12px 'Instrument Sans';color:{{ acc }};background:{{ accSoft }};border-radius:13px;padding:7px 12px;cursor:pointer">Yeni çalışmaya git</span><span onClick="{{ anSplitReset }}" style="font:400 11.5px 'Instrument Sans';color:{{ mut }};cursor:pointer">geri al</span></div>
+</div>
+</sc-if>
+<sc-if value="{{ anSplitStay }}" hint-placeholder-val="{{ false }}">
+<div style="align-self:flex-start;max-width:86%;background:{{ surf }};border:1px solid {{ line }};border-radius:16px 16px 16px 5px;padding:12px 14px;font:400 14px/1.6 Newsreader,serif;color:{{ ink }}">Tamam, bu çalışmada kalıyor. Sabır ayetleri ayrı bir bölüm olarak okuma sırasının sonuna eklendi. <span onClick="{{ anSplitReset }}" style="font:500 11.5px 'Instrument Sans';color:{{ acc }};cursor:pointer">geri al</span></div>
+</sc-if>
+</div>
+<div style="border-top:1px solid {{ line }};background:{{ surf }};padding:11px 20px 15px;display:flex;align-items:center;gap:10px">
+<div style="flex:1;height:42px;border-radius:21px;background:{{ band }};display:flex;align-items:center;padding:0 15px;font:400 12.5px 'Instrument Sans';color:{{ mut }}">Soru yaz…</div>
+<div style="width:42px;height:42px;border-radius:21px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:400 13px 'Instrument Sans'">↑</div>
+</div>
+</div></div></div>
+
+</div>
+<p class="dv-next">Şunları yazabilirsiniz: “<a class="dv-oid" href="#4b">4b</a>'de okuma sırasını takvimle” · “<a class="dv-oid" href="#4a">4a</a>'ya arşiv ekle” · “paylaşılan çalışmayı açan kişi ne görüyor?”</p>
+</section>
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Ezber oturumları — liste ve yeni oturum kurulumu (<a class="dv-oid" href="#2a">2a</a>'dan gelen sure seçili)</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a"><div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Oturum listesi — blok durumu ve sonraki tekrar zamanı (karta dokun, açılır)</div>
+<div class="dv-card ph" data-screen-label="09 Ezber oturumlari">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="font:400 16px Newsreader,serif;color:{{ ink }}">Ezber oturumları</div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">⋯</span></div>
+<div style="flex:1;overflow-y:auto;padding:16px 22px 18px">
+<div style="background:{{ accSoft }};border-radius:16px;padding:15px 16px;display:flex;align-items:center;gap:13px">
+<div style="flex:1"><div style="font:500 13.5px 'Instrument Sans';color:{{ acc }}">Bugün 2 bölüm tekrar bekliyor</div><div style="font:400 12px 'Instrument Sans';color:{{ mut }};margin-top:3px">Alak 9–14 · Mülk 1–5 — yaklaşık 6 dk</div></div>
+<span style="font:500 12px 'Instrument Sans';color:{{ surf }};background:{{ acc }};border-radius:14px;padding:8px 13px;white-space:nowrap">Başla</span>
+</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin:20px 0 11px"><span style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">AKTİF OTURUMLAR</span><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }}">3 oturum</span></div>
+<div style="display:flex;flex-direction:column;gap:11px">
+<sc-for list="{{ sessions }}" as="s" hint-placeholder-count="3">
+<div onClick="{{ s.onTap }}" style="{{ s.card }}">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px"><div><div style="font:400 18px Newsreader,serif;color:{{ ink }}">{{ s.title }}</div><div style="font:400 11.5px 'Instrument Sans';color:{{ faint }};margin-top:2px">{{ s.sub }}</div></div><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }};text-align:right">{{ s.meta }}</span></div>
+<span style="{{ s.bar }}"><span style="{{ s.fill }}"></span></span>
+<sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="0">
+<div style="{{ r.row }}"><div style="flex:1"><div style="font:500 13.5px 'Instrument Sans';color:{{ ink }}">Ayet {{ r.range }}</div><div style="font:400 11.5px 'Instrument Sans';color:{{ faint }};margin-top:2px">{{ r.theme }} · {{ r.when }}</div></div><span style="{{ r.chip }}">{{ r.st }}</span></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="border-top:1px solid {{ line }};background:{{ surf }};padding:12px 22px 16px"><div style="height:46px;border-radius:23px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:500 13.5px 'Instrument Sans'">Yeni ezber oturumu</div></div>
+</div></div></div>
+
+<div class="dv-opt" id="3b"><div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Yeni oturum — kapsam ve blok seçimi (bloklara dokun)</div>
+<div class="dv-card ph" data-screen-label="10 Yeni oturum">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 13px 'Instrument Sans';color:{{ mut }}">Vazgeç</span><div style="font:400 16px Newsreader,serif;color:{{ ink }}">Yeni oturum</div><span style="font:400 13px 'Instrument Sans';color:{{ faint }}">1/2</span></div>
+<div style="flex:1;overflow-y:auto;padding:18px 22px 18px">
+<div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">SURE</div>
+<div style="margin-top:10px;display:flex;align-items:center;gap:11px;background:{{ surf }};border:1px solid {{ acc }};border-radius:14px;padding:13px 14px">
+<div style="flex:1"><div style="font:400 17px Newsreader,serif;color:{{ ink }}">96 · Alak</div><div style="font:400 11.5px 'Instrument Sans';color:{{ mut }};margin-top:1px">19 ayet · 2. okuma turunda</div></div>
+<span style="font:400 16px Newsreader,serif;color:{{ faint }}">›</span>
+</div>
+<div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }};margin-top:22px">KAPSAM</div>
+<div style="margin-top:10px;display:flex;background:{{ band }};border-radius:12px;padding:3px">
+<div onClick="{{ setAll }}" style="{{ scopeAll }}">Surenin tamamı</div>
+<div onClick="{{ setBlocks }}" style="{{ scopeBlocks }}">Seçtiğim ayetler</div>
+</div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:9px">
+<sc-for list="{{ blocks }}" as="b" hint-placeholder-count="4">
+<div onClick="{{ b.onTap }}" style="{{ b.row }}"><span style="{{ b.box }}">{{ b.mark }}</span><div style="flex:1"><div style="font:500 14px 'Instrument Sans';color:{{ ink }}">Ayet {{ b.r }}</div><div style="font:400 11.5px 'Instrument Sans';color:{{ mut }};margin-top:2px">{{ b.th }}</div></div><span style="font:400 11.5px 'Instrument Sans';color:{{ faint }};white-space:nowrap">{{ b.n }}</span></div>
+</sc-for>
+</div>
+<div style="margin-top:20px;border-left:2px solid {{ acc }};padding:3px 0 3px 12px"><div style="font:500 9.5px 'Instrument Sans';letter-spacing:.15em;color:{{ acc }}">TEKRAR PLANI</div><div style="font:400 13px/1.6 'Instrument Sans';color:{{ mut }};margin-top:4px">Her bölüm ezberlendikçe tekrar aralığı uzar: bugün → 1 gün → 3 gün → 7 gün → 21 gün → 60 gün. Takıldığın bölüm bir basamak geri döner.</div></div>
+</div>
+<div style="border-top:1px solid {{ line }};background:{{ surf }};padding:12px 22px 16px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px"><span style="font:500 12.5px 'Instrument Sans';color:{{ ink }}">{{ selSummary }}</span><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }}">{{ selPlan }}</span></div>
+<div style="{{ createStyle }}">Oturumu oluştur</div>
+</div>
+</div></div></div>
+
+</div>
+<p class="dv-next">Şunları yazabilirsiniz: “<a class="dv-oid" href="#3a">3a</a>'ya takvim görünümü ekle” · “<a class="dv-oid" href="#3b">3b</a>'de blokları kendim böleyim” · “oturum bittiğinde ne olur?”</p>
+</section>
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Kur'an haritası ve ezber oturumu — <a class="dv-oid" href="#1a">1a</a>'daki mod paletini izler</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Okuma / ezber haritası — 114 sure, tur bazlı renk skalası (tıklanabilir)</div>
+<div class="dv-card ph" data-screen-label="07 Ilerlemem">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="font:400 16px Newsreader,serif;color:{{ ink }}">İlerlemem</div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">⋯</span></div>
+<div style="padding:14px 22px 8px"><div style="display:flex;background:{{ band }};border-radius:12px;padding:3px">
+<div onClick="{{ setRead }}" style="{{ readTab }}">Okuduklarım</div>
+<div onClick="{{ setHifz }}" style="{{ hifzTab }}">Ezberlediklerim</div>
+</div></div>
+<div style="padding:0 22px 10px;display:flex;align-items:center;gap:12px">
+<sc-for list="{{ legend }}" as="lg" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:5px"><span style="{{ lg.c }}"></span><span style="font:400 10.5px 'Instrument Sans';color:{{ mut }}">{{ lg.label }}</span></div></sc-for>
+<span style="margin-left:auto;font:400 10.5px 'Instrument Sans';color:{{ faint }}">çizgi: o turdaki ilerlemen</span>
+</div>
+<div style="flex:1;overflow-y:auto;padding:0 22px 18px">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+<sc-for list="{{ mapCells }}" as="s" hint-placeholder-count="114">
+<div onClick="{{ s.onTap }}" style="{{ s.tile }}"><span style="{{ s.nm }}">{{ s.name }}</span><span style="{{ s.track }}"><span style="{{ s.fill }}"></span></span></div>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ hasPick }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid {{ line }};background:{{ surf }};padding:16px 22px 18px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font:400 18px Newsreader,serif;color:{{ ink }}">{{ pickTitle }}</div><span onClick="{{ clearPick }}" style="font:400 15px 'Instrument Sans';color:{{ faint }};cursor:pointer">×</span></div>
+<div style="font:400 12.5px 'Instrument Sans';color:{{ mut }};margin-top:3px">{{ pickSub }}</div>
+<div style="margin-top:12px;height:44px;border-radius:22px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:500 13.5px 'Instrument Sans'">{{ pickAction }}</div>
+</div>
+</sc-if>
+</div></div></div>
+
+<div class="dv-opt" id="2b"><div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Ezber oturumu — 3b'de seçilen ayetler akordeon olarak otomatik ilerler: birlikte okuma → kelime → sesli okuma, sonunda oturum bazlı değerlendirme</div>
+<div class="dv-card ph" data-screen-label="08 Ezber">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="text-align:center"><div style="font:400 16px Newsreader,serif;color:{{ ink }}">Alak · 1–5</div><div style="font:400 10.5px 'Instrument Sans';letter-spacing:.1em;color:{{ acc }};margin-top:1px">EZBER OTURUMU · 5 AYET</div></div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">⋯</span></div>
+<div style="padding:13px 22px 2px">
+<div style="display:flex;background:{{ band }};border-radius:11px;padding:3px;gap:2px">
+<div onClick="{{ setEz1 }}" style="{{ ezChip1 }}"><span style="{{ ezChipT1 }}">1 · Birlikte</span></div>
+<div onClick="{{ setEz2 }}" style="{{ ezChip2 }}"><span style="{{ ezChipT2 }}">2 · Kelime</span></div>
+<div onClick="{{ setEz3 }}" style="{{ ezChip3 }}"><span style="{{ ezChipT3 }}">3 · Sesli</span></div>
+<div onClick="{{ setEz4 }}" style="{{ ezChip4 }}"><span style="{{ ezChipT4 }}">Sonuç</span></div>
+</div>
+<div style="display:flex;align-items:baseline;gap:9px;margin-top:12px"><div style="font:500 13px 'Instrument Sans';color:{{ ink }}">{{ ezPhaseName }}</div><div style="font:500 11px 'Instrument Sans';color:{{ acc }}">{{ ezPhaseTurn }}</div></div>
+<div style="font:400 11.5px/1.5 'Instrument Sans';color:{{ mut }};margin-top:3px">{{ ezPhaseDesc }}</div>
+</div>
+
+<sc-if value="{{ isEzRun }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;overflow-y:auto;padding:12px 22px 14px;display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ ezRows }}" as="v" hint-placeholder-count="5">
+<div onClick="{{ v.tap }}" style="{{ v.row }}">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="{{ v.num }}">{{ v.n }}</span>
+<sc-if value="{{ v.closed }}" hint-placeholder-val="{{ true }}">
+<span style="{{ v.arLine }}">{{ v.ar }}</span><span style="{{ v.stStyle }}">{{ v.st }}</span>
+</sc-if>
+<sc-if value="{{ v.open }}" hint-placeholder-val="{{ false }}">
+<span style="flex:1;font:500 9.5px 'Instrument Sans';letter-spacing:.14em;color:{{ acc }}">ŞİMDİ OKUNUYOR</span>
+</sc-if>
+</div>
+<sc-if value="{{ v.isP1 }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:12px">
+<div style="font-family:Amiri,serif;font-size:26px;line-height:2;direction:rtl;text-align:right;color:{{ ink }}">{{ v.ar }}</div>
+<div style="font:italic 12.5px 'Instrument Sans';color:{{ mut }};margin-top:6px">{{ v.tr }}</div>
+<div style="font:400 15px/1.5 Newsreader,serif;color:{{ ink }};margin-top:6px">{{ v.me }}</div>
+</div>
+</sc-if>
+<sc-if value="{{ v.isP2 }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;direction:rtl">
+<sc-for list="{{ v.p2 }}" as="w" hint-placeholder-count="4"><span style="{{ w.style }}">{{ w.w }}</span></sc-for>
+</div>
+<div style="margin-top:11px;border-left:2px solid {{ acc }};padding:2px 0 2px 10px"><div style="font:500 9.5px 'Instrument Sans';letter-spacing:.14em;color:{{ acc }}">HATIRLATMA AÇILDI</div><div style="font:400 12.5px/1.5 'Instrument Sans';color:{{ ink }};margin-top:3px">{{ v.hint }}</div></div>
+</sc-if>
+<sc-if value="{{ v.isP3 }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;direction:rtl;align-items:center">
+<sc-for list="{{ v.p3 }}" as="w" hint-placeholder-count="4"><span style="{{ w.style }}">{{ w.w }}</span></sc-for>
+</div>
+<div style="margin-top:11px;font:400 12px/1.5 'Instrument Sans';color:{{ mut }}">İlk iki kelimeyi duydum. Üçüncüde iki saniye durakladın — kelimeyi açtım, devam et.</div>
+</sc-if>
+<sc-if value="{{ v.open }}" hint-placeholder-val="{{ true }}">
+<div style="{{ v.bar }}"><div style="{{ v.barIn }}"></div></div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="border-top:1px solid {{ line }};background:{{ surf }};padding:11px 20px 15px;display:flex;align-items:center;gap:12px">
+<div style="width:40px;height:40px;border-radius:20px;background:{{ accSoft }};color:{{ acc }};display:flex;align-items:center;justify-content:center;font:500 12px 'Instrument Sans';flex:none">{{ ezFootIcon }}</div>
+<div style="flex:1"><div style="font:500 12.5px 'Instrument Sans';color:{{ ink }}">{{ ezFootTitle }}</div><div style="font:400 11px/1.4 'Instrument Sans';color:{{ mut }};margin-top:2px">{{ ezFootSub }}</div></div>
+<div onClick="{{ setEz4 }}" style="font:500 11.5px 'Instrument Sans';color:{{ mut }};border:1px solid {{ line }};border-radius:10px;padding:8px 11px;cursor:pointer;white-space:nowrap">Bitir</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEz4 }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;overflow-y:auto;padding:12px 22px 8px">
+<div style="background:{{ surf }};border:1px solid {{ line }};border-radius:18px;padding:16px">
+<div style="font:400 17px Newsreader,serif;color:{{ ink }}">Beş ayet, bir bütün olarak çalışıldı</div>
+<div style="font:400 12px 'Instrument Sans';color:{{ mut }};margin-top:4px">11 tur · 9 dk · ekrana 2 dokunuş</div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:6px;height:6px;border-radius:3px;background:{{ acc }};flex:none"></span><span style="flex:1;font:400 12.5px 'Instrument Sans';color:{{ ink }}">Birlikte okuma · 4 tur</span><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }}">akıcı</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:6px;height:6px;border-radius:3px;background:{{ acc }};flex:none"></span><span style="flex:1;font:400 12.5px 'Instrument Sans';color:{{ ink }}">Kelime turu · 4 tur</span><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }}">5. ayette 2 duraklama</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:6px;height:6px;border-radius:3px;background:{{ acc }};flex:none"></span><span style="flex:1;font:400 12.5px 'Instrument Sans';color:{{ ink }}">Sesli okuma · 3 tur</span><span style="font:400 11.5px 'Instrument Sans';color:{{ mut }}">1 hatırlatma</span></div>
+</div>
+</div>
+</div>
+<div style="border-top:1px solid {{ line }};background:{{ surf }};padding:13px 20px 16px">
+<div style="font:500 9.5px 'Instrument Sans';letter-spacing:.16em;color:{{ mut }}">BU OTURUM NASIL GEÇTİ?</div>
+<div style="font:400 11.5px/1.45 'Instrument Sans';color:{{ mut }};margin-top:4px">Cevabın, bu beş ayetin bir bütün olarak ne zaman tekrar geleceğini belirler.</div>
+<div style="position:relative;margin-top:12px;display:flex;align-items:center">
+<div style="position:absolute;left:12.5%;right:12.5%;top:14px;height:3px;border-radius:2px;background:{{ line }}"></div>
+<div style="{{ srFill }}"></div>
+<div onClick="{{ srSet0 }}" style="{{ srDot0 }}"><span style="{{ srMark0 }}"></span></div>
+<div onClick="{{ srSet1 }}" style="{{ srDot1 }}"><span style="{{ srMark1 }}"></span></div>
+<div onClick="{{ srSet2 }}" style="{{ srDot2 }}"><span style="{{ srMark2 }}"></span></div>
+<div onClick="{{ srSet3 }}" style="{{ srDot3 }}"><span style="{{ srMark3 }}"></span></div>
+</div>
+<div style="display:flex;margin-top:2px">
+<div style="{{ srLbl0 }}">{{ srL0 }}</div>
+<div style="{{ srLbl1 }}">{{ srL1 }}</div>
+<div style="{{ srLbl2 }}">{{ srL2 }}</div>
+<div style="{{ srLbl3 }}">{{ srL3 }}</div>
+</div>
+<div style="margin-top:11px;background:{{ accSoft }};border-radius:12px;padding:10px 13px;display:flex;align-items:center;gap:10px">
+<div style="flex:1;font:400 11.5px/1.4 'Instrument Sans';color:{{ ink }}">{{ srDesc }}</div>
+<div style="font:600 11px 'Instrument Sans';color:{{ acc }};white-space:nowrap">{{ srNext }}</div>
+</div>
+<div style="margin-top:10px;height:42px;border-radius:12px;background:{{ ink }};display:flex;align-items:center;justify-content:center;font:500 12.5px 'Instrument Sans';color:{{ surf }};cursor:pointer">Oturumu kaydet</div>
+</div>
+</sc-if>
+
+</div></div></div>
+
+</div>
+<p class="dv-next">Şunları yazabilirsiniz: “<a class="dv-oid" href="#2a">2a</a>'da sureleri nüzul sırasına göre diz” · “<a class="dv-oid" href="#2b">2b</a>'ye dalga formu ekle” · “haritaya yıllık hatim hedefi koy”</p>
+</section>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">tafsil.net — mobil, tek görsel yön / farklı etkileşim metaforları</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Onboarding — niyet seçimi (tıklanabilir)</div>
+<div class="dv-card ph" data-screen-label="01 Onboarding">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></span></div>
+<div style="flex:1;display:flex;flex-direction:column;padding:34px 28px 26px;overflow:hidden">
+<div style="font:500 10.5px 'Instrument Sans';letter-spacing:.22em;text-transform:uppercase;color:{{ faint }}">tafsil</div>
+<h1 style="font:300 34px/1.18 Newsreader,serif;color:{{ ink }};margin:16px 0 10px;letter-spacing:-.01em">Kur'an'a hangi<br>niyetle geliyorsun?</h1>
+<p style="font: 400 14px/1.6 'Instrument Sans'; color: {{ mut }}; margin: 0 0 24px; text-wrap: pretty; font-style: italic">Arayüzü ihtiyacına göre farklılaştır. Dilediğin zaman değiştirebilirsin.</p>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div onClick="{{ pickA }}" style="{{ obA }}"><div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font:500 16px Newsreader,serif;color:{{ ink }}">Araştırmacı</div></div><div style="font:400 13px/1.55 'Instrument Sans';color:{{ mut }};margin-top:6px">Metni sade ve akıcı oku. Tartışmalı yerlerde arka planı sen sormadan kenarda anlatırım.</div></div>
+<div onClick="{{ pickB }}" style="{{ obB }}"><div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font:500 16px Newsreader,serif;color:{{ ink }}">Öğrenen</div></div><div style="font:400 13px/1.55 'Instrument Sans';color:{{ mut }};margin-top:6px">Adım adım ilerle. Okunuşu, mealı ve kavramları yan yana görür, düzenini kaybetmezsin.</div></div>
+<div onClick="{{ pickC }}" style="{{ obC }}"><div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font:500 16px Newsreader,serif;color:{{ ink }}">Tilavet</div></div><div style="font:400 13px/1.55 'Instrument Sans';color:{{ mut }};margin-top:6px">Kesintisiz oku ya da dinle. Arapça metin ortada kalır, hiçbir şey akışını bölmez.</div></div>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;align-items:center;gap:14px"><div style="flex:1;height:52px;border-radius:26px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:500 15px 'Instrument Sans'">Okumaya başla</div><div style="width:52px;height:52px;border-radius:26px;border:1px solid #D8D2C4;display:flex;align-items:center;justify-content:center;font:400 18px Newsreader,serif;color:{{ mut }}">EN</div></div>
+</div>
+</div></div></div>
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Ana ekran — okuma &amp; tefekkür bahçesi</div>
+<div class="dv-card ph" data-screen-label="02 Dashboard">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="flex:1;overflow:hidden;padding:20px 24px 0">
+<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font:400 13px 'Instrument Sans';color:{{ faint }}">Sabah oldu,</div><div style="font:400 24px Newsreader,serif;color:{{ ink }};margin-top:2px">Alper</div></div><div style="width:38px;height:38px;border-radius:19px;background:{{ band }}"></div></div>
+<div style="margin-top:22px;background:{{ surf }};border:1px solid {{ line }};border-radius:18px;padding:16px 16px 14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px"><div style="font:500 11px 'Instrument Sans';letter-spacing:.13em;text-transform:uppercase;color:{{ mut }}">Bahçen</div><div style="font:400 12px 'Instrument Sans';color:{{ acc }}">16 haftadır sulanıyor</div></div>
+<div style="display:flex;flex-direction:column;gap:3px">
+<sc-for list="{{ gardenRows }}" as="row" hint-placeholder-count="7">
+<div style="{{ row.style }}"><span style="{{ row.dayStyle }}">{{ row.d }}</span><div style="flex:1;display:grid;grid-template-columns:repeat(16,1fr);gap:3px"><sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="16"><div style="aspect-ratio:4/3;border-radius:2.5px;background:{{ cell.c }}"></div></sc-for></div></div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:11px;font:400 11px 'Instrument Sans';color:{{ faint }}"><span>Nisan</span><span>Bugün · 12 ayet, 3 kavram</span></div>
+</div>
+<div style="margin-top:18px;display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;align-items:center;gap:13px;background:{{ ink }};border-radius:16px;padding:15px 17px"><div style="flex:1"><div style="font:500 14.5px 'Instrument Sans';color:{{ surf }}">Kaldığın yerden devam et</div><div style="font:400 12.5px 'Instrument Sans';color:{{ faint }};margin-top:2px">96 · Alak, 6. ayet</div></div><span style="font:400 18px Newsreader,serif;color:{{ faint }}">›</span></div>
+<div style="display:flex;align-items:center;gap:13px;background:{{ surf }};border:1px solid {{ line }};border-radius:16px;padding:15px 17px"><div style="flex:1"><div style="font:500 14.5px 'Instrument Sans';color:{{ ink }}">Ezberlemeye devam et</div><div style="font:400 12.5px 'Instrument Sans';color:{{ mut }};margin-top:2px">Bugün 2 bölüm hazır · yaklaşık 6 dk</div></div><span style="font:400 18px Newsreader,serif;color:{{ faint }}">›</span></div>
+<div style="display:flex;align-items:center;gap:13px;background:{{ surf }};border:1px solid {{ line }};border-radius:16px;padding:15px 17px"><div style="flex:1"><div style="font:500 14.5px 'Instrument Sans';color:{{ ink }}">Anlama çalışmalarına devam et</div><div style="font:400 12.5px 'Instrument Sans';color:{{ mut }};margin-top:2px">İlim ve cömertlik · 3 ayet okundu</div></div><span style="font:400 18px Newsreader,serif;color:{{ faint }}">›</span></div>
+</div>
+<div style="margin-top:16px;font:500 11px 'Instrument Sans';letter-spacing:.13em;text-transform:uppercase;color:{{ mut }}">Günün kartları</div>
+<div style="display:flex;gap:10px;margin-top:10px;overflow-x:auto;padding:0 24px 4px;margin-left:-24px;margin-right:-24px">
+<div style="width:150px;flex:none;border-radius:16px;background:{{ band }};padding:14px"><div style="font:500 9.5px 'Instrument Sans';letter-spacing:.15em;color:{{ mut }}">AYET</div><div style="font:400 15px/1.45 Newsreader,serif;color:{{ ink }};margin-top:8px">"İnsana bilmediğini öğretti."</div><div style="font:400 11.5px 'Instrument Sans';color:{{ mut }};margin-top:9px">96:5</div></div>
+<div style="width:150px;flex:none;border-radius:16px;background:{{ accSoft }};padding:14px"><div style="font:500 9.5px 'Instrument Sans';letter-spacing:.15em;color:{{ acc }}">DUA</div><div style="font:400 15px/1.45 Newsreader,serif;color:{{ ink }};margin-top:8px">"Rabbi zidnî ilmâ"</div><div style="font:400 11.5px 'Instrument Sans';color:{{ acc }};margin-top:9px">20:114</div></div>
+<div style="width:150px;flex:none;border-radius:16px;background:{{ band }};padding:14px"><div style="font:500 9.5px 'Instrument Sans';letter-spacing:.15em;color:{{ mut }}">NAMAZ</div><div style="font:400 15px/1.45 Newsreader,serif;color:{{ ink }};margin-top:8px">"Secde et ve yaklaş."</div><div style="font:400 11.5px 'Instrument Sans';color:{{ mut }};margin-top:9px">96:19</div></div>
+</div>
+</div>
+<div style="height:74px;border-top:1px solid {{ line }};background:{{ surf }};display:flex;align-items:flex-start;padding:12px 30px 0;justify-content:space-between">
+<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:18px;height:18px;border-radius:4px;background:{{ ink }}"></div><span style="font:500 10px 'Instrument Sans';color:{{ ink }}">Ana</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:18px;height:18px;border-radius:4px;border:1.5px solid {{ faint }}"></div><span style="font:400 10px 'Instrument Sans';color:{{ faint }}">Oku</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:18px;height:18px;border-radius:9px;border:1.5px solid {{ faint }}"></div><span style="font:400 10px 'Instrument Sans';color:{{ faint }}">Anla</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:18px;height:18px;border-radius:4px;border:1.5px solid {{ faint }}"></div><span style="font:400 10px 'Instrument Sans';color:{{ faint }}">Ezber</span></div>
+</div>
+</div></div></div>
+
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Okuma akışı — mod sekmesi + kavrama dokunup içeride açma (tam etkileşimli)</div>
+<div class="dv-card ph" data-screen-label="03 Okuma akisi">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="text-align:center"><div style="font:400 16px Newsreader,serif;color:{{ ink }}">96 · Alak</div><div style="font:400 10.5px 'Instrument Sans';letter-spacing:.1em;color:{{ acc }};margin-top:1px">{{ surahMeta }}</div></div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">Aa</span></div>
+<div style="margin:12px 22px 0;background:{{ accSoft }};border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:10px;cursor:pointer"><span style="font:500 11px 'Instrument Sans';color:{{ acc }};flex:1">Anlama çalışması · İlim ve cömertlik<br><span style="font:400 10.5px 'Instrument Sans';color:{{ mut }}">Okuma sırası 2 / 5 — bitince çalışmaya dönersin</span></span><span style="font:500 11px 'Instrument Sans';color:{{ acc }};white-space:nowrap">Çalışmaya dön ›</span></div>
+<div style="padding:12px 22px 10px"><div style="display:flex;background:{{ band }};border-radius:12px;padding:3px">
+<div onClick="{{ setA }}" style="{{ tabA }}">Araştırmacı</div>
+<div onClick="{{ setB }}" style="{{ tabB }}">Öğrenen</div>
+<div onClick="{{ setC }}" style="{{ tabC }}">Tilavet</div>
+</div></div>
+<sc-if value="{{ hasTrail }}" hint-placeholder-val="{{ false }}">
+<div style="padding:0 22px 10px;display:flex;align-items:center;gap:7px;flex-wrap:wrap"><span style="font:500 9.5px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">AÇTIKLARIN</span>
+<sc-for list="{{ trail }}" as="step" hint-placeholder-count="2"><span onClick="{{ step.onJump }}" style="{{ step.style }}">{{ step.label }}</span></sc-for>
+<span onClick="{{ clearTrail }}" style="font:400 11px 'Instrument Sans';color:{{ faint }};margin-left:auto;cursor:pointer">temizle</span></div>
+</sc-if>
+<div style="flex:1;overflow-y:auto;padding:2px 0 20px">
+<sc-for list="{{ verses }}" as="v" hint-placeholder-count="5">
+<div style="padding:0 22px">
+<sc-if value="{{ v.blockHead }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:10px;margin:18px 0 16px"><span style="font:500 10px 'Instrument Sans';letter-spacing:.16em;text-transform:uppercase;color:{{ acc }}">{{ v.blockHead }}</span><span style="flex:1;height:1px;background:{{ line }}"></span></div></sc-if>
+<sc-if value="{{ v.showBig }}" hint-placeholder-val="{{ false }}"><div style="font-family:Amiri,serif;font-size:29px;line-height:2.05;direction:rtl;text-align:center;color:{{ ink }};margin-bottom:10px"><sc-for list="{{ v.arWords }}" as="w" hint-placeholder-count="4"><span style="{{ w.style }}">{{ w.w }} </span></sc-for></div></sc-if>
+<sc-if value="{{ v.showSmall2 }}" hint-placeholder-val="{{ false }}"><div style="font-family:Amiri,serif;font-size:19px;line-height:1.95;direction:rtl;text-align:right;color:{{ mut }};margin-bottom:4px"><sc-for list="{{ v.arWords }}" as="w" hint-placeholder-count="4"><span style="{{ w.style }}">{{ w.w }} </span></sc-for></div></sc-if>
+<sc-if value="{{ v.showTl }}" hint-placeholder-val="{{ false }}"><div style="font:italic 12.5px/1.5 'Instrument Sans';color:{{ acc }};text-align:right;margin-bottom:7px">{{ v.tl }}</div></sc-if>
+<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:16px">
+<span style="font:400 11px 'Instrument Sans';color:{{ faint }};min-width:16px;padding-top:5px">{{ v.n }}</span>
+<div style="flex:1;font:400 17.5px/1.75 Newsreader,serif;color:{{ ink }};text-wrap:pretty">
+<sc-for list="{{ v.segs }}" as="seg" hint-placeholder-count="3"><span onClick="{{ seg.onTap }}" style="{{ seg.style }}">{{ seg.t }}</span></sc-for>
+</div>
+</div>
+<sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}"><div style="margin:-6px 0 18px 26px;border-left:2px solid {{ acc }};padding:2px 0 2px 12px"><div style="font:500 9.5px 'Instrument Sans';letter-spacing:.15em;color:{{ acc }};margin-bottom:4px">BAĞLAM</div><div style="font:400 13px/1.6 'Instrument Sans';color:{{ mut }};text-wrap:pretty">{{ v.note }}</div></div></sc-if>
+<sc-for list="{{ v.cards }}" as="card" hint-placeholder-count="0">
+<div style="{{ card.wrap }}">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><div style="display:flex;align-items:baseline;gap:9px"><span style="{{ card.labelStyle }}">{{ card.label }}</span><span style="{{ card.rootStyle }}">{{ card.root }}</span></div><span onClick="{{ card.onClose }}" style="font:400 15px 'Instrument Sans';color:{{ faint }};cursor:pointer">×</span></div>
+<div style="{{ card.glossStyle }}">{{ card.gloss }}</div>
+<div style="{{ card.useStyle }}">{{ card.use }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:11px">
+<sc-for list="{{ card.links }}" as="lk" hint-placeholder-count="2"><span onClick="{{ lk.onTap }}" style="{{ card.linkStyle }}">{{ lk.label }}</span></sc-for>
+<span style="{{ card.pageStyle }}">Kelime sayfası ›</span>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ isB }}" hint-placeholder-val="{{ false }}"><div style="border-top:1px solid {{ line }};background:{{ surf }};display:flex;align-items:center;justify-content:space-between;padding:10px 24px 0"><div style="font:400 12px 'Instrument Sans';color:{{ mut }}">Bu oturum · 5 ayet, 2 kavram</div><div style="font:500 12px 'Instrument Sans';color:#FFFFFF;background:{{ acc }};border-radius:13px;padding:6px 13px;cursor:pointer">Ezbere ekle</div></div></sc-if>
+<sc-if value="{{ isA }}" hint-placeholder-val="{{ false }}"><div style="border-top:1px solid {{ line }};background:{{ surf }};display:flex;align-items:center;justify-content:space-between;padding:10px 24px 0"><div style="font:400 12px 'Instrument Sans';color:{{ mut }}">Alak · ilk nüzul · 19 ayet</div><div style="font:500 12px 'Instrument Sans';color:{{ acc }};border:1px solid {{ line }};border-radius:13px;padding:6px 13px;cursor:pointer">Kaynakça</div></div></sc-if>
+<div style="{{ plWrap }}">
+<div style="display:flex;align-items:center;gap:13px">
+<div onClick="{{ plToggle }}" style="{{ plBtn }}">{{ plIcon }}</div>
+<div style="flex:1;min-width:0">
+<div style="display:flex;align-items:baseline;gap:7px"><div style="font:500 12.5px 'Instrument Sans';color:{{ ink }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ plTitle }}</div><div style="font:400 11px 'Instrument Sans';color:{{ acc }};white-space:nowrap">{{ plPos }}</div></div>
+<div style="height:3px;background:{{ line }};border-radius:2px;margin-top:7px"><div style="{{ plFill }}"></div></div>
+</div>
+<span onClick="{{ plSpeed }}" style="font:500 11.5px 'Instrument Sans';color:{{ mut }};cursor:pointer">{{ plRate }}</span>
+</div>
+<div style="display:flex;align-items:center;gap:9px;margin-top:11px">
+<div style="display:flex;background:{{ band }};border-radius:10px;padding:3px;gap:2px">
+<div onClick="{{ plSetAr }}" style="{{ plChipAr }}">عربي</div>
+<div onClick="{{ plSetTr }}" style="{{ plChipTr }}">Türkçe</div>
+</div>
+<div style="flex:1;font:400 10.5px/1.35 'Instrument Sans';color:{{ mut }}">{{ plHint }}</div>
+</div>
+</div>
+</div></div></div>
+
+<div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Kelime detay sayfası — /kelime/alak</div>
+<div class="dv-card ph" data-screen-label="04 Kelime detay">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><span style="font:400 11px 'Instrument Sans';letter-spacing:.1em;color:{{ faint }}">KELİME</span><span style="font:400 15px Newsreader,serif;color:{{ mut }}">↗</span></div>
+<div style="flex:1;overflow:hidden;padding:16px 22px 0">
+<div style="text-align:center;padding:10px 0 18px;border-bottom:1px solid {{ line }}"><div style="font-family:Amiri,serif;font-size:44px;color:{{ ink }};direction:rtl;line-height:1.3">عَلَقٍ</div><div style="font:400 14px 'Instrument Sans';color:{{ mut }};margin-top:4px">alak · 96:2</div><div style="display:flex;justify-content:center;gap:7px;margin-top:12px"><span style="font:500 11px 'Instrument Sans';color:{{ acc }};background:{{ accSoft }};border-radius:9px;padding:5px 10px">kök ع-ل-ق</span><span style="font:500 11px 'Instrument Sans';color:{{ mut }};background:{{ band }};border-radius:9px;padding:5px 10px">isim · nekre</span><span style="font:500 11px 'Instrument Sans';color:{{ mut }};background:{{ band }};border-radius:9px;padding:5px 10px">6 türev</span></div></div>
+<div style="padding:16px 0 14px;border-bottom:1px solid {{ line }}"><div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">BU AYETTEKİ ANLAM</div><div style="font:400 18px/1.5 Newsreader,serif;color:{{ ink }};margin-top:8px;text-wrap:pretty">Asılıp tutunan, ilişen şey.</div><div style="font:400 13px/1.6 'Instrument Sans';color:{{ mut }};margin-top:8px;text-wrap:pretty">Alternatifler: kan pıhtısı · sülük benzeri · yapışan damla. Kökün ilk anlamı “tutunma”dır; “pıhtı” sonraki dönem sözlüklerinde öne çıkar.</div></div>
+<div style="padding:16px 0 14px;border-bottom:1px solid {{ line }}"><div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">KÖKÜN KUR'AN'DAKİ DAĞILIMI</div>
+<div style="display:flex;align-items:flex-end;gap:6px;height:52px;margin-top:12px">
+<sc-for list="{{ freq }}" as="b" hint-placeholder-count="6"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:100%;border-radius:3px 3px 0 0;background:{{ b.c }};height:{{ b.h }}px"></div></div></sc-for>
+</div>
+<div style="display:flex;gap:6px;margin-top:7px"><sc-for list="{{ freq }}" as="b" hint-placeholder-count="6"><div style="flex:1;text-align:center;font-family:Amiri,serif;font-size:12px;color:{{ mut }}">{{ b.w }}</div></sc-for></div>
+</div>
+<div style="padding:16px 0"><div style="font:500 10px 'Instrument Sans';letter-spacing:.16em;color:{{ faint }}">KLASİK SÖZLÜK KAYITLARI</div>
+<div style="margin-top:11px;display:flex;flex-direction:column;gap:10px">
+<div style="border-left:2px solid #C9C3B4;padding-left:12px"><div style="font:500 12.5px 'Instrument Sans';color:{{ ink }}">el-Müfredât · Râgıb el-İsfahânî</div><div style="font:400 13px/1.55 Newsreader,serif;color:{{ mut }};margin-top:3px">“Bir şeye yapışıp asılı kalmak; kan da bu sebeple alak adını alır.”</div></div>
+<div style="border-left:2px solid #C9C3B4;padding-left:12px"><div style="font:500 12.5px 'Instrument Sans';color:{{ ink }}">Lisânü'l-Arab · İbn Manzûr</div><div style="font:400 13px/1.55 Newsreader,serif;color:{{ mut }};margin-top:3px">“Alâka: bağ, ilgi. Aynı kökten sevgi bağı da bu kelimeyle anılır.”</div></div>
+</div></div>
+</div>
+<div style="height:66px;border-top:1px solid {{ line }};background:{{ surf }};display:flex;align-items:center;gap:10px;padding:0 22px"><div style="flex:1;height:42px;border-radius:21px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:500 13.5px 'Instrument Sans'">Kavram ağında aç</div><div style="width:42px;height:42px;border-radius:21px;border:1px solid {{ line }};display:flex;align-items:center;justify-content:center;font:400 15px Newsreader,serif;color:{{ mut }}">☆</div></div>
+</div></div></div>
+
+<div class="dv-opt" id="1e"><div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Kavram ağı — graf ↔ liste geçişi (tıklanabilir)</div>
+<div class="dv-card ph" data-screen-label="05 Kavram agi">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="text-align:center"><div style="font:400 16px Newsreader,serif;color:{{ ink }}">İLİM ağı</div><div style="font:400 10.5px 'Instrument Sans';letter-spacing:.1em;color:{{ faint }};margin-top:1px">SENİN AĞIN · 14 KAVRAM</div></div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">⋯</span></div>
+<div style="padding:14px 22px 10px;display:flex;gap:8px"><div style="display:flex;background:{{ line }};border-radius:11px;padding:3px;flex:1"><div onClick="{{ setGraph }}" style="{{ gTab }}">Ağ</div><div onClick="{{ setList }}" style="{{ lTab }}">Liste</div></div></div>
+<div style="padding:0 22px 10px;display:flex;gap:6px;overflow:hidden"><span style="font:500 11px 'Instrument Sans';color:{{ surf }};background:{{ ink }};border-radius:9px;padding:5px 10px;white-space:nowrap">Benim</span><span style="font:500 11px 'Instrument Sans';color:{{ mut }};background:{{ band }};border-radius:9px;padding:5px 10px;white-space:nowrap">Topluluk</span><span style="font:500 11px 'Instrument Sans';color:{{ mut }};background:{{ band }};border-radius:9px;padding:5px 10px;white-space:nowrap">Paylaşılan</span></div>
+<div style="flex:1;overflow:hidden">
+<sc-if value="{{ showGraph }}" hint-placeholder-val="{{ true }}">
+<div style="height:100%;background:{{ surf }};border-top:1px solid {{ line }}">{{ graphSvg }}</div>
+</sc-if>
+<sc-if value="{{ showList }}" hint-placeholder-val="{{ false }}">
+<div style="padding:6px 22px 0;border-top:1px solid {{ line }}">
+<sc-for list="{{ relGroups }}" as="g" hint-placeholder-count="3">
+<div style="padding:14px 0;border-bottom:1px solid {{ line }}"><div style="display:flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:4px;background:{{ g.c }}"></span><span style="font:500 10px 'Instrument Sans';letter-spacing:.15em;text-transform:uppercase;color:{{ mut }}">{{ g.kind }}</span></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+<sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><div><div style="font:400 16px Newsreader,serif;color:{{ ink }}">{{ it.label }}</div><div style="font:400 12px 'Instrument Sans';color:{{ mut }};margin-top:1px">{{ it.meta }}</div></div><span style="font:400 16px Newsreader,serif;color:{{ faint }}">›</span></div></sc-for>
+</div></div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="height:66px;border-top:1px solid {{ line }};background:{{ surf }};display:flex;align-items:center;gap:10px;padding:0 22px"><div style="flex:1;height:42px;border-radius:21px;border:1px solid {{ line }};display:flex;align-items:center;justify-content:center;font:500 13.5px 'Instrument Sans';color:{{ ink }}">Nüzul zaman tüneli</div><div style="width:42px;height:42px;border-radius:21px;background:{{ ink }};color:{{ surf }};display:flex;align-items:center;justify-content:center;font:400 14px 'Instrument Sans'">+</div></div>
+</div></div></div>
+
+<div class="dv-opt" id="1f"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>EN örneği — aynı okuma ekranı, Mod A</div>
+<div class="dv-card ph" data-screen-label="06 EN reading">
+<div class="phi" style="background:{{ bg }}">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px 'Instrument Sans';color:{{ ink }}"><span>9:41</span><span style="width:16px;height:9px;border:1.2px solid {{ ink }};border-radius:2px;display:inline-block"></span></div>
+<div style="padding:6px 22px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:400 20px Newsreader,serif;color:{{ mut }}">‹</span><div style="text-align:center"><div style="font:400 16px Newsreader,serif;color:{{ ink }}">96 · Al-'Alaq</div><div style="font:400 10.5px 'Instrument Sans';letter-spacing:.1em;color:{{ faint }};margin-top:1px">REVELATION 1 · EARLY MECCA</div></div><span style="font:400 15px Newsreader,serif;color:{{ mut }}">Aa</span></div>
+<div style="padding:14px 22px 10px"><div style="display:flex;background:{{ line }};border-radius:12px;padding:3px"><div style="flex:1;text-align:center;padding:8px 0;border-radius:9px;background:{{ surf }};font:500 12.5px 'Instrument Sans';color:{{ ink }}">Researcher</div><div style="flex:1;text-align:center;padding:8px 0;font:400 12.5px 'Instrument Sans';color:{{ mut }}">Learner</div><div style="flex:1;text-align:center;padding:8px 0;font:400 12.5px 'Instrument Sans';color:{{ mut }}">Recitation</div></div></div>
+<div style="flex:1;overflow:hidden;padding:2px 22px 0">
+<div style="display:flex;align-items:center;gap:10px;margin:12px 0 16px"><span style="font:500 10px 'Instrument Sans';letter-spacing:.16em;text-transform:uppercase;color:{{ faint }}">Reading and teaching</span><span style="flex:1;height:1px;background:{{ line }}"></span></div>
+<div style="display:flex;gap:10px;margin-bottom:16px"><span style="font:400 11px 'Instrument Sans';color:{{ faint }};min-width:16px;padding-top:5px">1</span><div style="flex:1;font:400 17.5px/1.75 Newsreader,serif;color:{{ ink }}"><span style="border-bottom:1.5px solid {{ acc }};color:{{ acc }}">Read</span>, in the name of your Lord who created —</div></div>
+<div style="display:flex;gap:10px;margin-bottom:16px"><span style="font:400 11px 'Instrument Sans';color:{{ faint }};min-width:16px;padding-top:5px">2</span><div style="flex:1;font:400 17.5px/1.75 Newsreader,serif;color:{{ ink }}">created the human being from <span style="border-bottom:1.5px solid {{ acc }};color:{{ acc }}">'alaq</span>, a thing that clings.</div></div>
+<div style="margin:-6px 0 18px 26px;border-left:2px solid {{ acc }};padding:2px 0 2px 12px"><div style="font:500 9.5px 'Instrument Sans';letter-spacing:.15em;color:{{ acc }};margin-bottom:4px">CONTEXT</div><div style="font:400 13px/1.6 'Instrument Sans';color:{{ mut }};text-wrap:pretty">Often rendered “clot of blood”. The root's earliest sense is attachment — something suspended or clinging.</div></div>
+<div style="display:flex;gap:10px;margin-bottom:16px"><span style="font:400 11px 'Instrument Sans';color:{{ faint }};min-width:16px;padding-top:5px">3</span><div style="flex:1;font:400 17.5px/1.75 Newsreader,serif;color:{{ ink }}">Read, and your Lord is the most <span style="border-bottom:1.5px solid {{ acc }};color:{{ acc }}">generous</span>,</div></div>
+<div style="display:flex;gap:10px;margin-bottom:16px"><span style="font:400 11px 'Instrument Sans';color:{{ faint }};min-width:16px;padding-top:5px">4</span><div style="flex:1;font:400 17.5px/1.75 Newsreader,serif;color:{{ ink }}">who taught by the <span style="border-bottom:1.5px solid {{ acc }};color:{{ acc }}">pen</span>,</div></div>
+<div style="display:flex;gap:10px"><span style="font:400 11px 'Instrument Sans';color:{{ faint }};min-width:16px;padding-top:5px">5</span><div style="flex:1;font:400 17.5px/1.75 Newsreader,serif;color:{{ ink }}">taught the human what it did not <span style="border-bottom:1.5px solid {{ acc }};color:{{ acc }}">know</span>.</div></div>
+</div>
+</div></div></div>
+
+</div>
+<p class="dv-next">Şunları yazabilirsiniz: “<a class="dv-oid" href="#1c">1c</a>'de iz çubuğunu kalıcı üst bar yap” · “<a class="dv-oid" href="#1e">1e</a> grafını fizik simülasyonlu dene” · “nüzul zaman tüneli ve ezber kartını da ekle”</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'|'C'&quot;,&quot;section&quot;:&quot;Okuma&quot;},&quot;showArabic&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Okuma&quot;},&quot;dagDefault&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;graph&quot;,&quot;list&quot;],&quot;default&quot;:&quot;graph&quot;,&quot;tsType&quot;:&quot;'graph'|'list'&quot;,&quot;section&quot;:&quot;Kavram ağı&quot;}}">
+const C = {
+  oku:{label:"OKU / İKRA'",root:"ق-ر-أ",gloss:"Toplamak, bir araya getirmek; parçaları birleştirerek anlamlandırmak.",use:"Kur'an'da 88 türev. İlk emir burada geldiği için kökün “bir araya getirme” anlamı, vahyin bütünsel okunması fikrini taşır.",links:["kalem","ilim"]},
+  insan:{label:"İNSAN",root:"أ-ن-س",gloss:"Ünsiyet kuran, alışan, yakınlık duyan varlık.",use:"Alak suresinde üç kez geçer: yaratılışı, öğretilmesi ve azgınlaşması bağlamlarında.",links:["alak","tugyan"]},
+  alak:{label:"ALAK",root:"ع-ل-ق",gloss:"Asılıp tutunan, ilişen şey. Aynı kökten “alâka” = bağ, ilgi.",use:"Kur'an'da 6 türev. Klasik meallerdeki “kan pıhtısı” karşılığı kökün ikincil anlamıdır.",links:["insan"]},
+  kerem:{label:"KEREM",root:"ك-ر-م",gloss:"Karşılıksız cömertlik; bir şeye değer atfetme.",use:"“el-Ekram” ismi Kur'an'da yalnız burada geçer — öğretmenin kendisi bir cömertlik eylemi olarak sunulur.",links:["ilim"]},
+  kalem:{label:"KALEM",root:"ق-ل-م",gloss:"Yazı aracı; kesip biçimlendirilmiş şey. Bilginin kayda geçmesi.",use:"Kur'an'da 4 kez. Okuma emrinin hemen ardından gelmesi, sözlü vahiy ile yazılı kayıt arasındaki bağı kurar.",links:["ilim","oku"]},
+  ilim:{label:"İLİM",root:"ع-ل-م",gloss:"Bilmek, bildirmek, iz bırakan işaretten hareketle kavramak.",use:"Kur'an'ın en yoğun köklerinden biri (854 türev). Bu surede “alleme” fiili iki kez arka arkaya gelir.",links:["kalem","kerem"]},
+  tugyan:{label:"TUĞYAN",root:"ط-غ-ي",gloss:"Suyun taşması gibi haddi aşmak; sınırı kendinden menkul kılmak.",use:"39 türev. Neredeyse her geçtiği yerde bir “yeterlilik yanılgısı” ile birlikte anılır.",links:["istigna","insan"]},
+  istigna:{label:"İSTİĞNÂ",root:"غ-ن-ي",gloss:"Kendini yeterli, muhtaç olmayan görmek.",use:"Aynı kök Allah için “el-Ganî” (mutlak yeterlilik) olarak kullanılır; insanda aynı iddia tuğyanın sebebi sayılır.",links:["tugyan"]}
+};
+const V = [
+  {n:1,ar:"اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ",tl:"Ikra' bismi rabbike'llezî halak",tr:"[Oku|oku], yaratan Rabbinin adıyla!",head:"Okuma ve öğretme"},
+  {n:2,ar:"خَلَقَ الْإِنسَانَ مِنْ عَلَقٍ",tl:"Halaka'l-insâne min alak",tr:"O, [insanı|insan] bir [alak|alak]tan yarattı.",note:"“Alak” klasik meallerde “kan pıhtısı” diye geçer. Kökün nüzul dönemindeki ilk anlamı ise “asılıp tutunan”dır; aynı kökten gelen “alâka” bugün de bağ/ilgi demektir."},
+  {n:3,ar:"اقْرَأْ وَرَبُّكَ الْأَكْرَمُ",tl:"Ikra' ve rabbüke'l-ekram",tr:"[Oku|oku]! Rabbin sonsuz [kerem|kerem] sahibidir."},
+  {n:4,ar:"الَّذِي عَلَّمَ بِالْقَلَمِ",tl:"Ellezî alleme bi'l-kalem",tr:"O ki [kalem|kalem]le öğretti,"},
+  {n:5,ar:"عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ",tl:"Alleme'l-insâne mâ lem ya'lem",tr:"[insana|insan] [bilmediğini|ilim] öğretti."},
+  {n:6,ar:"كَلَّا إِنَّ الْإِنسَانَ لَيَطْغَىٰ",tl:"Kellâ inne'l-insâne le-yatğâ",tr:"Hayır! İnsan gerçekten [azgınlaşır|tugyan],",head:"Yeterlilik yanılgısı"},
+  {n:7,ar:"أَن رَّآهُ اسْتَغْنَىٰ",tl:"En raâhu'stağnâ",tr:"kendini [yeterli gördüğü|istigna] için."},
+  {n:8,ar:"إِنَّ إِلَىٰ رَبِّكَ الرُّجْعَىٰ",tl:"İnne ilâ rabbike'r-rucâ",tr:"Oysa dönüş yalnızca Rabbinedir."}
+];
+function segsOf(s){const out=[],re=/\[([^\|\]]+)\|([^\]]+)\]/g;let last=0,m;while((m=re.exec(s))){if(m.index>last)out.push({t:s.slice(last,m.index),c:null});out.push({t:m[1],c:m[2]});last=m.index+m[0].length;}if(last<s.length)out.push({t:s.slice(last),c:null});return out;}
+
+class Component extends DCLogic {
+  state = {mode:this.props.defaultMode||"B", chain:[], owner:-1, onb:"A", dag:this.props.dagDefault||"graph", mapMode:"read", pick:null, ez:1, stt:0, openSess:1, scope:"blocks", sel:[1,2], sr:2, ezV:1, play:true, pLang:"tr", pV:2, pW:1, anT:"run", anPin:[0], anShare:false, anSplit:0};
+
+  componentDidMount(){
+    this._t=setInterval(()=>{
+      if(!this.state.play) return;
+      const v=V[this.state.pV];
+      const wc=(this.state.pLang==="ar"
+        ? v.ar.split(/\s+/).filter(Boolean).length
+        : segsOf(v.tr).reduce((n,sg)=>n+(sg.c?1:sg.t.split(/\s+/).filter(Boolean).length),0)) || 4;
+      const nw=this.state.pW+1;
+      if(nw<wc) this.setState({pW:nw});
+      else this.setState({pV:(this.state.pV+1)%8, pW:0});
+    }, 900);
+  }
+  componentWillUnmount(){clearInterval(this._t);}
+  tab(active,t){const th=t||{surf:"#FBF9F4",ink:"#171613",mut:"#8A857A"};return "flex:1;text-align:center;padding:8px 0;border-radius:9px;cursor:pointer;font:"+(active?"500":"400")+" 12.5px 'Instrument Sans';color:"+(active?th.ink:th.mut)+";background:"+(active?th.surf:"transparent")+(active?";box-shadow:0 1px 2px rgba(0,0,0,.06)":"");}
+  ob(active,t){return "border-radius:18px;padding:16px 17px;cursor:pointer;border:1px solid "+(active?t.acc:t.line)+";background:"+t.surf+";box-shadow:"+(active?"0 0 0 3px "+t.accSoft:"none");}
+
+  open(key, verseIdx, depth){
+    this.setState(s=>{
+      const chain = depth===undefined ? [key] : s.chain.slice(0,depth+1).concat(key);
+      return {chain, owner: depth===undefined ? verseIdx : s.owner};
+    });
+  }
+
+  renderVals(){
+    const m=this.state.mode, isA=m==="A", isB=m==="B", isC=m==="C";
+    const TH={
+      A:{bg:"#FAFAF9",surf:"#FFFFFF",ink:"#14171C",mut:"#61697A",faint:"#A7ADB8",line:"#E2E4E8",acc:"#2F4A6E",accSoft:"#EAEEF4",band:"#F1F3F6",serif:"Newsreader,serif"},
+      B:{bg:"#F6F5FC",surf:"#FFFFFF",ink:"#1A1826",mut:"#6B6785",faint:"#A8A3C0",line:"#E5E2F2",acc:"#5747C9",accSoft:"#EDEAFC",band:"#EBE8F8",serif:"Newsreader,serif"},
+      C:{bg:"#F4F1EA",surf:"#FBF9F4",ink:"#171613",mut:"#8A857A",faint:"#BDB6A6",line:"#E6E1D4",acc:"#3F5F86",accSoft:"#E4E9F0",band:"#E6E1D4",serif:"Newsreader,serif"}
+    };
+    const t=TH[m];
+    const mix=(hex,a)=>"color-mix(in oklab, "+hex+" "+Math.round(a*100)+"%, "+t.surf+")";
+    const chain=this.state.chain, owner=this.state.owner;
+    const showAr = this.props.showArabic!==false;
+
+    const cards = chain.map((k,i)=>({
+      wrap:"margin:2px 0 18px "+(26+i*14)+"px;border-left:2px solid "+(i===chain.length-1?t.acc:t.line)+";background:"+t.surf+";border-radius:0 14px 14px 0;padding:14px 15px;box-shadow:0 1px 2px rgba(0,0,0,.04)",
+      label:C[k].label, root:C[k].root, gloss:C[k].gloss, use:C[k].use,
+      linkStyle:"font:500 11.5px 'Instrument Sans';color:"+t.acc+";background:"+t.accSoft+";border-radius:9px;padding:5px 10px;cursor:pointer",
+      rootStyle:"font-family:Amiri,serif;font-size:14px;color:"+t.mut+";direction:rtl",
+      labelStyle:"font:500 12px 'Instrument Sans';letter-spacing:.13em;color:"+t.ink,
+      glossStyle:"font:400 14.5px/1.6 "+t.serif+";color:"+t.ink+";margin-top:7px;text-wrap:pretty",
+      useStyle:"font:400 12.5px/1.6 'Instrument Sans';color:"+t.mut+";margin-top:7px;text-wrap:pretty",
+      pageStyle:"font:500 11.5px 'Instrument Sans';color:"+t.mut+";border:1px solid "+t.line+";border-radius:9px;padding:5px 10px",
+      links:C[k].links.map(l=>({label:C[l].label, onTap:()=>this.open(l, owner, i)})),
+      onClose:()=>this.setState({chain:chain.slice(0,i)})
+    }));
+
+    const pV=this.state.pV, pW=this.state.pW, pAr=this.state.pLang==="ar", pTr=!pAr, playing=this.state.play;
+    const verses = V.map((v,idx)=>({
+      n:v.n, ar:v.ar, tl:v.tl, note:v.note,
+      blockHead:v.head||false,
+      showBig: showAr && isC, showSmall: showAr && isB, showTl: isB,
+      showNote: !!v.note && isA,
+      showSmall2: (showAr && isB) || (isA && pAr && idx===pV),
+      arWords: v.ar.split(" ").map((w,wi)=>({w, style:"padding:1px 3px;border-radius:5px;"+(pAr && idx===pV && wi===pW ? "background:"+t.accSoft+";color:"+t.acc : "")})),
+      segs: (()=>{
+        const toks=[];
+        segsOf(v.tr).forEach(sg=>{
+          if(sg.c){ toks.push({t:sg.t, c:sg.c}); return; }
+          sg.t.split(/(\s+)/).forEach(p=>{ if(p) toks.push({t:p, c:null, sp:/^\s+$/.test(p)}); });
+        });
+        let wi=-1;
+        return toks.map(sg=>{
+          if(!sg.sp) wi++;
+          const hot = pTr && idx===pV && wi===pW && !sg.sp;
+          const base = sg.c ? (isB
+            ? "background:"+t.accSoft+";border-radius:5px;padding:2px 4px;margin:0 -4px;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:"+t.acc+";cursor:pointer"
+            : "border-bottom:1.5px solid "+t.acc+";color:"+t.acc+";cursor:pointer") : "";
+          return {
+            t:sg.t,
+            style: hot ? base+";background:"+t.acc+";color:#FFFFFF;border-radius:5px;padding:1px 4px;margin:0 -3px;box-decoration-break:clone;-webkit-box-decoration-break:clone" : base,
+            onTap: sg.c ? (()=>this.open(sg.c, idx)) : undefined
+          };
+        });
+      })(),
+      cards: idx===owner ? cards : []
+    }));
+
+    const trail = chain.map((k,i)=>({
+      label:(i?"› ":"")+C[k].label,
+      style:"font:500 11px 'Instrument Sans';cursor:pointer;color:"+(i===chain.length-1?t.ink:t.mut),
+      onJump:()=>this.setState({chain:chain.slice(0,i+1)})
+    }));
+
+    const lv=[0,0,1,2,1,3,4,2,0,1,3,2,4,1,0,2];
+    const tone=[t.line,t.band,t.accSoft,mix(t.acc,.45),t.acc];
+    const days=["P","S","Ç","P","C","C","P"];
+    const gardenRows=days.map((d,r)=>{
+      const fri=r===4;
+      return {
+        d, 
+        style:"display:flex;align-items:center;gap:7px;padding:2px 4px 0;border-radius:5px;background:"+(fri?t.accSoft:"transparent"),
+        dayStyle:"width:9px;text-align:center;font:"+(fri?"600":"500")+" 8.5px 'Instrument Sans';color:"+(fri?t.acc:t.faint),
+        cells:Array.from({length:16},(_,c)=>({c:tone[lv[(r*5+c*3)%16]]}))
+      };
+    });
+
+    const freq=[{w:"عَلَق",h:44,c:t.acc},{w:"عَلَقَة",h:26,c:mix(t.acc,.45)},{w:"عَلِقَ",h:18,c:mix(t.acc,.45)},{w:"تَعْلِيق",h:12,c:t.accSoft},{w:"عَلاقة",h:30,c:mix(t.acc,.45)},{w:"مُعَلَّقة",h:9,c:t.accSoft}];
+
+    const relGroups=[
+      {kind:"Bütünü ve parçası",c:t.acc,items:[{label:"KALEM",meta:"ilmin kaydı · 96:4 · 4 geçiş"},{label:"KİTAP",meta:"ilmin toplanmış hâli · 230 geçiş"}]},
+      {kind:"Sebep ve sonuç",c:mix(t.acc,.5),items:[{label:"KEREM",meta:"öğretme bir cömertliktir · 96:3"},{label:"TUĞYAN",meta:"ilimsiz yeterlilik iddiası · 96:6"}]},
+      {kind:"Zıtlık",c:"#A8705B",items:[{label:"CEHL",meta:"bilgisizlik değil, öfkeli aceleci tavır"}]}
+    ];
+
+    const N=(x,y,r,fill,stroke)=>React.createElement("circle",{cx:x,cy:y,r,fill,stroke,strokeWidth:1.5});
+    const L=(x1,y1,x2,y2,o)=>React.createElement("line",{x1,y1,x2,y2,stroke:t.line,strokeWidth:1,opacity:o||.8});
+    const T=(x,y,s,size,fill,anchor)=>React.createElement("text",{x,y,fontSize:size||11,fill:fill||t.ink,textAnchor:anchor||"middle",fontFamily:"'Instrument Sans',sans-serif",fontWeight:500,letterSpacing:".06em"},s);
+    const graphSvg = React.createElement("svg",{viewBox:"0 0 346 430",style:{width:"100%",height:"100%"}},
+      L(173,150,90,80), L(173,150,262,84), L(173,150,100,244), L(173,150,252,240), L(173,150,173,340),
+      L(100,244,173,340,.4), L(262,84,252,240,.4),
+      N(173,150,40,t.ink,null), T(173,148,"İLİM",13,t.surf), T(173,166,"ع-ل-م",10,t.faint),
+      N(90,80,27,t.surf,t.acc), T(90,78,"KALEM",10), T(90,92,"96:4",9,t.mut),
+      N(262,84,27,t.surf,t.acc), T(262,82,"KEREM",10), T(262,96,"96:3",9,t.mut),
+      N(100,244,27,t.surf,t.acc), T(100,242,"OKU",10), T(100,256,"96:1",9,t.mut),
+      N(252,240,27,t.surf,"#A8705B"), T(252,238,"TUĞYAN",9), T(252,252,"96:6",9,t.mut),
+      N(173,340,24,t.band,null), T(173,338,"NOTUM",9,t.mut), T(173,351,"3 kayıt",8,t.faint)
+    );
+
+    const SUR="Fâtiha,Bakara,Âl-i İmrân,Nisâ,Mâide,En'âm,A'râf,Enfâl,Tevbe,Yûnus,Hûd,Yûsuf,Ra'd,İbrâhîm,Hicr,Nahl,İsrâ,Kehf,Meryem,Tâhâ,Enbiyâ,Hac,Mü'minûn,Nûr,Furkân,Şuarâ,Neml,Kasas,Ankebût,Rûm,Lokmân,Secde,Ahzâb,Sebe',Fâtır,Yâsîn,Sâffât,Sâd,Zümer,Mü'min,Fussilet,Şûrâ,Zuhruf,Duhân,Câsiye,Ahkâf,Muhammed,Fetih,Hucurât,Kâf,Zâriyât,Tûr,Necm,Kamer,Rahmân,Vâkıa,Hadîd,Mücâdele,Haşr,Mümtehine,Saff,Cum'a,Münâfikûn,Teğâbün,Talâk,Tahrîm,Mülk,Kalem,Hâkka,Meâric,Nûh,Cin,Müzzemmil,Müddessir,Kıyâme,İnsân,Mürselât,Nebe',Nâziât,Abese,Tekvîr,İnfitâr,Mutaffifîn,İnşikâk,Bürûc,Târık,A'lâ,Gâşiye,Fecr,Beled,Şems,Leyl,Duhâ,İnşirâh,Tîn,Alak,Kadr,Beyyine,Zilzâl,Âdiyât,Kâria,Tekâsür,Asr,Hümeze,Fîl,Kureyş,Mâûn,Kevser,Kâfirûn,Nasr,Tebbet,İhlâs,Felak,Nâs".split(",");
+    const hifz = this.state.mapMode==="hifz";
+    const readTone=[mix(t.acc,.10), mix(t.acc,.26), mix(t.acc,.46)];
+    const hifzTone=[mix(t.ink,.09), mix(t.ink,.22), mix(t.ink,.40)];
+    const mapCells = SUR.map((name,idx)=>{
+      const i=idx+1, seed=(i*37)%100, seed2=(i*53)%100;
+      const round = hifz ? (i>103?1:0) : (i<=14?2:(i<=46?1:0));
+      const pct = hifz ? (i>96? (seed2%60)+40 : (i%7===0? seed2%45 : 0)) : (round===2? seed%35 : (round===1? 30+seed%65 : (i%3===0? seed%80 : 0)));
+      const tone=(hifz?hifzTone:readTone)[round];
+      return {
+        n:i, name,
+        tile:"position:relative;overflow:hidden;height:34px;border-radius:8px;background:"+tone+";border:1px solid "+t.line+";cursor:pointer;padding:5px 7px 0;display:flex;flex-direction:column;justify-content:center",
+        nm:"font:500 11px 'Instrument Sans';color:"+t.ink+";white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1",
+        track:"position:absolute;left:0;right:0;bottom:0;height:3px;background:"+t.line,
+        fill:"position:absolute;left:0;top:0;bottom:0;width:"+pct+"%;background:"+(hifz?t.ink:t.acc),
+        pctLabel: pct+"%",
+        onTap:()=>this.setState({pick:{n:i,name,round,pct,hifz}})
+      };
+    });
+    const legend=(hifz?hifzTone:readTone).map((c,i)=>({c:"width:12px;height:12px;border-radius:4px;background:"+c+";border:1px solid "+t.line, label:(i+1)+". tur"}));
+    const p=this.state.pick;
+    const sttWords=["Ikra'","bismi","rabbike'llezî","halak"];
+    const st=this.state.stt;
+    const stt=sttWords.map((w,i)=>{
+      const done=i<st, active=i===st;
+      return {w, style:"font:500 15px 'Instrument Sans';padding:4px 8px;border-radius:7px;background:"+(done?t.accSoft:(active?t.band:"transparent"))+";color:"+(done?t.acc:(active?t.ink:t.faint))};
+    });
+
+    const SESS=[
+      {id:1,title:"96 · Alak",sub:"19 ayet · 4 bölüm",meta:"12 gündür · 2 bölüm ezberde",pct:52,rows:[
+        {range:"1–5",theme:"İlk vahiy",st:"Ezberlendi",when:"Sonraki tekrar · 21 gün sonra",k:"done"},
+        {range:"6–8",theme:"Tuğyan",st:"Pekişiyor",when:"Sonraki tekrar · yarın",k:"mid"},
+        {range:"9–14",theme:"Engelleyen",st:"Öğreniliyor",when:"Bugün · 2. tekrar",k:"now"},
+        {range:"15–19",theme:"Secde",st:"Başlanmadı",when:"Sırada",k:"new"}]},
+      {id:2,title:"1 · Fâtiha",sub:"7 ayet · 2 bölüm",meta:"46 gündür · tamamı ezberde",pct:100,rows:[
+        {range:"1–4",theme:"Hamd",st:"Ezberlendi",when:"Sonraki tekrar · 60 gün sonra",k:"done"},
+        {range:"5–7",theme:"Yol",st:"Ezberlendi",when:"Sonraki tekrar · 34 gün sonra",k:"done"}]},
+      {id:3,title:"67 · Mülk",sub:"30 ayet · 6 bölüm",meta:"3 gündür · yeni başladın",pct:14,rows:[
+        {range:"1–5",theme:"Mülk ve kudret",st:"Öğreniliyor",when:"Bugün · 1. tekrar",k:"now"},
+        {range:"6–11",theme:"Uyarı",st:"Başlanmadı",when:"Sırada",k:"new"}]}
+    ];
+    const kTone={done:[t.accSoft,t.acc], mid:[t.band,t.mut], now:[t.ink,t.surf], new:["transparent",t.faint]};
+    const openS=this.state.openSess;
+    const sessions=SESS.map(s=>({
+      title:s.title, sub:s.sub, meta:s.meta,
+      card:"background:"+t.surf+";border:1px solid "+(openS===s.id?t.acc:t.line)+";border-radius:16px;padding:14px 15px;cursor:pointer",
+      bar:"display:block;height:3px;border-radius:2px;background:"+t.line+";margin-top:12px;margin-bottom:2px;overflow:hidden",
+      fill:"display:block;height:3px;width:"+s.pct+"%;background:"+t.acc,
+      onTap:()=>this.setState(st2=>({openSess: st2.openSess===s.id?0:s.id})),
+      rows: openS===s.id ? s.rows.map(r=>({
+        range:r.range, theme:r.theme, st:r.st, when:r.when,
+        chip:"font:600 10px 'Instrument Sans';border-radius:7px;padding:3px 7px;white-space:nowrap;background:"+kTone[r.k][0]+";color:"+kTone[r.k][1]+(r.k==="new"?";border:1px solid "+t.line:""),
+        row:"display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid "+t.line
+      })) : []
+    }));
+    const BL=[{id:1,r:"1–5",n:5,th:"İlk vahiy · oku, kalem, ilim"},{id:2,r:"6–8",n:3,th:"Tuğyan ve istiğnâ"},{id:3,r:"9–14",n:6,th:"Engelleyen kimse"},{id:4,r:"15–19",n:5,th:"Perçem, secde, yakınlık"}];
+    const all=this.state.scope==="all";
+    const sel=this.state.sel;
+    const blocks=BL.map(b=>{
+      const on = all || sel.indexOf(b.id)>=0;
+      return {r:b.r, n:b.n+" ayet", th:b.th,
+        row:"display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:13px;cursor:pointer;background:"+(on?t.accSoft:t.surf)+";border:1px solid "+(on?t.acc:t.line),
+        box:"width:19px;height:19px;border-radius:6px;flex:none;background:"+(on?t.acc:"transparent")+";border:1.5px solid "+(on?t.acc:t.line)+";color:"+t.surf+";font:600 11px 'Instrument Sans';display:flex;align-items:center;justify-content:center",
+        mark:on?"✓":"",
+        onTap:()=>this.setState(s2=>{
+          if(s2.scope==="all") return {scope:"blocks", sel:BL.map(x=>x.id).filter(x=>x!==b.id)};
+          const has=s2.sel.indexOf(b.id)>=0;
+          return {sel: has? s2.sel.filter(x=>x!==b.id) : s2.sel.concat(b.id)};
+        })};
+    });
+    const selCount = all? BL.length : sel.length;
+    const selAyah = all? 19 : BL.filter(b=>sel.indexOf(b.id)>=0).reduce((a,b)=>a+b.n,0);
+
+    return {
+      isA, isB, isC,
+      sessions, blocks,
+      scopeAll:this.tab(all,t), scopeBlocks:this.tab(!all,t),
+      setAll:()=>this.setState({scope:"all"}), setBlocks:()=>this.setState({scope:"blocks", sel:[1,2]}),
+      selSummary: selCount+" bölüm · "+selAyah+" ayet seçildi",
+      selPlan: selAyah? "Günde ~"+Math.max(5,Math.round(selAyah*1.4))+" dk · tahmini "+(selAyah*1+4)+" günde ezber" : "En az bir bölüm seç",
+      createStyle:"height:46px;border-radius:23px;display:flex;align-items:center;justify-content:center;font:500 13.5px 'Instrument Sans';background:"+(selAyah?t.ink:t.line)+";color:"+(selAyah?t.surf:t.faint),
+      mapCells, legend, hifz,
+      mapTitle: hifz?"Ezberlediklerim":"Okuduklarım",
+      readTab:this.tab(!hifz,t), hifzTab:this.tab(hifz,t),
+      setRead:()=>this.setState({mapMode:"read"}), setHifz:()=>this.setState({mapMode:"hifz"}),
+      hasPick: !!p,
+      pickTitle: p? (p.n+" · "+p.name) : "",
+      pickSub: p? ((p.round+1)+". tur · %"+p.pct+" tamamlandı") : "",
+      pickAction: p? (p.hifz? "Ezberlemediğin ilk ayetten başla" : "Okumadığın ilk ayetten devam et") : "",
+      clearPick:()=>this.setState({pick:null}),
+      ez1:this.tab(this.state.ez===1,t), ez2:this.tab(this.state.ez===2,t), ez3:this.tab(this.state.ez===3,t),
+      setEz1:()=>this.setState({ez:1,ezV:1}), setEz2:()=>this.setState({ez:2,ezV:2}), setEz3:()=>this.setState({ez:3,ezV:3}), setEz4:()=>this.setState({ez:4}),
+      isEz1:this.state.ez===1, isEz2:this.state.ez===2, isEz3:this.state.ez===3, isEz4:this.state.ez===4, isEzRun:this.state.ez!==4,
+      ...(()=>{
+        const EZP={
+          1:{n:"Birlikte oku", t:"3 / 4 tur", d:"Arapça, okunuş ve anlam birlikte akıyor. Sen dinle ve takip et; ayetler kendiliğinden açılıp kapanıyor."},
+          2:{n:"Kelimelerle", t:"2 / 4 tur", d:"Yalnız Arapça kelimeler. Bir kelimede duraklarsan anlam hatırlatması kendiliğinden açılır."},
+          3:{n:"Sesli okuma", t:"1 / 3 tur", d:"Sen oku; duyduğum kelimeler işaretlenir. İki saniye durursan sıradaki kelimeyi gösteririm."}
+        };
+        const VS=[
+          {ar:"اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ", tr:"Ikra' bismi rabbike'llezî halak", me:"Oku, yaratan Rabbinin adıyla", w:["اقْرَأْ","بِاسْمِ","رَبِّكَ","الَّذِي","خَلَقَ"], h:"“رَبِّكَ” — Rabbin, seni büyütüp gözeten"},
+          {ar:"خَلَقَ الْإِنسَانَ مِنْ عَلَقٍ", tr:"Halaka'l-insâne min alak", me:"İnsanı bir alaktan yarattı", w:["خَلَقَ","الْإِنسَانَ","مِنْ","عَلَقٍ"], h:"“عَلَقٍ” — asılıp tutunan; sûrenin adı da bu"},
+          {ar:"اقْرَأْ وَرَبُّكَ الْأَكْرَمُ", tr:"Ikra' ve rabbüke'l-ekram", me:"Oku! Rabbin en cömert olandır", w:["اقْرَأْ","وَرَبُّكَ","الْأَكْرَمُ"], h:"“الْأَكْرَمُ” — cömertliğin en üst derecesi"},
+          {ar:"الَّذِي عَلَّمَ بِالْقَلَمِ", tr:"Ellezî alleme bi'l-kalem", me:"O ki kalemle öğretti", w:["الَّذِي","عَلَّمَ","بِالْقَلَمِ"], h:"“بِالْقَلَمِ” — kalem ile; vasıta bildiren bi-"},
+          {ar:"عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ", tr:"Alleme'l-insâne mâ lem ya'lem", me:"İnsana bilmediğini öğretti", w:["عَلَّمَ","الْإِنسَانَ","مَا","لَمْ","يَعْلَمْ"], h:"“مَا لَمْ يَعْلَمْ” — bilmediği şeyi"}
+        ];
+        const ph=this.state.ez, av=this.state.ezV;
+        const chip=(i)=>{const on=ph===i;return "flex:1;text-align:center;padding:7px 2px;border-radius:9px;cursor:pointer;background:"+(on?t.surf:"transparent")+";box-shadow:"+(on?"0 1px 3px rgba(0,0,0,.07)":"none");};
+        const o={
+          ezChip1:chip(1), ezChip2:chip(2), ezChip3:chip(3), ezChip4:chip(4),
+          ezChipT1:"font:"+(ph===1?"600":"500")+" 11px 'Instrument Sans';color:"+(ph===1?t.acc:t.mut),
+          ezChipT2:"font:"+(ph===2?"600":"500")+" 11px 'Instrument Sans';color:"+(ph===2?t.acc:t.mut),
+          ezChipT3:"font:"+(ph===3?"600":"500")+" 11px 'Instrument Sans';color:"+(ph===3?t.acc:t.mut),
+          ezChipT4:"font:"+(ph===4?"600":"500")+" 11px 'Instrument Sans';color:"+(ph===4?t.acc:t.mut),
+          ezPhaseName: ph<4?EZP[ph].n:"Oturum sonu",
+          ezPhaseTurn: ph<4?EZP[ph].t:"11 tur tamam",
+          ezPhaseDesc: ph<4?EZP[ph].d:"",
+          ezFootTitle: ph===3?"Dinliyorum" : "Otomatik ilerliyor",
+          ezFootSub: ph===3?"Duraklamalarını sayıyorum; hatırlatma eşiğini buna göre ayarlıyorum." : (ph===2?"Aşama 2'de hızı bir kademe düşürdüm — 5. ayette iki kez takıldın.":"Ayet başına 6 sn. Takip edebiliyorsan hızlanırım."),
+          ezFootIcon: ph===3?"◉":"❙❙"
+        };
+        o.ezRows=VS.map((v,k)=>{
+          const open=k===av, done=k<av;
+          const r={n:String(k+1), ar:v.ar, tr:v.tr, me:v.me, hint:v.h, open,
+            isP1:open&&ph===1, isP2:open&&ph===2, isP3:open&&ph===3,
+            tap:()=>this.setState({ezV:k}),
+            row:"background:"+(open?t.surf:"transparent")+";border:1px solid "+(open?t.acc:t.line)+";border-radius:16px;padding:"+(open?"13px 15px 15px":"10px 13px")+";cursor:pointer",
+            num:"width:21px;height:21px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font:600 10.5px 'Instrument Sans';background:"+(open?t.acc:(done?t.accSoft:t.band))+";color:"+(open?t.surf:(done?t.acc:t.mut)),
+            arLine:"flex:1;font-family:Amiri,serif;font-size:15px;direction:rtl;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:"+(done?t.mut:t.faint),
+            closed:!open, st:done?"tamam":"sırada",
+            stStyle:"font:500 9.5px 'Instrument Sans';white-space:nowrap;color:"+(done?t.acc:t.faint),
+            bar:"margin-top:12px;height:2px;border-radius:1px;background:"+t.line,
+            barIn:"height:2px;border-radius:1px;background:"+t.acc+";width:"+(ph===1?"62%":ph===2?"41%":"28%")};
+          if(open){
+            r.p2=v.w.map((w,i)=>({w, style:"font-family:Amiri,serif;font-size:20px;line-height:1.9;padding:5px 11px;border-radius:11px;background:"+(i===2?t.accSoft:t.band)+";color:"+(i===2?t.acc:t.ink)+";border:"+(i===2?"1px dashed "+t.acc:"1px solid transparent")}));
+            r.p3=v.w.map((w,i)=>{
+              const heard=i<2, now=i===2;
+              return {w: (heard||now)?w:"• • •",
+                style:"font-family:"+((heard||now)?"Amiri,serif":"'Instrument Sans'")+";font-size:"+((heard||now)?"20px":"12px")+";line-height:1.9;padding:5px 11px;border-radius:11px;background:"+(heard?t.accSoft:"transparent")+";color:"+(heard?t.acc:(now?t.ink:t.faint))+";border:1px "+(now?"dashed "+t.acc:(heard?"solid transparent":"solid "+t.line))};
+            });
+          }
+          return r;
+        });
+        const SR=[
+          {l:"Akmadı", d:"Oturum yarın birinci aşamadan baştan kurulur", n:"Yarın"},
+          {l:"Zorlandım", d:"Aralık kısalır, kelime aşamasından devam", n:"2 gün sonra"},
+          {l:"Akıcıydı", d:"Aralık normal ilerler, sesli aşamadan devam", n:"7 gün sonra"},
+          {l:"Çok rahat", d:"Aralık uzar, oturum doğrudan sesli okumayla açılır", n:"21 gün sonra"}
+        ];
+        const i=this.state.sr;
+        SR.forEach((s,k)=>{
+          const done=k<=i;
+          o["srDot"+k]="position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;height:30px;cursor:pointer";
+          o["srMark"+k]="width:"+(k===i?"18px":"9px")+";height:"+(k===i?"18px":"9px")+";border-radius:50%;background:"+(k===i?t.acc:(done?t.acc:t.line))+";border:"+(k===i?"4px solid "+t.surf:"none")+";box-shadow:"+(k===i?"0 0 0 2px "+t.acc:"none")+";transition:all .16s";
+          o["srSet"+k]=()=>this.setState({sr:k});
+          o["srLbl"+k]="flex:1;text-align:center;font:"+(k===i?"600":"500")+" 10.5px 'Instrument Sans';color:"+(k===i?t.acc:t.mut)+";line-height:1.3";
+        });
+        o.srFill="position:absolute;left:12.5%;top:14px;height:3px;border-radius:2px;background:"+t.acc+";width:"+((i/3)*75)+"%;transition:width .16s";
+        o.srLabel=SR[i].l; o.srDesc=SR[i].d; o.srNext=SR[i].n;
+        o.srL0=SR[0].l; o.srL1=SR[1].l; o.srL2=SR[2].l; o.srL3=SR[3].l;
+        return o;
+      })(),
+      stt, sttHint: st===2?"Takıldın: “rabbike” — Rabbin, sahibin.":(st>=4?"Tamamı doğru. Telaffuz notu aşağıda.":"Dinliyorum…"),
+      sttShowHint: st===2, sttShowFix: st>=4,
+      micTap:()=>this.setState(s=>({stt:(s.stt+1)%5})),
+      micStyle:"width:64px;height:64px;border-radius:32px;background:"+(st>0&&st<4?t.acc:t.ink)+";color:"+t.surf+";display:flex;align-items:center;justify-content:center;font:500 12px 'Instrument Sans';cursor:pointer;box-shadow:0 0 0 8px "+t.accSoft, showGraph:this.state.dag==="graph", showList:this.state.dag==="list",
+      setA:()=>this.setState({mode:"A"}), setB:()=>this.setState({mode:"B"}), setC:()=>this.setState({mode:"C"}),
+      tabA:this.tab(isA,t), tabB:this.tab(isB,t), tabC:this.tab(isC,t),
+      bg:t.bg, surf:t.surf, ink:t.ink, mut:t.mut, faint:t.faint, line:t.line, acc:t.acc, accSoft:t.accSoft, band:t.band,
+      surahMeta: "19 AYET · İLK NÜZUL",
+      pickA:()=>this.setState({mode:"A"}), pickB:()=>this.setState({mode:"B"}), pickC:()=>this.setState({mode:"C"}),
+      obA:this.ob(isA,t), obB:this.ob(isB,t), obC:this.ob(isC,t),
+      setGraph:()=>this.setState({dag:"graph"}), setList:()=>this.setState({dag:"list"}),
+      gTab:this.tab(this.state.dag==="graph",t), lTab:this.tab(this.state.dag==="list",t),
+      plWrap:"border-top:1px solid "+t.line+";background:"+t.surf+";padding:11px 22px 14px",
+      plBtn:"width:38px;height:38px;border-radius:19px;flex:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font:400 12px 'Instrument Sans';background:"+(playing?t.acc:t.band)+";color:"+(playing?"#FFFFFF":t.ink),
+      plIcon: playing?"❙❙":"▶",
+      plToggle:()=>this.setState({play:!this.state.play}),
+      plTitle: pAr?(isC?"Abdulbasit · Alak 1–19":"Arapça okuma · Alak 1–19"):"Türkçe anlam · Alak 1–19",
+      plPos: "ayet "+(pV+1)+" / 8",
+      plFill:"height:3px;border-radius:2px;background:"+t.acc+";width:"+(pAr?"38%":"46%"),
+      plRate:"1.0×", plSpeed:()=>{},
+      plSetAr:()=>this.setState({pLang:"ar",pW:0}), plSetTr:()=>this.setState({pLang:"tr",pW:0}),
+      plChipAr:"padding:5px 12px;border-radius:8px;cursor:pointer;font-family:Amiri,serif;font-size:14px;background:"+(pAr?t.surf:"transparent")+";color:"+(pAr?t.acc:t.mut)+";box-shadow:"+(pAr?"0 1px 3px rgba(0,0,0,.07)":"none"),
+      plChipTr:"padding:6px 12px;border-radius:8px;cursor:pointer;font:"+(pTr?"600":"500")+" 11.5px 'Instrument Sans';background:"+(pTr?t.surf:"transparent")+";color:"+(pTr?t.acc:t.mut)+";box-shadow:"+(pTr?"0 1px 3px rgba(0,0,0,.07)":"none"),
+      plHint: pAr?"Okunan Arapça kelime metinde işaretlenir":"Okunan kelime Türkçe anlamda işaretlenir",
+      ...(()=>{
+        const SESS=[
+          {title:"İlim ve cömertlik", q:"“İlmin cömertlikle ilişkisi nedir, Kur'an bunu nerede kuruyor?”", st:"Okuma sırası hazır", meta:"2 / 5 okundu · 3 gün önce"},
+          {title:"Kalem ve yazının yeri", q:"“Kalemle öğretmek neden bu kadar öne çıkıyor?”", st:"Ayetler toplanıyor", meta:"7 sure taranıyor · bugün"},
+          {title:"Şükür ve nankörlük", q:"“Şükür nedir, küfr ile aynı kökte mi?”", st:"Okuma sırası hazır", meta:"5 / 9 okundu · 1 hafta önce"},
+          {title:"Rızık kavramı", q:"“Rızık yalnız mal mı, başka neleri kapsıyor?”", st:"Tamamlandı", meta:"12 / 12 okundu · 2 hafta önce"}
+        ];
+        const pins=this.state.anPin;
+        const mk=(x,i)=>({
+          title:x.title, q:x.q, st:x.st, meta:x.meta,
+          card:"background:"+t.surf+";border:1px solid "+(pins.includes(i)?t.acc:t.line)+";border-radius:16px;padding:14px 15px",
+          pin:"font:400 13px 'Instrument Sans';cursor:pointer;flex:none;width:28px;height:28px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:"+(pins.includes(i)?t.accSoft:"transparent")+";color:"+(pins.includes(i)?t.acc:t.faint),
+          pinIcon: pins.includes(i)?"◆":"◇",
+          onPin:()=>this.setState({anPin: pins.includes(i)?pins.filter(p=>p!==i):pins.concat(i)}),
+          onShare:()=>this.setState({anShare:true}),
+          chip:"font:500 11px 'Instrument Sans';border-radius:8px;padding:4px 9px;background:"+(x.st==="Ayetler toplanıyor"?t.band:t.accSoft)+";color:"+(x.st==="Ayetler toplanıyor"?t.mut:t.acc)
+        });
+        const all=SESS.map(mk);
+        const run=this.state.anT==="run";
+        const STEPS=[
+          {t:"Soru çözümlendi", sub:"3 kavram ve 2 kök çıkarıldı", tags:true, done:true},
+          {t:"Kavram ağı tarandı", sub:"Komşu kavramlar: TA'LİM, TUĞYAN, NİMET", done:true},
+          {t:"İlgili ayetler toplandı", sub:"24 ayet · 7 sure · nüzul sırasıyla dizildi", done:true},
+          {t:"Özet ve okuma sırası", sub:"Ayetler eşleştiriliyor…", done:false, last:true}
+        ];
+        const QU=[
+          {ref:"96:1–5 · Alak", st:"okundu", why:"Cömertlik ve öğretme aynı cümlede kuruluyor"},
+          {ref:"96:6–8 · Alak", st:"okundu", why:"Karşı kutup: öğrendiğini kendinden saymak"},
+          {ref:"55:1–4 · Rahman", st:"sırada", why:"Rahmet sıfatının ilk fiili öğretmek"},
+          {ref:"2:31 · Bakara", st:"sonra", why:"İsimlerin öğretilmesi — ilk ikram"},
+          {ref:"68:1 · Kalem", st:"sonra", why:"Kaleme yeminle bölüm kapanıyor"}
+        ];
+        return {
+          anPinned: all.filter((c,i)=>pins.includes(i)),
+          anRest: all.filter((c,i)=>!pins.includes(i)),
+          anHasPin: pins.length>0, anPinCount: pins.length+" çalışma", anRestCount: (all.length-pins.length)+" çalışma",
+          anShareOpen: this.state.anShare, anShareOpen4b:()=>this.setState({anShare:true}), anShareClose:()=>this.setState({anShare:false}),
+          anNoteSw:"width:36px;height:21px;border-radius:11px;background:"+t.acc+";display:flex;align-items:center;justify-content:flex-end;padding:0 3px;flex:none",
+          anNoteKnob:"width:15px;height:15px;border-radius:8px;background:#FFFFFF;display:block",
+          anIsRun:run, anIsRes:!run,
+          anSetRun:()=>this.setState({anT:"run"}), anSetRes:()=>this.setState({anT:"res"}),
+          anChipRun:"flex:1;text-align:center;padding:7px 2px;border-radius:9px;cursor:pointer;background:"+(run?t.surf:"transparent")+";box-shadow:"+(run?"0 1px 3px rgba(0,0,0,.07)":"none"),
+          anChipRes:"flex:1;text-align:center;padding:7px 2px;border-radius:9px;cursor:pointer;background:"+(!run?t.surf:"transparent")+";box-shadow:"+(!run?"0 1px 3px rgba(0,0,0,.07)":"none"),
+          anChipRunT:"font:"+(run?"600":"500")+" 11px 'Instrument Sans';color:"+(run?t.acc:t.mut),
+          anChipResT:"font:"+(!run?"600":"500")+" 11px 'Instrument Sans';color:"+(!run?t.acc:t.mut),
+          anTags:[{t:"İLİM"},{t:"KEREM"},{t:"TA'LİM"}].map(x=>({t:x.t, style:"font:500 10.5px 'Instrument Sans';letter-spacing:.08em;border-radius:8px;padding:5px 9px;background:"+t.accSoft+";color:"+t.acc})),
+          anSteps: STEPS.map(x=>({
+            t:x.t, sub:x.sub, showTags:!!x.tags,
+            dot:"width:16px;height:16px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font:600 9px 'Instrument Sans';background:"+(x.done?t.acc:t.surf)+";border:"+(x.done?"none":"1.5px dashed "+t.acc)+";color:#FFFFFF",
+            mark: x.done?"✓":"",
+            line: x.last?"display:none":"flex:1;width:1.5px;background:"+t.line+";margin:3px 0",
+            title:"font:500 13.5px 'Instrument Sans';color:"+(x.done?t.ink:t.acc)
+          })),
+          anQueue: QU.map((q,i)=>({
+            n:String(i+1), ref:q.ref, st:q.st, why:q.why,
+            row:"display:flex;align-items:flex-start;gap:11px;background:"+t.surf+";border:1px solid "+(q.st==="sırada"?t.acc:t.line)+";border-radius:14px;padding:12px 13px;cursor:pointer",
+            num:"width:21px;height:21px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font:600 10.5px 'Instrument Sans';background:"+(q.st==="okundu"?t.accSoft:(q.st==="sırada"?t.acc:t.band))+";color:"+(q.st==="okundu"?t.acc:(q.st==="sırada"?"#FFFFFF":t.mut))
+          })),
+          anSplitOpen:this.state.anSplit===0, anSplitDone:this.state.anSplit===1, anSplitStay:this.state.anSplit===2,
+          anSplitYes:()=>this.setState({anSplit:1}), anSplitNo:()=>this.setState({anSplit:2}), anSplitReset:()=>this.setState({anSplit:0})
+        };
+      })(),
+      verses, trail, hasTrail:chain.length>0, clearTrail:()=>this.setState({chain:[],owner:-1}),
+      gardenRows, freq, relGroups, graphSvg
+    };
+  }
+}
+</script>
+</body>
+</html>

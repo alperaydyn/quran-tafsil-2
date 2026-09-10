@@ -1,0 +1,20 @@
+# Cursor Rules for tafsil.net
+
+You are working on tafsil.net (Quran Reading, Lexicon Concept Analysis, and Memorization Platform).
+
+Always adhere to the standards outlined in:
+1. AGENTS.md (Master Orchestration Protocol)
+2. docs/agents/ (Modular Sub-Agent Recipe Specs)
+   - 00-MASTER-BLUEPRINT.md
+   - 01-DATA-PIPELINE-AGENT.md
+   - 02-BACKEND-AGENT.md
+   - 03-MOBILE-APP-AGENT.md
+   - 04-WEB-APP-AGENT.md
+   - 05-CONTENT-EDITORIAL-AGENT.md
+3. tafsil-ios-app/design/project/Tafsil.dc.html (Visual Design Source of Truth)
+
+Key Constraints:
+- Respect the sacred immutability of Quran Arabic text and vocalization.
+- Maintain premium editorial aesthetics; never use cliché ornate decorations.
+- Maintain offline-first parity for core mobile reading and spaced repetition flows.
+- Keep all direct LLM operations strictly in the backend orchestrated via OpenRouter.
