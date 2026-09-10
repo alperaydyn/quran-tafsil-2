@@ -1,0 +1,152 @@
+# tafsil.net — Web App CI/CD Pipeline
+# Tetikleyici: tafsil-web-app/ dizininde değişiklik → lint + test + build + deploy
+
+name: Web Deploy
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'tafsil-web-app/**'
+      - '.github/workflows/web-deploy.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'tafsil-web-app/**'
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # ─── Lint & Test ────────────────────────────────────────
+  lint-test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tafsil-web-app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: tafsil-web-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Type check
+        run: npm run typecheck --if-present
+
+      - name: Run tests
+        run: npm test --if-present
+
+  # ─── Production Deploy ─────────────────────────────────
+  deploy-production:
+    name: Deploy to Production
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script: |
+            set -e
+
+            echo "📦 Pulling latest code..."
+            cd /opt/tafsil/web
+            git pull origin main
+
+            echo "📦 Installing dependencies..."
+            npm ci
+
+            echo "🔨 Building Next.js production bundle..."
+            NEXT_PUBLIC_API_URL=https://api.tafsil.net \
+            NEXT_PUBLIC_SITE_URL=https://new.tafsil.net \
+            npm run build
+
+            echo "🔄 Reloading PM2 processes..."
+            pm2 reload tafsil-web
+
+            echo "⏳ Waiting for server to start..."
+            sleep 5
+
+            echo "🏥 Checking web app status..."
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
+            if [ "$HTTP_STATUS" != "200" ]; then
+              echo "❌ Web app health check failed! Status: $HTTP_STATUS"
+              exit 1
+            fi
+
+            echo "✅ Web deploy successful!"
+
+      - name: Notify Slack (Success)
+        if: success()
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "✅ *Web Deploy Başarılı*\n• Branch: `main`\n• Commit: `${{ github.sha }}` — ${{ github.event.head_commit.message }}\n• URL: https://new.tafsil.net"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack (Failure)
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "❌ *Web Deploy Başarısız*\n• Branch: `main`\n• <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Detay>"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # ─── Staging Deploy ─────────────────────────────────────
+  deploy-staging:
+    name: Deploy to Staging
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    environment: staging
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script: |
+            set -e
+
+            cd /opt/tafsil/web
+            git fetch origin develop
+            git checkout develop
+            git pull origin develop
+
+            npm ci
+
+            NEXT_PUBLIC_API_URL=https://api-staging.tafsil.net \
+            NEXT_PUBLIC_SITE_URL=https://staging.tafsil.net \
+            npm run build
+
+            pm2 reload tafsil-web-staging || pm2 start ecosystem.config.js --env staging
+
+            echo "✅ Web staging deploy successful!"

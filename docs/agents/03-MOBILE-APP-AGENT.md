@@ -73,6 +73,7 @@ Kullanıcının onboarding sırasında seçtiği ve ayarlardan değiştirebildi�
 tafsil-ios-app/
 ├── app.json                    # Expo config
 ├── package.json
+├── eas.json                    # EAS Build profilleri (development, preview, production)
 ├── design/                     # Claude Design kaynakları (Tafsil.dc.html)
 └── src/
     ├── api/                    # Backend REST istemcisi (fetch / ky)
@@ -90,3 +91,40 @@ tafsil-ios-app/
     ├── store/                  # Zustand store'ları (userSettings, activeSession)
     └── theme/                  # Renk paletleri, tipografi, fontlar
 ```
+
+---
+
+## 5. Derleme ve Dağıtım (EAS Build & Submit)
+
+Mobil uygulama Expo Application Services (EAS) ile derlenir ve App Store / Google Play'e gönderilir.
+
+### EAS Build Profilleri (`eas.json`)
+
+| Profil | Kullanım | Dağıtım |
+|---|---|---|
+| `development` | Geliştirme (Expo Dev Client, simulator) | Yerel cihaz |
+| `preview` | Test (Ad Hoc / Internal) | TestFlight / Internal Test |
+| `production` | Canlı yayın | App Store / Google Play |
+
+### Derleme Komutları
+
+```bash
+# Preview derlemesi (test)
+eas build --profile preview --platform all
+
+# Prodüksiyon derlemesi + mağaza gönderimi
+eas build --profile production --platform all
+eas submit --platform all --latest
+```
+
+### OTA (Over-The-Air) Güncelleme
+
+JavaScript bundle değişiklikleri (UI düzeni, stil, iş mantığı düzeltmeleri) mağaza onayı beklemeden anında dağıtılır:
+
+```bash
+eas update --branch production --message "Ayet okuma ekranı iyileştirmesi"
+```
+
+> Kapsamlı mobil dağıtım, sürüm yönetimi ve mağaza metadata rehberi için bkz:
+> - [docs/deployment/03-MOBILE-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/03-MOBILE-DEPLOY.md)
+> - [docs/deployment/04-CICD-PIPELINE.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/04-CICD-PIPELINE.md)

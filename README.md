@@ -420,6 +420,21 @@ Uygulama, kullanıcının internetsiz ortamda temel okuma ve ezber deneyimini ke
   * Çevrimiçi bağlantı yalnızca şu durumlarda gereklidir: yeni anlama çalışması başlatma, topluluk etkileşimleri, makale akışı güncelleme, ezber ilerleme senkronizasyonu ve ses paketi indirme.
   * Bu profil sayesinde sunucu yükü önemli ölçüde düşük tutulur; 1 milyon kullanıcının büyük çoğunluğu çoğu zaman sunucuya istek göndermez.
 
+### Deployment ve DevOps Altyapısı
+
+Tüm bileşenlerin (backend, web, mobil) prodüksiyona alınması, sürekli entegrasyon ve izleme stratejisi `docs/deployment/` dizininde detaylandırılmıştır.
+
+* **VPS Altyapısı:** Hostinger VPS (4 vCPU, 8 GB RAM) üzerinde Docker konteynerleri (PostgreSQL, Redis, PgBouncer) ve PM2 süreç yönetimi ile Node.js uygulamaları çalıştırılır. Aynı VPS üzerinde Docker izolasyonu ile staging ortamı da barındırılır.
+* **Domain Yapısı:**
+  * `new.tafsil.net` — Yeni web platformu (geçiş tamamlanana kadar subdomain'de)
+  * `api.tafsil.net` — Backend REST API
+  * `staging.tafsil.net` / `api-staging.tafsil.net` — Test ortamları
+* **CI/CD Pipeline:** GitHub Actions ile backend (SSH deploy), web (build + SSH deploy) ve mobil (EAS Build + Submit) için otomatik dağıtım pipeline'ları.
+* **Mobil Dağıtım:** Expo Application Services (EAS) ile iOS (App Store) ve Android (Play Store) derleme ve gönderimi. OTA güncelleme ile mağaza onayı beklemeden JavaScript değişiklikleri anında yayınlanır.
+* **İzleme:** Sentry (hata izleme), Uptime Robot (endpoint sağlık kontrolü), Netdata (sunucu metrikleri), Cloudflare Analytics (trafik ve güvenlik).
+
+> Detaylı deployment rehberleri: [docs/deployment/](docs/deployment/)
+
 
 ## Sosyal Paylaşım ve Büyüme (Social Sharing & Virality)
 

@@ -1,0 +1,200 @@
+# tafsil.net — Mobile App CI/CD Pipeline
+# Tetikleyici: tafsil-ios-app/ dizininde değişiklik → lint + test + EAS Build + Submit
+
+name: Mobile Build
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'tafsil-ios-app/**'
+      - '.github/workflows/mobile-build.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'tafsil-ios-app/**'
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: 'EAS Build Profile'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - development
+          - preview
+          - production
+      platform:
+        description: 'Target Platform'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - ios
+          - android
+          - all
+      submit:
+        description: 'Submit to Store after build?'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # ─── Lint & Test ────────────────────────────────────────
+  lint-test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tafsil-ios-app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: tafsil-ios-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Type check
+        run: npm run typecheck --if-present
+
+      - name: Run tests
+        run: npm test --if-present
+
+  # ─── EAS Build (Production — main branch) ──────────────
+  build-production:
+    name: Production Build
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    defaults:
+      run:
+        working-directory: tafsil-ios-app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: tafsil-ios-app/package-lock.json
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (iOS + Android)
+        run: eas build --profile production --platform all --non-interactive
+
+      - name: Submit to App Store & Play Store
+        run: |
+          eas submit --platform ios --latest --non-interactive
+          eas submit --platform android --latest --non-interactive
+
+      - name: Notify Slack
+        if: always()
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "${{ job.status == 'success' && '✅' || '❌' }} *Mobile Production Build ${{ job.status }}*\n• Commit: `${{ github.sha }}`\n• Platform: iOS + Android\n• ${{ job.status == 'success' && 'App Store & Play Store gönderildi' || 'Detay: ' }}${{ job.status != 'success' && format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) || '' }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # ─── EAS Build (Preview — develop branch) ──────────────
+  build-preview:
+    name: Preview Build
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    defaults:
+      run:
+        working-directory: tafsil-ios-app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: tafsil-ios-app/package-lock.json
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Preview (iOS + Android)
+        run: eas build --profile preview --platform all --non-interactive
+
+  # ─── EAS Build (Manuel Tetikleme) ──────────────────────
+  build-manual:
+    name: Manual Build
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    defaults:
+      run:
+        working-directory: tafsil-ios-app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: tafsil-ios-app/package-lock.json
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: eas build --profile ${{ inputs.profile }} --platform ${{ inputs.platform }} --non-interactive
+
+      - name: Submit to Stores
+        if: inputs.submit == true && inputs.profile == 'production'
+        run: |
+          if [ "${{ inputs.platform }}" = "all" ] || [ "${{ inputs.platform }}" = "ios" ]; then
+            eas submit --platform ios --latest --non-interactive
+          fi
+          if [ "${{ inputs.platform }}" = "all" ] || [ "${{ inputs.platform }}" = "android" ]; then
+            eas submit --platform android --latest --non-interactive
+          fi

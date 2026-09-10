@@ -21,13 +21,16 @@ Bu belge, **Node.js (v20 LTS) + Fastify**, **PostgreSQL 16+ (pgvector)**, **Redi
 backend/
 ├── package.json
 ├── tsconfig.json
-├── docker-compose.yml
-├── .env.example
+├── docker-compose.yml          # Docker servisleri (PostgreSQL, Redis, PgBouncer)
+├── docker-compose.staging.yml  # Staging override
+├── Dockerfile                  # Multi-stage prodüksiyon imajı
+├── ecosystem.config.js         # PM2 süreç yönetimi
+├── .env.example                # Ortam değişkenleri şablonu
 ├── src/
 │   ├── app.ts                  # Fastify app bootstrap & plugin register
 │   ├── server.ts               # Sunucu port dinleyicisi
 │   ├── config/                 # Ortam değişkenleri, veritabanı, Redis ayarları
-│   ├── plugins/                # Auth, Rate-Limit, CORS, Swagger
+│   ├── plugins/                # Auth, Rate-Limit, CORS, Swagger, Sentry
 │   ├── db/
 │   │   ├── client.ts           # PostgreSQL pg-pool / Kysely / Drizzle client
 │   │   ├── redis.ts            # ioredis client (L1 & L2 cache)
@@ -44,6 +47,8 @@ backend/
 │       ├── openrouter.ts       # LLM Gateway istemcisi (model fallback & streaming)
 │       ├── rag-orchestrator.ts # Çok adımlı araştırma ve anlamsal bağ kurucu
 │       └── push-notifier.ts    # APNs (iOS) ve FCM (Android) bildirim motoru
+└── nginx/
+    └── api.tafsil.net.conf     # Nginx reverse proxy yapılandırması
 ```
 
 ---
@@ -90,6 +95,9 @@ backend/
     $$EF' = EF + (0.1 - (5 - q) \times (0.08 + (5 - q) \times 0.02))$$
   - Sonraki tekrar zamanı `next_review_at` güncellenir ve BullMQ'ya gecikmeli iş (delayed job) eklenir.
 
+### E. Health Check
+- `GET /health`: Servis sağlık durumu (PostgreSQL ve Redis bağlantı kontrolü).
+
 ---
 
 ## 4. OpenRouter Gateway ve Model Dağılımı
@@ -103,3 +111,30 @@ backend/
    - İstemci başına günlük ücretsiz LLM sorgu kotası: 0 (Free tier yalnız statik detay oturumlarını okur).
    - Pro kullanıcılar için: 50 derin araştırma / gün.
    - Redis tabanlı Token Bucket rate limiting uygulanır.
+
+---
+
+## 5. Prodüksiyon Dağıtımı
+
+Backend dağıtımı VPS üzerinde Docker konteynerleri (veritabanı servisleri) ve PM2 (Node.js process yönetimi) ile gerçekleştirilir.
+
+### Temel Bileşenler
+- **Docker Compose:** PostgreSQL 16 (pgvector), Redis 7, PgBouncer → `docker-compose.yml`
+- **PM2:** Fastify API cluster mode (2 worker) → `ecosystem.config.js`
+- **Nginx:** `api.tafsil.net` reverse proxy, SSL, rate limiting, SSE desteği → `nginx/api.tafsil.net.conf`
+- **Staging:** Docker izolasyonu ile aynı VPS'te → `docker-compose.staging.yml`
+
+### Hızlı Dağıtım
+
+```bash
+# Docker servislerini başlat
+docker compose up -d
+
+# API'yi PM2 ile başlat
+pm2 start ecosystem.config.js --env production
+```
+
+> Kapsamlı dağıtım, CI/CD ve izleme rehberi için bkz:
+> - [docs/deployment/01-BACKEND-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/01-BACKEND-DEPLOY.md)
+> - [docs/deployment/04-CICD-PIPELINE.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/04-CICD-PIPELINE.md)
+> - [docs/deployment/05-MONITORING.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/05-MONITORING.md)

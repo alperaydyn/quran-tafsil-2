@@ -1,0 +1,152 @@
+# tafsil.net — Backend CI/CD Pipeline
+# Tetikleyici: backend/ dizininde değişiklik → lint + test + deploy
+
+name: Backend Deploy
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-deploy.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'backend/**'
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # ─── Lint & Test ────────────────────────────────────────
+  lint-test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Type check
+        run: npm run typecheck --if-present
+
+      - name: Run tests
+        run: npm test --if-present
+
+  # ─── Production Deploy ─────────────────────────────────
+  deploy-production:
+    name: Deploy to Production
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script: |
+            set -e
+
+            echo "📦 Pulling latest code..."
+            cd /opt/tafsil/backend
+            git pull origin main
+
+            echo "📦 Installing dependencies..."
+            npm ci --production
+
+            echo "🗄️ Running database migrations..."
+            npm run db:migrate --if-present
+
+            echo "🔄 Reloading PM2 processes..."
+            pm2 reload tafsil-api
+
+            echo "⏳ Waiting for health check..."
+            sleep 5
+
+            echo "🏥 Checking API health..."
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/health)
+            if [ "$HTTP_STATUS" != "200" ]; then
+              echo "❌ Health check failed! Status: $HTTP_STATUS"
+              exit 1
+            fi
+
+            echo "✅ Backend deploy successful!"
+
+      - name: Notify Slack (Success)
+        if: success()
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "✅ *Backend Deploy Başarılı*\n• Branch: `main`\n• Commit: `${{ github.sha }}` — ${{ github.event.head_commit.message }}\n• Ortam: Prodüksiyon"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack (Failure)
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "❌ *Backend Deploy Başarısız*\n• Branch: `main`\n• Commit: `${{ github.sha }}`\n• <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Detay>"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # ─── Staging Deploy ─────────────────────────────────────
+  deploy-staging:
+    name: Deploy to Staging
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    environment: staging
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script: |
+            set -e
+
+            echo "📦 Pulling latest code (develop)..."
+            cd /opt/tafsil/backend
+            git fetch origin develop
+            git checkout develop
+            git pull origin develop
+
+            echo "📦 Installing dependencies..."
+            npm ci --production
+
+            echo "🗄️ Running database migrations (staging)..."
+            NODE_ENV=staging npm run db:migrate --if-present
+
+            echo "🔄 Reloading PM2 staging process..."
+            pm2 reload tafsil-api --env staging || pm2 start ecosystem.config.js --env staging
+
+            echo "✅ Staging deploy successful!"

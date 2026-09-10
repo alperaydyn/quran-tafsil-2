@@ -48,6 +48,7 @@ Kullanıcı "Paylaş" butonuna bastığında istemci veya harici platformlar iç
 tafsil-web-app/
 ├── package.json
 ├── next.config.mjs
+├── ecosystem.config.js         # PM2 süreç yönetimi (Next.js SSR)
 └── src/
     ├── app/
     │   ├── layout.tsx
@@ -68,6 +69,33 @@ tafsil-web-app/
     │   ├── reader/             # Geniş ekran okuma düzeni
     │   ├── dag-web/            # D3 / Canvas tabanlı web graf motoru
     │   └── share-card/         # Sosyal medya görsel dışa aktarma modülü
-    └── styles/
-        └── globals.css         # Tipografi ve editoryal tasarım token'ları
+├── nginx/
+│   └── new.tafsil.net.conf     # Nginx reverse proxy yapılandırması
+└── styles/
+    └── globals.css             # Tipografi ve editoryal tasarım token'ları
 ```
+
+---
+
+## 5. Prodüksiyon Dağıtımı
+
+Web uygulaması VPS üzerinde PM2 ve Nginx ile `new.tafsil.net` subdomaini altında servis edilir. Mevcut `tafsil.net` sitesi kesintiye uğratılmaz; geçiş hazır olduğunda DNS yönlendirmesiyle tamamlanır.
+
+### Temel Bileşenler
+- **PM2:** Next.js SSR cluster mode (2 worker) → `ecosystem.config.js`
+- **Nginx:** `new.tafsil.net` reverse proxy, statik varlık önbellekleme → `nginx/new.tafsil.net.conf`
+- **ISR:** Ayet ve kavram sayfaları 24 saat `revalidate`, topluluk ve ana sayfa 30 dk-1 saat
+
+### Hızlı Dağıtım
+
+```bash
+# Prodüksiyon derlemesi
+npm run build
+
+# PM2 ile başlat
+pm2 start ecosystem.config.js --env production
+```
+
+> Kapsamlı dağıtım, ISR önbellek stratejisi ve geçiş planı için bkz:
+> - [docs/deployment/02-WEB-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/02-WEB-DEPLOY.md)
+> - [docs/deployment/04-CICD-PIPELINE.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/04-CICD-PIPELINE.md)

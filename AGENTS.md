@@ -54,6 +54,19 @@ Proje, birbirini tamamlayan 6 uzmanlık ajanı tarafından geliştirilecek şeki
 | **04** | **Web App & Portal** | [docs/agents/04-WEB-APP-AGENT.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/agents/04-WEB-APP-AGENT.md) | Next.js / React web portalı, Open Graph dinamik kart üretimi, masaüstü okuma ve topluluk alanı |
 | **05** | **Content & Editorial** | [docs/agents/05-CONTENT-EDITORIAL-AGENT.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/agents/05-CONTENT-EDITORIAL-AGENT.md) | Nüzul kronolojisi araştırmaları, hafızlık/ezber analizleri, referans doğrulama kriterleri |
 
+### Deployment Sorumluluk Matrisi
+
+Dağıtım altyapısı ve DevOps süreçleri ajanlar arası paylaşımlı sorumluluk alanıdır. Kapsamlı rehber için bkz: [docs/deployment/](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/)
+
+| Bileşen | Birincil Sorumlu | Deployment Rehberi |
+|---|---|---|
+| VPS Altyapı (Docker, Nginx, Güvenlik) | **00 Master** | [00-INFRASTRUCTURE.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/00-INFRASTRUCTURE.md) |
+| Backend API Dağıtımı | **02 Backend** | [01-BACKEND-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/01-BACKEND-DEPLOY.md) |
+| Web App Dağıtımı | **04 Web App** | [02-WEB-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/02-WEB-DEPLOY.md) |
+| Mobil App Dağıtımı (App Store / Play Store) | **03 Mobile** | [03-MOBILE-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/03-MOBILE-DEPLOY.md) |
+| CI/CD Pipeline (GitHub Actions) | **00 Master** | [04-CICD-PIPELINE.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/04-CICD-PIPELINE.md) |
+| İzleme ve Alarm | **02 Backend** | [05-MONITORING.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/05-MONITORING.md) |
+
 ---
 
 ## 3. Çalışma Kuralları ve Standartlar
@@ -87,13 +100,26 @@ kuran-tafsil-net/
 ├── .gitignore                     # Git yoksayma kuralları
 │
 ├── docs/
-│   └── agents/                    # Her uzmanlık ajanı için müstakil tarifler
-│       ├── 00-MASTER-BLUEPRINT.md
-│       ├── 01-DATA-PIPELINE-AGENT.md
-│       ├── 02-BACKEND-AGENT.md
-│       ├── 03-MOBILE-APP-AGENT.md
-│       ├── 04-WEB-APP-AGENT.md
-│       └── 05-CONTENT-EDITORIAL-AGENT.md
+│   ├── agents/                    # Her uzmanlık ajanı için müstakil tarifler
+│   │   ├── 00-MASTER-BLUEPRINT.md
+│   │   ├── 01-DATA-PIPELINE-AGENT.md
+│   │   ├── 02-BACKEND-AGENT.md
+│   │   ├── 03-MOBILE-APP-AGENT.md
+│   │   ├── 04-WEB-APP-AGENT.md
+│   │   └── 05-CONTENT-EDITORIAL-AGENT.md
+│   └── deployment/                # Dağıtım ve altyapı dokümantasyonu
+│       ├── 00-INFRASTRUCTURE.md   # VPS yapılandırması, güvenlik, Docker
+│       ├── 01-BACKEND-DEPLOY.md   # Backend dağıtım rehberi
+│       ├── 02-WEB-DEPLOY.md       # Web uygulama dağıtım rehberi
+│       ├── 03-MOBILE-DEPLOY.md    # Mobil uygulama dağıtım rehberi
+│       ├── 04-CICD-PIPELINE.md    # GitHub Actions CI/CD pipeline
+│       └── 05-MONITORING.md       # İzleme ve alarm stratejisi
+│
+├── .github/
+│   └── workflows/                 # CI/CD otomatik dağıtım pipeline'ları
+│       ├── backend-deploy.yml     # Backend: lint → test → SSH deploy
+│       ├── web-deploy.yml         # Web: lint → test → build → SSH deploy
+│       └── mobile-build.yml       # Mobile: lint → test → EAS Build → Submit
 │
 ├── data-pipeline/                 # [01 Data Pipeline Agent]
 │   ├── README.md
@@ -103,15 +129,24 @@ kuran-tafsil-net/
 ├── backend/                       # [02 Backend Agent]
 │   ├── README.md
 │   ├── src/                       # Fastify API, servisler, OpenRouter LLM orkestrasyonu
-│   └── db/                        # PostgreSQL migration'ları, pgvector ve Redis tanımları
+│   ├── db/                        # PostgreSQL migration'ları, pgvector ve Redis tanımları
+│   ├── docker-compose.yml         # Docker servisleri (PostgreSQL, Redis, PgBouncer)
+│   ├── docker-compose.staging.yml # Staging override
+│   ├── Dockerfile                 # Multi-stage prodüksiyon imajı
+│   ├── ecosystem.config.js        # PM2 süreç yönetimi
+│   ├── .env.example               # Ortam değişkenleri şablonu
+│   └── nginx/                     # Nginx reverse proxy yapılandırması
 │
 ├── tafsil-ios-app/                # [03 Mobile App Agent]
 │   ├── README.md
 │   ├── design/                    # Claude Design prototip bundle'ı (Tafsil.dc.html)
+│   ├── eas.json                   # EAS Build profilleri (dev, preview, production)
 │   └── src/                       # Expo / React Native uygulama kodu
 │
 ├── tafsil-web-app/                # [04 Web App Agent]
 │   ├── README.md
+│   ├── ecosystem.config.js        # PM2 süreç yönetimi (Next.js SSR)
+│   ├── nginx/                     # Nginx reverse proxy yapılandırması
 │   └── src/                       # Next.js / Web okuma ve paylaşım uygulaması
 │
 └── blog-contents/                 # [05 Content & Editorial Agent]

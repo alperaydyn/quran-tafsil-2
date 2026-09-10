@@ -192,3 +192,28 @@ export interface ApiResponse<T> {
 1. **OAuth 2.0 / OpenID Connect:** Mobil ve web istemciler Apple Sign-In ve Google Sign-In ile doğrulama yapar; sunucu gelen id_token'ı doğrulayarak bir **JWT (HS256 veya RS256)** oturum token'ı üretir.
 2. **Minimal PII Politikası:** Kullanıcı adı veya e-posta kalıcı olarak profilde depolanmaz; yalnızca kullanıcı UUID ve tercih ayarları saklanır.
 3. **OpenRouter Entegrasyonu:** Tüm LLM istekleri sunucu tarafındaki Fastify servisi üzerinden OpenRouter API ile yürütülür. API anahtarları asla istemciye iletilmez.
+
+---
+
+## 6. Deployment Mimarisi Referansları
+
+Tüm dağıtım, altyapı ve DevOps dokümantasyonu `docs/deployment/` dizininde yer alır:
+
+| Doküman | Kapsam |
+|---|---|
+| [00-INFRASTRUCTURE.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/00-INFRASTRUCTURE.md) | VPS yapılandırması, güvenlik sertleştirme, Docker/Nginx kurulumu, staging izolasyonu, yedekleme |
+| [01-BACKEND-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/01-BACKEND-DEPLOY.md) | Fastify API dağıtımı (Docker, PM2, Nginx, migration, health check) |
+| [02-WEB-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/02-WEB-DEPLOY.md) | Next.js SSR dağıtımı (`new.tafsil.net`), ISR önbellek, OG kart üretimi |
+| [03-MOBILE-DEPLOY.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/03-MOBILE-DEPLOY.md) | EAS Build, App Store / Play Store gönderimi, OTA güncellemeler |
+| [04-CICD-PIPELINE.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/04-CICD-PIPELINE.md) | GitHub Actions CI/CD workflow'ları, branch stratejisi, otomatik dağıtım |
+| [05-MONITORING.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/docs/deployment/05-MONITORING.md) | Sentry, Uptime Robot, Netdata, log yönetimi, alarm politikası |
+
+### Domain Yapısı
+
+| Subdomain | Hizmet |
+|---|---|
+| `new.tafsil.net` | Yeni web platformu (Next.js SSR) — geçiş sonrası `tafsil.net` olacak |
+| `api.tafsil.net` | Backend REST API (Fastify) |
+| `staging.tafsil.net` | Web staging ortamı |
+| `api-staging.tafsil.net` | API staging ortamı |
+| `tafsil.net` | Mevcut site (geçiş tamamlanana kadar korunur) |
