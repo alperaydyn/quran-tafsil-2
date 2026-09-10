@@ -1,0 +1,30 @@
+{
+  "agent": "agent-01",
+  "phase": 1,
+  "last_updated": "2026-09-10T00:00:00Z",
+  "completed": ["DP-001", "DP-002", "DP-003", "DP-004", "DP-005"],
+  "in_progress": "DP-007",
+  "blocked": [
+    {
+      "id": "DP-007",
+      "reason": "Süleymaniye Vakfı Meali (6236 ayet) için güvenilir toplu veri kaynağına erişim yok: Bash içinden ağ erişimi kapalı (curl -> 'Could not resolve host'), WebFetch ise küçük bir modelle içeriği özetleyip döndürüyor — dini metin için birebir doğruluk garantisi vermiyor. Kullanıcıdan yön bekleniyor."
+    }
+  ],
+  "messages": [
+    {
+      "to": "agent-02",
+      "message": "Migration hazır: backend/src/db/migrations/001_init_schema.sql (sureler, ayetler, kokler, kelimeler, kavramlar, kavram_iliskileri, ayet_bloklari, cumle_bloklari, kullanicilar, ezber_oturumlari, anlama_oturumlari + pgvector/FTS indeksleri).",
+      "timestamp": "2026-09-10T00:00:00Z"
+    },
+    {
+      "to": "agent-02",
+      "message": "Seed hazır: data-pipeline/seed/quran_seed.sql (114 sure + 6236 ayet, Uthmani metin, sayfa/cüz koordinatları). meal_tr ve transliterasyon_tr alanları henüz boş (DP-007/DP-006 bekliyor).",
+      "timestamp": "2026-09-10T00:00:00Z"
+    },
+    {
+      "to": "agent-05",
+      "message": "Seed doğrulama için hazır: data-pipeline/seed/quran_seed.sql. Ayet sayıları ve sure meta verilerini surah-metadata.json ile çapraz kontrol edebilirsiniz.",
+      "timestamp": "2026-09-10T00:00:00Z"
+    }
+  ]
+}

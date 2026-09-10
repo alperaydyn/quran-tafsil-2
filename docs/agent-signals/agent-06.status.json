@@ -1,0 +1,15 @@
+{
+  "agent": "agent-06",
+  "phase": 1,
+  "last_updated": "2026-09-11T00:00:00Z",
+  "completed": ["CONT-004", "CONT-002", "CONT-001", "CONT-003"],
+  "in_progress": null,
+  "blocked": [],
+  "messages": [
+    {
+      "to": "agent-02",
+      "message": "Referans skorlama algoritması dokümante edildi: docs/reference-scoring-algorithm.md. §6'da backend entegrasyonu için şema önerileri var (reference_score/reference_subscores alanları, ayet referans doğrulama sorgusu, verified_badge). Agent-06 backend/ dizinine yazamadığı için bu öneriler implementasyon bekliyor.",
+      "timestamp": "2026-09-11T00:00:00Z"
+    }
+  ]
+}
