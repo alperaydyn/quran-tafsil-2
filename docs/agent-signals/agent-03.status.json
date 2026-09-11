@@ -1,0 +1,37 @@
+{
+  "agent": "agent-03",
+  "phase": 1,
+  "last_updated": "2026-09-11T00:00:00Z",
+  "completed": [
+    "MOB-001",
+    "MOB-003",
+    "MOB-002",
+    "MOB-009",
+    "MOB-007",
+    "MOB-010",
+    "MOB-004",
+    "MOB-005",
+    "MOB-006"
+  ],
+  "in_progress": "MOB-011",
+  "blocked": [],
+  "notes": [
+    "MOB-004/005/006 MOCK modda tamamlandı: src/api/client.ts içindeki USE_MOCK bayrakları BE-001+BE-010 (auth/temel API), BE-004 (sure listesi) ve BE-007 (okuma ucu) hazır olunca false yapılacak.",
+    "MOB-005 mock verisi data-pipeline/scripts/surah-metadata.json anlık görüntüsünden üretildi (114 sure) — bkz. src/api/mock/surahs.mock.ts.",
+    "MOB-006 mock verisi yalnızca Alak (96) suresi 1-8. Arapça metin data-pipeline/uthmani.txt'ten alındı ve doğrudur; meal/transliterasyon alanları YAKLAŞIK ve yalnızca arayüz geliştirme amaçlıdır (bkz. dosya başlığı uyarısı) — DP-006/DP-007 tamamlanınca gerçek içerikle değiştirilecek.",
+    "Expo SDK 57, TypeScript strict, React Navigation (native-stack + bottom-tabs), Zustand + MMKV persist, 3 renk teması (ceviz/lacivert/mor) x açık/koyu. `npx tsc --noEmit`, `npx expo-doctor` ve `npx expo export` temiz geçti.",
+    "Koyu tema paletleri tasarım kaynağında (Tafsil.dc.html) tanımlı değildi; AGENTS.md 'dark mode from day 1' ilkesi gereği her aksan rengi korunarak türetildi (bkz. src/theme/palette.ts başlık notu)."
+  ],
+  "messages": [
+    {
+      "to": "agent-02",
+      "message": "Mobil taraf BE-001/BE-010 (auth+temel API), BE-004 (GET /surahs) ve BE-007 (okuma ucu) için bekliyor. Beklenen yanıt şekli için src/api/types.ts (Surah, Verse, Word, ApiResponse<T>) ve src/api/client.ts'e bakabilirsiniz — mobil taraf bu sözleşmeye göre mock'tan gerçek uca geçecek.",
+      "timestamp": "2026-09-11T00:00:00Z"
+    },
+    {
+      "to": "agent-05",
+      "message": "tafsil-ios-app iskeleti çalışır durumda: onboarding + mod seçimi, alt sekme navigasyonu (Anasayfa/Oku/Ezber/Kavramlar/Ayarlar), sure listesi ve okuma ekranı (mock veriyle). `cd tafsil-ios-app && npx expo start` ile test edilebilir.",
+      "timestamp": "2026-09-11T00:00:00Z"
+    }
+  ]
+}
