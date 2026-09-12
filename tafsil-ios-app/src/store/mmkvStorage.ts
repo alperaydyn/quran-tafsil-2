@@ -1,15 +1,52 @@
-import { MMKV } from 'react-native-mmkv';
 import type { StateStorage } from 'zustand/middleware';
 
 /**
- * Zustand `persist` middleware için MMKV tabanlı senkron depolama katmanı.
- * AsyncStorage'a kıyasla çok daha hızlıdır; offline-first mimari için
- * (bkz. AGENTS.md §3.3) tercih edilen kalıcı anahtar-değer deposu.
+ * Zustand `persist` middleware için MMKV tabanlı depolama katmanı.
+ * Expo Go veya Yeni Mimari (TurboModules) olmayan ortamlarda çalışma zamanı
+ * çökmesini önlemek için güvenli bellek (fallback) deposu içerir.
  */
-export const mmkv = new MMKV({ id: 'tafsil-app-storage' });
+interface StorageInstance {
+  set: (key: string, value: string | boolean | number) => void;
+  getString: (key: string) => string | undefined;
+  delete: (key: string) => void;
+}
+
+const memoryStore = new Map<string, string>();
+
+let activeStorage: StorageInstance;
+
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { MMKV } = require('react-native-mmkv');
+  activeStorage = new MMKV({ id: 'tafsil-app-storage' });
+} catch (err) {
+  console.warn(
+    '[Tafsil Storage] MMKV native modülü yüklenemedi (Expo Go veya Eski Mimari). Bellek deposuna geçiliyor:',
+    (err as Error)?.message
+  );
+  activeStorage = {
+    set: (name, value) => {
+      memoryStore.set(name, String(value));
+    },
+    getString: (name) => {
+      return memoryStore.get(name);
+    },
+    delete: (name) => {
+      memoryStore.delete(name);
+    },
+  };
+}
+
+export const mmkv = activeStorage;
 
 export const mmkvStorage: StateStorage = {
-  setItem: (name, value) => mmkv.set(name, value),
-  getItem: (name) => mmkv.getString(name) ?? null,
-  removeItem: (name) => mmkv.delete(name),
+  setItem: (name, value) => {
+    activeStorage.set(name, value);
+  },
+  getItem: (name) => {
+    return activeStorage.getString(name) ?? null;
+  },
+  removeItem: (name) => {
+    activeStorage.delete(name);
+  },
 };

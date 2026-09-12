@@ -7,6 +7,7 @@
     "icon": "./assets/icon.png",
     "scheme": "tafsilnet",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "primaryColor": "#3F5F86",
     "ios": {
       "bundleIdentifier": "net.tafsil.app",
