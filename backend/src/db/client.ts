@@ -23,7 +23,8 @@ export function getPool(): pg.Pool {
 }
 
 // Helper for single query execution via runtime pool
-export const query = (text: string, params?: any[]) => getPool().query(text, params);
+export const query = <T extends pg.QueryResultRow = any>(text: string, params?: any[]) =>
+  getPool().query<T>(text, params);
 
 // Direct PostgreSQL Client Factory (for migrations and large batch seeds on port 5432)
 export function getDirectClient() {

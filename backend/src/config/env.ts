@@ -13,7 +13,7 @@ export const config = {
   // PostgreSQL Connections
   db: {
     // PgBouncer pool connection URL (used for runtime application queries)
-    url: process.env.DATABASE_URL || "postgres://tafsil_user_001:tafsil_user_x23@localhost:6432/tafsil_net_db",
+    url: process.env.DATABASE_URL || "postgres://tafsil_user_001:tafsil_user_x23@localhost:5432/tafsil_net_db",
     // Direct connection URL (used for migrations and seeds)
     directUrl: process.env.DATABASE_URL_DIRECT || "postgres://tafsil_user_001:tafsil_user_x23@localhost:5432/tafsil_net_db",
     user: process.env.POSTGRES_USER || "tafsil_user_001",
@@ -26,4 +26,27 @@ export const config = {
   redis: {
     url: process.env.REDIS_URL || "redis://localhost:6379",
   },
+
+  jwt: {
+    secret: process.env.JWT_SECRET || "dev-only-insecure-secret-change-me",
+    expiresIn: process.env.JWT_EXPIRES_IN || "7d",
+  },
+
+  auth: {
+    apple: {
+      clientId: process.env.APPLE_CLIENT_ID || "",
+    },
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+    },
+  },
+
+  rateLimit: {
+    general: parseInt(process.env.RATE_LIMIT_GENERAL || "60", 10),
+  },
+
+  corsOrigins: (process.env.CORS_ORIGINS || "http://localhost:3000")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean),
 };

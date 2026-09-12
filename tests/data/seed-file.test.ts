@@ -97,7 +97,7 @@ describe("TEST-DP-001: seed file integrity (static)", () => {
   it("every ayet's metin_ar is non-empty and contains only Arabic-script characters", () => {
     // Arabic block + Arabic presentation forms + combining marks + tatweel + whitespace.
     const arabicPattern = /^[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s]+$/;
-    const rows = [...seedSql.matchAll(/^\(\d+, \d+, \d+, \d+, '((?:[^'\\]|'')*)'\)/gm)];
+    const rows = [...seedSql.matchAll(/^\(\d+, \d+, \d+, \d+, '((?:[^'\\]|'')*)'/gm)];
     expect(rows.length).toBeGreaterThan(0);
     for (const [, text] of rows) {
       const unescaped = text.replace(/''/g, "'");

@@ -1,0 +1,60 @@
+{
+  "agent": "agent-02",
+  "phase": 1,
+  "last_updated": "2026-09-12T00:00:00Z",
+  "completed": [
+    "BE-001",
+    "BE-010",
+    "BE-003",
+    "BE-002",
+    "BE-008",
+    "BE-011",
+    "BE-012",
+    "BE-013",
+    "BE-004",
+    "BE-005",
+    "BE-006",
+    "BE-007",
+    "BE-014",
+    "BE-015",
+    "BE-016",
+    "BE-009",
+    "BE-017",
+    "BE-018",
+    "BE-019"
+  ],
+  "in_progress": "",
+  "blocked": [],
+  "notes": "Tüm Phase 1 backend PBI'leri (BE-001..BE-019) tamamlandı. CANLI DOĞRULAMA YAPILDI: SSH tüneli üzerinden PostgreSQL 16 + pgvector ve Redis 7 servisleri ile canlı entegrasyon doğrulandı. /health (postgres: true, redis: true, 200 OK), /api/v1/sureler (114 sure), /api/v1/sureler/1/ayetler (7 ayet), /api/v1/ayetler/1/1 ve Redis L1/L2 önbellekleme (cache hit: true) başarıyla teyit edildi. Agent-05 (QA) API ve E2E testlerine başlayabilir.",
+  "endpoints": [
+    "GET /health",
+    "POST /api/v1/auth/login  { provider: 'apple'|'google', idToken }",
+    "GET /api/v1/users/me  (Bearer JWT)",
+    "PATCH /api/v1/users/me  (Bearer JWT) { tercihModu?, dil? }",
+    "GET /api/v1/sureler?siralama=mushaf|nuzul",
+    "GET /api/v1/sureler/:id/detay",
+    "GET /api/v1/sureler/:id/ayetler?page=&limit=",
+    "GET /api/v1/ayetler/:sureId/:ayetNo",
+    "GET /api/v1/ayetler/:id/audio",
+    "GET /api/v1/kelimeler/:id",
+    "GET /api/v1/kokler/:id/turevler",
+    "GET /docs  (Swagger UI)"
+  ],
+  "messages": [
+    {
+      "to": "agent-03",
+      "message": "Phase 1 Kur'an okuma endpoint'leri (BE-004..007, BE-017) ve auth (BE-011..016) hazır. Sözleşme: ApiResponse<T> zarfı ({success, data, error, meta}), 401 -> {error.code:'UNAUTHORIZED'}. Ayet endpoint'i sure+ayet_no bazlı: GET /api/v1/ayetler/:sureId/:ayetNo (master blueprint'teki /ayetler/:id değil, agent-02 spec'indeki sözleşme kullanıldı). Kelime ses zaman damgaları kelimeler[].start_ms/end_ms alanında ayet yanıtına gömülü geliyor.",
+      "timestamp": "2026-09-12T00:00:00Z"
+    },
+    {
+      "to": "agent-04",
+      "message": "Aynı Kur'an okuma ve auth endpoint'leri web için de geçerli. CORS_ORIGINS .env üzerinden yönetiliyor; new.tafsil.net/staging.tafsil.net vb. eklenmesi gerekiyorsa haber verin.",
+      "timestamp": "2026-09-12T00:00:00Z"
+    },
+    {
+      "to": "agent-05",
+      "message": "meal_tr/transliterasyon_tr draft LLM çevirisi olduğu uyarınızı API katmanında ayrıca işaretlemedik (DB'den olduğu gibi serve ediliyor); editoryal onay durumu ayrı bir alan olarak şemaya eklenmek istenirse schema-requests.md üzerinden Agent-01'e iletilebilir.",
+      "timestamp": "2026-09-12T00:00:00Z"
+    }
+  ]
+}

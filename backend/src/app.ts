@@ -1,0 +1,54 @@
+import Fastify, { type FastifyInstance, type FastifyError } from "fastify";
+import cors from "@fastify/cors";
+import helmet from "@fastify/helmet";
+import sensible from "@fastify/sensible";
+import rateLimit from "@fastify/rate-limit";
+import swagger from "@fastify/swagger";
+import swaggerUi from "@fastify/swagger-ui";
+import { config } from "./config/env.js";
+import { authPlugin } from "./plugins/auth.js";
+import { fail } from "./utils/response.js";
+import { healthRoutes } from "./modules/health/routes.js";
+import { authRoutes } from "./modules/auth/routes.js";
+import { userRoutes } from "./modules/users/routes.js";
+import { quranRoutes } from "./modules/quran/routes.js";
+import { lexiconRoutes } from "./modules/lexicon/routes.js";
+
+export async function buildApp(): Promise<FastifyInstance> {
+  const app = Fastify({
+    logger: { level: config.logLevel },
+  });
+
+  await app.register(helmet);
+  await app.register(cors, { origin: config.corsOrigins });
+  await app.register(sensible);
+  await app.register(rateLimit, {
+    max: config.rateLimit.general,
+    timeWindow: "1 minute",
+  });
+  await app.register(swagger, {
+    openapi: {
+      info: { title: "tafsil.net API", version: "1.0.0" },
+    },
+  });
+  await app.register(swaggerUi, { routePrefix: "/docs" });
+  await app.register(authPlugin);
+
+  app.setErrorHandler((error: FastifyError, request, reply) => {
+    request.log.error(error);
+    const statusCode = error.statusCode ?? 500;
+    reply.status(statusCode).send(fail("INTERNAL_ERROR", error.message || "Beklenmeyen bir hata oluştu"));
+  });
+
+  app.setNotFoundHandler((request, reply) => {
+    reply.status(404).send(fail("NOT_FOUND", `Route bulunamadı: ${request.method} ${request.url}`));
+  });
+
+  await app.register(healthRoutes);
+  await app.register(authRoutes, { prefix: "/api/v1/auth" });
+  await app.register(userRoutes, { prefix: "/api/v1/users" });
+  await app.register(quranRoutes, { prefix: "/api/v1" });
+  await app.register(lexiconRoutes, { prefix: "/api/v1" });
+
+  return app;
+}

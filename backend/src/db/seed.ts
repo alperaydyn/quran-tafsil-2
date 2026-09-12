@@ -16,7 +16,7 @@ async function runSeed() {
       throw new Error(`Seed dosyası bulunamadı: ${seedFile}. Lütfen önce seeder scriptini çalıştırın.`);
     }
 
-    console.log(`✓ ${path.basename(seedFile)} dosyası yükleniyor (6234 ayet, 114 sure)...`);
+    console.log(`✓ ${path.basename(seedFile)} dosyası yükleniyor (6236 ayet, 114 sure)...`);
     const sql = fs.readFileSync(seedFile, "utf-8");
 
     const startTime = Date.now();

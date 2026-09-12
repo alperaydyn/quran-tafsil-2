@@ -1,20 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Pressable } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
+import { WordBottomSheet } from '../components/reading/WordBottomSheet';
 import { useTheme } from '../theme';
 import { getVerses } from '../api/client';
-import type { Verse } from '../api/types';
+import type { Verse, Word } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
 import { useReadingMode } from '../hooks/useReadingMode';
 import { useReadingProgressStore } from '../store/useReadingProgressStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Reading'>;
 
-function VerseCard({ verse }: { verse: Verse }) {
+function VerseCard({
+  verse,
+  onWordPress,
+}: {
+  verse: Verse;
+  onWordPress: (word: Word) => void;
+}) {
   const theme = useTheme();
   const mode = useReadingMode();
+
+  // Kelimeler varsa kelime bazlı, yoksa boşlukla ayrılmış kelimeler olarak render et
+  const words: Word[] =
+    verse.words && verse.words.length > 0
+      ? verse.words
+      : verse.textAr.split(' ').map((w, idx) => ({
+          id: idx + 1,
+          position: idx + 1,
+          textAr: w,
+          textTr: '',
+          rootId: null,
+          startMs: 0,
+          endMs: 0,
+        }));
 
   return (
     <View
@@ -23,49 +44,78 @@ function VerseCard({ verse }: { verse: Verse }) {
         borderWidth: 1,
         borderColor: theme.colors.line,
         borderRadius: theme.radius.xxl,
-        padding: 15,
-        marginBottom: 12,
-        gap: 10,
+        padding: 16,
+        marginBottom: 14,
+        gap: 12,
       }}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-        <View
-          style={{
-            width: 21,
-            height: 21,
-            borderRadius: 7,
-            backgroundColor: theme.colors.band,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <StyledText variant="caption" color="mut">
-            {verse.ayahNo}
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <View
+            style={{
+              width: 24,
+              height: 24,
+              borderRadius: 8,
+              backgroundColor: theme.colors.band,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <StyledText variant="caption" color="mut">
+              {verse.ayahNo}
+            </StyledText>
+          </View>
+          <StyledText variant="footnote" color="faint">
+            {verse.surahId}:{verse.ayahNo} · Cüz {verse.juzNo} · Sayfa {verse.pageNo}
           </StyledText>
         </View>
-        <StyledText variant="footnote" color="faint">
-          {verse.surahId}:{verse.ayahNo}
-        </StyledText>
       </View>
 
       {mode.arabicEmphasis !== 'hidden' && (
-        <StyledText
-          variant={mode.arabicEmphasis === 'hero' ? 'arabicHero' : 'arabicReading'}
-          style={{ writingDirection: 'rtl', textAlign: 'right' }}
+        <View
+          style={{
+            flexDirection: 'row-reverse',
+            flexWrap: 'wrap',
+            gap: 6,
+            justifyContent: 'flex-start',
+            paddingVertical: 4,
+          }}
         >
-          {verse.textAr}
-        </StyledText>
+          {words.map((word, idx) => (
+            <Pressable
+              key={`${verse.id}-word-${idx}`}
+              onPress={() => onWordPress(word)}
+              style={({ pressed }) => ({
+                backgroundColor: pressed ? theme.colors.band : 'transparent',
+                borderRadius: theme.radius.sm,
+                paddingHorizontal: 3,
+                paddingVertical: 2,
+              })}
+            >
+              <StyledText
+                variant={mode.arabicEmphasis === 'hero' ? 'arabicHero' : 'arabicReading'}
+                style={{ writingDirection: 'rtl', textAlign: 'right' }}
+              >
+                {word.textAr}
+              </StyledText>
+            </Pressable>
+          ))}
+        </View>
       )}
 
-      {mode.showTransliteration && (
-        <StyledText variant="footnote" color="mut">
+      {mode.showTransliteration && verse.transliterationTr ? (
+        <StyledText variant="footnote" color="mut" style={{ lineHeight: 20 }}>
           {verse.transliterationTr}
         </StyledText>
-      )}
+      ) : null}
 
       {mode.mealEmphasis !== 'minimal' && (
-        <StyledText variant={mode.mealEmphasis === 'primary' ? 'bodyLarge' : 'body'} color="ink">
-          {verse.mealTr}
+        <StyledText
+          variant={mode.mealEmphasis === 'primary' ? 'bodyLarge' : 'body'}
+          color="ink"
+          style={{ lineHeight: 22 }}
+        >
+          {verse.mealTr || 'Bu ayet için meal çevirisi hazırlanıyor.'}
         </StyledText>
       )}
     </View>
@@ -77,13 +127,19 @@ export function ReadingScreen({ route }: Props) {
   const { surahId } = route.params;
   const [verses, setVerses] = useState<Verse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedWord, setSelectedWord] = useState<Word | null>(null);
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+
   const markVerseRead = useReadingProgressStore((s) => s.markVerseRead);
   const setLastRead = useReadingProgressStore((s) => s.setLastRead);
 
   useEffect(() => {
     let mounted = true;
+    setLoading(true);
     getVerses(surahId).then((res) => {
-      if (mounted && res.success && res.data) setVerses(res.data);
+      if (mounted && res.success && res.data) {
+        setVerses(res.data);
+      }
       if (mounted) setLoading(false);
     });
     return () => {
@@ -98,37 +154,43 @@ export function ReadingScreen({ route }: Props) {
       setLastRead(surahId, last.ayahNo, new Date().toISOString());
       verses.forEach((v) => markVerseRead(surahId, v.ayahNo, today));
     }
-    // Not: Bu basit mock akışında ekran açıldığında tüm ayetler "okundu"
-    // sayılır. Gerçek ilerleme takibi (görünürlük bazlı) MOB-015'te
-    // scroll/viewport ile hassaslaştırılacak.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [verses]);
+  }, [verses, surahId, markVerseRead, setLastRead]);
+
+  const handleWordPress = (word: Word) => {
+    setSelectedWord(word);
+    setBottomSheetVisible(true);
+  };
 
   return (
     <Screen edges={['left', 'right']}>
       {loading ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <StyledText variant="footnote" color="mut">
-            Yükleniyor…
+            Ayetler yükleniyor…
           </StyledText>
         </View>
       ) : verses.length === 0 ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 }}>
           <StyledText variant="body" color="mut" style={{ textAlign: 'center' }}>
-            Bu sure için mock içerik henüz eklenmedi. Şimdilik yalnızca Alak (96) suresi
-            örnek veriyle geliyor.
+            Ayet içeriği bulunamadı.
           </StyledText>
         </View>
       ) : (
         <ScrollView
-          contentContainerStyle={{ paddingTop: theme.spacing.lg, paddingBottom: 32 }}
+          contentContainerStyle={{ paddingTop: theme.spacing.md, paddingBottom: 36, paddingHorizontal: theme.spacing.lg }}
           showsVerticalScrollIndicator={false}
         >
           {verses.map((v) => (
-            <VerseCard key={v.id} verse={v} />
+            <VerseCard key={v.id} verse={v} onWordPress={handleWordPress} />
           ))}
         </ScrollView>
       )}
+
+      <WordBottomSheet
+        word={selectedWord}
+        visible={bottomSheetVisible}
+        onClose={() => setBottomSheetVisible(false)}
+      />
     </Screen>
   );
 }
