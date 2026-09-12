@@ -13,6 +13,8 @@ export type RootStackParamList = {
   Auth: undefined;
   Main: NavigatorScreenParams<MainTabParamList>;
   Reading: { surahId: number; ayahNo?: number };
+  MemorizationStudio: { sessionId?: string; surahId?: number; startAyah?: number; endAyah?: number };
+  ProgressMatrix: { initialTab?: 'reading' | 'memorization' } | undefined;
 };
 
 declare global {

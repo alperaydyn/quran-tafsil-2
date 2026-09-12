@@ -9,6 +9,8 @@ import { OnboardingScreen } from '../screens/OnboardingScreen';
 import { AuthScreen } from '../screens/AuthScreen';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { ReadingScreen } from '../screens/ReadingScreen';
+import { MemorizationStudioScreen } from '../screens/MemorizationStudioScreen';
+import { ProgressMatrixScreen } from '../screens/ProgressMatrixScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -46,6 +48,16 @@ export function RootNavigator() {
           name="Reading"
           component={ReadingScreen}
           options={{ headerShown: true, headerTitle: '', headerBackTitle: 'Geri' }}
+        />
+        <Stack.Screen
+          name="MemorizationStudio"
+          component={MemorizationStudioScreen}
+          options={{ headerShown: false, presentation: 'fullScreenModal' }}
+        />
+        <Stack.Screen
+          name="ProgressMatrix"
+          component={ProgressMatrixScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

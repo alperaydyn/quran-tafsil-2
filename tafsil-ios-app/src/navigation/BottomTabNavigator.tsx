@@ -5,7 +5,7 @@ import { useTheme } from '../theme';
 import type { MainTabParamList } from './types';
 import { HomeScreen } from '../screens/HomeScreen';
 import { SurahListScreen } from '../screens/SurahListScreen';
-import { MemorizationStudioScreen } from '../screens/MemorizationStudioScreen';
+import { MemorizationListScreen } from '../screens/MemorizationListScreen';
 import { DagExplorerScreen } from '../screens/DagExplorerScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 
@@ -56,7 +56,7 @@ export function BottomTabNavigator() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="SurahList" component={SurahListScreen} />
-      <Tab.Screen name="Memorization" component={MemorizationStudioScreen} />
+      <Tab.Screen name="Memorization" component={MemorizationListScreen} />
       <Tab.Screen name="DagExplorer" component={DagExplorerScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>

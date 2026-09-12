@@ -5,6 +5,7 @@ export interface ApiResponseMeta {
   limit?: number;
   total?: number;
   cached?: boolean;
+  [key: string]: unknown;
 }
 
 export interface ApiResponseError {

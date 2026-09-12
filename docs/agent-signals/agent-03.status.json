@@ -1,7 +1,7 @@
 {
   "agent": "agent-03",
-  "phase": 1,
-  "last_updated": "2026-09-12T14:35:00Z",
+  "phase": 2,
+  "last_updated": "2026-09-12T16:10:00Z",
   "completed": [
     "MOB-001",
     "MOB-003",
@@ -13,27 +13,33 @@
     "MOB-005",
     "MOB-006",
     "MOB-008",
-    "MOB-011"
+    "MOB-011",
+    "MOB-015",
+    "MOB-016",
+    "MOB-021",
+    "MOB-022",
+    "MOB-023"
   ],
   "in_progress": "",
   "blocked": [],
   "notes": [
-    "Tüm Phase 1 mobil PBI'leri (MOB-001..MOB-011 ve MOB-008) tamamlandı.",
-    "CANLI API ENTEGRASYONU AKTİF: `src/api/client.ts` içindeki `USE_MOCK` bayrakları false yapıldı ve Fastify backend uçlarına (`/api/v1/sureler`, `/api/v1/sureler/:id/ayetler`, `/api/v1/auth/login`) bağlandı. Ağ kesintilerinde UI kilitlenmemesi için otomatik yerel fallback koruması entegre edildi.",
-    "MOB-008 (Word Bottom Sheet) tamamlandı: Ayet okuma ekranında (`ReadingScreen.tsx`) Arapça kelimelere dokunulduğunda kelime meali, transliterasyonu ve morfolojik kök detayını gösteren `WordBottomSheet.tsx` bileşeni eklendi.",
-    "Onboarding, 3 arayüz modu (Keşif/Öğrenme/Odak), Zustand MMKV persist, Apple Sign-in, Google mock auth, Surah listesi ve Ayet okuma akışı eksiksiz çalışıyor.",
+    "Phase 2 mobil geliştirmeleri tamamlandı.",
+    "MOB-015 & MOB-016 (Kur'an Haritası ve İlerlemem): Tafsil.dc.html #2a birebir piksel uyumlu 114 sure 4 sütunlu interaktif matris (SurahGridMatrix.tsx ve ProgressMatrixScreen.tsx), 'Okuduklarım' ve 'Ezberlediklerim' sekmeleri, tur skalası ve alt detay çekmecesi eklendi.",
+    "MOB-021 (Etkileşimli Ezber Stüdyosu): Tafsil.dc.html #2b referanslı 3 kademeli hafıza turu (1. Birlikte, 2. Kelime & İpucu, 3. Sesli okuma & Whisper) ve SM-2 değerlendirme paneli (MemorizationStudioScreen.tsx) tamamlandı.",
+    "MOB-022 (Dinamik Dashboard): HomeScreen üzerinde Günün Ayeti ve Günün Duası kartları, 'Ezberlemeye Devam Et' akıllı kısayolu ve 'Okuma ve Tefekkür Bahçesi' harita önizlemesi entegre edildi.",
+    "MOB-023 (Ezber Oturumları Yönetimi): Tafsil.dc.html #3a ve #3b referanslı oturum listesi (MemorizationListScreen.tsx), vadesi gelen tekrarlar afişi ve Yeni Oturum Başlatma modalı (NewSessionModal.tsx) bağlandı.",
     "`npx tsc --noEmit` ve `npx expo export` (iOS + Android) 0 hata ile doğrulandı."
   ],
   "messages": [
     {
       "to": "all",
-      "message": "Mobil uygulama (tafsil-ios-app) Phase 1 kapsamındaki tüm işleri tamamladı ve canlı Fastify API'sine bağlandı. Hem iOS hem Android bundle ihracı (expo export) başarıyla geçti.",
-      "timestamp": "2026-09-12T14:35:00Z"
+      "message": "Mobil uygulama (tafsil-ios-app) Phase 2 kapsamındaki tüm ezberleme, aralıklı tekrar, 114 sure ilerleme matrisi ve dinamik dashboard bileşenlerini tamamladı. Hem iOS hem Android bundle ihracı (expo export) başarıyla geçti.",
+      "timestamp": "2026-09-12T16:10:00Z"
     },
     {
       "to": "agent-02",
-      "message": "Backend uçlarınız (/api/v1/sureler, /api/v1/sureler/:id/ayetler, /api/v1/auth/login) mobil client'a entegre edildi ve veri modelleri (snake_case -> camelCase) başarıyla eşlendi.",
-      "timestamp": "2026-09-12T14:35:00Z"
+      "message": "Backend'deki /api/v1/dashboard/gunun-kartlari ve /api/v1/ezber-oturumlari uçları mobil mağaza ve ekran akışlarına başarıyla bağlandı.",
+      "timestamp": "2026-09-12T16:10:00Z"
     }
   ]
 }

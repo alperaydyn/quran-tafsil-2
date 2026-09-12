@@ -1,7 +1,7 @@
 {
   "agent": "agent-02",
-  "phase": 1,
-  "last_updated": "2026-09-12T00:00:00Z",
+  "phase": 2,
+  "last_updated": "2026-09-12T16:10:00Z",
   "completed": [
     "BE-001",
     "BE-010",
@@ -21,11 +21,14 @@
     "BE-009",
     "BE-017",
     "BE-018",
-    "BE-019"
+    "BE-019",
+    "BE-020",
+    "BE-021",
+    "BE-022"
   ],
   "in_progress": "",
   "blocked": [],
-  "notes": "Tüm Phase 1 backend PBI'leri (BE-001..BE-019) tamamlandı. CANLI DOĞRULAMA YAPILDI: SSH tüneli üzerinden PostgreSQL 16 + pgvector ve Redis 7 servisleri ile canlı entegrasyon doğrulandı. /health (postgres: true, redis: true, 200 OK), /api/v1/sureler (114 sure), /api/v1/sureler/1/ayetler (7 ayet), /api/v1/ayetler/1/1 ve Redis L1/L2 önbellekleme (cache hit: true) başarıyla teyit edildi. Agent-05 (QA) API ve E2E testlerine başlayabilir.",
+  "notes": "Phase 2 backend PBI'leri (BE-020: SM-2 Algoritma Motoru, BE-021: Ezber Oturumları CRUD & Değerlendirme API, BE-022: Dinamik Dashboard Günün Kartları & İstatistik API) tamamlandı. PostgreSQL ezber_oturumlari tablosu ve Redis L1 önbellek entegrasyonu ile 53/53 test başarıyla geçti.",
   "endpoints": [
     "GET /health",
     "POST /api/v1/auth/login  { provider: 'apple'|'google', idToken }",
@@ -38,23 +41,24 @@
     "GET /api/v1/ayetler/:id/audio",
     "GET /api/v1/kelimeler/:id",
     "GET /api/v1/kokler/:id/turevler",
+    "GET /api/v1/ezber-oturumlari  (Bearer JWT)",
+    "GET /api/v1/ezber-oturumlari/bekleyenler  (Bearer JWT)",
+    "POST /api/v1/ezber-oturumlari  (Bearer JWT) { sureId, baslangicAyet, bitisAyet }",
+    "POST /api/v1/ezber-oturumlari/:id/degerlendir  (Bearer JWT) { quality: 0..5 }",
+    "GET /api/v1/dashboard/gunun-kartlari",
+    "GET /api/v1/dashboard/istatistikler  (Bearer JWT)",
     "GET /docs  (Swagger UI)"
   ],
   "messages": [
     {
       "to": "agent-03",
-      "message": "Phase 1 Kur'an okuma endpoint'leri (BE-004..007, BE-017) ve auth (BE-011..016) hazır. Sözleşme: ApiResponse<T> zarfı ({success, data, error, meta}), 401 -> {error.code:'UNAUTHORIZED'}. Ayet endpoint'i sure+ayet_no bazlı: GET /api/v1/ayetler/:sureId/:ayetNo (master blueprint'teki /ayetler/:id değil, agent-02 spec'indeki sözleşme kullanıldı). Kelime ses zaman damgaları kelimeler[].start_ms/end_ms alanında ayet yanıtına gömülü geliyor.",
-      "timestamp": "2026-09-12T00:00:00Z"
-    },
-    {
-      "to": "agent-04",
-      "message": "Aynı Kur'an okuma ve auth endpoint'leri web için de geçerli. CORS_ORIGINS .env üzerinden yönetiliyor; new.tafsil.net/staging.tafsil.net vb. eklenmesi gerekiyorsa haber verin.",
-      "timestamp": "2026-09-12T00:00:00Z"
+      "message": "Phase 2 backend uçları (/api/v1/ezber-oturumlari, /api/v1/ezber-oturumlari/:id/degerlendir, /api/v1/dashboard/gunun-kartlari, /api/v1/dashboard/istatistikler) hazır ve test edildi. SM-2 puanlama 0-5 skoru alıp nextReviewAt döndürür.",
+      "timestamp": "2026-09-12T16:10:00Z"
     },
     {
       "to": "agent-05",
-      "message": "meal_tr/transliterasyon_tr draft LLM çevirisi olduğu uyarınızı API katmanında ayrıca işaretlemedik (DB'den olduğu gibi serve ediliyor); editoryal onay durumu ayrı bir alan olarak şemaya eklenmek istenirse schema-requests.md üzerinden Agent-01'e iletilebilir.",
-      "timestamp": "2026-09-12T00:00:00Z"
+      "message": "TEST-BE-005 (SM-2 & Ezber API) ve TEST-BE-006 (Dashboard API) testleri oluşturuldu ve yeşil geçti.",
+      "timestamp": "2026-09-12T16:10:00Z"
     }
   ]
 }
