@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAyet, getSure } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
+import { InteractiveAyetReader } from "@/components/interactive-reader/InteractiveAyetReader";
 import styles from "./page.module.css";
+
 
 export const revalidate = 86400;
 
@@ -100,14 +102,16 @@ export default async function AyetPage({
           </span>
         </nav>
 
-        <article className={styles.card}>
-          <p className="eyebrow">
-            {sure.nameTr} suresi · {sure.id}:{ayet.ayetNo} / {sure.verseCount}
-          </p>
-          <p className={`arabic ${styles.arabic}`}>{ayet.metinAr}</p>
-          <p className={styles.translit}>{ayet.transliterasyon}</p>
-          <p className={styles.meal}>{ayet.mealTr}</p>
-        </article>
+        <InteractiveAyetReader
+          sureId={sure.id}
+          sureNameTr={sure.nameTr}
+          ayetNo={ayet.ayetNo}
+          verseCount={sure.verseCount}
+          metinAr={ayet.metinAr}
+          transliterasyon={ayet.transliterasyon}
+          mealTr={ayet.mealTr}
+        />
+
 
         <div className={styles.nav}>
           <Link

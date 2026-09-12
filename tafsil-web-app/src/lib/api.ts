@@ -226,3 +226,83 @@ export async function createAdminArticle(article: {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Phase 6: Audio & Recitation API
+// ---------------------------------------------------------------------------
+
+export async function fetchReciters(): Promise<import("./types").Reciter[]> {
+  try {
+    const res = await fetch(`${API_BASE}/audio/reciters`);
+    if (!res.ok) return [];
+    const body = await res.json();
+    return body.data ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchSurahAudioPlaylist(
+  sureId: number,
+  reciterId: string = "mishary_alafasy"
+): Promise<import("./types").SurahAudioPlaylist | null> {
+  try {
+    const res = await fetch(`${API_BASE}/audio/sure/${sureId}?reciter=${reciterId}`);
+    if (!res.ok) return null;
+    const body = await res.json();
+    return body.data ?? null;
+  } catch {
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Phase 6: Sync & Offline API
+// ---------------------------------------------------------------------------
+
+export async function pushSyncData(data: {
+  user_id?: string;
+  bookmarks?: any[];
+  reading_history?: any[];
+  memorization_sessions?: any[];
+}): Promise<any> {
+  try {
+    const res = await fetch(`${API_BASE}/sync/push`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return null;
+    const body = await res.json();
+    return body.data ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function pullSyncData(lastSyncedAt?: string): Promise<any> {
+  try {
+    const res = await fetch(`${API_BASE}/sync/pull`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ last_synced_at: lastSyncedAt }),
+    });
+    if (!res.ok) return null;
+    const body = await res.json();
+    return body.data ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function getSyncStatus(): Promise<import("./types").SyncStatus | null> {
+  try {
+    const res = await fetch(`${API_BASE}/sync/status`);
+    if (!res.ok) return null;
+    const body = await res.json();
+    return body.data ?? null;
+  } catch {
+    return null;
+  }
+}
+
+

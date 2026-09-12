@@ -4,6 +4,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
 import { WordDetailSheet } from '../components/lexicon/WordDetailSheet';
+import { AudioPlaybackBar } from '../components/reading/AudioPlaybackBar';
+import { OfflineSyncService } from '../services/offlineSyncService';
 import { useTheme } from '../theme';
 import { getVerses } from '../api/client';
 import type { Verse, Word } from '../api/types';
@@ -15,15 +17,22 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Reading'>;
 
 function VerseCard({
   verse,
+  isVerseActive,
+  activeWordIndex,
   onWordPress,
+  onBookmarkToggle,
+  isBookmarked,
 }: {
   verse: Verse;
+  isVerseActive: boolean;
+  activeWordIndex: number | null;
   onWordPress: (word: Word) => void;
+  onBookmarkToggle: () => void;
+  isBookmarked: boolean;
 }) {
   const theme = useTheme();
   const mode = useReadingMode();
 
-  // Kelimeler varsa kelime bazlı, yoksa boşlukla ayrılmış kelimeler olarak render et
   const words: Word[] =
     verse.words && verse.words.length > 0
       ? verse.words
@@ -42,7 +51,7 @@ function VerseCard({
       style={{
         backgroundColor: theme.colors.surf,
         borderWidth: 1,
-        borderColor: theme.colors.line,
+        borderColor: isVerseActive ? '#D4A853' : theme.colors.line,
         borderRadius: theme.radius.xxl,
         padding: 16,
         marginBottom: 14,
@@ -56,12 +65,12 @@ function VerseCard({
               width: 24,
               height: 24,
               borderRadius: 8,
-              backgroundColor: theme.colors.band,
+              backgroundColor: isVerseActive ? '#D4A853' : theme.colors.band,
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <StyledText variant="caption" color="mut">
+            <StyledText variant="caption" style={{ color: isVerseActive ? '#171613' : theme.colors.mut, fontWeight: '700' }}>
               {verse.ayahNo}
             </StyledText>
           </View>
@@ -69,6 +78,12 @@ function VerseCard({
             {verse.surahId}:{verse.ayahNo} · Cüz {verse.juzNo} · Sayfa {verse.pageNo}
           </StyledText>
         </View>
+
+        <Pressable onPress={onBookmarkToggle} hitSlop={8}>
+          <StyledText style={{ fontSize: 16, color: isBookmarked ? '#D4A853' : theme.colors.mut }}>
+            {isBookmarked ? '★' : '☆'}
+          </StyledText>
+        </Pressable>
       </View>
 
       {mode.arabicEmphasis !== 'hidden' && (
@@ -81,25 +96,38 @@ function VerseCard({
             paddingVertical: 4,
           }}
         >
-          {words.map((word, idx) => (
-            <Pressable
-              key={`${verse.id}-word-${idx}`}
-              onPress={() => onWordPress(word)}
-              style={({ pressed }) => ({
-                backgroundColor: pressed ? theme.colors.band : 'transparent',
-                borderRadius: theme.radius.sm,
-                paddingHorizontal: 3,
-                paddingVertical: 2,
-              })}
-            >
-              <StyledText
-                variant={mode.arabicEmphasis === 'hero' ? 'arabicHero' : 'arabicReading'}
-                style={{ writingDirection: 'rtl', textAlign: 'right' }}
+          {words.map((word, idx) => {
+            const isWordActive = isVerseActive && activeWordIndex === idx;
+            return (
+              <Pressable
+                key={`${verse.id}-word-${idx}`}
+                onPress={() => onWordPress(word)}
+                style={({ pressed }) => ({
+                  backgroundColor: isWordActive
+                    ? 'rgba(212, 168, 83, 0.28)'
+                    : pressed
+                    ? theme.colors.band
+                    : 'transparent',
+                  borderRadius: theme.radius.sm,
+                  paddingHorizontal: 4,
+                  paddingVertical: 2,
+                  borderWidth: isWordActive ? 1 : 0,
+                  borderColor: isWordActive ? '#D4A853' : 'transparent',
+                })}
               >
-                {word.textAr}
-              </StyledText>
-            </Pressable>
-          ))}
+                <StyledText
+                  variant={mode.arabicEmphasis === 'hero' ? 'arabicHero' : 'arabicReading'}
+                  style={{
+                    writingDirection: 'rtl',
+                    textAlign: 'right',
+                    color: isWordActive ? '#8C5B00' : theme.colors.ink,
+                  }}
+                >
+                  {word.textAr}
+                </StyledText>
+              </Pressable>
+            );
+          })}
         </View>
       )}
 
@@ -129,6 +157,12 @@ export function ReadingScreen({ route, navigation }: Props) {
   const [loading, setLoading] = useState(true);
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [bookmarkedSet, setBookmarkedSet] = useState<Set<number>>(new Set());
+
+  // Audio state
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeAyah, setActiveAyah] = useState(1);
+  const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
 
   const markVerseRead = useReadingProgressStore((s) => s.markVerseRead);
   const setLastRead = useReadingProgressStore((s) => s.setLastRead);
@@ -142,6 +176,15 @@ export function ReadingScreen({ route, navigation }: Props) {
       }
       if (mounted) setLoading(false);
     });
+
+    // Load bookmarks
+    OfflineSyncService.getBookmarks().then((bms) => {
+      if (mounted) {
+        const set = new Set(bms.filter((b) => b.sure_id === surahId).map((b) => b.ayet_no));
+        setBookmarkedSet(set);
+      }
+    });
+
     return () => {
       mounted = false;
     };
@@ -152,9 +195,56 @@ export function ReadingScreen({ route, navigation }: Props) {
       const today = new Date().toISOString().slice(0, 10);
       const last = verses[verses.length - 1];
       setLastRead(surahId, last.ayahNo, new Date().toISOString());
-      verses.forEach((v) => markVerseRead(surahId, v.ayahNo, today));
+      verses.forEach((v) => {
+        markVerseRead(surahId, v.ayahNo, today);
+        OfflineSyncService.recordReading(surahId, v.ayahNo, 20);
+      });
     }
   }, [verses, surahId, markVerseRead, setLastRead]);
+
+  // Simulated word-by-word karaoke sync timer when playing
+  useEffect(() => {
+    if (!isPlaying) {
+      setActiveWordIndex(null);
+      return;
+    }
+
+    const currentVerse = verses.find((v) => v.ayahNo === activeAyah);
+    const wordCount = currentVerse?.words?.length || currentVerse?.textAr.split(' ').length || 5;
+
+    let currentWord = 0;
+    setActiveWordIndex(0);
+
+    const interval = setInterval(() => {
+      currentWord++;
+      if (currentWord < wordCount) {
+        setActiveWordIndex(currentWord);
+      } else {
+        // Move to next verse or stop
+        if (activeAyah < verses.length) {
+          setActiveAyah((prev) => prev + 1);
+          currentWord = 0;
+        } else {
+          setIsPlaying(false);
+          setActiveWordIndex(null);
+        }
+      }
+    }, 900);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, activeAyah, verses]);
+
+  const toggleBookmark = (ayahNo: number) => {
+    const next = new Set(bookmarkedSet);
+    if (next.has(ayahNo)) {
+      next.delete(ayahNo);
+      OfflineSyncService.removeBookmark(surahId, ayahNo);
+    } else {
+      next.add(ayahNo);
+      OfflineSyncService.addBookmark(surahId, ayahNo, 'Tefekkür');
+    }
+    setBookmarkedSet(next);
+  };
 
   const handleWordPress = (word: Word) => {
     setSelectedWord(word);
@@ -177,7 +267,11 @@ export function ReadingScreen({ route, navigation }: Props) {
         </View>
       ) : (
         <>
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', paddingHorizontal: theme.spacing.lg, paddingBottom: 4 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: theme.spacing.lg, paddingBottom: 4 }}>
+            <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
+              {verses.length} Ayet · Çevrimdışı Hazır
+            </StyledText>
+
             <Pressable
               onPress={() => navigation.navigate('EnglishReading', { surahId })}
               style={{
@@ -200,13 +294,43 @@ export function ReadingScreen({ route, navigation }: Props) {
           </View>
 
           <ScrollView
-            contentContainerStyle={{ paddingTop: theme.spacing.sm, paddingBottom: 36, paddingHorizontal: theme.spacing.lg }}
+            contentContainerStyle={{ paddingTop: theme.spacing.sm, paddingBottom: 80, paddingHorizontal: theme.spacing.lg }}
             showsVerticalScrollIndicator={false}
           >
             {verses.map((v) => (
-              <VerseCard key={v.id} verse={v} onWordPress={handleWordPress} />
+              <VerseCard
+                key={v.id}
+                verse={v}
+                isVerseActive={isPlaying && activeAyah === v.ayahNo}
+                activeWordIndex={isPlaying && activeAyah === v.ayahNo ? activeWordIndex : null}
+                onWordPress={handleWordPress}
+                onBookmarkToggle={() => toggleBookmark(v.ayahNo)}
+                isBookmarked={bookmarkedSet.has(v.ayahNo)}
+              />
             ))}
           </ScrollView>
+
+          {/* Floating Audio Playback Dock */}
+          <AudioPlaybackBar
+            surahId={surahId}
+            totalVerses={verses.length}
+            currentAyah={activeAyah}
+            activeWordIndex={activeWordIndex}
+            isPlaying={isPlaying}
+            onTogglePlay={() => setIsPlaying(!isPlaying)}
+            onNextVerse={() => {
+              if (activeAyah < verses.length) {
+                setActiveAyah(activeAyah + 1);
+                setActiveWordIndex(0);
+              }
+            }}
+            onPrevVerse={() => {
+              if (activeAyah > 1) {
+                setActiveAyah(activeAyah - 1);
+                setActiveWordIndex(0);
+              }
+            }}
+          />
         </>
       )}
 

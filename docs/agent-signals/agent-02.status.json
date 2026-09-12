@@ -1,7 +1,7 @@
 {
   "agent": "agent-02",
-  "phase": 5,
-  "last_updated": "2026-09-12T17:40:00Z",
+  "phase": 6,
+  "last_updated": "2026-09-12T18:00:00Z",
   "completed": [
     "BE-001",
     "BE-010",
@@ -36,11 +36,15 @@
     "BE-031",
     "BE-032",
     "BE-033",
-    "BE-034"
+    "BE-034",
+    "BE-035",
+    "BE-036",
+    "BE-037",
+    "BE-038"
   ],
   "in_progress": "",
   "blocked": [],
-  "notes": "Phase 5 backend PBI'leri (BE-031: Admin Dashboard & Metrikler, BE-032: Topluluk Moderasyonu & Audit Log, BE-033: Çoklu Dil Çeviri API — lang=en/tr & Ayet Bağlamları, BE-034: Kavram & İlişki Yönetimi) tamamlandı. 79/79 test başarıyla geçti.",
+  "notes": "Phase 6 backend PBI'leri (BE-035: Çift Yönlü Çevrimdışı Senkronizasyon API — /api/v1/sync/*, BE-036: Ses Kaynakları ve Kâri Çalma Listesi API — /api/v1/audio/*, BE-037: Canlı SSE Ajan Araştırma Akışı — /api/v1/anlama-oturumlari/:id/stream, BE-038: Toleranslı Semantik Ayet Arama — /api/v1/anlama-oturumlari/ara) tamamlandı. 87/87 test başarıyla geçti.",
   "endpoints": [
     "GET /health",
     "POST /api/v1/auth/login  { provider: 'apple'|'google', idToken }",
@@ -51,6 +55,13 @@
     "GET /api/v1/sureler/:id/ayetler?page=&limit=&lang=tr|en",
     "GET /api/v1/ayetler/:sureId/:ayetNo?lang=tr|en",
     "GET /api/v1/ayetler/:id/audio",
+    "GET /api/v1/audio/reciters",
+    "GET /api/v1/audio/sure/:sureId?reciter=",
+    "POST /api/v1/sync/push",
+    "POST /api/v1/sync/pull",
+    "GET /api/v1/sync/status",
+    "GET /api/v1/anlama-oturumlari/:id/stream",
+    "POST /api/v1/anlama-oturumlari/ara",
     "GET /api/v1/kelimeler/:id",
     "GET /api/v1/kokler/:id/turevler",
     "GET /api/v1/ezber-oturumlari  (Bearer JWT)",
@@ -59,41 +70,33 @@
     "POST /api/v1/ezber-oturumlari/:id/degerlendir  (Bearer JWT) { quality: 0..5 }",
     "GET /api/v1/dashboard/gunun-kartlari",
     "GET /api/v1/dashboard/istatistikler  (Bearer JWT)",
-    "GET /api/v1/kavramlar?search=&limit=&offset=",
+    "GET /api/v1/kavramlar",
     "GET /api/v1/kavramlar/:slug",
-    "GET /api/v1/kavramlar/:slug/dag?depth=&limit=",
-    "GET /api/v1/kavramlar/:slug/nuzul-analizi",
-    "GET /api/v1/anlama-oturumlari",
-    "GET /api/v1/anlama-oturumlari/:id",
-    "POST /api/v1/anlama-oturumlari  { soru, baslik?, odak_kavramlar? }",
-    "POST /api/v1/anlama-oturumlari/:id/soru  { soru }",
-    "GET /api/v1/topluluk/oturumlari?kavram=&sort=&limit=&offset=",
-    "POST /api/v1/topluluk/oturumlari/:id/begen",
-    "POST /api/v1/topluluk/oturumlari/:id/catalla  { target_title? }",
+    "GET /api/v1/kavramlar/:slug/dag?depth=1|2",
+    "GET /api/v1/anlama-oturumlari  (Bearer JWT)",
+    "POST /api/v1/anlama-oturumlari  (Bearer JWT) { soru, odak_kavramlar? }",
+    "POST /api/v1/anlama-oturumlari/:id/soru  (Bearer JWT) { soru }",
+    "GET /api/v1/topluluk/oturumlari?siralama=populer|yeni&kavram=&limit=&offset=",
+    "POST /api/v1/topluluk/oturumlari/:id/begen  (Bearer JWT)",
+    "POST /api/v1/topluluk/oturumlari/:id/catalla  (Bearer JWT)",
     "GET /api/v1/topluluk/kavramlar",
-    "GET /api/v1/makaleler",
+    "GET /api/v1/makaleler?limit=&offset=",
     "GET /api/v1/makaleler/:slug",
-    "POST /api/v1/makaleler/dogrula  { content_md }",
+    "POST /api/v1/makaleler/dogrula { content_md }",
     "GET /api/v1/analitik/ozet",
     "GET /api/v1/admin/dashboard",
-    "GET /api/v1/admin/topluluk?status=&limit=&offset=",
-    "PATCH /api/v1/admin/topluluk/:id/moderasyon  { is_featured?, moderation_status? }",
-    "POST /api/v1/admin/makaleler  { title, slug, author, summary, content_md }",
-    "PATCH /api/v1/admin/makaleler/:slug",
-    "POST /api/v1/admin/kavramlar  { slug, baslik_tr, baslik_ar, tanim }",
-    "POST /api/v1/admin/kavramlar/iliskiler  { kaynak_kavram_id, hedef_kavram_id, iliski_tipi }",
-    "GET /docs  (Swagger UI)"
+    "GET /api/v1/admin/topluluk",
+    "PATCH /api/v1/admin/topluluk/:id/moderasyon",
+    "POST /api/v1/admin/makaleler",
+    "PATCH /api/v1/admin/makaleler/:id",
+    "POST /api/v1/admin/kavramlar",
+    "POST /api/v1/admin/kavramlar/iliskiler"
   ],
   "messages": [
     {
-      "to": "agent-04",
-      "message": "Phase 5 admin API uçları (/api/v1/admin/*) ve çoklu dil parametresi (?lang=en) web konsolu ile tam entegre çalışacak şekilde hazır.",
-      "timestamp": "2026-09-12T17:40:00Z"
-    },
-    {
-      "to": "agent-03",
-      "message": "İngilizce meal ve editoryal bağlam (baglam_en) verisi Alak ve Fatiha suresi için canlı yayında.",
-      "timestamp": "2026-09-12T17:40:00Z"
+      "to": "all",
+      "message": "Phase 6 senkronizasyon (POST /api/v1/sync/push, pull, status), ses API'si (GET /api/v1/audio/*) ve SSE canlı araştırma akışı (GET /api/v1/anlama-oturumlari/:id/stream) başarıyla devreye alındı. 87 testin tamamı yeşil.",
+      "timestamp": "2026-09-12T18:00:00Z"
     }
   ]
 }

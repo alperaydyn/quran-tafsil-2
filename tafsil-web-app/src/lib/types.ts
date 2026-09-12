@@ -103,3 +103,53 @@ export interface AdminCommunityItem {
   created_at: string;
 }
 
+export interface Reciter {
+  id: string;
+  name: string;
+  language: string;
+  description?: string;
+  has_word_timestamps: boolean;
+}
+
+export interface WordTimestamp {
+  kelime_no: number;
+  metin_ar: string;
+  metin_tr?: string;
+  start_ms: number;
+  end_ms: number;
+}
+
+export interface VerseAudioItem {
+  ayet_no: number;
+  ses_url: string;
+  format: string;
+  duration_ms?: number;
+  words: WordTimestamp[];
+}
+
+export interface SurahAudioPlaylist {
+  sure_id: number;
+  sure_adi: string;
+  reciter: Reciter;
+  verses: VerseAudioItem[];
+}
+
+export interface BookmarkItem {
+  id?: string;
+  sure_id: number;
+  ayet_no: number;
+  etiket?: string;
+  notlar?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface SyncStatus {
+  user_id: string;
+  status: string;
+  bookmarks: { count: number; last_updated: string | null };
+  reading_history: { count: number; last_read: string | null };
+  memorization: { count: number; last_created: string | null };
+}
+
+

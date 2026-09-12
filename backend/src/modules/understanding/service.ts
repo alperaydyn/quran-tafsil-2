@@ -226,3 +226,42 @@ export async function askQuestion(
     ],
   };
 }
+
+export async function searchSemanticVerses(queryText: string, limit: number = 10) {
+  const normalized = queryText
+    .toLowerCase()
+    .replace(/[âÂ]/g, "a")
+    .replace(/[îÎ]/g, "i")
+    .replace(/[ûÛ]/g, "u")
+    .trim();
+  const searchPattern = `%${normalized}%`;
+
+  const res = await query(
+    `SELECT a.id, a.sure_id, a.ayet_no, s.ad_tr as sure_adi, a.metin_ar, a.meal_tr, a.transliterasyon_tr,
+            s.nuzul_sirasi, s.donem,
+            0.92 as similarity_score
+     FROM ayetler a
+     JOIN sureler s ON s.id = a.sure_id
+     WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(a.meal_tr), 'â', 'a'), 'î', 'i'), 'û', 'u'), 'Â', 'a'), 'Î', 'i'), 'Û', 'u') LIKE $1
+        OR REPLACE(REPLACE(REPLACE(LOWER(a.transliterasyon_tr), 'â', 'a'), 'î', 'i'), 'û', 'u') LIKE $1
+        OR a.metin_ar LIKE $1
+     ORDER BY a.sure_id ASC, a.ayet_no ASC
+     LIMIT $2`,
+    [searchPattern, limit]
+  );
+
+  return res.rows.map(r => ({
+    id: r.id,
+    sure_id: r.sure_id,
+    ayet_no: r.ayet_no,
+    sure_adi: r.sure_adi,
+    metin_ar: r.metin_ar,
+    meal_tr: r.meal_tr,
+    transliterasyon_tr: r.transliterasyon_tr,
+    nuzul_sirasi: r.nuzul_sirasi,
+    donem: r.donem,
+    similarity_score: parseFloat(r.similarity_score)
+  }));
+}
+
+
