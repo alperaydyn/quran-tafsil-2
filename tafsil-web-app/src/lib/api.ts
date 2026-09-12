@@ -1,7 +1,7 @@
 import sureSnapshot from "@/data/sureler.snapshot.json";
 import ayetSnapshot from "@/data/ayetler.snapshot.json";
 import { mockKavramlar } from "@/data/kavramlar.mock";
-import type { Surah, Verse, Kavram } from "./types";
+import type { Surah, Verse, Kavram, CommunitySession, CommunityConcept, Article } from "./types";
 
 /**
  * Veri erişim katmanı (WEB-003, WEB-004).
@@ -142,9 +142,36 @@ export async function getAyet(sureId: number, ayetNo: number): Promise<Verse | n
 
 /** WEB-004: kavram/[slug] için. Gerçek kavram uçları bağlandığında getKavram güncellenecektir. */
 export async function getKavram(slug: string): Promise<Kavram | null> {
-  if (!USE_MOCK) {
-    const data = await fetchApi<Kavram>(`/kavramlar/${slug}`);
-    if (data) return data;
-  }
+  const data = await fetchApi<Kavram>(`/kavramlar/${slug}`);
+  if (data) return data;
   return mockKavramlar.find((k) => k.slug === slug) ?? null;
 }
+
+export async function listCommunitySessions(kavram?: string, sort = "popular"): Promise<CommunitySession[]> {
+  const query = new URLSearchParams();
+  if (kavram) query.set("kavram", kavram);
+  if (sort) query.set("sort", sort);
+  const data = await fetchApi<CommunitySession[]>(`/topluluk/oturumlari?${query.toString()}`);
+  return data ?? [];
+}
+
+export async function getCommunityConcepts(): Promise<CommunityConcept[]> {
+  const data = await fetchApi<CommunityConcept[]>("/topluluk/kavramlar");
+  return data ?? [];
+}
+
+export async function getUnderstandingSession(id: string): Promise<CommunitySession | null> {
+  const data = await fetchApi<CommunitySession>(`/anlama-oturumlari/${id}`);
+  return data;
+}
+
+export async function listArticles(): Promise<Article[]> {
+  const data = await fetchApi<Article[]>("/makaleler");
+  return data ?? [];
+}
+
+export async function getArticle(slug: string): Promise<Article | null> {
+  const data = await fetchApi<Article>(`/makaleler/${slug}`);
+  return data;
+}
+

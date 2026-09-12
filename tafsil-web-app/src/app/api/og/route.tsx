@@ -42,10 +42,12 @@ interface CardParams {
   ayetNo: string | null;
   arabicText: string;
   tr: string | null;
+  title?: string | null;
 }
 
-function buildCard({ format, sure, ayetNo, arabicText, tr }: CardParams) {
+function buildCard({ format, sure, ayetNo, arabicText, tr, title }: CardParams) {
   const isVerseCard = Boolean(sure && ayetNo && tr);
+  const cardTitle = title || (isVerseCard ? `${sure} · ${ayetNo}` : "tafsil");
 
   return (
     <div
@@ -64,7 +66,7 @@ function buildCard({ format, sure, ayetNo, arabicText, tr }: CardParams) {
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 28, width: "100%" }}>
         <div style={{ display: "flex", fontSize: 22, letterSpacing: 4, color: GOLD, textTransform: "uppercase" }}>
-          {isVerseCard ? `${sure} · ${ayetNo}` : "tafsil"}
+          {cardTitle}
         </div>
         {isVerseCard && arabicText ? (
           <div
@@ -141,6 +143,7 @@ export async function GET(req: NextRequest) {
     ayetNo: searchParams.get("ayet"),
     arabicText: searchParams.get("ar") ?? "",
     tr: searchParams.get("tr"),
+    title: searchParams.get("title"),
   };
 
   let buffer: ArrayBuffer;

@@ -7,6 +7,7 @@ import { StyledText } from '../components/common/StyledText';
 import { Button } from '../components/common/Button';
 import { useTheme } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
+import { ShareStudyModal } from '../components/sharing/ShareStudyModal';
 
 type RouteParams = RouteProp<RootStackParamList, 'UnderstandingStudio'>;
 
@@ -14,9 +15,11 @@ export function UnderstandingStudioScreen() {
   const theme = useTheme();
   const navigation = useNavigation();
   const route = useRoute<RouteParams>();
+  const sessionId = route.params?.id || '11111111-1111-1111-1111-111111111111';
 
   const title = route.params?.title || 'İlim ve cömertlik';
   const [activeTab, setActiveTab] = useState<'run' | 'queue'>('queue');
+  const [shareVisible, setShareVisible] = useState(false);
   const [questionInput, setQuestionInput] = useState('');
   const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; text: string }[]>([]);
   const [splitOffer, setSplitOffer] = useState<{
@@ -139,9 +142,11 @@ export function UnderstandingStudioScreen() {
             ÇALIŞMA · 3 GÜNDÜR AÇIK
           </StyledText>
         </View>
-        <StyledText variant="body" color="mut">
-          ↗
-        </StyledText>
+        <Pressable onPress={() => setShareVisible(true)} hitSlop={12}>
+          <StyledText variant="body" color="mut">
+            ↗
+          </StyledText>
+        </Pressable>
       </View>
 
       {/* Görünüm Değiştirici: Toplanıyor ↔ Özet ve Okuma Sırası */}
@@ -539,6 +544,16 @@ export function UnderstandingStudioScreen() {
           </StyledText>
         </Pressable>
       </View>
+
+      <ShareStudyModal
+        visible={shareVisible}
+        onClose={() => setShareVisible(false)}
+        study={{
+          id: sessionId,
+          title,
+          badge: 'Çalışma · 3 Gündür Açık',
+        }}
+      />
     </Screen>
   );
 }

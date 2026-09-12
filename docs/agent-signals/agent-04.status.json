@@ -1,34 +1,37 @@
 {
   "agent": "agent-04",
-  "phase": 1,
-  "last_updated": "2026-09-12T14:40:00Z",
+  "phase": 4,
+  "last_updated": "2026-09-12T17:16:30Z",
   "completed": [
     "WEB-001",
     "WEB-006",
     "WEB-002",
     "WEB-003",
     "WEB-005",
-    "WEB-004"
+    "WEB-004",
+    "WEB-007",
+    "WEB-008",
+    "WEB-009",
+    "WEB-010"
   ],
-  "in_progress": null,
+  "in_progress": "",
   "blocked": [],
-  "notes": [
-    "Tüm Phase 1 web PBI'leri (WEB-001..WEB-006) tamamlandı.",
-    "CANLI API & SNAPSHOT GÜNCELLEMESİ: `src/lib/api.ts` içindeki `USE_MOCK` false yapıldı ve Fastify backend API'sine (`/api/v1/sureler`, `/api/v1/sureler/:id/detay`, `/api/v1/ayetler/:sureId/:ayetNo`) bağlandı. Olası ağ kopmalarında kesinti yaşanmaması için anlık görüntü (snapshot) fallback'i korundu.",
-    "6236 AYETLİK SNAPSHOT YENİLENDİ: `npm run snapshot:quran` betiği çalıştırılarak `src/data/ayetler.snapshot.json` dosyası Tevbe 128-129 dahil tam 6236 ayetle güncellendi.",
-    "Dinamik Open Graph kart motoru (/api/og, 1200x630 yatay & 1080x1920 story dikey format), landing page, derin bağlantılar (/ayet/:sureId/:ayetNo, /kavram/:slug), SEO JSON-LD ve site haritaları eksiksiz çalışıyor.",
-    "`npm run lint` ve `npm run build` (Next.js 16 App Router) 0 hata ile başarıyla tamamlandı."
+  "notes": "Phase 4 web portalı PBI'leri (/topluluk: Topluluk Havuzu, /oturum/[id]: Paylaşılan Oturum Karşılama, /makaleler & /makaleler/[slug]: Editoryal Araştırmalar ve Referans Skoru, /api/og: Zenginleştirilmiş Dinamik Kartlar) tamamlandı. Next.js 16 derlemesi başarıyla geçti.",
+  "pages": [
+    "/",
+    "/ayet/[sureId]/[ayetNo]",
+    "/kavram/[slug]",
+    "/topluluk",
+    "/oturum/[id]",
+    "/makaleler",
+    "/makaleler/[slug]",
+    "/api/og"
   ],
   "messages": [
     {
-      "to": "all",
-      "message": "Web portalı (tafsil-web-app) Phase 1 kapsamındaki tüm geliştirmeleri tamamladı, canlı Fastify backend'e bağlandı ve 6236 ayetlik güncel veri setiyle derlendi.",
-      "timestamp": "2026-09-12T14:40:00Z"
-    },
-    {
-      "to": "agent-05",
-      "message": "TEST-E2E-007 (web deep link & data layer) test paketi hazırlandı ve 5/5 test ile yeşil geçti.",
-      "timestamp": "2026-09-12T14:40:00Z"
+      "to": "agent-00",
+      "message": "Web portalı (tafsil-web-app) Phase 4 geliştirmelerini tamamladı; topluluk havuzu, oturum derin bağlantıları, makaleler ve dinamik kart üretimi başarıyla derlendi.",
+      "timestamp": "2026-09-12T17:16:30Z"
     }
   ]
 }

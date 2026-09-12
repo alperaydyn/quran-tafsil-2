@@ -1,49 +1,51 @@
 {
   "agent": "agent-03",
-  "phase": 3,
-  "last_updated": "2026-09-12T16:45:00Z",
+  "phase": 4,
+  "last_updated": "2026-09-12T17:16:00Z",
   "completed": [
     "MOB-001",
     "MOB-003",
     "MOB-002",
-    "MOB-009",
-    "MOB-007",
-    "MOB-010",
     "MOB-004",
     "MOB-005",
     "MOB-006",
+    "MOB-007",
     "MOB-008",
+    "MOB-009",
+    "MOB-010",
     "MOB-011",
+    "MOB-012",
+    "MOB-013",
+    "MOB-014",
     "MOB-015",
     "MOB-016",
-    "MOB-021",
-    "MOB-022",
-    "MOB-023",
-    "MOB-024",
-    "MOB-025",
-    "MOB-026",
-    "MOB-027"
+    "MOB-017",
+    "MOB-018",
+    "MOB-019",
+    "MOB-020",
+    "MOB-021"
   ],
   "in_progress": "",
   "blocked": [],
-  "notes": [
-    "Phase 3 mobil geliştirmeleri tamamlandı.",
-    "MOB-024 (Kelime Detayı): Tafsil.dc.html #04 referanslı WordDetailSheet.tsx; Amiri 44px Arapça kelime, kök çipi (ع-ل-ق), vezin, 6 sütunlu Kur'an dağılım barları, klasik sözlükler (el-Müfredât & Lisânü'l-Arab) ve 'Kavram ağında aç' yönlendirmesi ReadingScreen'e bağlandı.",
-    "MOB-025 (Kavram Ağı & DAG Gezgini): Tafsil.dc.html #05 referanslı DagExplorerScreen.tsx; Ağ (merkez ve orbital düğümler) ↔ Liste (Kapsama, Sebep-Sonuç, İlişkili, Zıt Anlam grupları) sekmeleri, filtreler ve 'Nüzul zaman tüneli' modalı eklendi.",
-    "MOB-026 (Anlama Çalışmaları Listesi): Tafsil.dc.html #11 referanslı UnderstandingListScreen.tsx; soru başlatma hero kartı, sabitlenenler, tüm çalışmalar, durum çipleri ve paylaşım çekmecesi bağlandı.",
-    "MOB-027 (Anlama Çalışması Detayı & Intent Branching): Tafsil.dc.html #12 & #13 referanslı UnderstandingStudioScreen.tsx; Toplanıyor (canlı timeline) ↔ Özet ve okuma sırası sekmeleri, sentez kartı, anQueue sıralı ayet kartları ve konu ayrıldığında çıkan 'BU SORU BAŞKA BİR KONU' Intent Branching teklif modalı bağlandı.",
-    "`npx tsc --noEmit` ve `npx expo export` (iOS + Android) 0 hata ile doğrulandı."
+  "notes": "Phase 4 mobil geliştirmeleri tamamlandı. ShareStudyModal (Tafsil.dc.html #11/#12), React Navigation deep linking (tafsil://), DagExplorer Topluluk filtresi ve Story/Landscape paylaşım altyapısı devrede. Hem iOS hem Android bundle ihracı (expo export) başarıyla geçti.",
+  "screens": [
+    "HomeScreen (Tafsil.dc.html #1b)",
+    "ReadingScreen (Tafsil.dc.html #1c)",
+    "SurahListScreen",
+    "MemorizationListScreen (Tafsil.dc.html #3a)",
+    "MemorizationStudioScreen (Tafsil.dc.html #2b)",
+    "ProgressMatrixScreen (Tafsil.dc.html #2a)",
+    "DagExplorerScreen (Tafsil.dc.html #1e)",
+    "WordDetailSheet (Tafsil.dc.html #1d)",
+    "UnderstandingListScreen (Tafsil.dc.html #11)",
+    "UnderstandingStudioScreen (Tafsil.dc.html #12/#13)",
+    "ShareStudyModal (Tafsil.dc.html #11 anShareOpen)"
   ],
   "messages": [
     {
-      "to": "all",
-      "message": "Mobil uygulama (tafsil-ios-app) Phase 3 kapsamındaki tüm kavram ağı, DAG gezgini, morfoloji/kelime detayı ve Agentic RAG anlama çalışmaları bileşenlerini tamamladı. Hem iOS hem Android bundle ihracı (expo export) başarıyla geçti.",
-      "timestamp": "2026-09-12T16:45:00Z"
-    },
-    {
-      "to": "agent-02",
-      "message": "Backend'deki /api/v1/kavramlar, /api/v1/kavramlar/:slug/dag ve /api/v1/anlama-oturumlari uçları mobil ekranlara başarıyla entegre edildi.",
-      "timestamp": "2026-09-12T16:45:00Z"
+      "to": "agent-00",
+      "message": "Mobil uygulama (tafsil-ios-app) Phase 4 kapsamında paylaşım çekmecesini (ShareStudyModal), topluluk filtrelerini ve deep linking entegrasyonunu tamamladı. expo export hatasız tamamlandı.",
+      "timestamp": "2026-09-12T17:16:00Z"
     }
   ]
 }

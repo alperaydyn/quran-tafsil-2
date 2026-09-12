@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '../theme';
 import { useUserSettingsStore } from '../store/useUserSettingsStore';
 import { useAuthStore } from '../store/useAuthStore';
+import type { LinkingOptions } from '@react-navigation/native';
 import type { RootStackParamList } from './types';
 import { OnboardingScreen } from '../screens/OnboardingScreen';
 import { AuthScreen } from '../screens/AuthScreen';
@@ -15,6 +16,30 @@ import { UnderstandingListScreen } from '../screens/UnderstandingListScreen';
 import { UnderstandingStudioScreen } from '../screens/UnderstandingStudioScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const linking: LinkingOptions<RootStackParamList> = {
+  prefixes: ['tafsil://', 'https://tafsil.net', 'https://new.tafsil.net'],
+  config: {
+    screens: {
+      Main: {
+        screens: {
+          Home: 'home',
+          SurahList: 'sureler',
+          Memorization: 'ezber',
+          DagExplorer: 'kavram',
+          Settings: 'ayarlar',
+        },
+      },
+      Reading: 'ayet/:surahId/:ayahNo',
+      UnderstandingStudio: 'oturum/:id',
+      UnderstandingList: 'anlama',
+      ProgressMatrix: 'matris',
+      Onboarding: 'onboarding',
+      Auth: 'auth',
+      MemorizationStudio: 'ezber-studyo',
+    },
+  },
+};
 
 export function RootNavigator() {
   const theme = useTheme();
@@ -39,7 +64,7 @@ export function RootNavigator() {
   const initialRouteName = !onboardingCompleted ? 'Onboarding' : !authStepCompleted ? 'Auth' : 'Main';
 
   return (
-    <NavigationContainer theme={navTheme}>
+    <NavigationContainer theme={navTheme} linking={linking}>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         {!onboardingCompleted && <Stack.Screen name="Onboarding" component={OnboardingScreen} />}
         {/* Auth her zaman kayıtlıdır: onboarding sonrası zorunlu adım olarak VE

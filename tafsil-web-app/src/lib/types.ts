@@ -33,3 +33,39 @@ export interface Kavram {
   ilkGectigiYer: { sureId: number; ayetNo: number; sureNameTr: string };
   iliskiler: KavramRef[];
 }
+
+export interface CommunitySession {
+  id: string;
+  baslik: string;
+  odak_kavramlar: string[];
+  sentez_ozeti: string | null;
+  onerilen_okuma_sirasi: number[];
+  durum: string;
+  created_at: string;
+  is_public: boolean;
+  like_count: number;
+  fork_count: number;
+  is_liked_by_user?: boolean;
+  source_session_id?: string | null;
+}
+
+export interface CommunityConcept {
+  slug: string;
+  baslik_tr: string;
+  session_count: number;
+}
+
+export interface Article {
+  slug: string;
+  title: string;
+  author: string;
+  date: string;
+  summary: string;
+  primary_concepts: string[];
+  related_surahs: number[];
+  reading_time_minutes: number;
+  reference_score: number;
+  is_verified: boolean;
+  content_md?: string;
+}
+

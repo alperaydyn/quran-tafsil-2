@@ -16,7 +16,7 @@ export type RootStackParamList = {
   MemorizationStudio: { sessionId?: string; surahId?: number; startAyah?: number; endAyah?: number };
   ProgressMatrix: { initialTab?: 'reading' | 'memorization' } | undefined;
   UnderstandingList: undefined;
-  UnderstandingStudio: { sessionId?: string; title?: string; isNew?: boolean } | undefined;
+  UnderstandingStudio: { id?: string; sessionId?: string; title?: string; isNew?: boolean } | undefined;
 };
 
 declare global {

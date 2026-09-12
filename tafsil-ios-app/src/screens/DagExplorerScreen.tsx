@@ -147,7 +147,11 @@ export function DagExplorerScreen() {
             color="faint"
             style={{ letterSpacing: 1.2, textTransform: 'uppercase', fontSize: 10, marginTop: 1 }}
           >
-            SENİN AĞIN · 14 KAVRAM
+            {filterTag === 'benim'
+              ? 'SENİN AĞIN · 14 KAVRAM'
+              : filterTag === 'topluluk'
+              ? 'TOPLULUK AĞI · 28 KAVRAM'
+              : 'PAYLAŞILAN KAVRAMLAR · 12 KAVRAM'}
           </StyledText>
         </View>
         <StyledText variant="headline" color="mut">

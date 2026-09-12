@@ -7,6 +7,7 @@ import { StyledText } from '../components/common/StyledText';
 import { Button } from '../components/common/Button';
 import { useTheme } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
+import { ShareStudyModal } from '../components/sharing/ShareStudyModal';
 
 interface StudyItem {
   id: string;
@@ -260,53 +261,11 @@ export function UnderstandingListScreen() {
       </ScrollView>
 
       {/* Paylaşım Alt Çekmecesi (Tafsil.dc.html #11 anShareOpen) */}
-      <Modal visible={shareSheetVisible} transparent animationType="slide" onRequestClose={() => setShareSheetVisible(false)}>
-        <Pressable
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.45)',
-            justifyContent: 'flex-end',
-          }}
-          onPress={() => setShareSheetVisible(false)}
-        >
-          <Pressable
-            style={{
-              backgroundColor: theme.colors.surf,
-              borderTopLeftRadius: theme.radius.xxl,
-              borderTopRightRadius: theme.radius.xxl,
-              padding: theme.spacing.xl,
-              gap: theme.spacing.md,
-            }}
-            onPress={(e) => e.stopPropagation()}
-          >
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <StyledText variant="title" color="ink">
-                Çalışmayı paylaş
-              </StyledText>
-              <Pressable onPress={() => setShareSheetVisible(false)}>
-                <StyledText variant="headline" color="mut">
-                  ×
-                </StyledText>
-              </Pressable>
-            </View>
-            <StyledText variant="footnote" color="mut">
-              Özet, okuma sırası ve notların birlikte gider.
-            </StyledText>
-
-            <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
-              <Button label="Uygulama içinde" variant="secondary" onPress={() => setShareSheetVisible(false)} style={{ flex: 1, height: 38 }} />
-              <Button label="Bağlantı kopyala" variant="secondary" onPress={() => setShareSheetVisible(false)} style={{ flex: 1, height: 38 }} />
-              <Button label="Sosyal medya" variant="secondary" onPress={() => setShareSheetVisible(false)} style={{ flex: 1, height: 38 }} />
-            </View>
-
-            <View style={{ backgroundColor: theme.colors.band, borderRadius: theme.radius.md, padding: 12, marginTop: 4 }}>
-              <StyledText variant="footnote" color="mut">
-                Kişisel notlarım paylaşıma dahil edilmesin: Açık
-              </StyledText>
-            </View>
-          </Pressable>
-        </Pressable>
-      </Modal>
+      <ShareStudyModal
+        visible={shareSheetVisible}
+        onClose={() => setShareSheetVisible(false)}
+        study={selectedStudy}
+      />
     </Screen>
   );
 }

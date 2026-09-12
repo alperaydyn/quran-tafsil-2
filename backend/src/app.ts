@@ -17,6 +17,9 @@ import { memorizationRoutes } from "./modules/memorization/routes.js";
 import { dashboardRoutes } from "./modules/dashboard/routes.js";
 import { conceptRoutes } from "./modules/concepts/routes.js";
 import { understandingRoutes } from "./modules/understanding/routes.js";
+import { communityRoutes } from "./modules/community/routes.js";
+import { editorialRoutes } from "./modules/editorial/routes.js";
+import { analyticsRoutes } from "./modules/analytics/routes.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -57,6 +60,9 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(dashboardRoutes, { prefix: "/api/v1" });
   await app.register(conceptRoutes, { prefix: "/api/v1" });
   await app.register(understandingRoutes, { prefix: "/api/v1" });
+  await app.register(communityRoutes, { prefix: "/api/v1" });
+  await app.register(editorialRoutes, { prefix: "/api/v1" });
+  await app.register(analyticsRoutes, { prefix: "/api/v1" });
 
   return app;
 }
