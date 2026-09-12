@@ -10,16 +10,22 @@ async function runMigrations() {
     await client.connect();
     console.log("✓ Veritabanı bağlantısı kuruldu.");
 
-    const migrationFile = path.resolve(process.cwd(), "src/db/migrations/001_init_schema.sql");
-    if (!fs.existsSync(migrationFile)) {
-      throw new Error(`Migration dosyası bulunamadı: ${migrationFile}`);
+    const migrationsDir = path.resolve(process.cwd(), "src/db/migrations");
+    if (!fs.existsSync(migrationsDir)) {
+      throw new Error(`Migration dizini bulunamadı: ${migrationsDir}`);
     }
 
-    const sql = fs.readFileSync(migrationFile, "utf-8");
-    console.log(`✓ ${path.basename(migrationFile)} dosyası okunuyor ve çalıştırılıyor...`);
+    const files = fs.readdirSync(migrationsDir)
+      .filter(f => f.endsWith(".sql") && f !== "init.sql")
+      .sort();
 
-    await client.query(sql);
-    console.log("✓ Şema ve indeksler başarıyla oluşturuldu/güncellendi.");
+    for (const file of files) {
+      const filePath = path.join(migrationsDir, file);
+      const sql = fs.readFileSync(filePath, "utf-8");
+      console.log(`✓ ${file} dosyası okunuyor ve çalıştırılıyor...`);
+      await client.query(sql);
+      console.log(`✓ ${file} başarıyla tamamlandı.`);
+    }
   } catch (error) {
     console.error("✕ Migration hatası:", error);
     process.exit(1);

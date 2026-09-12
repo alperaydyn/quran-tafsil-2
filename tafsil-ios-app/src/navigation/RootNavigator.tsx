@@ -11,6 +11,8 @@ import { BottomTabNavigator } from './BottomTabNavigator';
 import { ReadingScreen } from '../screens/ReadingScreen';
 import { MemorizationStudioScreen } from '../screens/MemorizationStudioScreen';
 import { ProgressMatrixScreen } from '../screens/ProgressMatrixScreen';
+import { UnderstandingListScreen } from '../screens/UnderstandingListScreen';
+import { UnderstandingStudioScreen } from '../screens/UnderstandingStudioScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -57,6 +59,16 @@ export function RootNavigator() {
         <Stack.Screen
           name="ProgressMatrix"
           component={ProgressMatrixScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UnderstandingList"
+          component={UnderstandingListScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UnderstandingStudio"
+          component={UnderstandingStudioScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

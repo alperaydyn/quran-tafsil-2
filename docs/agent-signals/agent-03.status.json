@@ -1,7 +1,7 @@
 {
   "agent": "agent-03",
-  "phase": 2,
-  "last_updated": "2026-09-12T16:10:00Z",
+  "phase": 3,
+  "last_updated": "2026-09-12T16:45:00Z",
   "completed": [
     "MOB-001",
     "MOB-003",
@@ -18,28 +18,32 @@
     "MOB-016",
     "MOB-021",
     "MOB-022",
-    "MOB-023"
+    "MOB-023",
+    "MOB-024",
+    "MOB-025",
+    "MOB-026",
+    "MOB-027"
   ],
   "in_progress": "",
   "blocked": [],
   "notes": [
-    "Phase 2 mobil geliştirmeleri tamamlandı.",
-    "MOB-015 & MOB-016 (Kur'an Haritası ve İlerlemem): Tafsil.dc.html #2a birebir piksel uyumlu 114 sure 4 sütunlu interaktif matris (SurahGridMatrix.tsx ve ProgressMatrixScreen.tsx), 'Okuduklarım' ve 'Ezberlediklerim' sekmeleri, tur skalası ve alt detay çekmecesi eklendi.",
-    "MOB-021 (Etkileşimli Ezber Stüdyosu): Tafsil.dc.html #2b referanslı 3 kademeli hafıza turu (1. Birlikte, 2. Kelime & İpucu, 3. Sesli okuma & Whisper) ve SM-2 değerlendirme paneli (MemorizationStudioScreen.tsx) tamamlandı.",
-    "MOB-022 (Dinamik Dashboard): HomeScreen üzerinde Günün Ayeti ve Günün Duası kartları, 'Ezberlemeye Devam Et' akıllı kısayolu ve 'Okuma ve Tefekkür Bahçesi' harita önizlemesi entegre edildi.",
-    "MOB-023 (Ezber Oturumları Yönetimi): Tafsil.dc.html #3a ve #3b referanslı oturum listesi (MemorizationListScreen.tsx), vadesi gelen tekrarlar afişi ve Yeni Oturum Başlatma modalı (NewSessionModal.tsx) bağlandı.",
+    "Phase 3 mobil geliştirmeleri tamamlandı.",
+    "MOB-024 (Kelime Detayı): Tafsil.dc.html #04 referanslı WordDetailSheet.tsx; Amiri 44px Arapça kelime, kök çipi (ع-ل-ق), vezin, 6 sütunlu Kur'an dağılım barları, klasik sözlükler (el-Müfredât & Lisânü'l-Arab) ve 'Kavram ağında aç' yönlendirmesi ReadingScreen'e bağlandı.",
+    "MOB-025 (Kavram Ağı & DAG Gezgini): Tafsil.dc.html #05 referanslı DagExplorerScreen.tsx; Ağ (merkez ve orbital düğümler) ↔ Liste (Kapsama, Sebep-Sonuç, İlişkili, Zıt Anlam grupları) sekmeleri, filtreler ve 'Nüzul zaman tüneli' modalı eklendi.",
+    "MOB-026 (Anlama Çalışmaları Listesi): Tafsil.dc.html #11 referanslı UnderstandingListScreen.tsx; soru başlatma hero kartı, sabitlenenler, tüm çalışmalar, durum çipleri ve paylaşım çekmecesi bağlandı.",
+    "MOB-027 (Anlama Çalışması Detayı & Intent Branching): Tafsil.dc.html #12 & #13 referanslı UnderstandingStudioScreen.tsx; Toplanıyor (canlı timeline) ↔ Özet ve okuma sırası sekmeleri, sentez kartı, anQueue sıralı ayet kartları ve konu ayrıldığında çıkan 'BU SORU BAŞKA BİR KONU' Intent Branching teklif modalı bağlandı.",
     "`npx tsc --noEmit` ve `npx expo export` (iOS + Android) 0 hata ile doğrulandı."
   ],
   "messages": [
     {
       "to": "all",
-      "message": "Mobil uygulama (tafsil-ios-app) Phase 2 kapsamındaki tüm ezberleme, aralıklı tekrar, 114 sure ilerleme matrisi ve dinamik dashboard bileşenlerini tamamladı. Hem iOS hem Android bundle ihracı (expo export) başarıyla geçti.",
-      "timestamp": "2026-09-12T16:10:00Z"
+      "message": "Mobil uygulama (tafsil-ios-app) Phase 3 kapsamındaki tüm kavram ağı, DAG gezgini, morfoloji/kelime detayı ve Agentic RAG anlama çalışmaları bileşenlerini tamamladı. Hem iOS hem Android bundle ihracı (expo export) başarıyla geçti.",
+      "timestamp": "2026-09-12T16:45:00Z"
     },
     {
       "to": "agent-02",
-      "message": "Backend'deki /api/v1/dashboard/gunun-kartlari ve /api/v1/ezber-oturumlari uçları mobil mağaza ve ekran akışlarına başarıyla bağlandı.",
-      "timestamp": "2026-09-12T16:10:00Z"
+      "message": "Backend'deki /api/v1/kavramlar, /api/v1/kavramlar/:slug/dag ve /api/v1/anlama-oturumlari uçları mobil ekranlara başarıyla entegre edildi.",
+      "timestamp": "2026-09-12T16:45:00Z"
     }
   ]
 }

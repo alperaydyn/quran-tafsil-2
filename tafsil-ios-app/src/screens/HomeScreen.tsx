@@ -170,6 +170,38 @@ function GardenPreviewCard() {
   );
 }
 
+function UnderstandingResumeCard() {
+  const theme = useTheme();
+  const navigation = useNavigation<Nav>();
+
+  return (
+    <Pressable
+      onPress={() => navigation.navigate('UnderstandingList')}
+      style={[
+        styles.actionCard,
+        {
+          backgroundColor: theme.colors.surf,
+          borderColor: theme.colors.line,
+          borderWidth: 1,
+          borderRadius: theme.radius.xxxl,
+        },
+      ]}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={{ flex: 1 }}>
+          <StyledText variant="headline" style={{ color: theme.colors.ink }}>
+            Anlama çalışmalarına dön
+          </StyledText>
+          <StyledText variant="footnote" color="mut" style={{ marginTop: 3 }}>
+            “İlim ve cömertlik” — 4 ayet · 2 kavramlık okuma sırasına devam et
+          </StyledText>
+        </View>
+        <StyledText variant="title" color="faint" style={{ fontSize: 20 }}>›</StyledText>
+      </View>
+    </Pressable>
+  );
+}
+
 function ModeBadge() {
   const theme = useTheme();
   const readingMode = useUserSettingsStore((s) => s.readingMode);
@@ -223,6 +255,7 @@ export function HomeScreen() {
           <ResumeCard />
           <MemorizationResumeCard />
           <GardenPreviewCard />
+          <UnderstandingResumeCard />
 
           {/* GÜNÜN İLHAM KARTLARI */}
           <View style={{ marginTop: 10, gap: 12 }}>

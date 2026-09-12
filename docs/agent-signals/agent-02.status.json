@@ -1,7 +1,7 @@
 {
   "agent": "agent-02",
-  "phase": 2,
-  "last_updated": "2026-09-12T16:10:00Z",
+  "phase": 3,
+  "last_updated": "2026-09-12T16:45:00Z",
   "completed": [
     "BE-001",
     "BE-010",
@@ -24,11 +24,15 @@
     "BE-019",
     "BE-020",
     "BE-021",
-    "BE-022"
+    "BE-022",
+    "BE-023",
+    "BE-024",
+    "BE-025",
+    "BE-026"
   ],
   "in_progress": "",
   "blocked": [],
-  "notes": "Phase 2 backend PBI'leri (BE-020: SM-2 Algoritma Motoru, BE-021: Ezber Oturumları CRUD & Değerlendirme API, BE-022: Dinamik Dashboard Günün Kartları & İstatistik API) tamamlandı. PostgreSQL ezber_oturumlari tablosu ve Redis L1 önbellek entegrasyonu ile 53/53 test başarıyla geçti.",
+  "notes": "Phase 3 backend PBI'leri (BE-023: Kavramlar Listeleme & Arama, BE-024: Recursive CTE Kavram DAG & Nüzul Analizi, BE-025: Anlama Çalışmaları CRUD & Sentez Özeti, BE-026: Soru Cevaplama & Intent Branching) tamamlandı. PostgreSQL kavramlar, kavram_iliskileri, anlama_oturumlari tabloları ve Redis L2 önbellek entegrasyonu ile 63/63 test başarıyla geçti.",
   "endpoints": [
     "GET /health",
     "POST /api/v1/auth/login  { provider: 'apple'|'google', idToken }",
@@ -47,18 +51,26 @@
     "POST /api/v1/ezber-oturumlari/:id/degerlendir  (Bearer JWT) { quality: 0..5 }",
     "GET /api/v1/dashboard/gunun-kartlari",
     "GET /api/v1/dashboard/istatistikler  (Bearer JWT)",
+    "GET /api/v1/kavramlar?search=&limit=&offset=",
+    "GET /api/v1/kavramlar/:slug",
+    "GET /api/v1/kavramlar/:slug/dag?depth=&limit=",
+    "GET /api/v1/kavramlar/:slug/nuzul-analizi",
+    "GET /api/v1/anlama-oturumlari",
+    "GET /api/v1/anlama-oturumlari/:id",
+    "POST /api/v1/anlama-oturumlari  { soru, baslik?, odak_kavramlar? }",
+    "POST /api/v1/anlama-oturumlari/:id/soru  { soru }",
     "GET /docs  (Swagger UI)"
   ],
   "messages": [
     {
       "to": "agent-03",
-      "message": "Phase 2 backend uçları (/api/v1/ezber-oturumlari, /api/v1/ezber-oturumlari/:id/degerlendir, /api/v1/dashboard/gunun-kartlari, /api/v1/dashboard/istatistikler) hazır ve test edildi. SM-2 puanlama 0-5 skoru alıp nextReviewAt döndürür.",
-      "timestamp": "2026-09-12T16:10:00Z"
+      "message": "Phase 3 backend uçları (/api/v1/kavramlar/:slug/dag, /api/v1/kavramlar/:slug/nuzul-analizi, /api/v1/anlama-oturumlari, /api/v1/anlama-oturumlari/:id/soru) hazır. DAG uçları recursive CTE ile düğüm ve kenarları ağ formatında döndürür. Soru ucu tema aşımı durumunda is_branch_suggested: true ve dallanma nedeni döner.",
+      "timestamp": "2026-09-12T16:45:00Z"
     },
     {
       "to": "agent-05",
-      "message": "TEST-BE-005 (SM-2 & Ezber API) ve TEST-BE-006 (Dashboard API) testleri oluşturuldu ve yeşil geçti.",
-      "timestamp": "2026-09-12T16:10:00Z"
+      "message": "TEST-BE-007, TEST-BE-008, TEST-BE-009 ve TEST-BE-010 test paketleri eklendi ve 63/63 test yeşil geçti.",
+      "timestamp": "2026-09-12T16:45:00Z"
     }
   ]
 }

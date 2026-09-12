@@ -15,6 +15,8 @@ import { quranRoutes } from "./modules/quran/routes.js";
 import { lexiconRoutes } from "./modules/lexicon/routes.js";
 import { memorizationRoutes } from "./modules/memorization/routes.js";
 import { dashboardRoutes } from "./modules/dashboard/routes.js";
+import { conceptRoutes } from "./modules/concepts/routes.js";
+import { understandingRoutes } from "./modules/understanding/routes.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -53,6 +55,8 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(lexiconRoutes, { prefix: "/api/v1" });
   await app.register(memorizationRoutes, { prefix: "/api/v1" });
   await app.register(dashboardRoutes, { prefix: "/api/v1" });
+  await app.register(conceptRoutes, { prefix: "/api/v1" });
+  await app.register(understandingRoutes, { prefix: "/api/v1" });
 
   return app;
 }

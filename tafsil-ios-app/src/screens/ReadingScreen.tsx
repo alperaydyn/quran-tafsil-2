@@ -3,7 +3,7 @@ import { ScrollView, View, Pressable } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
-import { WordBottomSheet } from '../components/reading/WordBottomSheet';
+import { WordDetailSheet } from '../components/lexicon/WordDetailSheet';
 import { useTheme } from '../theme';
 import { getVerses } from '../api/client';
 import type { Verse, Word } from '../api/types';
@@ -122,7 +122,7 @@ function VerseCard({
   );
 }
 
-export function ReadingScreen({ route }: Props) {
+export function ReadingScreen({ route, navigation }: Props) {
   const theme = useTheme();
   const { surahId } = route.params;
   const [verses, setVerses] = useState<Verse[]>([]);
@@ -186,10 +186,11 @@ export function ReadingScreen({ route }: Props) {
         </ScrollView>
       )}
 
-      <WordBottomSheet
+      <WordDetailSheet
         word={selectedWord}
         visible={bottomSheetVisible}
         onClose={() => setBottomSheetVisible(false)}
+        onOpenDag={() => navigation.navigate('Main', { screen: 'DagExplorer' })}
       />
     </Screen>
   );
