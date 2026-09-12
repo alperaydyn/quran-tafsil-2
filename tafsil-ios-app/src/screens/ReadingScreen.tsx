@@ -176,14 +176,38 @@ export function ReadingScreen({ route, navigation }: Props) {
           </StyledText>
         </View>
       ) : (
-        <ScrollView
-          contentContainerStyle={{ paddingTop: theme.spacing.md, paddingBottom: 36, paddingHorizontal: theme.spacing.lg }}
-          showsVerticalScrollIndicator={false}
-        >
-          {verses.map((v) => (
-            <VerseCard key={v.id} verse={v} onWordPress={handleWordPress} />
-          ))}
-        </ScrollView>
+        <>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', paddingHorizontal: theme.spacing.lg, paddingBottom: 4 }}>
+            <Pressable
+              onPress={() => navigation.navigate('EnglishReading', { surahId })}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 4,
+                backgroundColor: theme.colors.band,
+                paddingHorizontal: 10,
+                paddingVertical: 4,
+                borderRadius: theme.radius.sm,
+              }}
+            >
+              <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
+                Dil:
+              </StyledText>
+              <StyledText variant="caption" color="acc" style={{ fontWeight: '700', fontSize: 11 }}>
+                TR ➔ EN
+              </StyledText>
+            </Pressable>
+          </View>
+
+          <ScrollView
+            contentContainerStyle={{ paddingTop: theme.spacing.sm, paddingBottom: 36, paddingHorizontal: theme.spacing.lg }}
+            showsVerticalScrollIndicator={false}
+          >
+            {verses.map((v) => (
+              <VerseCard key={v.id} verse={v} onWordPress={handleWordPress} />
+            ))}
+          </ScrollView>
+        </>
       )}
 
       <WordDetailSheet

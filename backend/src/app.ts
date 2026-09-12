@@ -20,6 +20,7 @@ import { understandingRoutes } from "./modules/understanding/routes.js";
 import { communityRoutes } from "./modules/community/routes.js";
 import { editorialRoutes } from "./modules/editorial/routes.js";
 import { analyticsRoutes } from "./modules/analytics/routes.js";
+import { adminRoutes } from "./modules/admin/routes.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -63,6 +64,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(communityRoutes, { prefix: "/api/v1" });
   await app.register(editorialRoutes, { prefix: "/api/v1" });
   await app.register(analyticsRoutes, { prefix: "/api/v1" });
+  await app.register(adminRoutes, { prefix: "/api/v1/admin" });
 
   return app;
 }

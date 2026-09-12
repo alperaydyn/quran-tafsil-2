@@ -1,7 +1,7 @@
 {
   "agent": "agent-02",
-  "phase": 4,
-  "last_updated": "2026-09-12T17:15:00Z",
+  "phase": 5,
+  "last_updated": "2026-09-12T17:40:00Z",
   "completed": [
     "BE-001",
     "BE-010",
@@ -32,11 +32,15 @@
     "BE-027",
     "BE-028",
     "BE-029",
-    "BE-030"
+    "BE-030",
+    "BE-031",
+    "BE-032",
+    "BE-033",
+    "BE-034"
   ],
   "in_progress": "",
   "blocked": [],
-  "notes": "Phase 4 backend PBI'leri (BE-027: Topluluk Oturumları & Kavramlar, BE-028: Beğeni Toggle & Çatallama/Fork, BE-029: Editoryal Makaleler & Kur'an Referans Doğrulama Motoru, BE-030: Platform Analitiği) tamamlandı. 72/72 test başarıyla geçti.",
+  "notes": "Phase 5 backend PBI'leri (BE-031: Admin Dashboard & Metrikler, BE-032: Topluluk Moderasyonu & Audit Log, BE-033: Çoklu Dil Çeviri API — lang=en/tr & Ayet Bağlamları, BE-034: Kavram & İlişki Yönetimi) tamamlandı. 79/79 test başarıyla geçti.",
   "endpoints": [
     "GET /health",
     "POST /api/v1/auth/login  { provider: 'apple'|'google', idToken }",
@@ -44,8 +48,8 @@
     "PATCH /api/v1/users/me  (Bearer JWT) { tercihModu?, dil? }",
     "GET /api/v1/sureler?siralama=mushaf|nuzul",
     "GET /api/v1/sureler/:id/detay",
-    "GET /api/v1/sureler/:id/ayetler?page=&limit=",
-    "GET /api/v1/ayetler/:sureId/:ayetNo",
+    "GET /api/v1/sureler/:id/ayetler?page=&limit=&lang=tr|en",
+    "GET /api/v1/ayetler/:sureId/:ayetNo?lang=tr|en",
     "GET /api/v1/ayetler/:id/audio",
     "GET /api/v1/kelimeler/:id",
     "GET /api/v1/kokler/:id/turevler",
@@ -71,18 +75,25 @@
     "GET /api/v1/makaleler/:slug",
     "POST /api/v1/makaleler/dogrula  { content_md }",
     "GET /api/v1/analitik/ozet",
+    "GET /api/v1/admin/dashboard",
+    "GET /api/v1/admin/topluluk?status=&limit=&offset=",
+    "PATCH /api/v1/admin/topluluk/:id/moderasyon  { is_featured?, moderation_status? }",
+    "POST /api/v1/admin/makaleler  { title, slug, author, summary, content_md }",
+    "PATCH /api/v1/admin/makaleler/:slug",
+    "POST /api/v1/admin/kavramlar  { slug, baslik_tr, baslik_ar, tanim }",
+    "POST /api/v1/admin/kavramlar/iliskiler  { kaynak_kavram_id, hedef_kavram_id, iliski_tipi }",
     "GET /docs  (Swagger UI)"
   ],
   "messages": [
     {
       "to": "agent-04",
-      "message": "Topluluk havuzu (/api/v1/topluluk/oturumlari, /topluluk/kavramlar) ve makale uçları (/api/v1/makaleler) canlı yayında.",
-      "timestamp": "2026-09-12T17:15:00Z"
+      "message": "Phase 5 admin API uçları (/api/v1/admin/*) ve çoklu dil parametresi (?lang=en) web konsolu ile tam entegre çalışacak şekilde hazır.",
+      "timestamp": "2026-09-12T17:40:00Z"
     },
     {
       "to": "agent-03",
-      "message": "Topluluk beğeni ve fork uçları mobil paylaşım çekmecesiyle senkronize çalışacak şekilde hazır.",
-      "timestamp": "2026-09-12T17:15:00Z"
+      "message": "İngilizce meal ve editoryal bağlam (baglam_en) verisi Alak ve Fatiha suresi için canlı yayında.",
+      "timestamp": "2026-09-12T17:40:00Z"
     }
   ]
 }

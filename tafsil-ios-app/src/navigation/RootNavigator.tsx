@@ -10,6 +10,7 @@ import { OnboardingScreen } from '../screens/OnboardingScreen';
 import { AuthScreen } from '../screens/AuthScreen';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { ReadingScreen } from '../screens/ReadingScreen';
+import { EnglishReadingScreen } from '../screens/EnglishReadingScreen';
 import { MemorizationStudioScreen } from '../screens/MemorizationStudioScreen';
 import { ProgressMatrixScreen } from '../screens/ProgressMatrixScreen';
 import { UnderstandingListScreen } from '../screens/UnderstandingListScreen';
@@ -31,6 +32,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         },
       },
       Reading: 'ayet/:surahId/:ayahNo',
+      EnglishReading: 'en/reading/:surahId',
       UnderstandingStudio: 'oturum/:id',
       UnderstandingList: 'anlama',
       ProgressMatrix: 'matris',
@@ -75,6 +77,11 @@ export function RootNavigator() {
           name="Reading"
           component={ReadingScreen}
           options={{ headerShown: true, headerTitle: '', headerBackTitle: 'Geri' }}
+        />
+        <Stack.Screen
+          name="EnglishReading"
+          component={EnglishReadingScreen}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="MemorizationStudio"

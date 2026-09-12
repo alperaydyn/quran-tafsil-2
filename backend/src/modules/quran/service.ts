@@ -64,13 +64,13 @@ export async function getSureDetay(sureId: number): Promise<Cached<any | null>> 
   return { data, cached: false };
 }
 
-export async function getAyet(sureId: number, ayetNo: number): Promise<Cached<any | null>> {
-  const cacheKey = `quran:ayet:${sureId}:${ayetNo}`;
+export async function getAyet(sureId: number, ayetNo: number, lang: "tr" | "en" = "tr"): Promise<Cached<any | null>> {
+  const cacheKey = `quran:ayet:${sureId}:${ayetNo}:${lang}`;
   const cached = await l1Get<any>(cacheKey);
   if (cached) return { data: cached, cached: true };
 
-  const ayetRes = await query<Ayet>(
-    `SELECT id, sure_id, ayet_no, cuz_no, sayfa_no, metin_ar, transliterasyon_tr, meal_tr, ses_dosyasi_url
+  const ayetRes = await query<Ayet & { meal_en?: string; baglam_en?: string }>(
+    `SELECT id, sure_id, ayet_no, cuz_no, sayfa_no, metin_ar, transliterasyon_tr, meal_tr, meal_en, baglam_en, ses_dosyasi_url
      FROM ayetler WHERE sure_id = $1 AND ayet_no = $2`,
     [sureId, ayetNo],
   );
@@ -78,7 +78,7 @@ export async function getAyet(sureId: number, ayetNo: number): Promise<Cached<an
   if (!ayet) return { data: null, cached: false };
 
   const kelimelerRes = await query(
-    `SELECT k.id, k.kelime_no, k.metin_ar, k.metin_tr, k.vezin, k.start_ms, k.end_ms,
+    `SELECT k.id, k.kelime_no, k.metin_ar, k.metin_tr, k.metin_en, k.vezin, k.start_ms, k.end_ms,
             ko.id AS kok_id, ko.kok_ar, ko.kok_tr
      FROM kelimeler k
      LEFT JOIN kokler ko ON ko.id = k.kok_id
@@ -87,7 +87,15 @@ export async function getAyet(sureId: number, ayetNo: number): Promise<Cached<an
     [ayet.id],
   );
 
-  const data = { ...ayet, kelimeler: kelimelerRes.rows };
+  const activeMeal = lang === "en" ? (ayet.meal_en || ayet.meal_tr) : ayet.meal_tr;
+  const data = {
+    ...ayet,
+    meal: activeMeal,
+    kelimeler: kelimelerRes.rows.map((k: any) => ({
+      ...k,
+      metin_selected: lang === "en" ? (k.metin_en || k.metin_tr) : k.metin_tr,
+    })),
+  };
   await l1Set(cacheKey, data);
   return { data, cached: false };
 }
@@ -96,18 +104,24 @@ export async function listAyetler(
   sureId: number,
   page: number,
   limit: number,
-): Promise<{ rows: Ayet[]; total: number }> {
+  lang: "tr" | "en" = "tr",
+): Promise<{ rows: any[]; total: number }> {
   const offset = (page - 1) * limit;
   const [rowsRes, countRes] = await Promise.all([
-    query<Ayet>(
-      `SELECT id, sure_id, ayet_no, cuz_no, sayfa_no, metin_ar, transliterasyon_tr, meal_tr, ses_dosyasi_url
+    query<Ayet & { meal_en?: string; baglam_en?: string }>(
+      `SELECT id, sure_id, ayet_no, cuz_no, sayfa_no, metin_ar, transliterasyon_tr, meal_tr, meal_en, baglam_en, ses_dosyasi_url
        FROM ayetler WHERE sure_id = $1 ORDER BY ayet_no ASC LIMIT $2 OFFSET $3`,
       [sureId, limit, offset],
     ),
     query<{ count: string }>(`SELECT COUNT(*) FROM ayetler WHERE sure_id = $1`, [sureId]),
   ]);
 
-  return { rows: rowsRes.rows, total: parseInt(countRes.rows[0]?.count ?? "0", 10) };
+  const rows = rowsRes.rows.map((r) => ({
+    ...r,
+    meal: lang === "en" ? (r.meal_en || r.meal_tr) : r.meal_tr,
+  }));
+
+  return { rows, total: parseInt(countRes.rows[0]?.count ?? "0", 10) };
 }
 
 export async function getAyetAudio(ayetId: number): Promise<Cached<any | null>> {

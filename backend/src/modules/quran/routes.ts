@@ -12,6 +12,10 @@ const ayetParams = z.object({
 const listAyetlerQuery = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(300).default(50),
+  lang: z.enum(["tr", "en"]).default("tr"),
+});
+const ayetQuery = z.object({
+  lang: z.enum(["tr", "en"]).default("tr"),
 });
 const surelerQuery = z.object({
   siralama: z.enum(["mushaf", "nuzul"]).default("mushaf"),
@@ -52,8 +56,8 @@ export async function quranRoutes(app: FastifyInstance) {
         .send(fail("VALIDATION_ERROR", "Geçersiz sorgu parametresi", parsedQuery.error.flatten()));
     }
 
-    const { page, limit } = parsedQuery.data;
-    const { rows, total } = await listAyetler(parsedParams.data.id, page, limit);
+    const { page, limit, lang } = parsedQuery.data;
+    const { rows, total } = await listAyetler(parsedParams.data.id, page, limit, lang);
     return reply.send(ok(rows, { page, limit, total }));
   });
 
@@ -61,9 +65,12 @@ export async function quranRoutes(app: FastifyInstance) {
   app.get("/ayetler/:sureId/:ayetNo", async (request, reply) => {
     const parsed = ayetParams.safeParse(request.params);
     if (!parsed.success) {
-      return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz parametre", parsed.error.flatten()));
+      return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz sure veya ayet no", parsed.error.flatten()));
     }
-    const { data, cached } = await getAyet(parsed.data.sureId, parsed.data.ayetNo);
+    const parsedQuery = ayetQuery.safeParse(request.query);
+    const lang = parsedQuery.success ? parsedQuery.data.lang : "tr";
+    const { sureId, ayetNo } = parsed.data;
+    const { data, cached } = await getAyet(sureId, ayetNo, lang);
     if (!data) return reply.status(404).send(fail("AYET_NOT_FOUND", "Ayet bulunamadı"));
     return reply.send(ok(data, { cached }));
   });

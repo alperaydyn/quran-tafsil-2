@@ -175,3 +175,54 @@ export async function getArticle(slug: string): Promise<Article | null> {
   return data;
 }
 
+export async function getAdminDashboard(): Promise<import("./types").AdminStats | null> {
+  const data = await fetchApi<import("./types").AdminStats>("/admin/dashboard");
+  return data;
+}
+
+export async function listCommunityModeration(status?: string): Promise<import("./types").AdminCommunityItem[]> {
+  const query = status ? `?status=${status}` : "";
+  const data = await fetchApi<import("./types").AdminCommunityItem[]>(`/admin/topluluk${query}`);
+  return data ?? [];
+}
+
+export async function moderateCommunitySession(
+  id: string,
+  update: { is_featured?: boolean; moderation_status?: "onaylandi" | "beklemede" | "reddedildi" }
+): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_BASE}/admin/topluluk/${id}/moderasyon`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(update),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+export async function createAdminArticle(article: {
+  title: string;
+  slug: string;
+  author: string;
+  summary: string;
+  content_md: string;
+  primary_concepts?: string[];
+  related_surahs?: number[];
+  reading_time_minutes?: number;
+}): Promise<Article | null> {
+  try {
+    const res = await fetch(`${API_BASE}/admin/makaleler`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(article),
+    });
+    if (!res.ok) return null;
+    const body = await res.json();
+    return body.data ?? null;
+  } catch {
+    return null;
+  }
+}
+

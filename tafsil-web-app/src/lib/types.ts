@@ -69,3 +69,37 @@ export interface Article {
   content_md?: string;
 }
 
+export interface AdminStats {
+  metrics: {
+    totalUsers: number;
+    totalPublicSessions: number;
+    totalArticles: number;
+    verifiedArticles: number;
+    totalMemorizationRounds: number;
+    modeDistribution: {
+      kesif: number;
+      ogrenme: number;
+      odak: number;
+    };
+  };
+  system: {
+    nodeEnv: string;
+    uptimeSeconds: number;
+    redisConnected: boolean;
+    dbConnected: boolean;
+    memoryUsageMb: number;
+  };
+}
+
+export interface AdminCommunityItem {
+  id: string;
+  baslik: string;
+  durum: string;
+  is_public: boolean;
+  is_featured: boolean;
+  moderation_status: "onaylandi" | "beklemede" | "reddedildi";
+  like_count: number;
+  fork_count: number;
+  created_at: string;
+}
+

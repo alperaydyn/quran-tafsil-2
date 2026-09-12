@@ -12,6 +12,7 @@ export default function SiteHeader() {
         <nav className={styles.nav}>
           <Link href="/topluluk">Topluluk</Link>
           <Link href="/makaleler">Makaleler</Link>
+          <Link href="/admin">Yönetim</Link>
           <Link href="/#nasil-calisir">Nasıl çalışır</Link>
           <Link href="/#uygulama">Uygulamayı al</Link>
         </nav>
