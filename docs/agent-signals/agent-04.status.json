@@ -1,0 +1,42 @@
+{
+  "agent": "agent-04",
+  "phase": 1,
+  "last_updated": "2026-09-11T09:20:00Z",
+  "completed": [
+    "WEB-001",
+    "WEB-006",
+    "WEB-002",
+    "WEB-003",
+    "WEB-005",
+    "WEB-004"
+  ],
+  "in_progress": null,
+  "blocked": [],
+  "notes": [
+    "Next.js 16.3.4 (App Router, Turbopack, TypeScript, CSS Modules) kuruldu — tafsil-web-app/. `npm run dev` ile http://localhost:3000.",
+    "Tasarım sistemi (globals.css) mobil 'ceviz' paletiyle (tafsil-ios-app/src/theme/palette.ts) birebir aynı CSS custom property token'larını kullanır; açık/koyu tema prefers-color-scheme + [data-theme] override ile day-1 çalışır (sağ üstte ThemeToggle). Fontlar: Newsreader (serif), Instrument Sans (UI), Amiri (Arapça gövde metni) — next/font/google.",
+    "WEB-003 (/ayet/[sureId]/[ayetNo]) ve WEB-004 (/kavram/[slug]) BE-004/BE-006/kavram API'si (agent-02.status.json henüz mevcut değil) beklenmeden GERÇEK içerikle çalışıyor: scripts/build-quran-snapshot.mjs, data-pipeline/uthmani.txt (Uthmani Arapça) + data-pipeline/kuran-meal-llm.json (LLM taslak Türkçe meal) kaynağından src/data/ayetler.snapshot.json (6234 ayet) ve sureler.snapshot.json (114 sure, tafsil-ios-app mock'undan anlık görüntü) üretti. ⚠ Meal metni DP-006/007 editoryal onayından geçmemiş LLM taslağıdır — Agent-05 onayladıktan sonra yeniden üretilmeli (npm run snapshot:quran).",
+    "kavram/[slug] için kavramlar/kavram_iliskileri tablosu henüz yok; src/data/kavramlar.mock.ts içinde 3 örnek (ilim/sabır/rahmet) PLACEHOLDER olarak işaretli — Agent-01/05 gerçek veriyi sağlayınca src/lib/api.ts:getKavram() kaldırılıp gerçek uca bağlanacak.",
+    "src/lib/api.ts tek USE_MOCK bayrağıyla çalışır (mobil ajanın client.ts desenine paralel). Bu dosyada BE-004 (GET /surahs), BE-006 (ayet ucu) ve gelecekteki kavram ucu 'completed' olarak işaretlenince false yapılıp fetchApi() gerçek https://api.tafsil.net/v1/* uçlarına yönlendirilecek — ApiResponse<T> sarmalayıcısı 00-MASTER-BLUEPRINT.md ile eşleşiyor.",
+    "WEB-005 (/api/og) next/og ImageResponse ile format=landscape (1200x630, varsayılan) ve format=story (1080x1920) üretiyor; Google Fonts'tan runtime'da ttf çekiyor (Newsreader/Instrument Sans/Noto Naskh Arabic). ÖNEMLİ SINIRLAMA: Satori'nin Arapça shaping motoru bazı OpenType GSUB lookup'larını (lookupType 5 / substFormat 3) desteklemiyor — uzun/çok kelimeli ayet metinlerinde nadiren hata veriyor. Bunu 500 döndürmek yerine otomatik olarak Arapça alıntısız (yalnızca meal) karta düşerek (graceful fallback) çözdüm; kart üretimi hiçbir ayet için başarısız olmuyor ama bazı ayetlerde Arapça alıntı görünmeyebilir. Agent-05/tasarım onayı sonrası farklı bir Arapça font veya satır bazlı render denenebilir.",
+    "Next 16'nın otomatik ürettiği AGENTS.md/CLAUDE.md (agentRules) devre dışı bırakıldı (next.config.ts) — repo zaten kendi çoklu ajan AGENTS.md/CLAUDE.md kuralına sahip; tafsil-web-app/AGENTS.md elle yazılmış, kök AGENTS.md'ye işaret ediyor.",
+    "`npx tsc` (next build üzerinden), `npm run lint` ve `npm run build` temiz geçti. Route'lar dev sunucusunda curl ile doğrulandı: /, /ayet/96/1, /ayet/2/255, /kavram/ilim → 200; /ayet/999/1, /kavram/nope → 404; /api/og (3 varyant) → geçerli PNG."
+  ],
+  "messages": [
+    {
+      "to": "agent-02",
+      "message": "Web tarafı BE-004 (GET /surahs) ve BE-006 (ayet ucu) tamamlanınca src/lib/api.ts:USE_MOCK=false yapacak. Beklenen sözleşme için src/lib/types.ts (Surah, Verse) ve src/lib/api.ts'e bakabilirsiniz — /v1/surahs, /v1/surahs/:id, /v1/ayet/:sureId/:ayetNo, ApiResponse<T> sarmalayıcısı (00-MASTER-BLUEPRINT.md ile aynı).",
+      "timestamp": "2026-09-11T09:20:00Z"
+    },
+    {
+      "to": "agent-01",
+      "message": "src/data/ayetler.snapshot.json data-pipeline/uthmani.txt + kuran-meal-llm.json'dan scripts/build-quran-snapshot.mjs ile üretildi (salt okunur kaynak kullanıldı, data-pipeline/ dizinine yazılmadı). Kaynak dosyalar güncellenince `npm run snapshot:quran` yeniden çalıştırılmalı.",
+      "timestamp": "2026-09-11T09:20:00Z"
+    },
+    {
+      "to": "agent-05",
+      "message": "src/data/kavramlar.mock.ts içindeki 3 kavram (ilim/sabır/rahmet) PLACEHOLDER'dır, editoryal doğrulamadan geçmemiştir — yayına alınmadan önce gözden geçirilmeli. Ayrıca src/data/ayetler.snapshot.json'daki Türkçe meal LLM taslağıdır (DP-006/007 onayı bekliyor).",
+      "timestamp": "2026-09-11T09:20:00Z"
+    }
+  ]
+}

@@ -11,6 +11,7 @@
     "ios": {
       "bundleIdentifier": "net.tafsil.app",
       "supportsTablet": true,
+      "usesAppleSignIn": true,
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
@@ -40,7 +41,8 @@
           "imageWidth": 160
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-apple-authentication"
     ],
     "extra": {
       "eas": {

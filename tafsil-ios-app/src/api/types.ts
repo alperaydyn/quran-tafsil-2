@@ -40,6 +40,15 @@ export interface Verse {
   words?: Word[];
 }
 
+export type AuthProvider = 'apple' | 'google';
+
+export interface AuthUser {
+  id: string;
+  name: string | null;
+  email: string | null;
+  provider: AuthProvider;
+}
+
 /** docs/agents/00-MASTER-BLUEPRINT.md §4 — ortak API yanıt sarmalayıcısı. */
 export interface ApiResponse<T> {
   success: boolean;

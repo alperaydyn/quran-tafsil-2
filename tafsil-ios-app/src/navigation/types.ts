@@ -10,6 +10,7 @@ export type MainTabParamList = {
 
 export type RootStackParamList = {
   Onboarding: undefined;
+  Auth: undefined;
   Main: NavigatorScreenParams<MainTabParamList>;
   Reading: { surahId: number; ayahNo?: number };
 };

@@ -3,8 +3,10 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '../theme';
 import { useUserSettingsStore } from '../store/useUserSettingsStore';
+import { useAuthStore } from '../store/useAuthStore';
 import type { RootStackParamList } from './types';
 import { OnboardingScreen } from '../screens/OnboardingScreen';
+import { AuthScreen } from '../screens/AuthScreen';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { ReadingScreen } from '../screens/ReadingScreen';
 
@@ -13,6 +15,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export function RootNavigator() {
   const theme = useTheme();
   const onboardingCompleted = useUserSettingsStore((s) => s.onboardingCompleted);
+  const authStepCompleted = useAuthStore((s) => s.authStepCompleted);
 
   const navTheme = {
     ...(theme.scheme === 'dark' ? DarkTheme : DefaultTheme),
@@ -26,10 +29,18 @@ export function RootNavigator() {
     },
   };
 
+  // İlk render'daki durumu yakalar (ör. kalıcı depodan yüklenen bayraklar);
+  // Onboarding ekranının kaldırılmasıyla oluşan geçiş, aşağıdaki koşullu
+  // Screen listesi üzerinden zaten kendiliğinden yönlendirilir.
+  const initialRouteName = !onboardingCompleted ? 'Onboarding' : !authStepCompleted ? 'Auth' : 'Main';
+
   return (
     <NavigationContainer theme={navTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         {!onboardingCompleted && <Stack.Screen name="Onboarding" component={OnboardingScreen} />}
+        {/* Auth her zaman kayıtlıdır: onboarding sonrası zorunlu adım olarak VE
+            "Şimdilik Atla" sonrası Ayarlar > Hesap'tan tekrar erişilebilsin diye. */}
+        <Stack.Screen name="Auth" component={AuthScreen} />
         <Stack.Screen name="Main" component={BottomTabNavigator} />
         <Stack.Screen
           name="Reading"

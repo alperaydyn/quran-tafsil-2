@@ -24,6 +24,23 @@ def main():
     header = lines[0].split("|")
     rows = [l.split("|") for l in lines[1:]]
 
+    # 4. Load meal (translation) + transliteration source
+    with open("data-pipeline/kuran-meal-llm.json", "r", encoding="utf-8") as f:
+        meal_entries = json.load(f)
+
+    meal_map = {}
+    for e in meal_entries:
+        key = (e["surah_number"], e["ayah_number"])
+        translit = " ".join(
+            b["display_text"].strip()
+            for b in e.get("sentence_blocks", [])
+            if b.get("display_text", "").strip()
+        )
+        meal_map[key] = {
+            "meal_tr": e["ayah_translation"],
+            "translit": translit,
+        }
+
     sql_statements = []
     sql_statements.append("-- ══════════════════════════════════════════════════════════════════════")
     sql_statements.append("-- tafsil.net — Kur'an Metni ve Sureler Seed Scripti")
@@ -48,11 +65,12 @@ def main():
     sql_statements.append("    aciklama = EXCLUDED.aciklama;\n")
 
     # Insert Ayetler in batches
-    sql_statements.append("-- 2. Ayetler (uthmani.txt)")
+    sql_statements.append("-- 2. Ayetler (uthmani.txt + meal/transliterasyon)")
     batch_size = 500
+    missing_meal = []
     for i in range(0, len(rows), batch_size):
         batch = rows[i:i + batch_size]
-        sql_statements.append("INSERT INTO ayetler (sure_id, ayet_no, cuz_no, sayfa_no, metin_ar) VALUES")
+        sql_statements.append("INSERT INTO ayetler (sure_id, ayet_no, cuz_no, sayfa_no, metin_ar, transliterasyon_tr, meal_tr) VALUES")
         ayah_values = []
         for r in batch:
             sure_id = int(r[1])
@@ -61,12 +79,26 @@ def main():
             coords = page_juz_map.get(f"{sure_id}:{ayet_no}", {"page": 1, "juz": 1})
             sayfa_no = coords["page"]
             cuz_no = coords["juz"]
-            ayah_values.append(f"({sure_id}, {ayet_no}, {cuz_no}, {sayfa_no}, {escape_sql_string(text)})")
+            meal = meal_map.get((sure_id, ayet_no))
+            if meal is None:
+                missing_meal.append((sure_id, ayet_no))
+                meal_tr, translit = "", ""
+            else:
+                meal_tr, translit = meal["meal_tr"], meal["translit"]
+            ayah_values.append(
+                f"({sure_id}, {ayet_no}, {cuz_no}, {sayfa_no}, {escape_sql_string(text)}, "
+                f"{escape_sql_string(translit)}, {escape_sql_string(meal_tr)})"
+            )
         sql_statements.append(",\n".join(ayah_values))
         sql_statements.append("ON CONFLICT (sure_id, ayet_no) DO UPDATE SET")
         sql_statements.append("    cuz_no = EXCLUDED.cuz_no,")
         sql_statements.append("    sayfa_no = EXCLUDED.sayfa_no,")
-        sql_statements.append("    metin_ar = EXCLUDED.metin_ar;\n")
+        sql_statements.append("    metin_ar = EXCLUDED.metin_ar,")
+        sql_statements.append("    transliterasyon_tr = EXCLUDED.transliterasyon_tr,")
+        sql_statements.append("    meal_tr = EXCLUDED.meal_tr;\n")
+
+    if missing_meal:
+        print(f"UYARI: {len(missing_meal)} ayet için meal bulunamadı: {missing_meal[:10]}...")
 
     sql_statements.append("COMMIT;\n")
 

@@ -1,30 +1,40 @@
 {
   "agent": "agent-01",
   "phase": 1,
-  "last_updated": "2026-09-10T00:00:00Z",
-  "completed": ["DP-001", "DP-002", "DP-003", "DP-004", "DP-005"],
-  "in_progress": "DP-007",
-  "blocked": [
-    {
-      "id": "DP-007",
-      "reason": "Süleymaniye Vakfı Meali (6236 ayet) için güvenilir toplu veri kaynağına erişim yok: Bash içinden ağ erişimi kapalı (curl -> 'Could not resolve host'), WebFetch ise küçük bir modelle içeriği özetleyip döndürüyor — dini metin için birebir doğruluk garantisi vermiyor. Kullanıcıdan yön bekleniyor."
-    }
-  ],
+  "last_updated": "2026-09-11T00:30:00Z",
+  "completed": ["DP-001", "DP-002", "DP-003", "DP-004", "DP-005", "DP-006", "DP-007"],
+  "in_progress": "",
+  "blocked": [],
   "messages": [
     {
-      "to": "agent-02",
-      "message": "Migration hazır: backend/src/db/migrations/001_init_schema.sql (sureler, ayetler, kokler, kelimeler, kavramlar, kavram_iliskileri, ayet_bloklari, cumle_bloklari, kullanicilar, ezber_oturumlari, anlama_oturumlari + pgvector/FTS indeksleri).",
-      "timestamp": "2026-09-10T00:00:00Z"
-    },
-    {
-      "to": "agent-02",
-      "message": "Seed hazır: data-pipeline/seed/quran_seed.sql (114 sure + 6236 ayet, Uthmani metin, sayfa/cüz koordinatları). meal_tr ve transliterasyon_tr alanları henüz boş (DP-007/DP-006 bekliyor).",
-      "timestamp": "2026-09-10T00:00:00Z"
+      "to": "all",
+      "message": "⚠️ KRİTİK DÜZELTME: data-pipeline/uthmani.txt'te Tevbe (9) suresinin 128. ve 129. ayetleri eksikti (dosya 127'de bitiyordu). alquran.cloud'un quran-uthmani baskısına karşı doğrulanıp aynı imla/hareke kurallarıyla eklendi (kullanıcı onayıyla, Edit aracıyla). scripts/quran-pages-juz.json zaten bu 2 ayet için doğru sayfa/cüz (207/11) içeriyordu — sadece uthmani.txt eksikti. Ayet toplamı artık 6234 DEĞİL, 6236. surah-metadata.json'da Tevbe ayet_sayisi 127→129 güncellendi. data-pipeline/seed/quran_seed.sql yeniden üretildi ve Docker (pgvector/pgvector:pg16) üzerinde migration+seed birlikte doğrulandı: 114 sure, 6236 ayet, 0 boş meal/translit, sure_id=9 için ayet_sayisi=129 ve max(ayet_no)=129 doğrulandı.",
+      "timestamp": "2026-09-11T00:30:00Z"
     },
     {
       "to": "agent-05",
-      "message": "Seed doğrulama için hazır: data-pipeline/seed/quran_seed.sql. Ayet sayıları ve sure meta verilerini surah-metadata.json ile çapraz kontrol edebilirsiniz.",
-      "timestamp": "2026-09-10T00:00:00Z"
+      "message": "Bu düzeltme senin flag'ine (agent-05 mesajı, 'FLAG (non-blocking)... 6234 vs 6236') dayanıyor — teşekkürler, kritik bir tespitti. Yerelde çalışan seeded Postgres'in muhtemelen ESKİ 6234 seti ile yüklü olduğunu unutma; TEST-DP-001/002'yi yeni quran_seed.sql (6236 ayet, Tevbe=129) ile yeniden çalıştırman gerekir. Ayrıca uthmani.txt/init.sql-001_init_schema.sql duplikasyon notunu aldım, ileride tekilleştirmeyi değerlendireceğim.",
+      "timestamp": "2026-09-11T00:30:00Z"
+    },
+    {
+      "to": "agent-02",
+      "message": "Seed güncellendi (data-pipeline/seed/quran_seed.sql): 114 sure + 6236 ayetin tamamı (Uthmani metin, sayfa/cüz, meal_tr, transliterasyon_tr) dahil. Migration (001_init_schema.sql) değişmedi. Tevbe suresi artık doğru şekilde 129 ayet.",
+      "timestamp": "2026-09-11T00:30:00Z"
+    },
+    {
+      "to": "agent-03",
+      "message": "MOB-006 notunda geçen 'DP-006/DP-007 tamamlanınca gerçek içerikle değiştirilecek' artık geçerli: meal_tr ve transliterasyon_tr tüm ayetler için dolu. AMA ÖNEMLİ: içerik data-pipeline/kuran-meal-llm.json kaynaklı — google/gemini-2.5-flash-lite ile üretilmiş LLM çevirisidir, resmi/onaylı bir meal (Süleymaniye Vakfı/Diyanet) DEĞİLDİR. Editoryal doğrulama tamamlanana kadar taslak kabul edilmeli; mock veri yerine gerçek API'ye geçerken bu uyarıyı UI'da/loglarda koruman önerilir.",
+      "timestamp": "2026-09-11T00:30:00Z"
+    },
+    {
+      "to": "agent-06",
+      "message": "6236 ayet doğru toplamdır (senin mesajında da bu sayı geçiyordu, doğrulandı). Referans skorlama çalışman için Tevbe 128-129'un artık veritabanında mevcut olduğunu bilmen gerekebilir — daha önce eksikti.",
+      "timestamp": "2026-09-11T00:30:00Z"
+    },
+    {
+      "to": "agent-05",
+      "message": "ÖNEMLİ EDİTORYAL NOT (DP-007): meal_tr ve transliterasyon_tr, kullanıcının sağladığı data-pipeline/kuran-meal-llm.json dosyasından geliyor (google/gemini-2.5-flash-lite LLM çevirisi, resmi meal kaynağı değil). Tevbe 128-129 için meal/transliterasyon Claude tarafından elle eklendi (aynı taslak/draft statüsünde, model alanında işaretli). Yayına almadan önce editoryal doğrulama şart.",
+      "timestamp": "2026-09-11T00:00:00Z"
     }
   ]
 }

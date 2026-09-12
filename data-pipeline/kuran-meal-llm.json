@@ -38268,6 +38268,69 @@
     "model": "google/gemini-2.5-flash-lite"
   },
   {
+    "surah_number": 9,
+    "ayah_number": 128,
+    "surah_name": "Tevbe",
+    "ayah_translation": "Andolsun, size kendi içinizden öyle bir peygamber gelmiştir ki, sizin sıkıntıya uğramanız ona ağır gelir. O, size çok düşkün, mü'minlere karşı da çok şefkatli ve merhametlidir.",
+    "sentence_blocks": [
+      {
+        "arabic_text": "لَقَدْ جَآءَكُمْ رَسُولٌۭ مِّنْ أَنفُسِكُمْ",
+        "display_text": "laqad jāʾakum rasūlun min anfusikum",
+        "turkish_meaning": "Andolsun, size kendi içinizden bir peygamber gelmiştir"
+      },
+      {
+        "arabic_text": "عَزِيزٌ عَلَيْهِ مَا عَنِتُّمْ",
+        "display_text": "ʿazīzun ʿalayhi mā ʿanittum",
+        "turkish_meaning": "sıkıntıya uğramanız ona ağır gelir"
+      },
+      {
+        "arabic_text": "حَرِيصٌ عَلَيْكُم",
+        "display_text": "ḥarīṣun ʿalaykum",
+        "turkish_meaning": "size çok düşkündür"
+      },
+      {
+        "arabic_text": "بِٱلْمُؤْمِنِينَ رَءُوفٌۭ رَّحِيمٌۭ",
+        "display_text": "bi-l-muʾminīna raʾūfun raḥīmun",
+        "turkish_meaning": "mü'minlere karşı çok şefkatli ve merhametlidir."
+      }
+    ],
+    "model": "claude-sonnet-5 (uthmani.txt eksik ayet düzeltmesi için elle eklendi, editoryal doğrulama bekliyor)"
+  },
+  {
+    "surah_number": 9,
+    "ayah_number": 129,
+    "surah_name": "Tevbe",
+    "ayah_translation": "Eğer yüz çevirirlerse de ki: \"Allah bana yeter. O'ndan başka ilah yoktur. Ben ancak O'na tevekkül ettim. O, büyük Arş'ın Rabbidir.\"",
+    "sentence_blocks": [
+      {
+        "arabic_text": "فَإِن تَوَلَّوْا۟",
+        "display_text": "fa-in tawallaw",
+        "turkish_meaning": "Eğer yüz çevirirlerse"
+      },
+      {
+        "arabic_text": "فَقُلْ حَسْبِىَ ٱللَّهُ",
+        "display_text": "fa-qul ḥasbiya -llāhu",
+        "turkish_meaning": "de ki: Allah bana yeter"
+      },
+      {
+        "arabic_text": "لَآ إِلَٰهَ إِلَّا هُوَ",
+        "display_text": "lā ilāha illā huwa",
+        "turkish_meaning": "O'ndan başka ilah yoktur"
+      },
+      {
+        "arabic_text": "عَلَيْهِ تَوَكَّلْتُ",
+        "display_text": "ʿalayhi tawakkaltu",
+        "turkish_meaning": "Ben ancak O'na tevekkül ettim"
+      },
+      {
+        "arabic_text": "وَهُوَ رَبُّ ٱلْعَرْشِ ٱلْعَظِيمِ",
+        "display_text": "wa-huwa rabbu -l-ʿarshi -l-ʿaẓīm",
+        "turkish_meaning": "O, büyük Arş'ın Rabbidir."
+      }
+    ],
+    "model": "claude-sonnet-5 (uthmani.txt eksik ayet düzeltmesi için elle eklendi, editoryal doğrulama bekliyor)"
+  },
+  {
     "surah_number": 10,
     "ayah_number": 1,
     "surah_name": "Yunus",

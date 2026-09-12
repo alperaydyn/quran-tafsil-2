@@ -1,7 +1,10 @@
 import React from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
+import { Button } from '../components/common/Button';
 import { useTheme } from '../theme';
 import type { AccentVariant } from '../theme/palette';
 import {
@@ -9,7 +12,14 @@ import {
   type ColorSchemePreference,
 } from '../store/useUserSettingsStore';
 import type { ReadingMode } from '../store/useUserSettingsStore';
+import { useAuthStore } from '../store/useAuthStore';
 import { READING_MODE_META } from '../hooks/useReadingMode';
+import type { RootStackParamList } from '../navigation/types';
+
+const PROVIDER_LABEL: Record<'apple' | 'google', string> = {
+  apple: 'Apple',
+  google: 'Google',
+};
 
 const MODES: ReadingMode[] = ['kesif', 'ogrenme', 'odak'];
 const SCHEMES: { key: ColorSchemePreference; label: string }[] = [
@@ -88,14 +98,20 @@ function OptionRow({
   );
 }
 
+type Nav = NativeStackNavigationProp<RootStackParamList>;
+
 export function SettingsScreen() {
   const theme = useTheme();
+  const navigation = useNavigation<Nav>();
   const readingMode = useUserSettingsStore((s) => s.readingMode);
   const setReadingMode = useUserSettingsStore((s) => s.setReadingMode);
   const colorSchemePreference = useUserSettingsStore((s) => s.colorSchemePreference);
   const setColorSchemePreference = useUserSettingsStore((s) => s.setColorSchemePreference);
   const accentVariant = useUserSettingsStore((s) => s.accentVariant);
   const setAccentVariant = useUserSettingsStore((s) => s.setAccentVariant);
+  const user = useAuthStore((s) => s.user);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const signOut = useAuthStore((s) => s.signOut);
 
   return (
     <Screen>
@@ -103,6 +119,31 @@ export function SettingsScreen() {
         <StyledText variant="title" style={{ marginTop: 12 }}>
           Ayarlar
         </StyledText>
+
+        <SectionLabel>Hesap</SectionLabel>
+        {isAuthenticated && user ? (
+          <View
+            style={{
+              padding: 13,
+              borderRadius: theme.radius.xxl,
+              backgroundColor: theme.colors.surf,
+              borderWidth: 1,
+              borderColor: theme.colors.line,
+              marginBottom: 8,
+              gap: 10,
+            }}
+          >
+            <View>
+              <StyledText variant="callout">{user.name ?? user.email ?? 'Hesabım'}</StyledText>
+              <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
+                {PROVIDER_LABEL[user.provider]} ile bağlı
+              </StyledText>
+            </View>
+            <Button label="Çıkış Yap" variant="secondary" onPress={signOut} />
+          </View>
+        ) : (
+          <Button label="Giriş Yap" variant="secondary" onPress={() => navigation.navigate('Auth')} />
+        )}
 
         <SectionLabel>Okuma Modu</SectionLabel>
         {MODES.map((mode) => (

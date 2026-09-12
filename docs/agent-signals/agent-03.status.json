@@ -1,7 +1,7 @@
 {
   "agent": "agent-03",
   "phase": 1,
-  "last_updated": "2026-09-11T00:00:00Z",
+  "last_updated": "2026-09-12T00:00:00Z",
   "completed": [
     "MOB-001",
     "MOB-003",
@@ -11,27 +11,37 @@
     "MOB-010",
     "MOB-004",
     "MOB-005",
-    "MOB-006"
+    "MOB-006",
+    "MOB-011"
   ],
-  "in_progress": "MOB-011",
+  "in_progress": "",
   "blocked": [],
   "notes": [
     "MOB-004/005/006 MOCK modda tamamlandı: src/api/client.ts içindeki USE_MOCK bayrakları BE-001+BE-010 (auth/temel API), BE-004 (sure listesi) ve BE-007 (okuma ucu) hazır olunca false yapılacak.",
     "MOB-005 mock verisi data-pipeline/scripts/surah-metadata.json anlık görüntüsünden üretildi (114 sure) — bkz. src/api/mock/surahs.mock.ts.",
     "MOB-006 mock verisi yalnızca Alak (96) suresi 1-8. Arapça metin data-pipeline/uthmani.txt'ten alındı ve doğrudur; meal/transliterasyon alanları YAKLAŞIK ve yalnızca arayüz geliştirme amaçlıdır (bkz. dosya başlığı uyarısı) — DP-006/DP-007 tamamlanınca gerçek içerikle değiştirilecek.",
     "Expo SDK 57, TypeScript strict, React Navigation (native-stack + bottom-tabs), Zustand + MMKV persist, 3 renk teması (ceviz/lacivert/mor) x açık/koyu. `npx tsc --noEmit`, `npx expo-doctor` ve `npx expo export` temiz geçti.",
-    "Koyu tema paletleri tasarım kaynağında (Tafsil.dc.html) tanımlı değildi; AGENTS.md 'dark mode from day 1' ilkesi gereği her aksan rengi korunarak türetildi (bkz. src/theme/palette.ts başlık notu)."
+    "Koyu tema paletleri tasarım kaynağında (Tafsil.dc.html) tanımlı değildi; AGENTS.md 'dark mode from day 1' ilkesi gereği her aksan rengi korunarak türetildi (bkz. src/theme/palette.ts başlık notu).",
+    "MOB-011 tamamlandı: Onboarding sonrası Auth ekranı (Apple ile Devam Et / Google ile Devam Et / Şimdilik Atla), src/store/useAuthStore.ts (MMKV persist), src/api/auth.ts. Ayarlar > Hesap bölümünden de erişilebilir (giriş/çıkış).",
+    "Apple ile giriş GERÇEK native akıştır (expo-apple-authentication, app.json'da usesAppleSignIn + plugin eklendi) — sadece Apple Developer Console'da 'Sign In with Apple' capability'si ve EAS build gerekiyor, ek kimlik bilgisi gerekmiyor.",
+    "Google ile giriş UÇTAN UCA MOCK'tur: native Google SDK'sı (@react-native-google-signin/google-signin veya react-native-nitro-google-signin) bir Firebase/Google Cloud projesi + custom dev client gerektiriyor ve bu bilgiler repoda yok. UI/store sözleşmesi sabit; gerçek SDK eklendiğinde yalnızca useAuthStore.signInWithGoogle() içi değişecek.",
+    "authenticateWithApple/authenticateWithGoogle (src/api/auth.ts) da diğer uçlar gibi USE_MOCK.auth bayrağı arkasında — BE-001+BE-010 hazır olunca gerçek isteğe geçirilecek."
   ],
   "messages": [
     {
       "to": "agent-02",
-      "message": "Mobil taraf BE-001/BE-010 (auth+temel API), BE-004 (GET /surahs) ve BE-007 (okuma ucu) için bekliyor. Beklenen yanıt şekli için src/api/types.ts (Surah, Verse, Word, ApiResponse<T>) ve src/api/client.ts'e bakabilirsiniz — mobil taraf bu sözleşmeye göre mock'tan gerçek uca geçecek.",
+      "message": "Mobil taraf BE-001/BE-010 (auth+temel API), BE-004 (GET /surahs) ve BE-007 (okuma ucu) için bekliyor. Beklenen yanıt şekli için src/api/types.ts (Surah, Verse, Word, ApiResponse<T>) ve src/api/client.ts'e bakabilirsiniz — mobil taraf bu sözleşmeye göre mock'tan gerçek uca geçecek. MOB-011 ile birlikte auth için de sözleşme netleşti: src/api/types.ts AuthUser {id, name, email, provider} ve src/api/auth.ts authenticateWithApple/authenticateWithGoogle imzalarına bakabilirsiniz — Apple identityToken / Google idToken backend'e doğrulanmak üzere gönderilecek, backend AuthUser + oturum token'ı dönmeli.",
       "timestamp": "2026-09-11T00:00:00Z"
     },
     {
       "to": "agent-05",
-      "message": "tafsil-ios-app iskeleti çalışır durumda: onboarding + mod seçimi, alt sekme navigasyonu (Anasayfa/Oku/Ezber/Kavramlar/Ayarlar), sure listesi ve okuma ekranı (mock veriyle). `cd tafsil-ios-app && npx expo start` ile test edilebilir.",
+      "message": "tafsil-ios-app iskeleti çalışır durumda: onboarding + mod seçimi, alt sekme navigasyonu (Anasayfa/Oku/Ezber/Kavramlar/Ayarlar), sure listesi ve okuma ekranı (mock veriyle), onboarding sonrası Auth ekranı (Apple/Google/Misafir). `cd tafsil-ios-app && npx expo start` ile test edilebilir. NOT: Google girişi şu an mock — gerçek OAuth ekranı açılmaz, doğrudan sahte kullanıcıyla başarılı döner.",
       "timestamp": "2026-09-11T00:00:00Z"
+    },
+    {
+      "to": "agent-05",
+      "message": "MOB-011 tamamlandı. Apple ile giriş fiziksel iOS cihaz/simülatörde (iOS 13+) native modal ile test edilebilir; Google ve genel akış (Şimdilik Atla, Ayarlar > Hesap > Çıkış Yap) mock veriyle test edilebilir.",
+      "timestamp": "2026-09-12T00:00:00Z"
     }
   ]
 }
