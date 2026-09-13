@@ -8,6 +8,7 @@ import { StyledText } from '../components/common/StyledText';
 import { Button } from '../components/common/Button';
 import { useTheme } from '../theme';
 import { useAuthStore } from '../store/useAuthStore';
+import { useTranslation } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -22,6 +23,7 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export function AuthScreen() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
   const isLoading = useAuthStore((s) => s.isLoading);
   const error = useAuthStore((s) => s.error);
   const authStepCompleted = useAuthStore((s) => s.authStepCompleted);
@@ -52,12 +54,11 @@ export function AuthScreen() {
       <View style={{ flex: 1, justifyContent: 'space-between', paddingVertical: 20 }}>
         <View style={{ flex: 1, justifyContent: 'center', gap: 14 }}>
           <StyledText variant="eyebrow" color="faint">
-            BULUT SENKRONİZASYONU
+            {t('auth.title').toUpperCase()}
           </StyledText>
-          <StyledText variant="display">İlerlemen seninle taşınsın</StyledText>
+          <StyledText variant="display">{t('auth.title')}</StyledText>
           <StyledText variant="body" color="mut">
-            Okuma geçmişin, ezber ilerlemen ve favori kavramların cihazlar arasında
-            senkronize kalsın. Hesabını dilediğin zaman bağlayabilir veya ayrılabilirsin.
+            {t('auth.subtitle')}
           </StyledText>
         </View>
 
@@ -82,7 +83,7 @@ export function AuthScreen() {
             />
           ) : (
             <Button
-              label=" Apple ile Devam Et"
+              label={` ${t('auth.appleSignIn')}`}
               variant="primary"
               disabled={isLoading}
               onPress={signInWithApple}
@@ -90,14 +91,14 @@ export function AuthScreen() {
           )}
 
           <Button
-            label="Google ile Devam Et"
+            label={t('auth.googleSignIn')}
             variant="secondary"
             disabled={isLoading}
             onPress={signInWithGoogle}
           />
 
           <Button
-            label="Vazgeç / Kapat"
+            label={t('common.cancel')}
             variant="ghost"
             disabled={isLoading}
             onPress={() => {
@@ -109,3 +110,4 @@ export function AuthScreen() {
     </Screen>
   );
 }
+

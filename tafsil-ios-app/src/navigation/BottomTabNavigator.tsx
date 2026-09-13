@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyledText } from '../components/common/StyledText';
 import { useTheme } from '../theme';
+import { useTranslation } from '../i18n';
 import type { MainTabParamList } from './types';
 import { HomeScreen } from '../screens/HomeScreen';
 import { SurahListScreen } from '../screens/SurahListScreen';
@@ -19,16 +20,18 @@ const TAB_ICON: Record<keyof MainTabParamList, string> = {
   Settings: '⚙',
 };
 
-const TAB_LABEL: Record<keyof MainTabParamList, string> = {
-  Home: 'Anasayfa',
-  SurahList: 'Oku',
-  Memorization: 'Ezber',
-  DagExplorer: 'Kavramlar',
-  Settings: 'Ayarlar',
-};
-
 export function BottomTabNavigator() {
   const theme = useTheme();
+  const { t } = useTranslation();
+
+  const tabLabels: Record<keyof MainTabParamList, string> = {
+    Home: t('tabs.home'),
+    SurahList: t('tabs.surahs'),
+    Memorization: t('tabs.memorization'),
+    DagExplorer: t('tabs.concepts'),
+    Settings: t('tabs.settings'),
+  };
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -44,7 +47,7 @@ export function BottomTabNavigator() {
             variant="caption"
             style={{ color, marginTop: -2 }}
           >
-            {TAB_LABEL[route.name as keyof MainTabParamList]}
+            {tabLabels[route.name as keyof MainTabParamList]}
           </StyledText>
         ),
         tabBarIcon: ({ color }) => (
@@ -62,3 +65,4 @@ export function BottomTabNavigator() {
     </Tab.Navigator>
   );
 }
+

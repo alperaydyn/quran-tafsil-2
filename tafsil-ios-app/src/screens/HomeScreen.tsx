@@ -9,7 +9,7 @@ import type { RootStackParamList } from '../navigation/types';
 import { useReadingProgressStore } from '../store/useReadingProgressStore';
 import { useMemorizationStore } from '../store/useMemorizationStore';
 import { useUserSettingsStore } from '../store/useUserSettingsStore';
-import { READING_MODE_META } from '../hooks/useReadingMode';
+import { useTranslation } from '../i18n';
 import { mockSurahs } from '../api/mock/surahs.mock';
 
 import { useAuthStore } from '../store/useAuthStore';
@@ -62,6 +62,7 @@ const DEFAULT_DAILY_CARDS: DailyCardItem[] = [
 function BahcenCard() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
   const streak = useReadingProgressStore((s) => s.streak);
   const [todayAyahCount, setTodayAyahCount] = useState<number>(0);
   const [wateredWeeks, setWateredWeeks] = useState<number>(0);
@@ -86,7 +87,7 @@ function BahcenCard() {
   }, []);
 
   const totalWatered = wateredWeeks > 0 ? wateredWeeks : (streak.current > 0 ? Math.max(1, Math.ceil(streak.current / 7)) : 0);
-  const statusLabel = totalWatered > 0 ? `${totalWatered} haftadır sulanıyor` : 'Bugün sulanmayı bekliyor';
+  const statusLabel = totalWatered > 0 ? t('home.gardenWateredWeeks', { count: totalWatered }) : t('home.gardenWaiting');
 
   // Aktif gün tespiti: Pazartesi=0, Salı=1 ... Pazar=6; en güncel hafta sütunu=15
   const todayDay = new Date().getDay();
@@ -135,7 +136,7 @@ function BahcenCard() {
             fontWeight: '600',
           }}
         >
-          BAHÇEN
+          {t('home.gardenTitle').toUpperCase()}
         </StyledText>
         <StyledText variant="footnote" style={{ color: theme.colors.acc, fontSize: 12, fontWeight: '500' }}>
           {statusLabel}
@@ -203,7 +204,7 @@ function BahcenCard() {
       {/* Alt Açıklama: Veritabanından çekilen gerçek okuma sayacı sağa hizalı */}
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 5 }}>
         <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
-          {todayAyahCount > 0 ? `Bugün · ${todayAyahCount} ayet okundu` : 'Bugün · 12 ayet, 3 kavram'}
+          {todayAyahCount > 0 ? `${t('home.todayRead')} · ${t('common.verseCount', { count: todayAyahCount })}` : `${t('home.todayRead')} · 12 ayet, 3 kavram`}
         </StyledText>
       </View>
     </Pressable>
@@ -213,6 +214,7 @@ function BahcenCard() {
 function ResumeCard() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
   const lastRead = useReadingProgressStore((s) => s.lastRead);
   const surah = lastRead ? mockSurahs.find((s) => s.id === lastRead.surahId) : undefined;
 
@@ -225,14 +227,14 @@ function ResumeCard() {
       style={[styles.actionCard, { backgroundColor: theme.colors.ink, borderRadius: theme.radius.xxxl }]}
     >
       <StyledText variant="eyebrow" style={{ color: theme.colors.faint }}>
-        KALDIĞIN YERDEN DEVAM ET
+        {t('home.continueReading').toUpperCase()}
       </StyledText>
       <StyledText variant="headline" style={{ color: theme.colors.surf, marginTop: 4 }}>
-        {lastRead ? `${surah?.nameTr ?? 'Sure'} · ${lastRead.ayahNo}. ayet` : 'Henüz okumaya başlamadın'}
+        {lastRead ? `${surah?.nameTr ?? t('common.surah')} · ${lastRead.ayahNo}. ${t('common.ayah').toLowerCase()}` : t('home.startReading')}
       </StyledText>
       {!lastRead && (
         <StyledText variant="footnote" style={{ color: theme.colors.faint, marginTop: 2 }}>
-          Sureler sekmesinden bir sure seçerek başla.
+          {t('surahList.searchPlaceholder')}
         </StyledText>
       )}
     </Pressable>
@@ -242,6 +244,7 @@ function ResumeCard() {
 function MemorizationResumeCard() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
   const getDueSessions = useMemorizationStore((s) => s.getDueSessions);
   const dueSessions = getDueSessions();
 
@@ -274,12 +277,12 @@ function MemorizationResumeCard() {
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <View style={{ flex: 1 }}>
           <StyledText variant="headline" style={{ color: theme.colors.ink }}>
-            Ezberlemeye devam et
+            {t('tabs.memorization')}
           </StyledText>
           <StyledText variant="footnote" color="mut" style={{ marginTop: 3 }}>
             {dueSessions.length > 0
-              ? `Bugün ${dueSessions.length} bölüm hazır · yaklaşık ${dueSessions.length * 3} dk`
-              : 'Aktif oturumlarını incele veya yeni bir sure ezberle'}
+              ? `${dueSessions.length} ${t('understanding.sessions').toLowerCase()} · ~${dueSessions.length * 3} dk`
+              : t('memorization.revealOnRecite')}
           </StyledText>
         </View>
         <StyledText variant="title" color="faint" style={{ fontSize: 20 }}>›</StyledText>
@@ -291,6 +294,7 @@ function MemorizationResumeCard() {
 function UnderstandingResumeCard() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
 
   return (
     <Pressable
@@ -308,10 +312,10 @@ function UnderstandingResumeCard() {
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <View style={{ flex: 1 }}>
           <StyledText variant="headline" style={{ color: theme.colors.ink }}>
-            Anlama çalışmalarına dön
+            {t('understanding.title')}
           </StyledText>
           <StyledText variant="footnote" color="mut" style={{ marginTop: 3 }}>
-            “İlim ve cömertlik” — 4 ayet · 2 kavramlık okuma sırasına devam et
+            {t('understanding.newStudy')} · {t('understanding.conceptDag')}
           </StyledText>
         </View>
         <StyledText variant="title" color="faint" style={{ fontSize: 20 }}>›</StyledText>
@@ -322,8 +326,9 @@ function UnderstandingResumeCard() {
 
 function ModeBadge() {
   const theme = useTheme();
+  const { t } = useTranslation();
   const readingMode = useUserSettingsStore((s) => s.readingMode);
-  const meta = READING_MODE_META[readingMode];
+  const modeTitle = t(`readingModes.${readingMode}.title`);
   return (
     <View
       style={{
@@ -335,31 +340,22 @@ function ModeBadge() {
       }}
     >
       <StyledText variant="caption" color="acc">
-        {meta.title.toLocaleUpperCase('tr-TR')} MODU
+        {modeTitle.toUpperCase()} {t('home.activeMode').toUpperCase()}
       </StyledText>
     </View>
   );
 }
 
 function GreetingHeader() {
+  const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
-  const hour = new Date().getHours();
-  const timeGreeting =
-    hour < 11
-      ? 'Sabah oldu,'
-      : hour < 17
-        ? 'Günün aydın olsun,'
-        : hour < 22
-          ? 'Akşam oldu,'
-          : 'Hayırlı geceler,';
-
   const displayName = user?.name ? user.name.split(' ')[0] : 'Kâri';
 
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, marginBottom: 14 }}>
       <View>
         <StyledText variant="caption" color="faint">
-          {timeGreeting}
+          {t('home.heroSubtitle')}
         </StyledText>
         <StyledText variant="title" style={{ marginTop: 2 }}>
           {displayName}
@@ -373,6 +369,7 @@ function GreetingHeader() {
 export function HomeScreen() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
   const [dailyCards, setDailyCards] = useState<DailyCardItem[]>(DEFAULT_DAILY_CARDS);
 
   useEffect(() => {
@@ -407,7 +404,7 @@ export function HomeScreen() {
           {/* GÜNÜN İLHAM KARTLARI */}
           <View style={{ marginTop: 10, gap: 12 }}>
             <StyledText variant="eyebrow" color="faint">
-              GÜNÜN İLHAM KARTLARI
+              {t('home.dailyVerse').toUpperCase()} & {t('home.dailyPrayer').toUpperCase()}
             </StyledText>
 
             {dailyCards.map((card, idx) => (
@@ -427,7 +424,7 @@ export function HomeScreen() {
               >
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                   <StyledText variant="eyebrow" color="acc">
-                    {card.baslik.toLocaleUpperCase('tr-TR')}
+                    {card.tip === 'gunun_ayeti' ? t('home.dailyVerse').toUpperCase() : t('home.dailyPrayer').toUpperCase()}
                   </StyledText>
                   <StyledText variant="caption" color="mut">
                     {card.sureAdiTr} · {card.ayetNo}
@@ -463,6 +460,7 @@ export function HomeScreen() {
   );
 }
 
+
 const styles = StyleSheet.create({
   actionCard: {
     padding: 18,
@@ -473,3 +471,4 @@ const styles = StyleSheet.create({
     gap: 6,
   },
 });
+

@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { mmkvStorage } from './mmkvStorage';
 import type { AccentVariant, ColorScheme } from '../theme/palette';
+import type { LanguagePreference } from '../i18n/types';
 
 /**
  * Kullanıcının okuma tercih modu — bkz. docs/agents/03-MOBILE-APP-AGENT.md §2
@@ -22,12 +23,13 @@ interface UserSettingsState {
   readingMode: ReadingMode;
   colorSchemePreference: ColorSchemePreference;
   accentVariant: AccentVariant;
-  /** Şu an için sadece 'tr' destekleniyor; ileride çoklu dil için hazır alan. */
-  language: 'tr';
+  /** Çoklu dil desteği (MOB-029) — 'tr' | 'en' | 'ar' */
+  language: LanguagePreference;
 
   setReadingMode: (mode: ReadingMode) => void;
   setColorSchemePreference: (pref: ColorSchemePreference) => void;
   setAccentVariant: (variant: AccentVariant) => void;
+  setLanguage: (lang: LanguagePreference) => void;
   completeOnboarding: (mode: ReadingMode) => void;
   resetOnboarding: () => void;
 }
@@ -44,6 +46,7 @@ export const useUserSettingsStore = create<UserSettingsState>()(
       setReadingMode: (mode) => set({ readingMode: mode, accentVariant: MODE_TO_ACCENT[mode] }),
       setColorSchemePreference: (pref) => set({ colorSchemePreference: pref }),
       setAccentVariant: (variant) => set({ accentVariant: variant }),
+      setLanguage: (lang) => set({ language: lang }),
       completeOnboarding: (mode) =>
         set({ readingMode: mode, accentVariant: MODE_TO_ACCENT[mode], onboardingCompleted: true }),
       resetOnboarding: () => set({ onboardingCompleted: false }),
@@ -54,3 +57,4 @@ export const useUserSettingsStore = create<UserSettingsState>()(
     }
   )
 );
+

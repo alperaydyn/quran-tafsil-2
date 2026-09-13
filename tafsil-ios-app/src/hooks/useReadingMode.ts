@@ -75,3 +75,4 @@ export function useReadingMode(): ReadingModeFlags {
   const mode = useUserSettingsStore((s) => s.readingMode);
   return useMemo(() => ({ mode, ...MODE_FLAGS[mode] }), [mode]);
 }
+

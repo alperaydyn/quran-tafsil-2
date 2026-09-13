@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '../theme';
 import { useUserSettingsStore } from '../store/useUserSettingsStore';
 import { useAuthStore } from '../store/useAuthStore';
+import { useTranslation } from '../i18n';
 import type { LinkingOptions } from '@react-navigation/native';
 import type { RootStackParamList } from './types';
 import { OnboardingScreen } from '../screens/OnboardingScreen';
@@ -43,8 +44,8 @@ const linking: LinkingOptions<RootStackParamList> = {
 
 export function RootNavigator() {
   const theme = useTheme();
+  const { t } = useTranslation();
   const onboardingCompleted = useUserSettingsStore((s) => s.onboardingCompleted);
-  const authStepCompleted = useAuthStore((s) => s.authStepCompleted);
 
   const navTheme = {
     ...(theme.scheme === 'dark' ? DarkTheme : DefaultTheme),
@@ -70,12 +71,12 @@ export function RootNavigator() {
         <Stack.Screen
           name="Auth"
           component={AuthScreen}
-          options={{ headerShown: true, headerTitle: 'Hesap & Senkronizasyon', presentation: 'modal' }}
+          options={{ headerShown: true, headerTitle: t('auth.title'), presentation: 'modal' }}
         />
         <Stack.Screen
           name="Reading"
           component={ReadingScreen}
-          options={{ headerShown: true, headerTitle: '', headerBackTitle: 'Geri' }}
+          options={{ headerShown: true, headerTitle: '', headerBackTitle: t('common.back') }}
         />
         <Stack.Screen
           name="MemorizationStudio"
@@ -101,3 +102,4 @@ export function RootNavigator() {
     </NavigationContainer>
   );
 }
+

@@ -13,7 +13,7 @@ import {
 } from '../store/useUserSettingsStore';
 import type { ReadingMode } from '../store/useUserSettingsStore';
 import { useAuthStore } from '../store/useAuthStore';
-import { READING_MODE_META } from '../hooks/useReadingMode';
+import { useTranslation, SUPPORTED_LANGUAGES, type LanguagePreference } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
 
 const PROVIDER_LABEL: Record<'apple' | 'google', string> = {
@@ -22,21 +22,11 @@ const PROVIDER_LABEL: Record<'apple' | 'google', string> = {
 };
 
 const MODES: ReadingMode[] = ['kesif', 'ogrenme', 'odak'];
-const SCHEMES: { key: ColorSchemePreference; label: string }[] = [
-  { key: 'system', label: 'Sistem' },
-  { key: 'light', label: 'Açık' },
-  { key: 'dark', label: 'Koyu' },
-];
-const ACCENTS: { key: AccentVariant; label: string }[] = [
-  { key: 'ceviz', label: 'Ceviz' },
-  { key: 'lacivert', label: 'Lacivert' },
-  { key: 'mor', label: 'Mor' },
-];
 
 function SectionLabel({ children }: { children: string }) {
   return (
     <StyledText variant="eyebrow" color="faint" style={{ marginTop: 24, marginBottom: 10 }}>
-      {children.toLocaleUpperCase('tr-TR')}
+      {children.toUpperCase()}
     </StyledText>
   );
 }
@@ -103,6 +93,8 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export function SettingsScreen() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t, language, setLanguage } = useTranslation();
+
   const readingMode = useUserSettingsStore((s) => s.readingMode);
   const setReadingMode = useUserSettingsStore((s) => s.setReadingMode);
   const colorSchemePreference = useUserSettingsStore((s) => s.colorSchemePreference);
@@ -113,14 +105,26 @@ export function SettingsScreen() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const signOut = useAuthStore((s) => s.signOut);
 
+  const schemes: { key: ColorSchemePreference; label: string }[] = [
+    { key: 'system', label: t('settings.schemes.system') },
+    { key: 'light', label: t('settings.schemes.light') },
+    { key: 'dark', label: t('settings.schemes.dark') },
+  ];
+
+  const accents: { key: AccentVariant; label: string }[] = [
+    { key: 'ceviz', label: t('settings.accents.ceviz') },
+    { key: 'lacivert', label: t('settings.accents.lacivert') },
+    { key: 'mor', label: t('settings.accents.mor') },
+  ];
+
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StyledText variant="title" style={{ marginTop: 12 }}>
-          Ayarlar
+          {t('settings.title')}
         </StyledText>
 
-        <SectionLabel>Hesap</SectionLabel>
+        <SectionLabel>{t('settings.account')}</SectionLabel>
         {isAuthenticated && user ? (
           <View
             style={{
@@ -134,30 +138,30 @@ export function SettingsScreen() {
             }}
           >
             <View>
-              <StyledText variant="callout">{user.name ?? user.email ?? 'Hesabım'}</StyledText>
+              <StyledText variant="callout">{user.name ?? user.email ?? t('settings.myAccount')}</StyledText>
               <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
-                {PROVIDER_LABEL[user.provider]} ile bağlı
+                {t('settings.connectedWith', { provider: PROVIDER_LABEL[user.provider] })}
               </StyledText>
             </View>
-            <Button label="Çıkış Yap" variant="secondary" onPress={signOut} />
+            <Button label={t('settings.signOut')} variant="secondary" onPress={signOut} />
           </View>
         ) : (
-          <Button label="Giriş Yap" variant="secondary" onPress={() => navigation.navigate('Auth')} />
+          <Button label={t('settings.signIn')} variant="secondary" onPress={() => navigation.navigate('Auth')} />
         )}
 
-        <SectionLabel>Okuma Modu</SectionLabel>
+        <SectionLabel>{t('settings.readingMode')}</SectionLabel>
         {MODES.map((mode) => (
           <OptionRow
             key={mode}
-            label={READING_MODE_META[mode].title}
-            description={READING_MODE_META[mode].description}
+            label={t(`readingModes.${mode}.title`)}
+            description={t(`readingModes.${mode}.description`)}
             selected={readingMode === mode}
             onPress={() => setReadingMode(mode)}
           />
         ))}
 
-        <SectionLabel>Görünüm</SectionLabel>
-        {SCHEMES.map((s) => (
+        <SectionLabel>{t('settings.appearance')}</SectionLabel>
+        {schemes.map((s) => (
           <OptionRow
             key={s.key}
             label={s.label}
@@ -166,8 +170,8 @@ export function SettingsScreen() {
           />
         ))}
 
-        <SectionLabel>Renk Teması</SectionLabel>
-        {ACCENTS.map((a) => (
+        <SectionLabel>{t('settings.colorTheme')}</SectionLabel>
+        {accents.map((a) => (
           <OptionRow
             key={a.key}
             label={a.label}
@@ -176,44 +180,20 @@ export function SettingsScreen() {
           />
         ))}
 
-        <SectionLabel>Dil (Language)</SectionLabel>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: 14,
-            borderRadius: theme.radius.xxl,
-            backgroundColor: theme.colors.surf,
-            borderWidth: 1,
-            borderColor: theme.colors.line,
-            marginBottom: 8,
-          }}
-        >
-          <View style={{ flex: 1, paddingRight: 8 }}>
-            <StyledText variant="callout" style={{ fontWeight: '600' }}>
-              Türkçe
-            </StyledText>
-            <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
-              İngilizce ve çoklu meal desteği yakında sunulacaktır
-            </StyledText>
-          </View>
-          <View
-            style={{
-              paddingHorizontal: 8,
-              paddingVertical: 4,
-              borderRadius: 6,
-              backgroundColor: theme.colors.band,
-            }}
-          >
-            <StyledText variant="caption" color="faint" style={{ fontWeight: '700', fontSize: 10 }}>
-              YAKINDA
-            </StyledText>
-          </View>
-        </View>
+        <SectionLabel>{t('settings.language')}</SectionLabel>
+        {SUPPORTED_LANGUAGES.map((langOpt) => (
+          <OptionRow
+            key={langOpt.code}
+            label={`${langOpt.nativeLabel} (${langOpt.label})`}
+            description={langOpt.description}
+            selected={language === langOpt.code}
+            onPress={() => setLanguage(langOpt.code)}
+          />
+        ))}
 
         <View style={{ height: theme.spacing.xxxl }} />
       </ScrollView>
     </Screen>
   );
 }
+

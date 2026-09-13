@@ -30,19 +30,18 @@
     "MOB-025",
     "MOB-026",
     "MOB-027",
-    "MOB-028"
+    "MOB-028",
+    "MOB-029"
   ],
   "in_progress": "",
   "blocked": [],
-  "planned": [
-    "MOB-029"
-  ],
-  "notes": "Phase 6 mobil geliştirmeleri tamamlandı. MOB-029 (Çoklu Dil Desteği & Dinamik Dil Seçimi / i18n) backlog'a eklendi ve ayarlar ekranında arayüz alanı açıldı. Ayet okuma ekranı editoryal bağlam blokları ve Fatiha kavramları entegrasyonu devam ediyor.",
+  "planned": [],
+  "notes": "Phase 6 mobil geliştirmeleri ve MOB-029 (Çoklu Dil Desteği & Dinamik Dil Seçimi / i18n) tamamlandı. Ayarlar ekranında Türkçe, English ve العربية dil seçenekleri aktif edildi, BottomTab ve ekranlar useTranslation hook'u ile dinamikleştirildi.",
   "messages": [
     {
       "to": "all",
-      "message": "MOB-029 (Çoklu Dil Desteği) backlog'a kaydedildi. Ayarlar ekranında dil tercih alanı hazırlandı.",
-      "timestamp": "2026-09-13T18:55:00Z"
+      "message": "MOB-029 (Çoklu Dil Desteği & i18n) tamamlandı. Türkçe, İngilizce ve Arapça sözlükler, dinamik dil geçişi ve kalıcı depolama aktif.",
+      "timestamp": "2026-09-13T21:30:00Z"
     }
   ]
 }

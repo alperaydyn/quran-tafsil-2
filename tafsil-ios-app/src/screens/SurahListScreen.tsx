@@ -5,19 +5,18 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
 import { useTheme } from '../theme';
+import { useTranslation } from '../i18n';
 import { getSurahs } from '../api/client';
 import type { Surah } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
 
-const DONEM_LABEL: Record<Surah['period'], string> = {
-  erken_mekke: 'Erken Mekke',
-  orta_mekke: 'Orta Mekke',
-  gec_mekke: 'Geç Mekke',
-  medine: 'Medine',
-};
-
 function SurahRow({ surah, onPress }: { surah: Surah; onPress: () => void }) {
   const theme = useTheme();
+  const { t } = useTranslation();
+
+  const periodLabel = t(`periods.${surah.period}`);
+  const verseCountLabel = t('common.verseCount', { count: surah.verseCount });
+
   return (
     <Pressable
       onPress={onPress}
@@ -47,7 +46,7 @@ function SurahRow({ surah, onPress }: { surah: Surah; onPress: () => void }) {
       <View style={{ flex: 1 }}>
         <StyledText variant="headline">{surah.nameTr}</StyledText>
         <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
-          {DONEM_LABEL[surah.period]} · {surah.verseCount} ayet
+          {periodLabel} · {verseCountLabel}
         </StyledText>
       </View>
       <StyledText variant="arabicInline" color="ink">
@@ -62,6 +61,7 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export function SurahListScreen() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
   const [surahs, setSurahs] = useState<Surah[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -82,13 +82,13 @@ export function SurahListScreen() {
     <Screen noPadding>
       <View style={{ paddingHorizontal: theme.spacing.xl }}>
         <StyledText variant="title" style={{ marginTop: 12, marginBottom: 8 }}>
-          Sureler
+          {t('surahList.title')}
         </StyledText>
       </View>
       {loading ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <StyledText variant="footnote" color="mut">
-            Yükleniyor…
+            {t('common.loading')}
           </StyledText>
         </View>
       ) : (
@@ -107,3 +107,4 @@ export function SurahListScreen() {
     </Screen>
   );
 }
+
