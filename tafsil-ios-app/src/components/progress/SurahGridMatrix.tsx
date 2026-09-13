@@ -100,10 +100,30 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
             if (isDone) cellBg = theme.colors.accSoft;
             else if (isInProgress) cellBg = theme.colors.band;
 
+            const handleCellPress = () => {
+              if (isSelected) {
+                if (activeTab === 'reading') {
+                  navigation.navigate('Reading', { surahId: surah.id, ayahNo: 1 });
+                } else {
+                  if (onStartMemorization) {
+                    onStartMemorization(surah);
+                  } else {
+                    navigation.navigate('MemorizationStudio', {
+                      surahId: surah.id,
+                      startAyah: 1,
+                      endAyah: Math.min(5, surah.verseCount),
+                    });
+                  }
+                }
+              } else {
+                setSelectedSurah(surah);
+              }
+            };
+
             return (
               <Pressable
                 key={surah.id}
-                onPress={() => setSelectedSurah(isSelected ? null : surah)}
+                onPress={handleCellPress}
                 style={[
                   styles.cell,
                   {

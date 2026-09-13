@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Pressable } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { ScrollView, View, Pressable, type LayoutChangeEvent } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
 import { WordDetailSheet } from '../components/lexicon/WordDetailSheet';
 import { AudioPlaybackBar } from '../components/reading/AudioPlaybackBar';
+import { ConceptContextCard } from '../components/reading/ConceptContextCard';
 import { OfflineSyncService } from '../services/offlineSyncService';
 import { useTheme } from '../theme';
 import { getVerses } from '../api/client';
@@ -12,8 +14,32 @@ import type { Verse, Word } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
 import { useReadingMode } from '../hooks/useReadingMode';
 import { useReadingProgressStore } from '../store/useReadingProgressStore';
+import { getConceptDetails } from '../data/concepts.seed';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Reading'>;
+
+/**
+ * Ayet mealindeki [görünen_kelime|kavram_slug] etiketlerini ayrıştırır.
+ * Kaynak: Tafsil.dc.html satır 561 (segsOf)
+ */
+function segsOf(text: string): { text: string; conceptSlug: string | null }[] {
+  if (!text) return [];
+  const out: { text: string; conceptSlug: string | null }[] = [];
+  const re = /\[([^\|\]]+)\|([^\]]+)\]/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    if (m.index > last) {
+      out.push({ text: text.slice(last, m.index), conceptSlug: null });
+    }
+    out.push({ text: m[1], conceptSlug: m[2] });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) {
+    out.push({ text: text.slice(last), conceptSlug: null });
+  }
+  return out;
+}
 
 function VerseCard({
   verse,
@@ -22,6 +48,12 @@ function VerseCard({
   onWordPress,
   onBookmarkToggle,
   isBookmarked,
+  onLayout,
+  activeChain,
+  onConceptPress,
+  onSelectRelatedConcept,
+  onCloseConcept,
+  onOpenDag,
 }: {
   verse: Verse;
   isVerseActive: boolean;
@@ -29,6 +61,12 @@ function VerseCard({
   onWordPress: (word: Word) => void;
   onBookmarkToggle: () => void;
   isBookmarked: boolean;
+  onLayout?: (e: LayoutChangeEvent) => void;
+  activeChain?: string[];
+  onConceptPress: (slug: string) => void;
+  onSelectRelatedConcept: (slug: string, depth: number) => void;
+  onCloseConcept: (depth: number) => void;
+  onOpenDag?: (slug: string) => void;
 }) {
   const theme = useTheme();
   const mode = useReadingMode();
@@ -37,21 +75,25 @@ function VerseCard({
     verse.words && verse.words.length > 0
       ? verse.words
       : verse.textAr.split(' ').map((w, idx) => ({
-          id: idx + 1,
-          position: idx + 1,
-          textAr: w,
-          textTr: '',
-          rootId: null,
-          startMs: 0,
-          endMs: 0,
-        }));
+        id: idx + 1,
+        position: idx + 1,
+        textAr: w,
+        textTr: '',
+        rootId: null,
+        startMs: 0,
+        endMs: 0,
+      }));
+
+  const activeTint = theme.scheme === 'dark' ? 'rgba(127, 163, 204, 0.07)' : 'rgba(63, 95, 134, 0.04)';
+  const segments = segsOf(verse.mealTr || 'Bu ayet için meal çevirisi hazırlanıyor.');
 
   return (
     <View
+      onLayout={onLayout}
       style={{
-        backgroundColor: theme.colors.surf,
-        borderWidth: 1,
-        borderColor: isVerseActive ? '#D4A853' : theme.colors.line,
+        backgroundColor: isVerseActive ? activeTint : theme.colors.surf,
+        borderWidth: 1.5,
+        borderColor: isVerseActive ? theme.colors.acc : theme.colors.line,
         borderRadius: theme.radius.xxl,
         padding: 16,
         marginBottom: 14,
@@ -65,12 +107,18 @@ function VerseCard({
               width: 24,
               height: 24,
               borderRadius: 8,
-              backgroundColor: isVerseActive ? '#D4A853' : theme.colors.band,
+              backgroundColor: isVerseActive ? theme.colors.acc : theme.colors.band,
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <StyledText variant="caption" style={{ color: isVerseActive ? '#171613' : theme.colors.mut, fontWeight: '700' }}>
+            <StyledText
+              variant="caption"
+              style={{
+                color: isVerseActive ? (theme.scheme === 'dark' ? '#14130F' : '#FFFFFF') : theme.colors.mut,
+                fontWeight: '700',
+              }}
+            >
               {verse.ayahNo}
             </StyledText>
           </View>
@@ -80,7 +128,7 @@ function VerseCard({
         </View>
 
         <Pressable onPress={onBookmarkToggle} hitSlop={8}>
-          <StyledText style={{ fontSize: 16, color: isBookmarked ? '#D4A853' : theme.colors.mut }}>
+          <StyledText style={{ fontSize: 16, color: isBookmarked ? theme.colors.acc : theme.colors.mut }}>
             {isBookmarked ? '★' : '☆'}
           </StyledText>
         </Pressable>
@@ -104,15 +152,15 @@ function VerseCard({
                 onPress={() => onWordPress(word)}
                 style={({ pressed }) => ({
                   backgroundColor: isWordActive
-                    ? 'rgba(212, 168, 83, 0.28)'
+                    ? theme.colors.accSoft
                     : pressed
-                    ? theme.colors.band
-                    : 'transparent',
+                      ? theme.colors.band
+                      : 'transparent',
                   borderRadius: theme.radius.sm,
-                  paddingHorizontal: 4,
+                  paddingHorizontal: 5,
                   paddingVertical: 2,
                   borderWidth: isWordActive ? 1 : 0,
-                  borderColor: isWordActive ? '#D4A853' : 'transparent',
+                  borderColor: isWordActive ? theme.colors.acc : 'transparent',
                 })}
               >
                 <StyledText
@@ -120,7 +168,7 @@ function VerseCard({
                   style={{
                     writingDirection: 'rtl',
                     textAlign: 'right',
-                    color: isWordActive ? '#8C5B00' : theme.colors.ink,
+                    color: isWordActive ? theme.colors.acc : theme.colors.ink,
                   }}
                 >
                   {word.textAr}
@@ -138,13 +186,68 @@ function VerseCard({
       ) : null}
 
       {mode.mealEmphasis !== 'minimal' && (
-        <StyledText
-          variant={mode.mealEmphasis === 'primary' ? 'bodyLarge' : 'body'}
-          color="ink"
-          style={{ lineHeight: 22 }}
-        >
-          {verse.mealTr || 'Bu ayet için meal çevirisi hazırlanıyor.'}
-        </StyledText>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
+          {segments.map((seg, sIdx) => {
+            if (seg.conceptSlug) {
+              return (
+                <Pressable
+                  key={`seg-${sIdx}`}
+                  onPress={() => onConceptPress(seg.conceptSlug!)}
+                  hitSlop={6}
+                  style={({ pressed }) => ({
+                    borderBottomWidth: 1.5,
+                    borderBottomColor: theme.colors.acc,
+                    backgroundColor: pressed ? theme.colors.accSoft : 'transparent',
+                    borderRadius: 3,
+                    marginHorizontal: 1,
+                  })}
+                >
+                  <StyledText
+                    variant={mode.mealEmphasis === 'primary' ? 'bodyLarge' : 'body'}
+                    style={{
+                      color: theme.colors.acc,
+                      fontWeight: '600',
+                      lineHeight: 24,
+                    }}
+                  >
+                    {seg.text}
+                  </StyledText>
+                </Pressable>
+              );
+            }
+            return (
+              <StyledText
+                key={`seg-${sIdx}`}
+                variant={mode.mealEmphasis === 'primary' ? 'bodyLarge' : 'body'}
+                color="ink"
+                style={{ lineHeight: 24 }}
+              >
+                {seg.text}
+              </StyledText>
+            );
+          })}
+        </View>
+      )}
+
+      {/* İç İçe Açılan Zincirleme Bağlam Blokları (Nested Context Cards) */}
+      {activeChain && activeChain.length > 0 && (
+        <View style={{ marginTop: 6 }}>
+          {activeChain.map((slug, depth) => {
+            const concept = getConceptDetails(slug);
+            if (!concept) return null;
+            return (
+              <ConceptContextCard
+                key={`${verse.id}-${slug}-${depth}`}
+                concept={concept}
+                depth={depth}
+                isLastInChain={depth === activeChain.length - 1}
+                onSelectRelatedConcept={(relSlug) => onSelectRelatedConcept(relSlug, depth)}
+                onClose={() => onCloseConcept(depth)}
+                onOpenDag={onOpenDag}
+              />
+            );
+          })}
+        </View>
       )}
     </View>
   );
@@ -152,7 +255,8 @@ function VerseCard({
 
 export function ReadingScreen({ route, navigation }: Props) {
   const theme = useTheme();
-  const { surahId } = route.params;
+  const insets = useSafeAreaInsets();
+  const { surahId, ayahNo: initialAyahNo, autoPlay } = route.params;
   const [verses, setVerses] = useState<Verse[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -160,12 +264,27 @@ export function ReadingScreen({ route, navigation }: Props) {
   const [bookmarkedSet, setBookmarkedSet] = useState<Set<number>>(new Set());
 
   // Audio state
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [activeAyah, setActiveAyah] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(Boolean(autoPlay));
+  const [activeAyah, setActiveAyah] = useState(initialAyahNo ?? 1);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
+
+  // Aktif açık olan kavram zinciri ve hangi ayete ait olduğu
+  const [activeChain, setActiveChain] = useState<string[]>([]);
+  const [chainAyah, setChainAyah] = useState<number | null>(null);
+
+  const scrollViewRef = useRef<ScrollView>(null);
+  const verseLayouts = useRef<{ [ayahNo: number]: { y: number; height: number } }>({});
 
   const markVerseRead = useReadingProgressStore((s) => s.markVerseRead);
   const setLastRead = useReadingProgressStore((s) => s.setLastRead);
+
+  // Yeni sureye autoPlay parametresiyle geçildiğinde oynatmayı başlat
+  useEffect(() => {
+    if (autoPlay) {
+      setIsPlaying(true);
+      setActiveWordIndex(0);
+    }
+  }, [autoPlay, surahId]);
 
   useEffect(() => {
     let mounted = true;
@@ -202,6 +321,15 @@ export function ReadingScreen({ route, navigation }: Props) {
     }
   }, [verses, surahId, markVerseRead, setLastRead]);
 
+  // Aktif okunan ayet değiştiğinde otomatik scroll (ekran odağı)
+  useEffect(() => {
+    const layout = verseLayouts.current[activeAyah];
+    if (layout && scrollViewRef.current) {
+      const targetY = Math.max(0, layout.y - 70);
+      scrollViewRef.current.scrollTo({ y: targetY, animated: true });
+    }
+  }, [activeAyah]);
+
   // Simulated word-by-word karaoke sync timer when playing
   useEffect(() => {
     if (!isPlaying) {
@@ -220,19 +348,24 @@ export function ReadingScreen({ route, navigation }: Props) {
       if (currentWord < wordCount) {
         setActiveWordIndex(currentWord);
       } else {
-        // Move to next verse or stop
+        // Move to next verse or next surah
         if (activeAyah < verses.length) {
           setActiveAyah((prev) => prev + 1);
           currentWord = 0;
         } else {
-          setIsPlaying(false);
-          setActiveWordIndex(null);
+          // Okunan sure bitti! Son sure değilse (surahId < 114) otomatik sonrakine geç ve otomatik çalmaya başla
+          if (surahId < 114) {
+            navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: true });
+          } else {
+            setIsPlaying(false);
+            setActiveWordIndex(null);
+          }
         }
       }
     }, 900);
 
     return () => clearInterval(interval);
-  }, [isPlaying, activeAyah, verses]);
+  }, [isPlaying, activeAyah, verses, surahId, navigation]);
 
   const toggleBookmark = (ayahNo: number) => {
     const next = new Set(bookmarkedSet);
@@ -251,6 +384,33 @@ export function ReadingScreen({ route, navigation }: Props) {
     setBottomSheetVisible(true);
   };
 
+  const handleConceptPress = (ayahNo: number, slug: string) => {
+    if (chainAyah === ayahNo && activeChain[0] === slug) {
+      setActiveChain([]);
+      setChainAyah(null);
+    } else {
+      setChainAyah(ayahNo);
+      setActiveChain([slug]);
+    }
+  };
+
+  const handleSelectRelatedConcept = (slug: string, depth: number) => {
+    setActiveChain((prev) => [...prev.slice(0, depth + 1), slug]);
+  };
+
+  const handleCloseConcept = (depth: number) => {
+    if (depth === 0) {
+      setActiveChain([]);
+      setChainAyah(null);
+    } else {
+      setActiveChain((prev) => prev.slice(0, depth));
+    }
+  };
+
+  const handleOpenDag = (_slug: string) => {
+    navigation.navigate('Main', { screen: 'DagExplorer' });
+  };
+
   return (
     <Screen edges={['left', 'right']}>
       {loading ? (
@@ -267,34 +427,19 @@ export function ReadingScreen({ route, navigation }: Props) {
         </View>
       ) : (
         <>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: theme.spacing.lg, paddingBottom: 4 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: theme.spacing.lg, paddingBottom: 6 }}>
             <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
               {verses.length} Ayet · Çevrimdışı Hazır
             </StyledText>
-
-            <Pressable
-              onPress={() => navigation.navigate('EnglishReading', { surahId })}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 4,
-                backgroundColor: theme.colors.band,
-                paddingHorizontal: 10,
-                paddingVertical: 4,
-                borderRadius: theme.radius.sm,
-              }}
-            >
-              <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
-                Dil:
-              </StyledText>
-              <StyledText variant="caption" color="acc" style={{ fontWeight: '700', fontSize: 11 }}>
-                TR ➔ EN
-              </StyledText>
-            </Pressable>
           </View>
 
           <ScrollView
-            contentContainerStyle={{ paddingTop: theme.spacing.sm, paddingBottom: 80, paddingHorizontal: theme.spacing.lg }}
+            ref={scrollViewRef}
+            contentContainerStyle={{
+              paddingTop: theme.spacing.sm,
+              paddingBottom: (insets.bottom || 14) + 85,
+              paddingHorizontal: theme.spacing.lg,
+            }}
             showsVerticalScrollIndicator={false}
           >
             {verses.map((v) => (
@@ -306,6 +451,17 @@ export function ReadingScreen({ route, navigation }: Props) {
                 onWordPress={handleWordPress}
                 onBookmarkToggle={() => toggleBookmark(v.ayahNo)}
                 isBookmarked={bookmarkedSet.has(v.ayahNo)}
+                onLayout={(e) => {
+                  verseLayouts.current[v.ayahNo] = {
+                    y: e.nativeEvent.layout.y,
+                    height: e.nativeEvent.layout.height,
+                  };
+                }}
+                activeChain={chainAyah === v.ayahNo ? activeChain : []}
+                onConceptPress={(slug) => handleConceptPress(v.ayahNo, slug)}
+                onSelectRelatedConcept={handleSelectRelatedConcept}
+                onCloseConcept={handleCloseConcept}
+                onOpenDag={handleOpenDag}
               />
             ))}
           </ScrollView>
@@ -322,6 +478,9 @@ export function ReadingScreen({ route, navigation }: Props) {
               if (activeAyah < verses.length) {
                 setActiveAyah(activeAyah + 1);
                 setActiveWordIndex(0);
+              } else if (surahId < 114) {
+                // Sure bittiğinde sonraki butonuyla da sıradaki sureye geç ve çalmaya devam et
+                navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: isPlaying });
               }
             }}
             onPrevVerse={() => {

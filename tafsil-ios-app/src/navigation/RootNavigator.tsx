@@ -10,7 +10,6 @@ import { OnboardingScreen } from '../screens/OnboardingScreen';
 import { AuthScreen } from '../screens/AuthScreen';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { ReadingScreen } from '../screens/ReadingScreen';
-import { EnglishReadingScreen } from '../screens/EnglishReadingScreen';
 import { MemorizationStudioScreen } from '../screens/MemorizationStudioScreen';
 import { ProgressMatrixScreen } from '../screens/ProgressMatrixScreen';
 import { UnderstandingListScreen } from '../screens/UnderstandingListScreen';
@@ -32,7 +31,6 @@ const linking: LinkingOptions<RootStackParamList> = {
         },
       },
       Reading: 'ayet/:surahId/:ayahNo',
-      EnglishReading: 'en/reading/:surahId',
       UnderstandingStudio: 'oturum/:id',
       UnderstandingList: 'anlama',
       ProgressMatrix: 'matris',
@@ -60,28 +58,24 @@ export function RootNavigator() {
     },
   };
 
-  // İlk render'daki durumu yakalar (ör. kalıcı depodan yüklenen bayraklar);
-  // Onboarding ekranının kaldırılmasıyla oluşan geçiş, aşağıdaki koşullu
-  // Screen listesi üzerinden zaten kendiliğinden yönlendirilir.
-  const initialRouteName = !onboardingCompleted ? 'Onboarding' : !authStepCompleted ? 'Auth' : 'Main';
+  // İlk render'daki durumu yakalar: Onboarding bittiğinde doğrudan Main'e geçer;
+  // Auth ekranı zorunlu bir engel değil, Ayarlar > Hesap üzerinden erişilen isteğe bağlı bir adımdır.
+  const initialRouteName = !onboardingCompleted ? 'Onboarding' : 'Main';
 
   return (
     <NavigationContainer theme={navTheme} linking={linking}>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         {!onboardingCompleted && <Stack.Screen name="Onboarding" component={OnboardingScreen} />}
-        {/* Auth her zaman kayıtlıdır: onboarding sonrası zorunlu adım olarak VE
-            "Şimdilik Atla" sonrası Ayarlar > Hesap'tan tekrar erişilebilsin diye. */}
-        <Stack.Screen name="Auth" component={AuthScreen} />
         <Stack.Screen name="Main" component={BottomTabNavigator} />
+        <Stack.Screen
+          name="Auth"
+          component={AuthScreen}
+          options={{ headerShown: true, headerTitle: 'Hesap & Senkronizasyon', presentation: 'modal' }}
+        />
         <Stack.Screen
           name="Reading"
           component={ReadingScreen}
           options={{ headerShown: true, headerTitle: '', headerBackTitle: 'Geri' }}
-        />
-        <Stack.Screen
-          name="EnglishReading"
-          component={EnglishReadingScreen}
-          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="MemorizationStudio"

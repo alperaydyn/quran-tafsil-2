@@ -4,7 +4,7 @@ import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
 import { Button } from '../components/common/Button';
 import { useTheme } from '../theme';
-import { useUserSettingsStore, type ReadingMode } from '../store/useUserSettingsStore';
+import { useUserSettingsStore, type ReadingMode, MODE_TO_ACCENT } from '../store/useUserSettingsStore';
 import { READING_MODE_META } from '../hooks/useReadingMode';
 
 interface Slide {
@@ -58,15 +58,39 @@ function Dots({ count, active }: { count: number; active: number }) {
 export function OnboardingScreen() {
   const theme = useTheme();
   const completeOnboarding = useUserSettingsStore((s) => s.completeOnboarding);
+  const setAccentVariant = useUserSettingsStore((s) => s.setAccentVariant);
   const [step, setStep] = useState(0); // 0..SLIDES.length-1 = tanıtım, SLIDES.length = mod seçimi
   const [selectedMode, setSelectedMode] = useState<ReadingMode>('ogrenme');
 
   const totalSteps = SLIDES.length + 1;
   const isModeStep = step === SLIDES.length;
 
+  const handleSelectMode = (mode: ReadingMode) => {
+    setSelectedMode(mode);
+    setAccentVariant(MODE_TO_ACCENT[mode]);
+  };
+
   return (
     <Screen>
-      <View style={{ flex: 1, justifyContent: 'space-between', paddingVertical: 24 }}>
+      <View style={{ flex: 1, justifyContent: 'space-between', paddingVertical: 16 }}>
+        {/* Üst Kısayol Barı: Tanıtımı Geç */}
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <Pressable
+            hitSlop={12}
+            onPress={() => completeOnboarding(selectedMode)}
+            style={{
+              paddingVertical: 6,
+              paddingHorizontal: 12,
+              borderRadius: theme.radius.pill,
+              backgroundColor: theme.colors.band,
+            }}
+          >
+            <StyledText variant="caption" color="mut" style={{ fontWeight: '600' }}>
+              Tanıtımı Geç
+            </StyledText>
+          </Pressable>
+        </View>
+
         <View style={{ flex: 1, justifyContent: 'center', gap: 14 }}>
           {isModeStep ? (
             <>
@@ -84,19 +108,24 @@ export function OnboardingScreen() {
                   return (
                     <Pressable
                       key={mode}
-                      onPress={() => setSelectedMode(mode)}
+                      onPress={() => handleSelectMode(mode)}
                       style={{
                         borderRadius: theme.radius.xxxl,
                         padding: 16,
-                        borderWidth: 1,
+                        borderWidth: 1.5,
                         borderColor: selected ? theme.colors.acc : theme.colors.line,
-                        backgroundColor: theme.colors.surf,
+                        backgroundColor: selected ? theme.colors.accSoft : theme.colors.surf,
                         ...(selected
                           ? { shadowColor: theme.colors.acc, shadowOpacity: 0.15, shadowRadius: 6 }
                           : {}),
                       }}
                     >
-                      <StyledText variant="headline">{meta.title}</StyledText>
+                      <StyledText
+                        variant="headline"
+                        style={{ color: selected ? theme.colors.acc : theme.colors.ink }}
+                      >
+                        {meta.title}
+                      </StyledText>
                       <StyledText variant="footnote" color="mut" style={{ marginTop: 4 }}>
                         {meta.description}
                       </StyledText>

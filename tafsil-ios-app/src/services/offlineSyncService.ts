@@ -19,6 +19,8 @@ export interface OfflineHistoryItem {
   okundu_tarihi: string;
 }
 
+const DAILY_COUNTS_KEY = 'tafsil_daily_verse_counts';
+
 export class OfflineSyncService {
   static async getBookmarks(): Promise<OfflineBookmark[]> {
     try {
@@ -61,6 +63,15 @@ export class OfflineSyncService {
 
   static async recordReading(sureId: number, ayetNo: number, durationSeconds: number = 30): Promise<void> {
     try {
+      const today = new Date().toISOString().slice(0, 10);
+
+      // 1. Günlük ayet sayacı güncellemesi
+      const rawDaily = await mmkvStorage.getItem(DAILY_COUNTS_KEY);
+      const dailyMap: Record<string, number> = rawDaily ? JSON.parse(rawDaily) : {};
+      dailyMap[today] = (dailyMap[today] ?? 0) + 1;
+      await mmkvStorage.setItem(DAILY_COUNTS_KEY, JSON.stringify(dailyMap));
+
+      // 2. Ayrıntılı geçmiş listesi
       const raw = await mmkvStorage.getItem(HISTORY_KEY);
       const list: OfflineHistoryItem[] = raw ? JSON.parse(raw) : [];
       list.push({
@@ -69,9 +80,58 @@ export class OfflineSyncService {
         okunma_suresi_sn: durationSeconds,
         okundu_tarihi: new Date().toISOString(),
       });
-      await mmkvStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(-50)));
+      await mmkvStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(-300)));
     } catch {
       // ignore
+    }
+  }
+
+  static async getDailyCounts(): Promise<Record<string, number>> {
+    try {
+      const rawDaily = await mmkvStorage.getItem(DAILY_COUNTS_KEY);
+      const dailyMap: Record<string, number> = rawDaily ? JSON.parse(rawDaily) : {};
+
+      // HISTORY_KEY ile birleştir
+      const raw = await mmkvStorage.getItem(HISTORY_KEY);
+      const list: OfflineHistoryItem[] = raw ? JSON.parse(raw) : [];
+      list.forEach((item) => {
+        if (item.okundu_tarihi) {
+          const d = item.okundu_tarihi.slice(0, 10);
+          if (!dailyMap[d]) dailyMap[d] = 0;
+        }
+      });
+      return dailyMap;
+    } catch {
+      return {};
+    }
+  }
+
+  static async getWateredWeeksCount(): Promise<number> {
+    try {
+      const dailyCounts = await this.getDailyCounts();
+      const weeksSet = new Set<string>();
+      Object.entries(dailyCounts).forEach(([dateStr, count]) => {
+        if (count > 0) {
+          const date = new Date(dateStr);
+          const oneJan = new Date(date.getFullYear(), 0, 1);
+          const numberOfDays = Math.floor((date.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000));
+          const weekNo = Math.ceil((numberOfDays + oneJan.getDay() + 1) / 7);
+          weeksSet.add(`${date.getFullYear()}-W${weekNo}`);
+        }
+      });
+      return weeksSet.size;
+    } catch {
+      return 0;
+    }
+  }
+
+  static async getTodayReadCount(): Promise<number> {
+    try {
+      const dailyCounts = await this.getDailyCounts();
+      const todayPrefix = new Date().toISOString().slice(0, 10);
+      return dailyCounts[todayPrefix] ?? 0;
+    } catch {
+      return 0;
     }
   }
 

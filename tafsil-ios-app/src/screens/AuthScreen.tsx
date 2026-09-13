@@ -27,7 +27,15 @@ export function AuthScreen() {
   const authStepCompleted = useAuthStore((s) => s.authStepCompleted);
   const signInWithApple = useAuthStore((s) => s.signInWithApple);
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
-  const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
+  const [appleAvailable, setAppleAvailable] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      AppleAuthentication.isAvailableAsync()
+        .then((available) => setAppleAvailable(available))
+        .catch(() => setAppleAvailable(false));
+    }
+  }, []);
 
   useEffect(() => {
     if (!authStepCompleted) return;
@@ -41,15 +49,15 @@ export function AuthScreen() {
 
   return (
     <Screen>
-      <View style={{ flex: 1, justifyContent: 'space-between', paddingVertical: 24 }}>
+      <View style={{ flex: 1, justifyContent: 'space-between', paddingVertical: 20 }}>
         <View style={{ flex: 1, justifyContent: 'center', gap: 14 }}>
           <StyledText variant="eyebrow" color="faint">
-            HESAP
+            BULUT SENKRONİZASYONU
           </StyledText>
           <StyledText variant="display">İlerlemen seninle taşınsın</StyledText>
           <StyledText variant="body" color="mut">
             Okuma geçmişin, ezber ilerlemen ve favori kavramların cihazlar arasında
-            senkronize kalsın. İstersen daha sonra Ayarlar'dan da giriş yapabilirsin.
+            senkronize kalsın. Hesabını dilediğin zaman bağlayabilir veya ayrılabilirsin.
           </StyledText>
         </View>
 
@@ -60,7 +68,7 @@ export function AuthScreen() {
             </StyledText>
           ) : null}
 
-          {Platform.OS === 'ios' && (
+          {Platform.OS === 'ios' && appleAvailable ? (
             <AppleAuthentication.AppleAuthenticationButton
               buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
               buttonStyle={
@@ -69,7 +77,14 @@ export function AuthScreen() {
                   : AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
               }
               cornerRadius={theme.radius.pill}
-              style={{ height: theme.spacing.huge, width: '100%' }}
+              style={{ height: 48, width: '100%' }}
+              onPress={signInWithApple}
+            />
+          ) : (
+            <Button
+              label=" Apple ile Devam Et"
+              variant="primary"
+              disabled={isLoading}
               onPress={signInWithApple}
             />
           )}
@@ -82,10 +97,12 @@ export function AuthScreen() {
           />
 
           <Button
-            label="Şimdilik Atla"
+            label="Vazgeç / Kapat"
             variant="ghost"
             disabled={isLoading}
-            onPress={continueAsGuest}
+            onPress={() => {
+              if (navigation.canGoBack()) navigation.goBack();
+            }}
           />
         </View>
       </View>

@@ -3,6 +3,8 @@ import type { ApiResponse, Surah, Verse, Word } from './types';
 import { mockSurahs } from './mock/surahs.mock';
 import { mockVersesBySurah } from './mock/verses.mock';
 
+import ayetlerSnapshot from '../data/ayetler.snapshot.json';
+
 /**
  * Backend REST istemcisi (MOB-004).
  *
@@ -13,13 +15,39 @@ import { mockVersesBySurah } from './mock/verses.mock';
 const API_BASE =
   Constants.expoConfig?.extra?.apiUrl ??
   process.env.EXPO_PUBLIC_API_URL ??
-  'http://localhost:4000/api/v1';
+  'http://localhost:3001/api/v1';
 
-// USE_MOCK: false olarak ayarlandı (Canlı API aktif).
+// USE_MOCK: false olarak ayarlandı (Canlı API aktif, ağ yoksa snapshot devrede).
 export const USE_MOCK = {
   surahs: false,
   verses: false,
 };
+
+function getVersesFromSnapshot(surahId: number): Verse[] {
+  const list = (ayetlerSnapshot as any[]).filter((a) => a.s === surahId);
+  return list.map((a, idx) => ({
+    id: surahId * 1000 + a.a,
+    surahId: a.s,
+    ayahNo: a.a,
+    juzNo: Math.ceil(a.s / 4),
+    pageNo: 1,
+    textAr: a.ar,
+    transliterationTr: a.translit ?? '',
+    mealTr: a.tr ?? '',
+    audioUrl: null,
+    words: typeof a.ar === 'string'
+      ? a.ar.split(' ').map((w: string, wIdx: number) => ({
+          id: wIdx + 1,
+          position: wIdx + 1,
+          textAr: w,
+          textTr: '',
+          rootId: null,
+          startMs: 0,
+          endMs: 0,
+        }))
+      : [],
+  }));
+}
 
 function mapSurahFromBackend(row: any): Surah {
   return {
@@ -87,6 +115,10 @@ export async function getSurahs(siralama: 'mushaf' | 'nuzul' = 'mushaf'): Promis
 
 export async function getVerses(surahId: number, page = 1, limit = 300): Promise<ApiResponse<Verse[]>> {
   if (USE_MOCK.verses) {
+    const snapshotData = getVersesFromSnapshot(surahId);
+    if (snapshotData.length > 0) {
+      return { success: true, data: snapshotData, meta: { total: snapshotData.length, cached: true } };
+    }
     const data = mockVersesBySurah[surahId] ?? [];
     return { success: true, data, meta: { total: data.length, cached: false } };
   }
@@ -97,16 +129,20 @@ export async function getVerses(surahId: number, page = 1, limit = 300): Promise
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
-    if (json.success && Array.isArray(json.data)) {
+    if (json.success && Array.isArray(json.data) && json.data.length > 0) {
       return {
         success: true,
         data: json.data.map(mapVerseFromBackend),
         meta: json.meta,
       };
     }
-    return json;
+    throw new Error('Boş API verisi');
   } catch (err) {
-    console.warn(`[getVerses] Sure ${surahId} ayetleri çekilemedi, mock veriye dönülüyor:`, err);
+    console.warn(`[getVerses] Sure ${surahId} ayetleri API'den çekilemedi, yerel Kur'an anlık görüntüsüne dönülüyor:`, err);
+    const snapshotData = getVersesFromSnapshot(surahId);
+    if (snapshotData.length > 0) {
+      return { success: true, data: snapshotData, meta: { total: snapshotData.length, cached: true } };
+    }
     const data = mockVersesBySurah[surahId] ?? [];
     return { success: true, data, meta: { total: data.length, cached: false } };
   }
@@ -124,9 +160,14 @@ export async function getSingleVerse(surahId: number, ayetNo: number): Promise<A
         meta: json.meta,
       };
     }
-    return json;
+    throw new Error('API ayet bulunamadı');
   } catch (err) {
-    console.warn(`[getSingleVerse] ${surahId}:${ayetNo} çekilemedi:`, err);
+    console.warn(`[getSingleVerse] ${surahId}:${ayetNo} API'den çekilemedi, yerel anlık görüntüye bakılıyor:`, err);
+    const snapshotData = getVersesFromSnapshot(surahId);
+    const v = snapshotData.find((item) => item.ayahNo === ayetNo);
+    if (v) {
+      return { success: true, data: v, meta: { total: 1, cached: true } };
+    }
     return { success: false, error: { code: 'NETWORK_ERROR', message: 'Ayet yüklenemedi' } };
   }
 }

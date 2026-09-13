@@ -34,12 +34,15 @@
   ],
   "in_progress": "",
   "blocked": [],
-  "notes": "Phase 6 mobil geliştirmeleri tamamlandı. AudioPlaybackBar (kelime seviyesinde senkron karaoke aydınlatma), OfflineSyncService (mmkvStorage tabanlı yer imi ve okuma geçmişi senkronizasyonu), ReadingScreen sesli okuma entegrasyonu devrede. TypeScript kontrolü ve expo export sıfır hata ile derlendi.",
+  "planned": [
+    "MOB-029"
+  ],
+  "notes": "Phase 6 mobil geliştirmeleri tamamlandı. MOB-029 (Çoklu Dil Desteği & Dinamik Dil Seçimi / i18n) backlog'a eklendi ve ayarlar ekranında arayüz alanı açıldı. Ayet okuma ekranı editoryal bağlam blokları ve Fatiha kavramları entegrasyonu devam ediyor.",
   "messages": [
     {
       "to": "all",
-      "message": "Mobil uygulama AudioPlaybackBar, kelime senkron vurgulama ve çevrimdışı senkronizasyon yeteneklerini kazandı. iOS ve Android bundle derlemesi başarıyla tamamlandı.",
-      "timestamp": "2026-09-12T18:00:00Z"
+      "message": "MOB-029 (Çoklu Dil Desteği) backlog'a kaydedildi. Ayarlar ekranında dil tercih alanı hazırlandı.",
+      "timestamp": "2026-09-13T18:55:00Z"
     }
   ]
 }

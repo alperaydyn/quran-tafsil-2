@@ -176,6 +176,42 @@ export function SettingsScreen() {
           />
         ))}
 
+        <SectionLabel>Dil (Language)</SectionLabel>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: 14,
+            borderRadius: theme.radius.xxl,
+            backgroundColor: theme.colors.surf,
+            borderWidth: 1,
+            borderColor: theme.colors.line,
+            marginBottom: 8,
+          }}
+        >
+          <View style={{ flex: 1, paddingRight: 8 }}>
+            <StyledText variant="callout" style={{ fontWeight: '600' }}>
+              Türkçe
+            </StyledText>
+            <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
+              İngilizce ve çoklu meal desteği yakında sunulacaktır
+            </StyledText>
+          </View>
+          <View
+            style={{
+              paddingHorizontal: 8,
+              paddingVertical: 4,
+              borderRadius: 6,
+              backgroundColor: theme.colors.band,
+            }}
+          >
+            <StyledText variant="caption" color="faint" style={{ fontWeight: '700', fontSize: 10 }}>
+              YAKINDA
+            </StyledText>
+          </View>
+        </View>
+
         <View style={{ height: theme.spacing.xxxl }} />
       </ScrollView>
     </Screen>

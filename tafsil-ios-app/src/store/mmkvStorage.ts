@@ -21,18 +21,35 @@ try {
   activeStorage = new MMKV({ id: 'tafsil-app-storage' });
 } catch (err) {
   console.warn(
-    '[Tafsil Storage] MMKV native modülü yüklenemedi (Expo Go veya Eski Mimari). Bellek deposuna geçiliyor:',
+    '[Tafsil Storage] MMKV native modülü yüklenemedi (Expo Go veya Web). Kalıcı web/bellek deposuna geçiliyor:',
     (err as Error)?.message
   );
   activeStorage = {
     set: (name, value) => {
-      memoryStore.set(name, String(value));
+      const valStr = String(value);
+      memoryStore.set(name, valStr);
+      if (typeof window !== 'undefined' && window.localStorage) {
+        try {
+          window.localStorage.setItem(`tafsil_${name}`, valStr);
+        } catch {}
+      }
     },
     getString: (name) => {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        try {
+          const item = window.localStorage.getItem(`tafsil_${name}`);
+          if (item !== null) return item;
+        } catch {}
+      }
       return memoryStore.get(name);
     },
     delete: (name) => {
       memoryStore.delete(name);
+      if (typeof window !== 'undefined' && window.localStorage) {
+        try {
+          window.localStorage.removeItem(`tafsil_${name}`);
+        } catch {}
+      }
     },
   };
 }

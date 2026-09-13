@@ -9,6 +9,12 @@ import type { AccentVariant, ColorScheme } from '../theme/palette';
  */
 export type ReadingMode = 'kesif' | 'ogrenme' | 'odak';
 
+export const MODE_TO_ACCENT: Record<ReadingMode, AccentVariant> = {
+  kesif: 'mor',      // Felsefi, mistik, derin keşif
+  ogrenme: 'ceviz',  // Sıcak, editoryal, kağıt hissi
+  odak: 'lacivert',  // Yalın, dikkat dağıtıcısız, Uthmani odaklı
+};
+
 export type ColorSchemePreference = ColorScheme | 'system';
 
 interface UserSettingsState {
@@ -35,10 +41,11 @@ export const useUserSettingsStore = create<UserSettingsState>()(
       accentVariant: 'ceviz',
       language: 'tr',
 
-      setReadingMode: (mode) => set({ readingMode: mode }),
+      setReadingMode: (mode) => set({ readingMode: mode, accentVariant: MODE_TO_ACCENT[mode] }),
       setColorSchemePreference: (pref) => set({ colorSchemePreference: pref }),
       setAccentVariant: (variant) => set({ accentVariant: variant }),
-      completeOnboarding: (mode) => set({ readingMode: mode, onboardingCompleted: true }),
+      completeOnboarding: (mode) =>
+        set({ readingMode: mode, accentVariant: MODE_TO_ACCENT[mode], onboardingCompleted: true }),
       resetOnboarding: () => set({ onboardingCompleted: false }),
     }),
     {
