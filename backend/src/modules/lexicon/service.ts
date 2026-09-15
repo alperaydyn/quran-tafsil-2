@@ -37,16 +37,52 @@ export async function getKokTurevleri(kokId: number): Promise<Cached<any | null>
   const kok = kokRes.rows[0];
   if (!kok) return { data: null, cached: false };
 
-  const turevlerRes = await query(
-    `SELECT k.id, k.metin_ar, k.metin_tr, k.vezin, k.kelime_no, a.sure_id, a.ayet_no
-     FROM kelimeler k
-     JOIN ayetler a ON a.id = k.ayet_id
-     WHERE k.kok_id = $1
-     ORDER BY a.sure_id ASC, a.ayet_no ASC, k.kelime_no ASC`,
+  const [dagilimRes, turevlerRes] = await Promise.all([
+    query(
+      `SELECT k.metin_ar, count(*)::int as count, max(k.vezin) as vezin
+       FROM kelimeler k
+       WHERE k.kok_id = $1
+       GROUP BY k.metin_ar
+       ORDER BY count DESC
+       LIMIT 12`,
+      [kokId],
+    ),
+    query(
+      `SELECT k.id, k.metin_ar, k.metin_tr, k.vezin, k.kelime_no, a.sure_id, a.ayet_no
+       FROM kelimeler k
+       JOIN ayetler a ON a.id = k.ayet_id
+       WHERE k.kok_id = $1
+       ORDER BY a.sure_id ASC, a.ayet_no ASC, k.kelime_no ASC
+       LIMIT 50`,
+      [kokId],
+    ),
+  ]);
+
+  const toplamRes = await query<{ count: string }>(
+    `SELECT count(*)::int as count FROM kelimeler WHERE kok_id = $1`,
     [kokId],
   );
 
-  const data = { kok, turevler: turevlerRes.rows, toplam: turevlerRes.rows.length };
+  const data = {
+    kok,
+    dagilim: dagilimRes.rows,
+    turevler: turevlerRes.rows,
+    toplam: parseInt(toplamRes.rows[0]?.count ?? "0", 10),
+  };
   await l1Set(cacheKey, data);
   return { data, cached: false };
 }
+
+export async function searchKokler(queryText: string, limit = 20): Promise<any[]> {
+  const term = `%${queryText.trim()}%`;
+  const res = await query(
+    `SELECT id, kok_ar, kok_tr, kok_anlami
+     FROM kokler
+     WHERE kok_ar ILIKE $1 OR kok_tr ILIKE $1 OR kok_anlami ILIKE $1
+     ORDER BY length(kok_tr) ASC
+     LIMIT $2`,
+    [term, limit],
+  );
+  return res.rows;
+}
+

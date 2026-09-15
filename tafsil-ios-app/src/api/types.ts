@@ -22,10 +22,46 @@ export interface Word {
   position: number;
   textAr: string;
   textTr: string;
+  textEn?: string;
   rootId: number | null;
+  rootAr?: string;
+  rootTr?: string;
+  rootMeaning?: string;
+  vezin?: string;
   startMs: number;
   endMs: number;
 }
+
+export interface LexiconRoot {
+  id: number;
+  kok_ar: string;
+  kok_tr: string;
+  kok_anlami: string;
+}
+
+export interface RootDerivativeItem {
+  metin_ar: string;
+  count: number;
+  vezin?: string;
+}
+
+export interface RootVerseOccurrence {
+  id: number;
+  metin_ar: string;
+  metin_tr?: string;
+  vezin?: string;
+  sure_id: number;
+  ayet_no: number;
+  kelime_no: number;
+}
+
+export interface RootDerivatives {
+  kok: LexiconRoot;
+  dagilim: RootDerivativeItem[];
+  toplam: number;
+  turevler: RootVerseOccurrence[];
+}
+
 
 export interface Verse {
   id: number;

@@ -366,6 +366,46 @@ function GreetingHeader() {
   );
 }
 
+function QuickSearchBar() {
+  const theme = useTheme();
+  const navigation = useNavigation<Nav>();
+  const { t } = useTranslation();
+
+  return (
+    <Pressable
+      onPress={() => navigation.navigate('Main', { screen: 'SurahList' })}
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: theme.colors.surf,
+        borderWidth: 1,
+        borderColor: theme.colors.line,
+        borderRadius: theme.radius.xl,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        gap: 12,
+      }}
+    >
+      <StyledText style={{ fontSize: 16, color: theme.colors.acc }}>🔍</StyledText>
+      <StyledText variant="footnote" color="faint" style={{ flex: 1, fontSize: 14 }}>
+        Sure, ayet no, kök veya meal ara…
+      </StyledText>
+      <View
+        style={{
+          paddingHorizontal: 8,
+          paddingVertical: 3,
+          borderRadius: theme.radius.sm,
+          backgroundColor: theme.colors.band,
+        }}
+      >
+        <StyledText variant="caption" color="mut" style={{ fontSize: 11, fontWeight: '600' }}>
+          114 Sure
+        </StyledText>
+      </View>
+    </Pressable>
+  );
+}
+
 export function HomeScreen() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
@@ -393,6 +433,9 @@ export function HomeScreen() {
         <GreetingHeader />
 
         <View style={{ gap: theme.spacing.md }}>
+          {/* HIZLI ARAMA ÇUBUĞU */}
+          <QuickSearchBar />
+
           {/* TASARIM DOKÜMANI: 'Kaldığım Yerden Devam Et' bloğunun hemen üstündeki BAHÇEN bloğu */}
           <BahcenCard />
 

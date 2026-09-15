@@ -116,9 +116,31 @@ export async function listAyetler(
     query<{ count: string }>(`SELECT COUNT(*) FROM ayetler WHERE sure_id = $1`, [sureId]),
   ]);
 
+  const ayetIds = rowsRes.rows.map((r) => r.id);
+  const kelimelerMap: Record<number, any[]> = {};
+  if (ayetIds.length > 0) {
+    const kelimelerRes = await query(
+      `SELECT k.id, k.ayet_id, k.kelime_no, k.metin_ar, k.metin_tr, k.metin_en, k.vezin, k.start_ms, k.end_ms,
+              ko.id AS kok_id, ko.kok_ar, ko.kok_tr, ko.kok_anlami
+       FROM kelimeler k
+       LEFT JOIN kokler ko ON ko.id = k.kok_id
+       WHERE k.ayet_id = ANY($1)
+       ORDER BY k.ayet_id ASC, k.kelime_no ASC`,
+      [ayetIds],
+    );
+    for (const kRow of kelimelerRes.rows) {
+      if (!kelimelerMap[kRow.ayet_id]) kelimelerMap[kRow.ayet_id] = [];
+      kelimelerMap[kRow.ayet_id].push({
+        ...kRow,
+        metin_selected: lang === "en" ? (kRow.metin_en || kRow.metin_tr) : kRow.metin_tr,
+      });
+    }
+  }
+
   const rows = rowsRes.rows.map((r) => ({
     ...r,
     meal: lang === "en" ? (r.meal_en || r.meal_tr) : r.meal_tr,
+    kelimeler: kelimelerMap[r.id] ?? [],
   }));
 
   return { rows, total: parseInt(countRes.rows[0]?.count ?? "0", 10) };

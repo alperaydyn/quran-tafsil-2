@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import type { ApiResponse, Surah, Verse, Word } from './types';
+import type { ApiResponse, Surah, Verse, Word, RootDerivatives, LexiconRoot } from './types';
 import { mockSurahs } from './mock/surahs.mock';
 import { mockVersesBySurah } from './mock/verses.mock';
 
@@ -65,10 +65,15 @@ function mapVerseFromBackend(row: any): Verse {
   const words: Word[] = Array.isArray(row.kelimeler)
     ? row.kelimeler.map((k: any, idx: number) => ({
         id: k.id ?? idx + 1,
-        position: k.sira ?? idx + 1,
+        position: k.kelime_no ?? k.sira ?? idx + 1,
         textAr: k.metin_ar ?? '',
-        textTr: k.meal_tr ?? '',
+        textTr: k.metin_tr ?? k.meal_tr ?? '',
+        textEn: k.metin_en ?? '',
         rootId: k.kok_id ?? null,
+        rootAr: k.kok_ar ?? null,
+        rootTr: k.kok_tr ?? null,
+        rootMeaning: k.kok_anlami ?? null,
+        vezin: k.vezin ?? '',
         startMs: k.start_ms ?? 0,
         endMs: k.end_ms ?? 0,
       }))
@@ -171,3 +176,38 @@ export async function getSingleVerse(surahId: number, ayetNo: number): Promise<A
     return { success: false, error: { code: 'NETWORK_ERROR', message: 'Ayet yüklenemedi' } };
   }
 }
+
+export async function getRootDerivatives(rootId: number): Promise<ApiResponse<RootDerivatives>> {
+  try {
+    const res = await fetch(`${API_BASE}/kokler/${rootId}/turevler`, {
+      headers: { Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (json.success && json.data) {
+      return { success: true, data: json.data, meta: json.meta };
+    }
+    throw new Error('Kök türev verisi bulunamadı');
+  } catch (err) {
+    console.warn(`[getRootDerivatives] Kök ${rootId} türevleri API'den çekilemedi:`, err);
+    return { success: false, error: { code: 'NETWORK_ERROR', message: 'Kök verisi yüklenemedi' } };
+  }
+}
+
+export async function searchRoots(queryText: string): Promise<ApiResponse<LexiconRoot[]>> {
+  try {
+    const res = await fetch(`${API_BASE}/kokler?q=${encodeURIComponent(queryText)}`, {
+      headers: { Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (json.success && json.data) {
+      return { success: true, data: json.data, meta: json.meta };
+    }
+    return { success: true, data: [] };
+  } catch (err) {
+    console.warn(`[searchRoots] '${queryText}' kök araması başarısız:`, err);
+    return { success: false, data: [], error: { code: 'NETWORK_ERROR', message: 'Kök araması yapılamadı' } };
+  }
+}
+

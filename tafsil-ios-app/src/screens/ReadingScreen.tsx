@@ -58,7 +58,7 @@ function VerseCard({
   verse: Verse;
   isVerseActive: boolean;
   activeWordIndex: number | null;
-  onWordPress: (word: Word) => void;
+  onWordPress: (word: Word, verse: Verse) => void;
   onBookmarkToggle: () => void;
   isBookmarked: boolean;
   onLayout?: (e: LayoutChangeEvent) => void;
@@ -149,7 +149,7 @@ function VerseCard({
             return (
               <Pressable
                 key={`${verse.id}-word-${idx}`}
-                onPress={() => onWordPress(word)}
+                onPress={() => onWordPress(word, verse)}
                 style={({ pressed }) => ({
                   backgroundColor: isWordActive
                     ? theme.colors.accSoft
@@ -260,6 +260,7 @@ export function ReadingScreen({ route, navigation }: Props) {
   const [verses, setVerses] = useState<Verse[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
+  const [selectedVerse, setSelectedVerse] = useState<Verse | null>(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
   const [bookmarkedSet, setBookmarkedSet] = useState<Set<number>>(new Set());
 
@@ -379,8 +380,9 @@ export function ReadingScreen({ route, navigation }: Props) {
     setBookmarkedSet(next);
   };
 
-  const handleWordPress = (word: Word) => {
+  const handleWordPress = (word: Word, verse: Verse) => {
     setSelectedWord(word);
+    setSelectedVerse(verse);
     setBottomSheetVisible(true);
   };
 
@@ -495,6 +497,7 @@ export function ReadingScreen({ route, navigation }: Props) {
 
       <WordDetailSheet
         word={selectedWord}
+        verse={selectedVerse}
         visible={bottomSheetVisible}
         onClose={() => setBottomSheetVisible(false)}
         onOpenDag={() => navigation.navigate('Main', { screen: 'DagExplorer' })}

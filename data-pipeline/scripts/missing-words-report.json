@@ -1,0 +1,711 @@
+{
+  "summary": {
+    "total_tokens": 77430,
+    "unique_words": 14813,
+    "covered_tokens": 8119,
+    "missing_tokens": 69311,
+    "missing_unique": 14774
+  },
+  "top_missing": [
+    {
+      "clean": "فى",
+      "raw": "فِى",
+      "count": 1185,
+      "first_seen": "2:10",
+      "verse_tr": "Onların kalplerinde bir hastalık vardır. Allah da onların hastalığını artırmıştır. Söylemekte oldukları yalanlar yüzünden onlara elem dolu bir azap vardır."
+    },
+    {
+      "clean": "ما",
+      "raw": "مَا",
+      "count": 1010,
+      "first_seen": "2:17",
+      "verse_tr": "Onların durumu, bir ateş yakan kimsenin durumu gibidir. Ateş çevresini aydınlattığı zaman, Allah onların aydınlığını giderdi ve onları karanlıkta bıraktı. Artık göremezler."
+    },
+    {
+      "clean": "لا",
+      "raw": "لَا",
+      "count": 811,
+      "first_seen": "2:2",
+      "verse_tr": "Bu, şüphe olmayan kitaptır. Müttakiler için bir hidayettir."
+    },
+    {
+      "clean": "على",
+      "raw": "عَلَىٰ",
+      "count": 686,
+      "first_seen": "2:5",
+      "verse_tr": "İşte onlar, Rab'leri tarafından (gelen) bir hidayet üzeredirler ve işte onlar, kurtuluşa erenlerdir."
+    },
+    {
+      "clean": "إلا",
+      "raw": "إِلَّآ",
+      "count": 664,
+      "first_seen": "2:9",
+      "verse_tr": "Onlar Allah'ı ve iman edenleri aldatmaya çalışırlar. Oysa onlar ancak kendilerini aldatırlar, ama farkında değillerdir."
+    },
+    {
+      "clean": "ولا",
+      "raw": "وَلَا",
+      "count": 658,
+      "first_seen": "1:7",
+      "verse_tr": "Kendilerine [nimet|nimet] verdiklerinin yoluna; gazaba uğrayanların ve [sapıtanlarınkine|dalalet] değil."
+    },
+    {
+      "clean": "وما",
+      "raw": "وَمَآ",
+      "count": 646,
+      "first_seen": "2:4",
+      "verse_tr": "Onlar, sana indirilene ve senden önce indirilene inanırlar; ahirete de kesin olarak inanırlar."
+    },
+    {
+      "clean": "أن",
+      "raw": "أَنَّ",
+      "count": 638,
+      "first_seen": "2:25",
+      "verse_tr": "İman edip salih amel işleyenlere, kendileri için hazırlanan, altlarından ırmaklar akan cennetlerin olduğunu müjdele. Onlara orada (cennet meyvelerinden) bir rızık verildiğinde, \"Daha önce dünyada iken bize verilen rızık budur\" derler. Hem (bu meyveler) birbirine benzer şekilde sunulmuştur. Onlar için orada tertemiz eşler de vardır. Ve onlar orada ebedî kalacaklardır."
+    },
+    {
+      "clean": "إلى",
+      "raw": "إِلَىٰ",
+      "count": 430,
+      "first_seen": "2:14",
+      "verse_tr": "Onlar, iman edenlerle karşılaştıklarında: \"İman ettik\" derler. Kendi şeytanlarıyla baş başa kaldıklarında ise: \"Biz sizinle beraberiz, biz onlarla alay edenleriz\" derler."
+    },
+    {
+      "clean": "قال",
+      "raw": "قَالَ",
+      "count": 412,
+      "first_seen": "2:30",
+      "verse_tr": "Hani Rabbin meleklere, \"Ben yeryüzünde bir halife yaratacağım\" demişti. Onlar, \"Biz seni överek tesbih eder ve takdis ederken, yeryüzünde bozgunculuk yapacak, orada kan dökecek kimseyi mi yaratacaksın?\" dediler. Allah, \"Sizin bilmediğinizi ben bilirim\" dedi."
+    },
+    {
+      "clean": "لهم",
+      "raw": "لَهُمْ",
+      "count": 373,
+      "first_seen": "2:11",
+      "verse_tr": "Onlara, \"Yeryüzünde bozgunculuk yapmayın\" dendiği zaman, \"Biz ancak ıslah edicileriz\" derler."
+    },
+    {
+      "clean": "ومن",
+      "raw": "وَمِنَ",
+      "count": 342,
+      "first_seen": "2:8",
+      "verse_tr": "İnsanlardan kimi de der ki: \"Allah'a ve ahiret gününe inandık.\" Oysa inanmış değillerdir."
+    },
+    {
+      "clean": "ثم",
+      "raw": "ثُمَّ",
+      "count": 340,
+      "first_seen": "2:28",
+      "verse_tr": "Siz Allâh'a nasıl küfredersiniz? Hâlbuki sizler ölü idiniz, O sizi diriltti; sonra sizi yine öldürecek, sonra sizi yine diriltecektir. Nihâyet O'na döndürüleceksiniz."
+    },
+    {
+      "clean": "لكم",
+      "raw": "لَكُمُ",
+      "count": 337,
+      "first_seen": "2:22",
+      "verse_tr": "O (Allah) ki, yeri sizin için bir döşek, göğü de bir tavan yaptı. Gökten su indirip onunla size çeşitli meyveler (ürünler) çıkardı. Artık siz de (bunları) bile bile Allah’a denk ve ortaklar koşmayın."
+    },
+    {
+      "clean": "به",
+      "raw": "بِهِۦ",
+      "count": 327,
+      "first_seen": "2:22",
+      "verse_tr": "O (Allah) ki, yeri sizin için bir döşek, göğü de bir tavan yaptı. Gökten su indirip onunla size çeşitli meyveler (ürünler) çıkardı. Artık siz de (bunları) bile bile Allah’a denk ve ortaklar koşmayın."
+    },
+    {
+      "clean": "كان",
+      "raw": "كَانَ",
+      "count": 323,
+      "first_seen": "2:75",
+      "verse_tr": "Onların size inanacağını umuyor musunuz? Oysa onlardan bir grup, Allah'ın kelamını işitir, sonra da onu anladıkları halde bile bile tahrif ederlerdi."
+    },
+    {
+      "clean": "قل",
+      "raw": "قُلْ",
+      "count": 298,
+      "first_seen": "2:80",
+      "verse_tr": "Onlar: \"Bize sayılı günlerden başka asla ateş dokunmayacaktır\" dediler. De ki: \"Siz Allah katından bir ahid mi aldınız? Eğer öyleyse, Allah ahdini asla bozmaz. Yoksa Allah'a karşı bilmediğiniz şeyleri mi söylüyorsunuz?\""
+    },
+    {
+      "clean": "بما",
+      "raw": "بِمَآ",
+      "count": 296,
+      "first_seen": "2:4",
+      "verse_tr": "Onlar, sana indirilene ve senden önce indirilene inanırlar; ahirete de kesin olarak inanırlar."
+    },
+    {
+      "clean": "ٱلأرض",
+      "raw": "ٱلْأَرْضِ",
+      "count": 287,
+      "first_seen": "2:11",
+      "verse_tr": "Onlara, \"Yeryüzünde bozgunculuk yapmayın\" dendiği zaman, \"Biz ancak ıslah edicileriz\" derler."
+    },
+    {
+      "clean": "ذلك",
+      "raw": "ذَٰلِكَ",
+      "count": 280,
+      "first_seen": "2:2",
+      "verse_tr": "Bu, şüphe olmayan kitaptır. Müttakiler için bir hidayettir."
+    },
+    {
+      "clean": "أو",
+      "raw": "أَوْ",
+      "count": 280,
+      "first_seen": "2:19",
+      "verse_tr": "Yahut (onların durumu) gökten sağanak halinde inen, içinde karanlıklar, gök gürültüsü ve şimşek bulunan bir sağanak gibidir. Ölüm korkusuyla parmaklarını kulaklarına tıkarlar. Allah kâfirleri çepeçevre kuşatmıştır."
+    },
+    {
+      "clean": "له",
+      "raw": "لَهُۥ",
+      "count": 275,
+      "first_seen": "2:102",
+      "verse_tr": "Ve Süleyman'ın mülkü (saltanatı) aleyhine şeytanların okuyup uydurduğu şeye uydular. Süleyman kâfir olmadı, lâkin şeytanlar kâfir oldular. Onlar, Bâbil'deki iki meleğe: Hârut ile Mârut'a indirilmiş olanı (sihri) öğretiyorlardı. Halbuki o ikisi: Biz ancak bir fitneyiz, sen kâfir olma! demedikçe hiç kimseye (sihri) öğretmezlerdi. Derken onlardan (o iki melekten) kişi ile zevcesini arasını ayıracak şeyleri öğreniyorlardı. Allah'ın izni olmadıkça onlarla kimseye zarar verecek değillerdi. Ve gerçekten onlar, kendilerine zarar verecek ve fayda vermeyecek şeyi öğreniyorlardı. Ve andolsun ki, onu (sihri) satın alan kimsenin âhirette hiçbir nasibi olmadığını bildiler. Velev ki, nefislerini neye sattıklarını bilselerdi, gerçekten ne kötü bir şeydi o!"
+    },
+    {
+      "clean": "هو",
+      "raw": "هُوَ",
+      "count": 265,
+      "first_seen": "2:29",
+      "verse_tr": "Yeryüzündeki her şeyi sizin için yaratan O'dur. Sonra göğe yönelip onu yedi kat gök olarak düzenledi. O, her şeyi bilendir."
+    },
+    {
+      "clean": "ءامنوا",
+      "raw": "ءَامَنُوا۟",
+      "count": 263,
+      "first_seen": "2:9",
+      "verse_tr": "Onlar Allah'ı ve iman edenleri aldatmaya çalışırlar. Oysa onlar ancak kendilerini aldatırlar, ama farkında değillerdir."
+    },
+    {
+      "clean": "هم",
+      "raw": "هُمْ",
+      "count": 261,
+      "first_seen": "2:4",
+      "verse_tr": "Onlar, sana indirilene ve senden önce indirilene inanırlar; ahirete de kesin olarak inanırlar."
+    },
+    {
+      "clean": "وإن",
+      "raw": "وَإِن",
+      "count": 254,
+      "first_seen": "2:23",
+      "verse_tr": "Eğer kulumuza indirdiğimiz şeyden herhangi bir şüpheda iseniz, haydi onun benzeri bir sure getirin ve eğer doğru sözlüler iseniz, Allah'tan başka şahitlerinizi çağırın."
+    },
+    {
+      "clean": "قالوا",
+      "raw": "قَالُوٓا۟",
+      "count": 250,
+      "first_seen": "2:11",
+      "verse_tr": "Onlara, \"Yeryüzünde bozgunculuk yapmayın\" dendiği zaman, \"Biz ancak ıslah edicileriz\" derler."
+    },
+    {
+      "clean": "كل",
+      "raw": "كُلِّ",
+      "count": 245,
+      "first_seen": "2:20",
+      "verse_tr": "Gözleri (görüşlerini) kapıp alacak gibi oluyordu. Ne zaman kendilerine ışık verdi, onunla yürüdüler ve üzerlerine karanlık çökünce durakaldılar. Allah dileseydi, işitme ve görme duyularını elbette giderirdi. Şüphesiz Allah, her şeye hakkıyla gücü yetendir."
+    },
+    {
+      "clean": "فيها",
+      "raw": "فِيهَآ",
+      "count": 241,
+      "first_seen": "2:25",
+      "verse_tr": "İman edip salih amel işleyenlere, kendileri için hazırlanan, altlarından ırmaklar akan cennetlerin olduğunu müjdele. Onlara orada (cennet meyvelerinden) bir rızık verildiğinde, \"Daha önce dünyada iken bize verilen rızık budur\" derler. Hem (bu meyveler) birbirine benzer şekilde sunulmuştur. Onlar için orada tertemiz eşler de vardır. Ve onlar orada ebedî kalacaklardır."
+    },
+    {
+      "clean": "وٱلله",
+      "raw": "وَٱللَّهُ",
+      "count": 240,
+      "first_seen": "2:19",
+      "verse_tr": "Yahut (onların durumu) gökten sağanak halinde inen, içinde karanlıklar, gök gürültüsü ve şimşek bulunan bir sağanak gibidir. Ölüm korkusuyla parmaklarını kulaklarına tıkarlar. Allah kâfirleri çepeçevre kuşatmıştır."
+    },
+    {
+      "clean": "كانوا",
+      "raw": "كَانُوا۟",
+      "count": 229,
+      "first_seen": "2:10",
+      "verse_tr": "Onların kalplerinde bir hastalık vardır. Allah da onların hastalığını artırmıştır. Söylemekte oldukları yalanlar yüzünden onlara elem dolu bir azap vardır."
+    },
+    {
+      "clean": "عن",
+      "raw": "عَن",
+      "count": 223,
+      "first_seen": "2:48",
+      "verse_tr": "Ve öyle bir günden sakının ki, o gün kimse kimsenin yerine bir şey ödeyemez, ondan hiçbir şefaat kabul edilmez, ondan hiçbir fidye alınmaz ve onlara yardım edilmez."
+    },
+    {
+      "clean": "إذا",
+      "raw": "إِذًا",
+      "count": 221,
+      "first_seen": "2:145",
+      "verse_tr": "Andolsun ki, sen Kitap verilenlere her türlü delili getirsen de, onlar senin kıblene uymazlar. Sen de onların kıblesine uyacak değilsin. Onların bazıları da diğer bazılarının kıblesine uymaz. Andolsun ki, sana ilim geldikten sonra onların heveslerine uyarsan, o zaman sen mutlaka zalimlerden olursun."
+    },
+    {
+      "clean": "عليهم",
+      "raw": "عَلَيْهِمْ",
+      "count": 215,
+      "first_seen": "1:7",
+      "verse_tr": "Kendilerine [nimet|nimet] verdiklerinin yoluna; gazaba uğrayanların ve [sapıtanlarınkine|dalalet] değil."
+    },
+    {
+      "clean": "شىء",
+      "raw": "شَىْءٍ",
+      "count": 190,
+      "first_seen": "2:20",
+      "verse_tr": "Gözleri (görüşlerini) kapıp alacak gibi oluyordu. Ne zaman kendilerine ışık verdi, onunla yürüdüler ve üzerlerine karanlık çökünce durakaldılar. Allah dileseydi, işitme ve görme duyularını elbette giderirdi. Şüphesiz Allah, her şeye hakkıyla gücü yetendir."
+    },
+    {
+      "clean": "هذا",
+      "raw": "هَٰذَا",
+      "count": 190,
+      "first_seen": "2:25",
+      "verse_tr": "İman edip salih amel işleyenlere, kendileri için hazırlanan, altlarından ırmaklar akan cennetlerin olduğunu müjdele. Onlara orada (cennet meyvelerinden) bir rızık verildiğinde, \"Daha önce dünyada iken bize verilen rızık budur\" derler. Hem (bu meyveler) birbirine benzer şekilde sunulmuştur. Onlar için orada tertemiz eşler de vardır. Ve onlar orada ebedî kalacaklardır."
+    },
+    {
+      "clean": "كفروا",
+      "raw": "كَفَرُوا۟",
+      "count": 189,
+      "first_seen": "2:6",
+      "verse_tr": "Şüphesiz ki kâfir olanlar için, onları (azap ile) korkutsan da korkutmasan da birdir; inanmazlar."
+    },
+    {
+      "clean": "كنتم",
+      "raw": "كُنتُمْ",
+      "count": 188,
+      "first_seen": "2:23",
+      "verse_tr": "Eğer kulumuza indirdiğimiz şeyden herhangi bir şüpheda iseniz, haydi onun benzeri bir sure getirin ve eğer doğru sözlüler iseniz, Allah'tan başka şahitlerinizi çağırın."
+    },
+    {
+      "clean": "ٱلناس",
+      "raw": "ٱلنَّاسِ",
+      "count": 182,
+      "first_seen": "2:8",
+      "verse_tr": "İnsanlardan kimi de der ki: \"Allah'a ve ahiret gününe inandık.\" Oysa inanmış değillerdir."
+    },
+    {
+      "clean": "ٱلسموت",
+      "raw": "ٱلسَّمَٰوَٰتِ",
+      "count": 182,
+      "first_seen": "2:33",
+      "verse_tr": "Âdem, onların isimlerini bildirdi. Kendilerine onların isimlerini bildirdiği zaman, Allah şöyle dedi: \"Size, göklerin ve yerin gaybini bildiğimi ve sizin açıkladığınız şeyleri ve gizlemekte olduğunuz şeyleri bildiğimi söylememiş miydim?\""
+    },
+    {
+      "clean": "لم",
+      "raw": "لَمْ",
+      "count": 178,
+      "first_seen": "2:6",
+      "verse_tr": "Şüphesiz ki kâfir olanlar için, onları (azap ile) korkutsan da korkutmasan da birdir; inanmazlar."
+    },
+    {
+      "clean": "وهو",
+      "raw": "وَهُوَ",
+      "count": 171,
+      "first_seen": "2:29",
+      "verse_tr": "Yeryüzündeki her şeyi sizin için yaratan O'dur. Sonra göğe yönelip onu yedi kat gök olarak düzenledi. O, her şeyi bilendir."
+    },
+    {
+      "clean": "فإن",
+      "raw": "فَإِن",
+      "count": 168,
+      "first_seen": "2:24",
+      "verse_tr": "Eğer (bu dediklerimizi) yapamazsanız -ki asla yapamayacaksınız- o takdirde, yakıtı insanlar ve taşlar olan, inkârcılar için hazırlanmış ateşten korunun."
+    },
+    {
+      "clean": "إذ",
+      "raw": "إِذْ",
+      "count": 165,
+      "first_seen": "2:131",
+      "verse_tr": "Rabbi ona: \"Teslim ol!\" dedi. O da: \"Ben, âlemlerin Rabbine teslim oldum!\" dedi."
+    },
+    {
+      "clean": "وٱلذين",
+      "raw": "وَٱلَّذِينَ",
+      "count": 164,
+      "first_seen": "2:4",
+      "verse_tr": "Onlar, sana indirilene ve senden önce indirilene inanırlar; ahirete de kesin olarak inanırlar."
+    },
+    {
+      "clean": "عليكم",
+      "raw": "عَلَيْكُمْ",
+      "count": 164,
+      "first_seen": "2:40",
+      "verse_tr": "Ey İsrailoğulları! Size verdiğim nimetlerimi hatırlayın ve bana verdiğiniz sözü (iman ve itaatle) yerine getirin ki ben de size verdiğim sözü (mükâfatı) yerine getireyim. Ve yalnız benden korkun."
+    },
+    {
+      "clean": "ٱلكتب",
+      "raw": "ٱلْكِتَٰبُ",
+      "count": 163,
+      "first_seen": "2:2",
+      "verse_tr": "Bu, şüphe olmayan kitaptır. Müttakiler için bir hidayettir."
+    },
+    {
+      "clean": "وٱلأرض",
+      "raw": "وَٱلْأَرْضِ",
+      "count": 157,
+      "first_seen": "2:33",
+      "verse_tr": "Âdem, onların isimlerini bildirdi. Kendilerine onların isimlerini bildirdiği zaman, Allah şöyle dedi: \"Size, göklerin ve yerin gaybini bildiğimi ve sizin açıkladığınız şeyleri ve gizlemekte olduğunuz şeyleri bildiğimi söylememiş miydim?\""
+    },
+    {
+      "clean": "إنا",
+      "raw": "إِنَّا",
+      "count": 156,
+      "first_seen": "2:14",
+      "verse_tr": "Onlar, iman edenlerle karşılaştıklarında: \"İman ettik\" derler. Kendi şeytanlarıyla baş başa kaldıklarında ise: \"Biz sizinle beraberiz, biz onlarla alay edenleriz\" derler."
+    },
+    {
+      "clean": "فلا",
+      "raw": "فَلَا",
+      "count": 156,
+      "first_seen": "2:22",
+      "verse_tr": "O (Allah) ki, yeri sizin için bir döşek, göğü de bir tavan yaptı. Gökten su indirip onunla size çeşitli meyveler (ürünler) çıkardı. Artık siz de (bunları) bile bile Allah’a denk ve ortaklar koşmayın."
+    },
+    {
+      "clean": "منهم",
+      "raw": "مِّنْهُمْ",
+      "count": 153,
+      "first_seen": "2:75",
+      "verse_tr": "Onların size inanacağını umuyor musunuz? Oysa onlardan bir grup, Allah'ın kelamını işitir, sonra da onu anladıkları halde bile bile tahrif ederlerdi."
+    },
+    {
+      "clean": "عذاب",
+      "raw": "عَذَابٌ",
+      "count": 150,
+      "first_seen": "2:7",
+      "verse_tr": "Allah onların kalplerini ve kulaklarını mühürlemiştir. Gözlerinde de bir perdelilik vardır. Ve onlar için büyük bir azap vardır."
+    },
+    {
+      "clean": "بعد",
+      "raw": "بَعْدِ",
+      "count": 147,
+      "first_seen": "2:27",
+      "verse_tr": "Onlar, Allah'ın ahdini pekiştirildikten sonra bozarlar, Allah'ın birleştirmesini emrettiği şeyi keserler ve yeryüzünde fesat çıkarırlar. İşte onlar ziyana uğrayanların ta kendileridir."
+    },
+    {
+      "clean": "إنه",
+      "raw": "إِنَّهُۥ",
+      "count": 147,
+      "first_seen": "2:37",
+      "verse_tr": "Derken Âdem, Rabbinden birtakım kelimeler aldı da ona tövbesini kabul etti. Şüphesiz O, tevbeleri kabul edendir, merhametlidir."
+    },
+    {
+      "clean": "عليه",
+      "raw": "عَلَيْهِ",
+      "count": 146,
+      "first_seen": "2:37",
+      "verse_tr": "Derken Âdem, Rabbinden birtakım kelimeler aldı da ona tövbesini kabul etti. Şüphesiz O, tevbeleri kabul edendir, merhametlidir."
+    },
+    {
+      "clean": "يأيها",
+      "raw": "يَٰٓأَيُّهَا",
+      "count": 142,
+      "first_seen": "2:21",
+      "verse_tr": "Ey insanlar! Sizi ve sizden öncekileri yaratan Rabbinize kulluk edin ki, (O'nun azabından) korunasınız."
+    },
+    {
+      "clean": "حتى",
+      "raw": "حَتَّىٰ",
+      "count": 142,
+      "first_seen": "2:55",
+      "verse_tr": "Hani siz: \"Ey Musa! Biz Allah'ı apaçık görmedikçe sana inanmayız\" demiştiniz de, bakmakta olduğunuz halde sizi yıldırım çarpmıştı."
+    },
+    {
+      "clean": "بٱلله",
+      "raw": "بِٱللَّهِ",
+      "count": 139,
+      "first_seen": "2:8",
+      "verse_tr": "İnsanlardan kimi de der ki: \"Allah'a ve ahiret gününe inandık.\" Oysa inanmış değillerdir."
+    },
+    {
+      "clean": "وهم",
+      "raw": "وَهُمْ",
+      "count": 137,
+      "first_seen": "2:25",
+      "verse_tr": "İman edip salih amel işleyenlere, kendileri için hazırlanan, altlarından ırmaklar akan cennetlerin olduğunu müjdele. Onlara orada (cennet meyvelerinden) bir rızık verildiğinde, \"Daha önce dünyada iken bize verilen rızık budur\" derler. Hem (bu meyveler) birbirine benzer şekilde sunulmuştur. Onlar için orada tertemiz eşler de vardır. Ve onlar orada ebedî kalacaklardır."
+    },
+    {
+      "clean": "وإذا",
+      "raw": "وَإِذَا",
+      "count": 134,
+      "first_seen": "2:11",
+      "verse_tr": "Onlara, \"Yeryüzünde bozgunculuk yapmayın\" dendiği zaman, \"Biz ancak ıslah edicileriz\" derler."
+    },
+    {
+      "clean": "أولئك",
+      "raw": "أُو۟لَٰٓئِكَ",
+      "count": 133,
+      "first_seen": "2:5",
+      "verse_tr": "İşte onlar, Rab'leri tarafından (gelen) bir hidayet üzeredirler ve işte onlar, kurtuluşa erenlerdir."
+    },
+    {
+      "clean": "إنى",
+      "raw": "إِنِّى",
+      "count": 131,
+      "first_seen": "2:30",
+      "verse_tr": "Hani Rabbin meleklere, \"Ben yeryüzünde bir halife yaratacağım\" demişti. Onlar, \"Biz seni överek tesbih eder ve takdis ederken, yeryüzünde bozgunculuk yapacak, orada kan dökecek kimseyi mi yaratacaksın?\" dediler. Allah, \"Sizin bilmediğinizi ben bilirim\" dedi."
+    },
+    {
+      "clean": "أم",
+      "raw": "أَمْ",
+      "count": 130,
+      "first_seen": "2:6",
+      "verse_tr": "Şüphesiz ki kâfir olanlar için, onları (azap ile) korkutsan da korkutmasan da birdir; inanmazlar."
+    },
+    {
+      "clean": "ولقد",
+      "raw": "وَلَقَدْ",
+      "count": 129,
+      "first_seen": "2:65",
+      "verse_tr": "Andolsun, içinizden Cumartesi (yasağı) konusunda haddi aşanları bildiniz. Biz de onlara: \"Aşağılık maymunlar olun!\" dedik."
+    },
+    {
+      "clean": "فيه",
+      "raw": "فِيهِ",
+      "count": 127,
+      "first_seen": "2:2",
+      "verse_tr": "Bu, şüphe olmayan kitaptır. Müttakiler için bir hidayettir."
+    },
+    {
+      "clean": "بل",
+      "raw": "بَل",
+      "count": 127,
+      "first_seen": "2:88",
+      "verse_tr": "Ve dediler ki: Kalplerimiz perdelidir. Hayır, küfretmeleri yüzünden Allah onları lanetlemiştir. Bu yüzden çok az inanırlar."
+    },
+    {
+      "clean": "قد",
+      "raw": "قَدْ",
+      "count": 126,
+      "first_seen": "2:60",
+      "verse_tr": "Hani Mûsâ da, kavmi için su dilemişti. Biz de ona: \"Asânı taşa vur!\" demiştik. Bunun üzerine taştan on iki pınar fışkırmış, her kabile kendi su alacağı yeri bilmişti. Allah'ın rızkından yiyin, için. Yeryüzünde bozgunculuk yaparak fesat çıkarmayın."
+    },
+    {
+      "clean": "عند",
+      "raw": "عِندَ",
+      "count": 119,
+      "first_seen": "2:54",
+      "verse_tr": "Hani Mûsâ da kavmine şöyle demişti: \"Ey kavmim! Şüphesiz siz, buzağıyı (tanrı edinmekle) kendinize zulmettiniz. Bu yüzden, yaratıcınıza tevbe edin, nefislerinizi öldürün. Bu, yaratıcınız katında sizin için daha hayırlıdır.\" Sonra Allah sizin tevbenizi kabul etti. Şüphesiz O, tevbeleri kabul edendir, çok merhamet edendir."
+    },
+    {
+      "clean": "قبل",
+      "raw": "قَبْلُ",
+      "count": 118,
+      "first_seen": "2:25",
+      "verse_tr": "İman edip salih amel işleyenlere, kendileri için hazırlanan, altlarından ırmaklar akan cennetlerin olduğunu müjdele. Onlara orada (cennet meyvelerinden) bir rızık verildiğinde, \"Daha önce dünyada iken bize verilen rızık budur\" derler. Hem (bu meyveler) birbirine benzer şekilde sunulmuştur. Onlar için orada tertemiz eşler de vardır. Ve onlar orada ebedî kalacaklardır."
+    },
+    {
+      "clean": "لله",
+      "raw": "لِلَّهِ",
+      "count": 116,
+      "first_seen": "1:2",
+      "verse_tr": "[Hamd|hamd], âlemlerin [Rabbi|rabb] Allah'a mahsustur."
+    },
+    {
+      "clean": "خير",
+      "raw": "خَيْرٌ",
+      "count": 116,
+      "first_seen": "2:54",
+      "verse_tr": "Hani Mûsâ da kavmine şöyle demişti: \"Ey kavmim! Şüphesiz siz, buzağıyı (tanrı edinmekle) kendinize zulmettiniz. Bu yüzden, yaratıcınıza tevbe edin, nefislerinizi öldürün. Bu, yaratıcınız katında sizin için daha hayırlıdır.\" Sonra Allah sizin tevbenizi kabul etti. Şüphesiz O, tevbeleri kabul edendir, çok merhamet edendir."
+    },
+    {
+      "clean": "يشاء",
+      "raw": "يَشَآءُ",
+      "count": 116,
+      "first_seen": "2:90",
+      "verse_tr": "Allah'ın indirdiğini inkâr etmek suretiyle, karşılığında kendilerini sattıkları şey ne kötüdür! Kendilerine indirilene inanmayıp, Allah'ın lütfundan dilediğine, kullarından dilediğine indirmesine haset ederek inkâr etmeleri yüzünden hem bir gazap üstüne gazap biriktirdiler. Kâfirler için de alçaltıcı bir azap vardır."
+    },
+    {
+      "clean": "ٱلدنيا",
+      "raw": "ٱلدُّنْيَا",
+      "count": 115,
+      "first_seen": "2:85",
+      "verse_tr": "Sonra siz, yine sizler birbirinizi öldüren ve içinizden bir kısmını yurtlarından süren kimselersiniz. Onlara karşı günah ve düşmanlıkta birbirinize yardım ediyorsunuz. Eğer onlar size esir olarak gelselerdi, fidye verip kurtaracaktınız. Halbuki onları (sürgün etmek) size haram kılınmıştı. Kitabın bir kısmına inanıp da bir kısmını inkâr mı ediyorsunuz? Sizden böyle yapanların dünya hayatındaki cezası, ancak rezil olmaktır. Kıyamet gününde ise azabın en şiddetlisine atılırlar. Allah, yaptıklarınızdan gafil değildir."
+    },
+    {
+      "clean": "إنما",
+      "raw": "إِنَّمَا",
+      "count": 113,
+      "first_seen": "2:11",
+      "verse_tr": "Onlara, \"Yeryüzünde bozgunculuk yapmayın\" dendiği zaman, \"Biz ancak ıslah edicileriz\" derler."
+    },
+    {
+      "clean": "ولكن",
+      "raw": "وَلَٰكِن",
+      "count": 112,
+      "first_seen": "2:12",
+      "verse_tr": "Onlar, bozguncuların ta kendileridir, ama anlamazlar."
+    },
+    {
+      "clean": "ربهم",
+      "raw": "رَّبِّهِمْ",
+      "count": 111,
+      "first_seen": "2:5",
+      "verse_tr": "İşte onlar, Rab'leri tarafından (gelen) bir hidayet üzeredirler ve işte onlar, kurtuluşa erenlerdir."
+    },
+    {
+      "clean": "ولو",
+      "raw": "وَلَوْ",
+      "count": 111,
+      "first_seen": "2:20",
+      "verse_tr": "Gözleri (görüşlerini) kapıp alacak gibi oluyordu. Ne zaman kendilerine ışık verdi, onunla yürüdüler ve üzerlerine karanlık çökünce durakaldılar. Allah dileseydi, işitme ve görme duyularını elbette giderirdi. Şüphesiz Allah, her şeye hakkıyla gücü yetendir."
+    },
+    {
+      "clean": "مما",
+      "raw": "مِّمَّا",
+      "count": 111,
+      "first_seen": "2:23",
+      "verse_tr": "Eğer kulumuza indirdiğimiz şeyden herhangi bir şüpheda iseniz, haydi onun benzeri bir sure getirin ve eğer doğru sözlüler iseniz, Allah'tan başka şahitlerinizi çağırın."
+    },
+    {
+      "clean": "ٱلسماء",
+      "raw": "ٱلسَّمَآءِ",
+      "count": 109,
+      "first_seen": "2:19",
+      "verse_tr": "Yahut (onların durumu) gökten sağanak halinde inen, içinde karanlıklar, gök gürültüsü ve şimşek bulunan bir sağanak gibidir. Ölüm korkusuyla parmaklarını kulaklarına tıkarlar. Allah kâfirleri çepeçevre kuşatmıştır."
+    },
+    {
+      "clean": "ٱلحق",
+      "raw": "ٱلْحَقُّ",
+      "count": 109,
+      "first_seen": "2:26",
+      "verse_tr": "Şüphesiz Allah, bir sivrisineği, hatta ondan daha üstün bir şeyi misal vermekten çekinmez. İman edenlere gelince, onlar bunun Rablerinden gelen bir hakikat olduğunu bilirler. Kâfirler ise, “Allah bu misalle ne demek istedi?” derler. Allah onunla birçoklarını saptırır, birçoklarını da doğru yola iletir. Onunla ancak fasıkları saptırır."
+    },
+    {
+      "clean": "منكم",
+      "raw": "مِنكُمْ",
+      "count": 107,
+      "first_seen": "2:65",
+      "verse_tr": "Andolsun, içinizden Cumartesi (yasağı) konusunda haddi aşanları bildiniz. Biz de onlara: \"Aşağılık maymunlar olun!\" dedik."
+    },
+    {
+      "clean": "عليم",
+      "raw": "عَلِيمٌ",
+      "count": 106,
+      "first_seen": "2:29",
+      "verse_tr": "Yeryüzündeki her şeyi sizin için yaratan O'dur. Sonra göğe yönelip onu yedi kat gök olarak düzenledi. O, her şeyi bilendir."
+    },
+    {
+      "clean": "ربنا",
+      "raw": "رَبَّنَا",
+      "count": 106,
+      "first_seen": "2:127",
+      "verse_tr": "İbrâhim, evinin duvarlarını (temellerini) İsmâil ile birlikte yükseltirken: \"Rabbimiz! Bizden (bu hizmetimizi) kabul buyur. Şüphesiz sen, her şeyi işiten, her şeyi bilen-sin!\" demişti."
+    },
+    {
+      "clean": "موسى",
+      "raw": "مُوسَىٰٓ",
+      "count": 105,
+      "first_seen": "2:51",
+      "verse_tr": "Hani Mûsâ ile kırk gece (vâde)leşmiştik de, ondan (sonra) zulmedici kimseler olarak buzağıyı (tanrı edinmişti)niz."
+    },
+    {
+      "clean": "ربكم",
+      "raw": "رَبَّكُمُ",
+      "count": 102,
+      "first_seen": "2:21",
+      "verse_tr": "Ey insanlar! Sizi ve sizden öncekileri yaratan Rabbinize kulluk edin ki, (O'nun azabından) korunasınız."
+    },
+    {
+      "clean": "ٱلنار",
+      "raw": "ٱلنَّارَ",
+      "count": 102,
+      "first_seen": "2:24",
+      "verse_tr": "Eğer (bu dediklerimizi) yapamazsanız -ki asla yapamayacaksınız- o takdirde, yakıtı insanlar ve taşlar olan, inkârcılar için hazırlanmış ateşten korunun."
+    },
+    {
+      "clean": "فلما",
+      "raw": "فَلَمَّآ",
+      "count": 101,
+      "first_seen": "2:17",
+      "verse_tr": "Onların durumu, bir ateş yakan kimsenin durumu gibidir. Ateş çevresini aydınlattığı zaman, Allah onların aydınlığını giderdi ve onları karanlıkta bıraktı. Artık göremezler."
+    },
+    {
+      "clean": "ألا",
+      "raw": "أَلَآ",
+      "count": 99,
+      "first_seen": "2:12",
+      "verse_tr": "Onlar, bozguncuların ta kendileridir, ama anlamazlar."
+    },
+    {
+      "clean": "أنزل",
+      "raw": "أُنزِلَ",
+      "count": 95,
+      "first_seen": "2:4",
+      "verse_tr": "Onlar, sana indirilene ve senden önce indirilene inanırlar; ahirete de kesin olarak inanırlar."
+    },
+    {
+      "clean": "لمن",
+      "raw": "لَمَنِ",
+      "count": 94,
+      "first_seen": "2:102",
+      "verse_tr": "Ve Süleyman'ın mülkü (saltanatı) aleyhine şeytanların okuyup uydurduğu şeye uydular. Süleyman kâfir olmadı, lâkin şeytanlar kâfir oldular. Onlar, Bâbil'deki iki meleğe: Hârut ile Mârut'a indirilmiş olanı (sihri) öğretiyorlardı. Halbuki o ikisi: Biz ancak bir fitneyiz, sen kâfir olma! demedikçe hiç kimseye (sihri) öğretmezlerdi. Derken onlardan (o iki melekten) kişi ile zevcesini arasını ayıracak şeyleri öğreniyorlardı. Allah'ın izni olmadıkça onlarla kimseye zarar verecek değillerdi. Ve gerçekten onlar, kendilerine zarar verecek ve fayda vermeyecek şeyi öğreniyorlardı. Ve andolsun ki, onu (sihri) satın alan kimsenin âhirette hiçbir nasibi olmadığını bildiler. Velev ki, nefislerini neye sattıklarını bilselerdi, gerçekten ne kötü bir şeydi o!"
+    },
+    {
+      "clean": "ربى",
+      "raw": "رَبِّىَ",
+      "count": 94,
+      "first_seen": "2:258",
+      "verse_tr": "Kendisine Allah mülk verdi diye Rabbi hakkında (kendi kendine) tartışmaya giren kimseyi görmedin mi? Hani İbrahim: \"Benim Rabbim hem diriltir hem de öldürür\" deyince, o: \"Ben de diriltir ve öldürürüm\" demişti. İbrahim: \"Allah güneşi doğudan getirmektedir, haydi sen de onu batıdan getir!\" deyince, kâfir olan o kimse şaşıp kalmıştı. Allah, zâlimler topluluğunu doğru yola eriştirmez."
+    },
+    {
+      "clean": "دون",
+      "raw": "دُونِ",
+      "count": 91,
+      "first_seen": "2:23",
+      "verse_tr": "Eğer kulumuza indirdiğimiz şeyden herhangi bir şüpheda iseniz, haydi onun benzeri bir sure getirin ve eğer doğru sözlüler iseniz, Allah'tan başka şahitlerinizi çağırın."
+    },
+    {
+      "clean": "فمن",
+      "raw": "فَمَن",
+      "count": 90,
+      "first_seen": "2:38",
+      "verse_tr": "Hep birlikte (cennetten) inin! Size benden bir hidayet geldiğinde, kim benim hidayetime uyarsa, onlara korku yoktur ve onlar mahzun da olmayacaklardır."
+    },
+    {
+      "clean": "منه",
+      "raw": "مِنْهُ",
+      "count": 88,
+      "first_seen": "2:60",
+      "verse_tr": "Hani Mûsâ da, kavmi için su dilemişti. Biz de ona: \"Asânı taşa vur!\" demiştik. Bunun üzerine taştan on iki pınar fışkırmış, her kabile kendi su alacağı yeri bilmişti. Allah'ın rızkından yiyin, için. Yeryüzünde bozgunculuk yaparak fesat çıkarmayın."
+    },
+    {
+      "clean": "سبيل",
+      "raw": "سَبِيلِ",
+      "count": 87,
+      "first_seen": "2:154",
+      "verse_tr": "Allah yolunda öldürülenlere «ölüler» demeyin. Hayır, onlar diridirler. Fakat siz sezamazsınız."
+    },
+    {
+      "clean": "فإذا",
+      "raw": "فَإِذَآ",
+      "count": 87,
+      "first_seen": "2:196",
+      "verse_tr": "Haccı ve umreyi Allah için tamamlayın. Eğer (düşman tarafından) kuşatılırsanız, artık size (kurban olarak) ne kolay gelirse (onu gönderin). Kurbanlarınız yerlerine ulaşıncaya kadar başlarınızı tıraş etmeyin. Sizden her kim hasta olursa veya başından bir rahatsızlığı bulunursa, fidye olarak oruç tutması, sadaka vermesi veya kurban kesmesi gerekir. Güvenliğe kavuşursanız, hac günlerine kadar umre ile faydalanmak isteyen kimse, kolayına gelen bir kurban keser. Kurban bulamayan kimse ise, hac günlerinde üç gün, döndüğünüzde yedi gün olmak üzere (toplam) on gün oruç tutar. Bu, ailesi Mescid-i Haram civarında bulunmayanlar içindir. Allah'a karşı gelmekten sakının ve Allah'ın azabının çetin olduğunu bilin."
+    },
+    {
+      "clean": "يؤمنون",
+      "raw": "يُؤْمِنُونَ",
+      "count": 86,
+      "first_seen": "2:3",
+      "verse_tr": "Onlar, gayba inanırlar, namazı dosdoğru kılarlar ve kendilerine verdiğimiz rızıktan yerli yerince harcarlar."
+    },
+    {
+      "clean": "فما",
+      "raw": "فَمَا",
+      "count": 86,
+      "first_seen": "2:16",
+      "verse_tr": "İşte onlar, hidayeti dalâletle satın alanlardır. Lâkin bu alışverişleri onlara kâr sağlamadığı gibi, doğru yolu da bulamamışlardır."
+    },
+    {
+      "clean": "منها",
+      "raw": "مِنْهَا",
+      "count": 86,
+      "first_seen": "2:25",
+      "verse_tr": "İman edip salih amel işleyenlere, kendileri için hazırlanan, altlarından ırmaklar akan cennetlerin olduğunu müjdele. Onlara orada (cennet meyvelerinden) bir rızık verildiğinde, \"Daha önce dünyada iken bize verilen rızık budur\" derler. Hem (bu meyveler) birbirine benzer şekilde sunulmuştur. Onlar için orada tertemiz eşler de vardır. Ve onlar orada ebedî kalacaklardır."
+    },
+    {
+      "clean": "كذلك",
+      "raw": "كَذَٰلِكَ",
+      "count": 86,
+      "first_seen": "2:73",
+      "verse_tr": "Bunun üzerine: 'Onun bir parçasıyla ona vurun' dedik. İşte Allah ölüleri böyle diriltir ve akledesiniz diye size ayetlerini gösterir."
+    }
+  ]
+}

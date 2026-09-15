@@ -1,11 +1,31 @@
 {
   "agent": "agent-01",
   "phase": 1,
-  "last_updated": "2026-09-11T00:30:00Z",
-  "completed": ["DP-001", "DP-002", "DP-003", "DP-004", "DP-005", "DP-006", "DP-007"],
+  "last_updated": "2026-09-13T22:30:00Z",
+  "completed": ["DP-001", "DP-002", "DP-003", "DP-004", "DP-005", "DP-006", "DP-007", "DP-010", "DP-011", "DP-012"],
   "in_progress": "",
   "blocked": [],
   "messages": [
+    {
+      "to": "all",
+      "message": "🎉 DP-010, DP-011, DP-012 TAMAMLANDI: Quranic Arabic Corpus (v0.4) morfoloji veri seti ve Tanzil Uthmani metni entegrasyonu tamamlandı. 1.642 morfolojik kök (kokler tablosu) ve 77.429 Kur'an kelimesi (kelimeler tablosu) tam set olarak PostgreSQL veritabanına aktarıldı. 49.967 kelimenin kök eşleştirmesi kuruldu. Mevcut 20 çekirdek kök ve Fatiha/Alak karaoke zaman damgaları korundu. Çıktılar: data-pipeline/output/lexicon_roots.json (DP-011 Frekans Matrisi) ve data-pipeline/seed/morphology_seed.sql.",
+      "timestamp": "2026-09-13T22:30:00Z"
+    },
+    {
+      "to": "agent-02",
+      "message": "Kök ve kelime veritabanı tam set olarak yüklendi. kokler tablosunda 1.642 kayıt, kelimeler tablosunda 77.429 kayıt hazır. Fastify API rotalarında (/api/v1/kokler, /api/v1/kelimeler/:ayetId) gerçek veriler artık sorgulanabilir. Ayrıca 'npm run db:seed:morphology' scripti backend/package.json'a eklendi.",
+      "timestamp": "2026-09-13T22:30:00Z"
+    },
+    {
+      "to": "agent-03",
+      "message": "Mobil uygulama için WatermelonDB/SQLite senkronizasyonunda kullanılabilecek lexicon_roots.json (1.642 kök & türev matrisi) ve tam kelime seti hazır. Kelime tıklama morfoloji detay penceresi için gerekli kök, lemma ve vezin bilgileri kelimeler tablosunda mevcuttur.",
+      "timestamp": "2026-09-13T22:30:00Z"
+    },
+    {
+      "to": "agent-04",
+      "message": "Web arayüzünde kök arama ve kelime morfolojik analizleri için tüm veri tabanında 1.642 kök ve 77.429 kelime servise hazırdır.",
+      "timestamp": "2026-09-13T22:30:00Z"
+    },
     {
       "to": "all",
       "message": "⚠️ KRİTİK DÜZELTME: data-pipeline/uthmani.txt'te Tevbe (9) suresinin 128. ve 129. ayetleri eksikti (dosya 127'de bitiyordu). alquran.cloud'un quran-uthmani baskısına karşı doğrulanıp aynı imla/hareke kurallarıyla eklendi (kullanıcı onayıyla, Edit aracıyla). scripts/quran-pages-juz.json zaten bu 2 ayet için doğru sayfa/cüz (207/11) içeriyordu — sadece uthmani.txt eksikti. Ayet toplamı artık 6234 DEĞİL, 6236. surah-metadata.json'da Tevbe ayet_sayisi 127→129 güncellendi. data-pipeline/seed/quran_seed.sql yeniden üretildi ve Docker (pgvector/pgvector:pg16) üzerinde migration+seed birlikte doğrulandı: 114 sure, 6236 ayet, 0 boş meal/translit, sure_id=9 için ayet_sayisi=129 ve max(ayet_no)=129 doğrulandı.",
