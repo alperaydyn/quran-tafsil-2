@@ -13,6 +13,7 @@ import { BottomTabNavigator } from './BottomTabNavigator';
 import { ReadingScreen } from '../screens/ReadingScreen';
 import { MemorizationStudioScreen } from '../screens/MemorizationStudioScreen';
 import { ProgressMatrixScreen } from '../screens/ProgressMatrixScreen';
+import { ReadingHistoryScreen } from '../screens/ReadingHistoryScreen';
 import { UnderstandingListScreen } from '../screens/UnderstandingListScreen';
 import { UnderstandingStudioScreen } from '../screens/UnderstandingStudioScreen';
 import { SearchScreen } from '../screens/SearchScreen';
@@ -37,6 +38,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       UnderstandingStudio: 'oturum/:id',
       UnderstandingList: 'anlama',
       ProgressMatrix: 'matris',
+      ReadingHistory: 'gecmis',
       Onboarding: 'onboarding',
       Auth: 'auth',
       MemorizationStudio: 'ezber-studyo',
@@ -93,6 +95,11 @@ export function RootNavigator() {
         <Stack.Screen
           name="ProgressMatrix"
           component={ProgressMatrixScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ReadingHistory"
+          component={ReadingHistoryScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

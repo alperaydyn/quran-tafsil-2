@@ -16,6 +16,7 @@ import { mockSurahs } from '../api/mock/surahs.mock';
 import { getVerses } from '../api/client';
 import type { Verse } from '../api/types';
 import { useMemorizationStore } from '../store/useMemorizationStore';
+import { OfflineSyncService } from '../services/offlineSyncService';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -113,6 +114,16 @@ export function MemorizationStudioScreen() {
     if (sessionId) {
       updateSessionReview(sessionId, q);
     }
+    // Okuma/Ezber geçmişine kaydet
+    OfflineSyncService.recordMemorizationSession({
+      id: sessionId || `mem-${surahId}-${startAyah}-${endAyah}-${Date.now()}`,
+      sure_id: surahId,
+      baslangic_ayet: startAyah,
+      bitis_ayet: endAyah,
+      durum: q >= 4 ? 'pekistirildi' : 'ogreniliyor',
+      baslik: `${surah.nameTr} (${startAyah}-${endAyah}) Ezber Oturumu`,
+      created_at: new Date().toISOString(),
+    });
     navigation.goBack();
   };
 

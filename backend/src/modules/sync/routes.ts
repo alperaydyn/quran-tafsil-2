@@ -57,4 +57,22 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
       data: status
     });
   });
+
+  fastify.get("/api/v1/sync/timeline", async (request, reply) => {
+    const query = request.query as { user_id?: string };
+    const timeline = await syncService.getReadingTimeline(query?.user_id);
+    return reply.send({
+      success: true,
+      data: timeline
+    });
+  });
+
+  fastify.get("/api/v1/sync/reading-history", async (request, reply) => {
+    const query = request.query as { user_id?: string };
+    const timeline = await syncService.getReadingTimeline(query?.user_id);
+    return reply.send({
+      success: true,
+      data: timeline
+    });
+  });
 };

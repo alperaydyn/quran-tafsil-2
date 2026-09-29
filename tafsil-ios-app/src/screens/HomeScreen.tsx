@@ -112,7 +112,7 @@ function BahcenCard() {
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('ProgressMatrix')}
+      onPress={() => navigation.navigate('ReadingHistory')}
       style={{
         backgroundColor: theme.colors.surf,
         borderWidth: 1,
@@ -124,17 +124,20 @@ function BahcenCard() {
       }}
     >
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
-        <StyledText
-          variant="eyebrow"
-          style={{
-            fontSize: 11,
-            letterSpacing: 1.2,
-            color: theme.colors.mut,
-            fontWeight: '600',
-          }}
-        >
-          {t('home.gardenTitle').toUpperCase()}
-        </StyledText>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <StyledText
+            variant="eyebrow"
+            style={{
+              fontSize: 11,
+              letterSpacing: 1.2,
+              color: theme.colors.mut,
+              fontWeight: '600',
+            }}
+          >
+            {t('home.gardenTitle').toUpperCase()}
+          </StyledText>
+          <StyledText style={{ fontSize: 13, color: theme.colors.mut, lineHeight: 14 }}>›</StyledText>
+        </View>
         <StyledText variant="footnote" style={{ color: theme.colors.acc, fontSize: 12, fontWeight: '500' }}>
           {statusLabel}
         </StyledText>

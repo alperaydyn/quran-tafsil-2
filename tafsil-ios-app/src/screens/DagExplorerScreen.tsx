@@ -6,6 +6,7 @@ import { StyledText } from '../components/common/StyledText';
 import { Button } from '../components/common/Button';
 import { useTheme } from '../theme';
 import { CONCEPTS_DICTIONARY } from '../data/concepts.seed';
+import { OfflineSyncService } from '../services/offlineSyncService';
 
 interface DagNode {
   id: string;
@@ -124,6 +125,13 @@ export function DagExplorerScreen() {
       }
     }
   }, [route?.params?.conceptSlug]);
+
+  // Kavram incelemesini okuma günlüğüne/geçmişine kaydet
+  useEffect(() => {
+    if (selectedNode?.slug && selectedNode?.label) {
+      OfflineSyncService.recordConceptStudy(selectedNode.slug, selectedNode.label, 45);
+    }
+  }, [selectedNode?.slug, selectedNode?.label]);
 
   // İlişki türüne göre gruplama (Liste Görünümü için)
   const groupedRelations = [
