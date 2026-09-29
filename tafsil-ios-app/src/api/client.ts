@@ -129,9 +129,15 @@ export async function getVerses(surahId: number, page = 1, limit = 300): Promise
   }
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2500);
+
     const res = await fetch(`${API_BASE}/sureler/${surahId}/ayetler?page=${page}&limit=${limit}`, {
       headers: { Accept: 'application/json' },
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
+
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     if (json.success && Array.isArray(json.data) && json.data.length > 0) {
@@ -143,7 +149,7 @@ export async function getVerses(surahId: number, page = 1, limit = 300): Promise
     }
     throw new Error('Boş API verisi');
   } catch (err) {
-    console.warn(`[getVerses] Sure ${surahId} ayetleri API'den çekilemedi, yerel Kur'an anlık görüntüsüne dönülüyor:`, err);
+    console.warn(`[getVerses] Sure ${surahId} ayetleri API'den çekilemedi (${err}), yerel Kur'an anlık görüntüsüne dönülüyor.`);
     const snapshotData = getVersesFromSnapshot(surahId);
     if (snapshotData.length > 0) {
       return { success: true, data: snapshotData, meta: { total: snapshotData.length, cached: true } };

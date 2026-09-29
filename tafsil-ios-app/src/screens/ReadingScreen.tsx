@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { ScrollView, View, Pressable, Dimensions, type LayoutChangeEvent } from 'react-native';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
+import { ScrollView, View, Pressable, Dimensions, ActivityIndicator, type LayoutChangeEvent, type NativeSyntheticEvent, type NativeScrollEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
@@ -42,21 +42,7 @@ function segsOf(text: string): { text: string; conceptSlug: string | null }[] {
   return out;
 }
 
-function VerseCard({
-  verse,
-  isVerseActive,
-  activeWordIndex,
-  onWordPress,
-  onBookmarkToggle,
-  isBookmarked,
-  onLayout,
-  activeChain,
-  onConceptPress,
-  onSelectRelatedConcept,
-  onCloseConcept,
-  onOpenDag,
-  onCardPress,
-}: {
+interface VerseCardProps {
   verse: Verse;
   isVerseActive: boolean;
   activeWordIndex: number | null;
@@ -70,25 +56,44 @@ function VerseCard({
   onCloseConcept: (depth: number) => void;
   onOpenDag?: (slug: string) => void;
   onCardPress?: () => void;
-}) {
+}
+
+const VerseCard = React.memo(function VerseCard({
+  verse,
+  isVerseActive,
+  activeWordIndex,
+  onWordPress,
+  onBookmarkToggle,
+  isBookmarked,
+  onLayout,
+  activeChain,
+  onConceptPress,
+  onSelectRelatedConcept,
+  onCloseConcept,
+  onOpenDag,
+  onCardPress,
+}: VerseCardProps) {
   const theme = useTheme();
   const mode = useReadingMode();
 
-  const words: Word[] =
-    verse.words && verse.words.length > 0
+  const words: Word[] = useMemo(() => {
+    return verse.words && verse.words.length > 0
       ? verse.words
       : verse.textAr.split(' ').map((w, idx) => ({
-        id: idx + 1,
-        position: idx + 1,
-        textAr: w,
-        textTr: '',
-        rootId: null,
-        startMs: 0,
-        endMs: 0,
-      }));
+          id: idx + 1,
+          position: idx + 1,
+          textAr: w,
+          textTr: '',
+          rootId: null,
+          startMs: 0,
+          endMs: 0,
+        }));
+  }, [verse.words, verse.textAr]);
 
   const activeTint = theme.scheme === 'dark' ? 'rgba(127, 163, 204, 0.07)' : 'rgba(63, 95, 134, 0.04)';
-  const segments = segsOf(verse.mealTr || 'Bu ayet için meal çevirisi hazırlanıyor.');
+  const segments = useMemo(() => {
+    return segsOf(verse.mealTr || 'Bu ayet için meal çevirisi hazırlanıyor.');
+  }, [verse.mealTr]);
 
   return (
     <Pressable
@@ -256,12 +261,17 @@ function VerseCard({
       )}
     </Pressable>
   );
-}
+});
 
 export function ReadingScreen({ route, navigation }: Props) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { surahId, ayahNo: initialAyahNo, autoPlay } = route.params;
+  const CHUNK_SIZE = 20;
+  const [visibleCount, setVisibleCount] = useState<number>(() => {
+    return initialAyahNo ? Math.max(CHUNK_SIZE, initialAyahNo + 5) : CHUNK_SIZE;
+  });
+
   const [verses, setVerses] = useState<Verse[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -286,12 +296,28 @@ export function ReadingScreen({ route, navigation }: Props) {
   const scrollSettleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    const initialTarget = initialAyahNo ? Math.max(CHUNK_SIZE, initialAyahNo + 5) : CHUNK_SIZE;
+    setVisibleCount(initialTarget);
     if (initialAyahNo) {
       setSelectedAyahNo(initialAyahNo);
       setActiveAyah(initialAyahNo);
       hasScrolledToInitialRef.current = false;
     }
   }, [initialAyahNo, surahId]);
+
+  const loadMoreVerses = useCallback(() => {
+    setVisibleCount((prev) => {
+      if (prev >= verses.length) return prev;
+      return Math.min(verses.length, prev + CHUNK_SIZE);
+    });
+  }, [verses.length]);
+
+  // Ses çalarken aktif okunan ayet listenin sonuna yaklaştığında sonraki ayetleri önden otomatik aç
+  useEffect(() => {
+    if (isPlaying && activeAyah >= visibleCount - 3 && visibleCount < verses.length) {
+      loadMoreVerses();
+    }
+  }, [isPlaying, activeAyah, visibleCount, verses.length, loadMoreVerses]);
 
   const markVerseRead = useReadingProgressStore((s) => s.markVerseRead);
   const setLastRead = useReadingProgressStore((s) => s.setLastRead);
@@ -389,9 +415,16 @@ export function ReadingScreen({ route, navigation }: Props) {
     OfflineSyncService.recordReading(surahId, ayahNo, 20);
   };
 
+  const visibleVerses = useMemo(() => {
+    return verses.slice(0, visibleCount);
+  }, [verses, visibleCount]);
+
   const handleNextStep = () => {
     if (activeAyah < verses.length) {
       const nextAyah = activeAyah + 1;
+      if (nextAyah > visibleCount) {
+        setVisibleCount((prev) => Math.min(verses.length, Math.max(prev + CHUNK_SIZE, nextAyah + 5)));
+      }
       isUserScrollingRef.current = false;
       handleAyahSelect(nextAyah);
       const layout = verseLayouts.current[nextAyah];
@@ -430,7 +463,6 @@ export function ReadingScreen({ route, navigation }: Props) {
           const ayahNo = Number(ayahStr);
           if (focusTargetY >= layout.y && focusTargetY <= layout.y + layout.height) {
             closestAyah = ayahNo;
-            break;
           }
           const dist = Math.abs(layout.y - focusTargetY);
           if (dist < minDistance) {
@@ -449,6 +481,16 @@ export function ReadingScreen({ route, navigation }: Props) {
         isUserScrollingRef.current = false;
       }, 300);
     }, 400);
+  };
+
+  // Scroll olaylarında hem lazy load tetikleme hem de ayet odaklama
+  const handleScrollEvent = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { layoutMeasurement, contentOffset, contentSize } = e.nativeEvent;
+    // Listenin sonuna 700px kala sonraki 20 ayeti lazy load ile ekle
+    if (contentOffset.y + layoutMeasurement.height >= contentSize.height - 700) {
+      loadMoreVerses();
+    }
+    handleScrollPosition(contentOffset.y);
   };
 
   // Simulated word-by-word karaoke sync timer when playing
@@ -553,7 +595,9 @@ export function ReadingScreen({ route, navigation }: Props) {
         <>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: theme.spacing.lg, paddingBottom: 6 }}>
             <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
-              {verses.length} Ayet · Çevrimdışı Hazır
+              {visibleCount < verses.length
+                ? `${visibleCount} / ${verses.length} Ayet Hazır · Kademeli Yükleme`
+                : `${verses.length} Ayet · Çevrimdışı Hazır`}
             </StyledText>
           </View>
 
@@ -572,17 +616,11 @@ export function ReadingScreen({ route, navigation }: Props) {
                 clearTimeout(scrollSettleTimerRef.current);
               }
             }}
-            onScroll={(e) => {
-              handleScrollPosition(e.nativeEvent.contentOffset.y);
-            }}
-            onScrollEndDrag={(e) => {
-              handleScrollPosition(e.nativeEvent.contentOffset.y);
-            }}
-            onMomentumScrollEnd={(e) => {
-              handleScrollPosition(e.nativeEvent.contentOffset.y);
-            }}
+            onScroll={handleScrollEvent}
+            onScrollEndDrag={handleScrollEvent}
+            onMomentumScrollEnd={handleScrollEvent}
           >
-            {verses.map((v) => (
+            {visibleVerses.map((v) => (
               <VerseCard
                 key={v.id}
                 verse={v}
@@ -617,6 +655,51 @@ export function ReadingScreen({ route, navigation }: Props) {
                 onOpenDag={handleOpenDag}
               />
             ))}
+
+            {/* Kademeli (Lazy Load) Bilgi Kartı */}
+            {visibleCount < verses.length && (
+              <View
+                style={{
+                  padding: 16,
+                  marginVertical: 14,
+                  borderRadius: theme.radius.xl,
+                  backgroundColor: theme.colors.band,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderWidth: 1,
+                  borderColor: theme.colors.line,
+                  gap: 8,
+                }}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <ActivityIndicator size="small" color={theme.colors.acc} />
+                  <StyledText variant="subhead" color="ink" style={{ fontWeight: '600' }}>
+                    {visibleCount} / {verses.length} Ayet Görüntüleniyor
+                  </StyledText>
+                </View>
+                <StyledText variant="caption" color="faint" style={{ textAlign: 'center' }}>
+                  Aşağı kaydırmaya devam ettikçe sonraki ayetler akıcı şekilde eklenir
+                </StyledText>
+                <Pressable
+                  onPress={() => setVisibleCount(verses.length)}
+                  hitSlop={6}
+                  style={({ pressed }) => ({
+                    marginTop: 4,
+                    paddingVertical: 7,
+                    paddingHorizontal: 16,
+                    borderRadius: 8,
+                    backgroundColor: theme.colors.surf,
+                    borderWidth: 1,
+                    borderColor: theme.colors.line,
+                    opacity: pressed ? 0.7 : 1,
+                  })}
+                >
+                  <StyledText variant="caption" color="acc" style={{ fontWeight: '600' }}>
+                    Tüm Ayetleri Yükle ({verses.length - visibleCount} Ayet Kaldı)
+                  </StyledText>
+                </Pressable>
+              </View>
+            )}
 
             {/* Alt Boşluk ve Sonraki Ayete/Sureye Geç Butonu */}
             <View
