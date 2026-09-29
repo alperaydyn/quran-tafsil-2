@@ -1,0 +1,63 @@
+{
+  "surah": 17,
+  "ayah": 11,
+  "verseKey": "17:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 210650,
+  "timestampToGlobalMs": 223690,
+  "durationMs": 13040,
+  "audioFile": "17_11.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 795,
+      "durationMs": 795
+    },
+    {
+      "position": 2,
+      "startMs": 795,
+      "endMs": 2835,
+      "durationMs": 2040
+    },
+    {
+      "position": 3,
+      "startMs": 2835,
+      "endMs": 3895,
+      "durationMs": 1060
+    },
+    {
+      "position": 4,
+      "startMs": 3895,
+      "endMs": 6275,
+      "durationMs": 2380
+    },
+    {
+      "position": 5,
+      "startMs": 6275,
+      "endMs": 8535,
+      "durationMs": 2260
+    },
+    {
+      "position": 6,
+      "startMs": 8535,
+      "endMs": 9285,
+      "durationMs": 750
+    },
+    {
+      "position": 7,
+      "startMs": 9285,
+      "endMs": 11405,
+      "durationMs": 2120
+    },
+    {
+      "position": 8,
+      "startMs": 11405,
+      "endMs": 12620,
+      "durationMs": 1215
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:16.983Z"
+}

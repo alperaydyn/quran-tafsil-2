@@ -1,0 +1,63 @@
+{
+  "surah": 21,
+  "ayah": 10,
+  "verseKey": "21:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 128410,
+  "timestampToGlobalMs": 140350,
+  "durationMs": 11940,
+  "audioFile": "21_10.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 615,
+      "durationMs": 615
+    },
+    {
+      "position": 2,
+      "startMs": 615,
+      "endMs": 3765,
+      "durationMs": 3150
+    },
+    {
+      "position": 3,
+      "startMs": 3765,
+      "endMs": 4775,
+      "durationMs": 1010
+    },
+    {
+      "position": 4,
+      "startMs": 4775,
+      "endMs": 6615,
+      "durationMs": 1840
+    },
+    {
+      "position": 5,
+      "startMs": 6615,
+      "endMs": 7335,
+      "durationMs": 720
+    },
+    {
+      "position": 6,
+      "startMs": 7335,
+      "endMs": 8355,
+      "durationMs": 1020
+    },
+    {
+      "position": 7,
+      "startMs": 8355,
+      "endMs": 9105,
+      "durationMs": 750
+    },
+    {
+      "position": 8,
+      "startMs": 9105,
+      "endMs": 11820,
+      "durationMs": 2715
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:39.205Z"
+}

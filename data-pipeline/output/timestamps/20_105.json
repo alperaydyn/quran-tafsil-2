@@ -1,0 +1,57 @@
+{
+  "surah": 20,
+  "ayah": 105,
+  "verseKey": "20:105",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1206080,
+  "timestampToGlobalMs": 1214280,
+  "durationMs": 8200,
+  "audioFile": "20_105.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1295,
+      "durationMs": 1295
+    },
+    {
+      "position": 2,
+      "startMs": 1295,
+      "endMs": 1745,
+      "durationMs": 450
+    },
+    {
+      "position": 3,
+      "startMs": 1745,
+      "endMs": 2815,
+      "durationMs": 1070
+    },
+    {
+      "position": 4,
+      "startMs": 2815,
+      "endMs": 3405,
+      "durationMs": 590
+    },
+    {
+      "position": 5,
+      "startMs": 3405,
+      "endMs": 5465,
+      "durationMs": 2060
+    },
+    {
+      "position": 6,
+      "startMs": 5465,
+      "endMs": 6325,
+      "durationMs": 860
+    },
+    {
+      "position": 7,
+      "startMs": 6325,
+      "endMs": 7360,
+      "durationMs": 1035
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:35.327Z"
+}

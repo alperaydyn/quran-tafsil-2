@@ -1,0 +1,51 @@
+{
+  "surah": 4,
+  "ayah": 156,
+  "verseKey": "4:156",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4271840,
+  "timestampToGlobalMs": 4278680,
+  "durationMs": 6850,
+  "audioFile": "4_156.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1395,
+      "durationMs": 1395
+    },
+    {
+      "position": 2,
+      "startMs": 1395,
+      "endMs": 2605,
+      "durationMs": 1210
+    },
+    {
+      "position": 3,
+      "startMs": 2605,
+      "endMs": 3315,
+      "durationMs": 710
+    },
+    {
+      "position": 4,
+      "startMs": 3315,
+      "endMs": 4125,
+      "durationMs": 810
+    },
+    {
+      "position": 5,
+      "startMs": 4125,
+      "endMs": 5245,
+      "durationMs": 1120
+    },
+    {
+      "position": 6,
+      "startMs": 5245,
+      "endMs": 6480,
+      "durationMs": 1235
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:28.966Z"
+}

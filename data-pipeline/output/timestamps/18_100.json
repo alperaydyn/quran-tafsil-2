@@ -1,0 +1,45 @@
+{
+  "surah": 18,
+  "ayah": 100,
+  "verseKey": "18:100",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1809270,
+  "timestampToGlobalMs": 1817030,
+  "durationMs": 7760,
+  "audioFile": "18_100.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 745,
+      "durationMs": 745
+    },
+    {
+      "position": 2,
+      "startMs": 745,
+      "endMs": 2565,
+      "durationMs": 1820
+    },
+    {
+      "position": 3,
+      "startMs": 2565,
+      "endMs": 3825,
+      "durationMs": 1260
+    },
+    {
+      "position": 4,
+      "startMs": 3825,
+      "endMs": 5615,
+      "durationMs": 1790
+    },
+    {
+      "position": 5,
+      "startMs": 5615,
+      "endMs": 7190,
+      "durationMs": 1575
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:25.325Z"
+}

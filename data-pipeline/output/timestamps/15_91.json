@@ -1,0 +1,39 @@
+{
+  "surah": 15,
+  "ayah": 91,
+  "verseKey": "15:91",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 886370,
+  "timestampToGlobalMs": 892640,
+  "durationMs": 6270,
+  "audioFile": "15_91.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1215,
+      "durationMs": 1215
+    },
+    {
+      "position": 2,
+      "startMs": 1215,
+      "endMs": 2035,
+      "durationMs": 820
+    },
+    {
+      "position": 3,
+      "startMs": 2035,
+      "endMs": 3405,
+      "durationMs": 1370
+    },
+    {
+      "position": 4,
+      "startMs": 3405,
+      "endMs": 6190,
+      "durationMs": 2785
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:05.632Z"
+}

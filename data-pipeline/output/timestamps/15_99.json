@@ -1,0 +1,45 @@
+{
+  "surah": 15,
+  "ayah": 99,
+  "verseKey": "15:99",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 945610,
+  "timestampToGlobalMs": 954440,
+  "durationMs": 8830,
+  "audioFile": "15_99.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 875,
+      "durationMs": 875
+    },
+    {
+      "position": 2,
+      "startMs": 875,
+      "endMs": 1865,
+      "durationMs": 990
+    },
+    {
+      "position": 3,
+      "startMs": 1865,
+      "endMs": 2835,
+      "durationMs": 970
+    },
+    {
+      "position": 4,
+      "startMs": 2835,
+      "endMs": 4055,
+      "durationMs": 1220
+    },
+    {
+      "position": 5,
+      "startMs": 4055,
+      "endMs": 8510,
+      "durationMs": 4455
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:05.815Z"
+}

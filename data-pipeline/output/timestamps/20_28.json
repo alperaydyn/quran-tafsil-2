@@ -1,0 +1,27 @@
+{
+  "surah": 20,
+  "ayah": 28,
+  "verseKey": "20:28",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 228030,
+  "timestampToGlobalMs": 230620,
+  "durationMs": 2590,
+  "audioFile": "20_28.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1035,
+      "durationMs": 1035
+    },
+    {
+      "position": 2,
+      "startMs": 1035,
+      "endMs": 2500,
+      "durationMs": 1465
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:33.739Z"
+}

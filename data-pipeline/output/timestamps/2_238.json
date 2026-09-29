@@ -1,0 +1,63 @@
+{
+  "surah": 2,
+  "ayah": 238,
+  "verseKey": "2:238",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 5702270,
+  "timestampToGlobalMs": 5710810,
+  "durationMs": 8540,
+  "audioFile": "2_238.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 875,
+      "durationMs": 875
+    },
+    {
+      "position": 2,
+      "startMs": 875,
+      "endMs": 1195,
+      "durationMs": 320
+    },
+    {
+      "position": 3,
+      "startMs": 1195,
+      "endMs": 2375,
+      "durationMs": 1180
+    },
+    {
+      "position": 4,
+      "startMs": 2375,
+      "endMs": 3475,
+      "durationMs": 1100
+    },
+    {
+      "position": 5,
+      "startMs": 3475,
+      "endMs": 4415,
+      "durationMs": 940
+    },
+    {
+      "position": 6,
+      "startMs": 4415,
+      "endMs": 5285,
+      "durationMs": 870
+    },
+    {
+      "position": 7,
+      "startMs": 5285,
+      "endMs": 6225,
+      "durationMs": 940
+    },
+    {
+      "position": 8,
+      "startMs": 6225,
+      "endMs": 8430,
+      "durationMs": 2205
+    }
+  ],
+  "processedAt": "2026-09-29T22:24:56.540Z"
+}

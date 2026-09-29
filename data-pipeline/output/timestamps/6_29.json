@@ -1,0 +1,69 @@
+{
+  "surah": 6,
+  "ayah": 29,
+  "verseKey": "6:29",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 579310,
+  "timestampToGlobalMs": 590590,
+  "durationMs": 11290,
+  "audioFile": "6_29.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2224,
+      "durationMs": 2224
+    },
+    {
+      "position": 2,
+      "startMs": 2225,
+      "endMs": 2615,
+      "durationMs": 390
+    },
+    {
+      "position": 3,
+      "startMs": 2615,
+      "endMs": 3045,
+      "durationMs": 430
+    },
+    {
+      "position": 4,
+      "startMs": 3045,
+      "endMs": 3875,
+      "durationMs": 830
+    },
+    {
+      "position": 5,
+      "startMs": 3875,
+      "endMs": 5045,
+      "durationMs": 1170
+    },
+    {
+      "position": 6,
+      "startMs": 5045,
+      "endMs": 6075,
+      "durationMs": 1030
+    },
+    {
+      "position": 7,
+      "startMs": 6075,
+      "endMs": 6765,
+      "durationMs": 690
+    },
+    {
+      "position": 8,
+      "startMs": 6765,
+      "endMs": 7425,
+      "durationMs": 660
+    },
+    {
+      "position": 9,
+      "startMs": 7425,
+      "endMs": 11210,
+      "durationMs": 3785
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:48.897Z"
+}

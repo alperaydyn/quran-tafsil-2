@@ -1,0 +1,45 @@
+{
+  "surah": 23,
+  "ayah": 2,
+  "verseKey": "23:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 6160,
+  "timestampToGlobalMs": 14020,
+  "durationMs": 7860,
+  "audioFile": "23_2.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1225,
+      "durationMs": 1225
+    },
+    {
+      "position": 2,
+      "startMs": 1225,
+      "endMs": 1655,
+      "durationMs": 430
+    },
+    {
+      "position": 3,
+      "startMs": 1655,
+      "endMs": 1985,
+      "durationMs": 330
+    },
+    {
+      "position": 4,
+      "startMs": 1985,
+      "endMs": 3315,
+      "durationMs": 1330
+    },
+    {
+      "position": 5,
+      "startMs": 3315,
+      "endMs": 7780,
+      "durationMs": 4465
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:49.652Z"
+}

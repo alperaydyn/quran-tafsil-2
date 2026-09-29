@@ -1,0 +1,33 @@
+{
+  "surah": 18,
+  "ayah": 92,
+  "verseKey": "18:92",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1691830,
+  "timestampToGlobalMs": 1695460,
+  "durationMs": 3630,
+  "audioFile": "18_92.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1355,
+      "durationMs": 1355
+    },
+    {
+      "position": 2,
+      "startMs": 1355,
+      "endMs": 2235,
+      "durationMs": 880
+    },
+    {
+      "position": 3,
+      "startMs": 2235,
+      "endMs": 3550,
+      "durationMs": 1315
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:25.073Z"
+}

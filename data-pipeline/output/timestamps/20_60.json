@@ -1,0 +1,51 @@
+{
+  "surah": 20,
+  "ayah": 60,
+  "verseKey": "20:60",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 554930,
+  "timestampToGlobalMs": 561670,
+  "durationMs": 6740,
+  "audioFile": "20_60.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1255,
+      "durationMs": 1255
+    },
+    {
+      "position": 2,
+      "startMs": 1255,
+      "endMs": 2295,
+      "durationMs": 1040
+    },
+    {
+      "position": 3,
+      "startMs": 2295,
+      "endMs": 3195,
+      "durationMs": 900
+    },
+    {
+      "position": 4,
+      "startMs": 3195,
+      "endMs": 4155,
+      "durationMs": 960
+    },
+    {
+      "position": 5,
+      "startMs": 4155,
+      "endMs": 5365,
+      "durationMs": 1210
+    },
+    {
+      "position": 6,
+      "startMs": 5365,
+      "endMs": 6270,
+      "durationMs": 905
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:34.298Z"
+}

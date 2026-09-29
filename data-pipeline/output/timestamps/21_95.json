@@ -1,0 +1,57 @@
+{
+  "surah": 21,
+  "ayah": 95,
+  "verseKey": "21:95",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1337860,
+  "timestampToGlobalMs": 1348360,
+  "durationMs": 10500,
+  "audioFile": "21_95.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1235,
+      "durationMs": 1235
+    },
+    {
+      "position": 2,
+      "startMs": 1235,
+      "endMs": 1795,
+      "durationMs": 560
+    },
+    {
+      "position": 3,
+      "startMs": 1795,
+      "endMs": 3035,
+      "durationMs": 1240
+    },
+    {
+      "position": 4,
+      "startMs": 3035,
+      "endMs": 5945,
+      "durationMs": 2910
+    },
+    {
+      "position": 5,
+      "startMs": 5945,
+      "endMs": 7395,
+      "durationMs": 1450
+    },
+    {
+      "position": 6,
+      "startMs": 7395,
+      "endMs": 7775,
+      "durationMs": 380
+    },
+    {
+      "position": 7,
+      "startMs": 7775,
+      "endMs": 10390,
+      "durationMs": 2615
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:41.047Z"
+}

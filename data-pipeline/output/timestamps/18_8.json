@@ -1,0 +1,51 @@
+{
+  "surah": 18,
+  "ayah": 8,
+  "verseKey": "18:8",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 81210,
+  "timestampToGlobalMs": 88990,
+  "durationMs": 7790,
+  "audioFile": "18_8.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1695,
+      "durationMs": 1695
+    },
+    {
+      "position": 2,
+      "startMs": 1695,
+      "endMs": 3085,
+      "durationMs": 1390
+    },
+    {
+      "position": 3,
+      "startMs": 3085,
+      "endMs": 3585,
+      "durationMs": 500
+    },
+    {
+      "position": 4,
+      "startMs": 3585,
+      "endMs": 4535,
+      "durationMs": 950
+    },
+    {
+      "position": 5,
+      "startMs": 4535,
+      "endMs": 5605,
+      "durationMs": 1070
+    },
+    {
+      "position": 6,
+      "startMs": 5605,
+      "endMs": 7430,
+      "durationMs": 1825
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:23.064Z"
+}

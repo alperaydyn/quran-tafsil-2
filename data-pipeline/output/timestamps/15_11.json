@@ -1,0 +1,63 @@
+{
+  "surah": 15,
+  "ayah": 11,
+  "verseKey": "15:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 96880,
+  "timestampToGlobalMs": 105970,
+  "durationMs": 9090,
+  "audioFile": "15_11.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 635,
+      "durationMs": 635
+    },
+    {
+      "position": 2,
+      "startMs": 635,
+      "endMs": 1745,
+      "durationMs": 1110
+    },
+    {
+      "position": 3,
+      "startMs": 1745,
+      "endMs": 2515,
+      "durationMs": 770
+    },
+    {
+      "position": 4,
+      "startMs": 2515,
+      "endMs": 3805,
+      "durationMs": 1290
+    },
+    {
+      "position": 5,
+      "startMs": 3805,
+      "endMs": 4535,
+      "durationMs": 730
+    },
+    {
+      "position": 6,
+      "startMs": 4535,
+      "endMs": 5375,
+      "durationMs": 840
+    },
+    {
+      "position": 7,
+      "startMs": 5375,
+      "endMs": 6075,
+      "durationMs": 700
+    },
+    {
+      "position": 8,
+      "startMs": 6075,
+      "endMs": 9010,
+      "durationMs": 2935
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:04.073Z"
+}

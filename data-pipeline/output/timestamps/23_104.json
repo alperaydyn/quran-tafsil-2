@@ -1,0 +1,51 @@
+{
+  "surah": 23,
+  "ayah": 104,
+  "verseKey": "23:104",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1292510,
+  "timestampToGlobalMs": 1301080,
+  "durationMs": 8570,
+  "audioFile": "23_104.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 835,
+      "durationMs": 835
+    },
+    {
+      "position": 2,
+      "startMs": 835,
+      "endMs": 2135,
+      "durationMs": 1300
+    },
+    {
+      "position": 3,
+      "startMs": 2135,
+      "endMs": 3455,
+      "durationMs": 1320
+    },
+    {
+      "position": 4,
+      "startMs": 3455,
+      "endMs": 3995,
+      "durationMs": 540
+    },
+    {
+      "position": 5,
+      "startMs": 3995,
+      "endMs": 4745,
+      "durationMs": 750
+    },
+    {
+      "position": 6,
+      "startMs": 4745,
+      "endMs": 8510,
+      "durationMs": 3765
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:51.787Z"
+}

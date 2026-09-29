@@ -1,0 +1,57 @@
+{
+  "surah": 15,
+  "ayah": 27,
+  "verseKey": "15:27",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 275420,
+  "timestampToGlobalMs": 287700,
+  "durationMs": 12280,
+  "audioFile": "15_27.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 5075,
+      "durationMs": 5075
+    },
+    {
+      "position": 2,
+      "startMs": 5075,
+      "endMs": 6365,
+      "durationMs": 1290
+    },
+    {
+      "position": 3,
+      "startMs": 6365,
+      "endMs": 7295,
+      "durationMs": 930
+    },
+    {
+      "position": 4,
+      "startMs": 7295,
+      "endMs": 7965,
+      "durationMs": 670
+    },
+    {
+      "position": 5,
+      "startMs": 7965,
+      "endMs": 8235,
+      "durationMs": 270
+    },
+    {
+      "position": 6,
+      "startMs": 8235,
+      "endMs": 9555,
+      "durationMs": 1320
+    },
+    {
+      "position": 7,
+      "startMs": 9555,
+      "endMs": 12220,
+      "durationMs": 2665
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:04.350Z"
+}

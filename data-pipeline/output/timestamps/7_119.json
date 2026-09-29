@@ -1,0 +1,39 @@
+{
+  "surah": 7,
+  "ayah": 119,
+  "verseKey": "7:119",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2635700,
+  "timestampToGlobalMs": 2644160,
+  "durationMs": 8460,
+  "audioFile": "7_119.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1075,
+      "durationMs": 1075
+    },
+    {
+      "position": 2,
+      "startMs": 1075,
+      "endMs": 2225,
+      "durationMs": 1150
+    },
+    {
+      "position": 3,
+      "startMs": 2225,
+      "endMs": 4535,
+      "durationMs": 2310
+    },
+    {
+      "position": 4,
+      "startMs": 4535,
+      "endMs": 8360,
+      "durationMs": 3825
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:04.645Z"
+}

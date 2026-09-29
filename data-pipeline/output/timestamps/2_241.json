@@ -1,0 +1,51 @@
+{
+  "surah": 2,
+  "ayah": 241,
+  "verseKey": "2:241",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 5756060,
+  "timestampToGlobalMs": 5764110,
+  "durationMs": 8050,
+  "audioFile": "2_241.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1785,
+      "durationMs": 1785
+    },
+    {
+      "position": 2,
+      "startMs": 1785,
+      "endMs": 3045,
+      "durationMs": 1260
+    },
+    {
+      "position": 3,
+      "startMs": 3045,
+      "endMs": 4275,
+      "durationMs": 1230
+    },
+    {
+      "position": 4,
+      "startMs": 4275,
+      "endMs": 4955,
+      "durationMs": 680
+    },
+    {
+      "position": 5,
+      "startMs": 4955,
+      "endMs": 5315,
+      "durationMs": 360
+    },
+    {
+      "position": 6,
+      "startMs": 5315,
+      "endMs": 7920,
+      "durationMs": 2605
+    }
+  ],
+  "processedAt": "2026-09-29T22:24:56.741Z"
+}

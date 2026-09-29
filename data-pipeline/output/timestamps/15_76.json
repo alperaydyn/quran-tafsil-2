@@ -1,0 +1,33 @@
+{
+  "surah": 15,
+  "ayah": 76,
+  "verseKey": "15:76",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 740360,
+  "timestampToGlobalMs": 747020,
+  "durationMs": 6660,
+  "audioFile": "15_76.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1715,
+      "durationMs": 1715
+    },
+    {
+      "position": 2,
+      "startMs": 1715,
+      "endMs": 2995,
+      "durationMs": 1280
+    },
+    {
+      "position": 3,
+      "startMs": 2995,
+      "endMs": 6610,
+      "durationMs": 3615
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:05.301Z"
+}

@@ -1,0 +1,45 @@
+{
+  "surah": 11,
+  "ayah": 75,
+  "verseKey": "11:75",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1774990,
+  "timestampToGlobalMs": 1784110,
+  "durationMs": 9120,
+  "audioFile": "11_75.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1365,
+      "durationMs": 1365
+    },
+    {
+      "position": 2,
+      "startMs": 1365,
+      "endMs": 2895,
+      "durationMs": 1530
+    },
+    {
+      "position": 3,
+      "startMs": 2895,
+      "endMs": 4105,
+      "durationMs": 1210
+    },
+    {
+      "position": 4,
+      "startMs": 4105,
+      "endMs": 5245,
+      "durationMs": 1140
+    },
+    {
+      "position": 5,
+      "startMs": 5245,
+      "endMs": 9020,
+      "durationMs": 3775
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:44.979Z"
+}

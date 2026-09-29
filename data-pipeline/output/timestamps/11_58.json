@@ -1,0 +1,111 @@
+{
+  "surah": 11,
+  "ayah": 58,
+  "verseKey": "11:58",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1399440,
+  "timestampToGlobalMs": 1424960,
+  "durationMs": 25520,
+  "audioFile": "11_58.mp3",
+  "wordCount": 16,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1665,
+      "durationMs": 1665
+    },
+    {
+      "position": 2,
+      "startMs": 1665,
+      "endMs": 3955,
+      "durationMs": 2290
+    },
+    {
+      "position": 3,
+      "startMs": 3955,
+      "endMs": 4965,
+      "durationMs": 1010
+    },
+    {
+      "position": 4,
+      "startMs": 4965,
+      "endMs": 6215,
+      "durationMs": 1250
+    },
+    {
+      "position": 5,
+      "startMs": 6215,
+      "endMs": 6995,
+      "durationMs": 780
+    },
+    {
+      "position": 5,
+      "startMs": 6995,
+      "endMs": 8215,
+      "durationMs": 1220
+    },
+    {
+      "position": 6,
+      "startMs": 8215,
+      "endMs": 9305,
+      "durationMs": 1090
+    },
+    {
+      "position": 7,
+      "startMs": 9305,
+      "endMs": 10515,
+      "durationMs": 1210
+    },
+    {
+      "position": 8,
+      "startMs": 10515,
+      "endMs": 11285,
+      "durationMs": 770
+    },
+    {
+      "position": 9,
+      "startMs": 11285,
+      "endMs": 12475,
+      "durationMs": 1190
+    },
+    {
+      "position": 10,
+      "startMs": 12475,
+      "endMs": 14735,
+      "durationMs": 2260
+    },
+    {
+      "position": 11,
+      "startMs": 14735,
+      "endMs": 17405,
+      "durationMs": 2670
+    },
+    {
+      "position": 11,
+      "startMs": 17405,
+      "endMs": 19235,
+      "durationMs": 1830
+    },
+    {
+      "position": 12,
+      "startMs": 19235,
+      "endMs": 20575,
+      "durationMs": 1340
+    },
+    {
+      "position": 13,
+      "startMs": 20575,
+      "endMs": 21665,
+      "durationMs": 1090
+    },
+    {
+      "position": 14,
+      "startMs": 21665,
+      "endMs": 25470,
+      "durationMs": 3805
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:44.468Z"
+}

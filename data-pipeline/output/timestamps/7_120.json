@@ -1,0 +1,33 @@
+{
+  "surah": 7,
+  "ayah": 120,
+  "verseKey": "7:120",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2644160,
+  "timestampToGlobalMs": 2650140,
+  "durationMs": 5980,
+  "audioFile": "7_120.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1055,
+      "durationMs": 1055
+    },
+    {
+      "position": 2,
+      "startMs": 1055,
+      "endMs": 2185,
+      "durationMs": 1130
+    },
+    {
+      "position": 3,
+      "startMs": 2185,
+      "endMs": 5920,
+      "durationMs": 3735
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:04.682Z"
+}

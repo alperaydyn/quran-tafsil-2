@@ -1,0 +1,69 @@
+{
+  "surah": 12,
+  "ayah": 91,
+  "verseKey": "12:91",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2086780,
+  "timestampToGlobalMs": 2099290,
+  "durationMs": 12510,
+  "audioFile": "12_91.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 895,
+      "durationMs": 895
+    },
+    {
+      "position": 2,
+      "startMs": 895,
+      "endMs": 2075,
+      "durationMs": 1180
+    },
+    {
+      "position": 3,
+      "startMs": 2075,
+      "endMs": 2605,
+      "durationMs": 530
+    },
+    {
+      "position": 4,
+      "startMs": 2605,
+      "endMs": 3795,
+      "durationMs": 1190
+    },
+    {
+      "position": 5,
+      "startMs": 3795,
+      "endMs": 4705,
+      "durationMs": 910
+    },
+    {
+      "position": 6,
+      "startMs": 4705,
+      "endMs": 5825,
+      "durationMs": 1120
+    },
+    {
+      "position": 7,
+      "startMs": 5825,
+      "endMs": 7165,
+      "durationMs": 1340
+    },
+    {
+      "position": 8,
+      "startMs": 7165,
+      "endMs": 8825,
+      "durationMs": 1660
+    },
+    {
+      "position": 9,
+      "startMs": 8825,
+      "endMs": 12460,
+      "durationMs": 3635
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:55.658Z"
+}

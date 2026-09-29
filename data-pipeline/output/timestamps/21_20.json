@@ -1,0 +1,45 @@
+{
+  "surah": 21,
+  "ayah": 20,
+  "verseKey": "21:20",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 250530,
+  "timestampToGlobalMs": 257640,
+  "durationMs": 7110,
+  "audioFile": "21_20.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 2145,
+      "durationMs": 840
+    },
+    {
+      "position": 3,
+      "startMs": 2145,
+      "endMs": 3975,
+      "durationMs": 1830
+    },
+    {
+      "position": 4,
+      "startMs": 3975,
+      "endMs": 4365,
+      "durationMs": 390
+    },
+    {
+      "position": 5,
+      "startMs": 4365,
+      "endMs": 7010,
+      "durationMs": 2645
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:39.365Z"
+}

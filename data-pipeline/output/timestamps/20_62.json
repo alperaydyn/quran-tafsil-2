@@ -1,0 +1,45 @@
+{
+  "surah": 20,
+  "ayah": 62,
+  "verseKey": "20:62",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 578390,
+  "timestampToGlobalMs": 587270,
+  "durationMs": 8880,
+  "audioFile": "20_62.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2685,
+      "durationMs": 2685
+    },
+    {
+      "position": 2,
+      "startMs": 2685,
+      "endMs": 4325,
+      "durationMs": 1640
+    },
+    {
+      "position": 3,
+      "startMs": 4325,
+      "endMs": 5545,
+      "durationMs": 1220
+    },
+    {
+      "position": 4,
+      "startMs": 5545,
+      "endMs": 6585,
+      "durationMs": 1040
+    },
+    {
+      "position": 5,
+      "startMs": 6585,
+      "endMs": 8440,
+      "durationMs": 1855
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:34.337Z"
+}

@@ -1,0 +1,51 @@
+{
+  "surah": 20,
+  "ayah": 4,
+  "verseKey": "20:4",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 16110,
+  "timestampToGlobalMs": 25410,
+  "durationMs": 9300,
+  "audioFile": "20_4.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1705,
+      "durationMs": 1705
+    },
+    {
+      "position": 2,
+      "startMs": 1705,
+      "endMs": 3995,
+      "durationMs": 2290
+    },
+    {
+      "position": 3,
+      "startMs": 3995,
+      "endMs": 4595,
+      "durationMs": 600
+    },
+    {
+      "position": 4,
+      "startMs": 4595,
+      "endMs": 5615,
+      "durationMs": 1020
+    },
+    {
+      "position": 5,
+      "startMs": 5615,
+      "endMs": 7395,
+      "durationMs": 1780
+    },
+    {
+      "position": 6,
+      "startMs": 7395,
+      "endMs": 8880,
+      "durationMs": 1485
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:33.367Z"
+}

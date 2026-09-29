@@ -1,0 +1,219 @@
+{
+  "surah": 11,
+  "ayah": 40,
+  "verseKey": "11:40",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 944140,
+  "timestampToGlobalMs": 986120,
+  "durationMs": 41980,
+  "audioFile": "11_40.mp3",
+  "wordCount": 34,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2345,
+      "durationMs": 2345
+    },
+    {
+      "position": 2,
+      "startMs": 2345,
+      "endMs": 2975,
+      "durationMs": 630
+    },
+    {
+      "position": 3,
+      "startMs": 2975,
+      "endMs": 5125,
+      "durationMs": 2150
+    },
+    {
+      "position": 4,
+      "startMs": 5125,
+      "endMs": 6115,
+      "durationMs": 990
+    },
+    {
+      "position": 5,
+      "startMs": 6115,
+      "endMs": 6955,
+      "durationMs": 840
+    },
+    {
+      "position": 6,
+      "startMs": 6955,
+      "endMs": 9025,
+      "durationMs": 2070
+    },
+    {
+      "position": 7,
+      "startMs": 9025,
+      "endMs": 9555,
+      "durationMs": 530
+    },
+    {
+      "position": 8,
+      "startMs": 9555,
+      "endMs": 10225,
+      "durationMs": 670
+    },
+    {
+      "position": 9,
+      "startMs": 10225,
+      "endMs": 11155,
+      "durationMs": 930
+    },
+    {
+      "position": 10,
+      "startMs": 11155,
+      "endMs": 12405,
+      "durationMs": 1250
+    },
+    {
+      "position": 11,
+      "startMs": 12405,
+      "endMs": 14085,
+      "durationMs": 1680
+    },
+    {
+      "position": 12,
+      "startMs": 14085,
+      "endMs": 15205,
+      "durationMs": 1120
+    },
+    {
+      "position": 13,
+      "startMs": 15205,
+      "endMs": 18435,
+      "durationMs": 3230
+    },
+    {
+      "position": 7,
+      "startMs": 18455,
+      "endMs": 19255,
+      "durationMs": 800
+    },
+    {
+      "position": 8,
+      "startMs": 19255,
+      "endMs": 19885,
+      "durationMs": 630
+    },
+    {
+      "position": 9,
+      "startMs": 19885,
+      "endMs": 20785,
+      "durationMs": 900
+    },
+    {
+      "position": 10,
+      "startMs": 20785,
+      "endMs": 21735,
+      "durationMs": 950
+    },
+    {
+      "position": 11,
+      "startMs": 21735,
+      "endMs": 23265,
+      "durationMs": 1530
+    },
+    {
+      "position": 12,
+      "startMs": 23265,
+      "endMs": 24385,
+      "durationMs": 1120
+    },
+    {
+      "position": 13,
+      "startMs": 24385,
+      "endMs": 25255,
+      "durationMs": 870
+    },
+    {
+      "position": 14,
+      "startMs": 25255,
+      "endMs": 26375,
+      "durationMs": 1120
+    },
+    {
+      "position": 15,
+      "startMs": 26375,
+      "endMs": 27185,
+      "durationMs": 810
+    },
+    {
+      "position": 16,
+      "startMs": 27185,
+      "endMs": 28145,
+      "durationMs": 960
+    },
+    {
+      "position": 17,
+      "startMs": 28145,
+      "endMs": 28875,
+      "durationMs": 730
+    },
+    {
+      "position": 18,
+      "startMs": 28875,
+      "endMs": 29715,
+      "durationMs": 840
+    },
+    {
+      "position": 19,
+      "startMs": 29715,
+      "endMs": 30605,
+      "durationMs": 890
+    },
+    {
+      "position": 20,
+      "startMs": 30605,
+      "endMs": 31145,
+      "durationMs": 540
+    },
+    {
+      "position": 21,
+      "startMs": 31145,
+      "endMs": 31915,
+      "durationMs": 770
+    },
+    {
+      "position": 22,
+      "startMs": 31915,
+      "endMs": 34795,
+      "durationMs": 2880
+    },
+    {
+      "position": 23,
+      "startMs": 34795,
+      "endMs": 35685,
+      "durationMs": 890
+    },
+    {
+      "position": 24,
+      "startMs": 35685,
+      "endMs": 38165,
+      "durationMs": 2480
+    },
+    {
+      "position": 25,
+      "startMs": 38165,
+      "endMs": 38965,
+      "durationMs": 800
+    },
+    {
+      "position": 26,
+      "startMs": 38965,
+      "endMs": 40105,
+      "durationMs": 1140
+    },
+    {
+      "position": 10,
+      "startMs": 40105,
+      "endMs": 41890,
+      "durationMs": 1785
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:43.993Z"
+}

@@ -1,0 +1,93 @@
+{
+  "surah": 8,
+  "ayah": 25,
+  "verseKey": "8:25",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 499940,
+  "timestampToGlobalMs": 521990,
+  "durationMs": 22050,
+  "audioFile": "8_25.mp3",
+  "wordCount": 13,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 2245,
+      "durationMs": 940
+    },
+    {
+      "position": 3,
+      "startMs": 2245,
+      "endMs": 2885,
+      "durationMs": 640
+    },
+    {
+      "position": 4,
+      "startMs": 2885,
+      "endMs": 5285,
+      "durationMs": 2400
+    },
+    {
+      "position": 5,
+      "startMs": 5285,
+      "endMs": 6475,
+      "durationMs": 1190
+    },
+    {
+      "position": 6,
+      "startMs": 6475,
+      "endMs": 7425,
+      "durationMs": 950
+    },
+    {
+      "position": 7,
+      "startMs": 7425,
+      "endMs": 9045,
+      "durationMs": 1620
+    },
+    {
+      "position": 8,
+      "startMs": 9045,
+      "endMs": 12754,
+      "durationMs": 3709
+    },
+    {
+      "position": 9,
+      "startMs": 12755,
+      "endMs": 15725,
+      "durationMs": 2970
+    },
+    {
+      "position": 10,
+      "startMs": 15725,
+      "endMs": 16895,
+      "durationMs": 1170
+    },
+    {
+      "position": 11,
+      "startMs": 16895,
+      "endMs": 17865,
+      "durationMs": 970
+    },
+    {
+      "position": 12,
+      "startMs": 17865,
+      "endMs": 18895,
+      "durationMs": 1030
+    },
+    {
+      "position": 13,
+      "startMs": 18895,
+      "endMs": 21500,
+      "durationMs": 2605
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:17.288Z"
+}

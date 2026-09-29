@@ -1,0 +1,69 @@
+{
+  "surah": 2,
+  "ayah": 131,
+  "verseKey": "2:131",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2828510,
+  "timestampToGlobalMs": 2839350,
+  "durationMs": 10840,
+  "audioFile": "2_131.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 545,
+      "durationMs": 545
+    },
+    {
+      "position": 2,
+      "startMs": 545,
+      "endMs": 1135,
+      "durationMs": 590
+    },
+    {
+      "position": 3,
+      "startMs": 1135,
+      "endMs": 1725,
+      "durationMs": 590
+    },
+    {
+      "position": 4,
+      "startMs": 1725,
+      "endMs": 4035,
+      "durationMs": 2310
+    },
+    {
+      "position": 5,
+      "startMs": 4035,
+      "endMs": 5305,
+      "durationMs": 1270
+    },
+    {
+      "position": 6,
+      "startMs": 5305,
+      "endMs": 5865,
+      "durationMs": 560
+    },
+    {
+      "position": 7,
+      "startMs": 5865,
+      "endMs": 6935,
+      "durationMs": 1070
+    },
+    {
+      "position": 8,
+      "startMs": 6935,
+      "endMs": 7655,
+      "durationMs": 720
+    },
+    {
+      "position": 9,
+      "startMs": 7655,
+      "endMs": 10710,
+      "durationMs": 3055
+    }
+  ],
+  "processedAt": "2026-09-29T22:24:50.802Z"
+}

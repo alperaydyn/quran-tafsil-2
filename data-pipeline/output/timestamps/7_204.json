@@ -1,0 +1,63 @@
+{
+  "surah": 7,
+  "ayah": 204,
+  "verseKey": "7:204",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4743510,
+  "timestampToGlobalMs": 4755080,
+  "durationMs": 11570,
+  "audioFile": "7_204.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 815,
+      "durationMs": 815
+    },
+    {
+      "position": 2,
+      "startMs": 815,
+      "endMs": 1455,
+      "durationMs": 640
+    },
+    {
+      "position": 3,
+      "startMs": 1455,
+      "endMs": 2775,
+      "durationMs": 1320
+    },
+    {
+      "position": 4,
+      "startMs": 2775,
+      "endMs": 4105,
+      "durationMs": 1330
+    },
+    {
+      "position": 5,
+      "startMs": 4105,
+      "endMs": 4815,
+      "durationMs": 710
+    },
+    {
+      "position": 6,
+      "startMs": 4815,
+      "endMs": 6925,
+      "durationMs": 2110
+    },
+    {
+      "position": 7,
+      "startMs": 6925,
+      "endMs": 8265,
+      "durationMs": 1340
+    },
+    {
+      "position": 8,
+      "startMs": 8265,
+      "endMs": 11490,
+      "durationMs": 3225
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:08.805Z"
+}

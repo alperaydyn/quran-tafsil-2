@@ -1,0 +1,63 @@
+{
+  "surah": 10,
+  "ayah": 97,
+  "verseKey": "10:97",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2396280,
+  "timestampToGlobalMs": 2408320,
+  "durationMs": 12040,
+  "audioFile": "10_97.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 605,
+      "durationMs": 605
+    },
+    {
+      "position": 2,
+      "startMs": 605,
+      "endMs": 3665,
+      "durationMs": 3060
+    },
+    {
+      "position": 3,
+      "startMs": 3665,
+      "endMs": 4385,
+      "durationMs": 720
+    },
+    {
+      "position": 4,
+      "startMs": 4385,
+      "endMs": 5395,
+      "durationMs": 1010
+    },
+    {
+      "position": 5,
+      "startMs": 5395,
+      "endMs": 6295,
+      "durationMs": 900
+    },
+    {
+      "position": 6,
+      "startMs": 6295,
+      "endMs": 6925,
+      "durationMs": 630
+    },
+    {
+      "position": 7,
+      "startMs": 6925,
+      "endMs": 7965,
+      "durationMs": 1040
+    },
+    {
+      "position": 8,
+      "startMs": 7965,
+      "endMs": 11930,
+      "durationMs": 3965
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:36.710Z"
+}

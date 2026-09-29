@@ -1,0 +1,45 @@
+{
+  "surah": 15,
+  "ayah": 78,
+  "verseKey": "15:78",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 754620,
+  "timestampToGlobalMs": 762270,
+  "durationMs": 7650,
+  "audioFile": "15_78.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1275,
+      "durationMs": 1275
+    },
+    {
+      "position": 2,
+      "startMs": 1275,
+      "endMs": 1925,
+      "durationMs": 650
+    },
+    {
+      "position": 3,
+      "startMs": 1925,
+      "endMs": 3085,
+      "durationMs": 1160
+    },
+    {
+      "position": 4,
+      "startMs": 3085,
+      "endMs": 4215,
+      "durationMs": 1130
+    },
+    {
+      "position": 5,
+      "startMs": 4215,
+      "endMs": 7570,
+      "durationMs": 3355
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:05.342Z"
+}

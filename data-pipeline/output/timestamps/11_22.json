@@ -1,0 +1,57 @@
+{
+  "surah": 11,
+  "ayah": 22,
+  "verseKey": "11:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 546660,
+  "timestampToGlobalMs": 555050,
+  "durationMs": 8390,
+  "audioFile": "11_22.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 465,
+      "durationMs": 465
+    },
+    {
+      "position": 2,
+      "startMs": 465,
+      "endMs": 1155,
+      "durationMs": 690
+    },
+    {
+      "position": 3,
+      "startMs": 1155,
+      "endMs": 2755,
+      "durationMs": 1600
+    },
+    {
+      "position": 4,
+      "startMs": 2755,
+      "endMs": 3015,
+      "durationMs": 260
+    },
+    {
+      "position": 5,
+      "startMs": 3015,
+      "endMs": 4265,
+      "durationMs": 1250
+    },
+    {
+      "position": 6,
+      "startMs": 4265,
+      "endMs": 4635,
+      "durationMs": 370
+    },
+    {
+      "position": 7,
+      "startMs": 4635,
+      "endMs": 8290,
+      "durationMs": 3655
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:43.599Z"
+}

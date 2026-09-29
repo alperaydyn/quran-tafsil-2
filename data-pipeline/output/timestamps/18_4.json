@@ -1,0 +1,51 @@
+{
+  "surah": 18,
+  "ayah": 4,
+  "verseKey": "18:4",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 35210,
+  "timestampToGlobalMs": 41320,
+  "durationMs": 6110,
+  "audioFile": "18_4.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1215,
+      "durationMs": 1215
+    },
+    {
+      "position": 2,
+      "startMs": 1215,
+      "endMs": 2275,
+      "durationMs": 1060
+    },
+    {
+      "position": 3,
+      "startMs": 2275,
+      "endMs": 2885,
+      "durationMs": 610
+    },
+    {
+      "position": 4,
+      "startMs": 2885,
+      "endMs": 3665,
+      "durationMs": 780
+    },
+    {
+      "position": 5,
+      "startMs": 3665,
+      "endMs": 4595,
+      "durationMs": 930
+    },
+    {
+      "position": 6,
+      "startMs": 4595,
+      "endMs": 5750,
+      "durationMs": 1155
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:23.000Z"
+}

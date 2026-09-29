@@ -1,0 +1,51 @@
+{
+  "surah": 12,
+  "ayah": 61,
+  "verseKey": "12:61",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1383100,
+  "timestampToGlobalMs": 1392240,
+  "durationMs": 9140,
+  "audioFile": "12_61.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 785,
+      "durationMs": 785
+    },
+    {
+      "position": 2,
+      "startMs": 785,
+      "endMs": 2095,
+      "durationMs": 1310
+    },
+    {
+      "position": 3,
+      "startMs": 2095,
+      "endMs": 2765,
+      "durationMs": 670
+    },
+    {
+      "position": 4,
+      "startMs": 2765,
+      "endMs": 3725,
+      "durationMs": 960
+    },
+    {
+      "position": 5,
+      "startMs": 3725,
+      "endMs": 5445,
+      "durationMs": 1720
+    },
+    {
+      "position": 6,
+      "startMs": 5445,
+      "endMs": 9030,
+      "durationMs": 3585
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:54.717Z"
+}

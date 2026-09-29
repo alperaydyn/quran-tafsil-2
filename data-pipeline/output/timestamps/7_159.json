@@ -1,0 +1,63 @@
+{
+  "surah": 7,
+  "ayah": 159,
+  "verseKey": "7:159",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 3694070,
+  "timestampToGlobalMs": 3707710,
+  "durationMs": 13640,
+  "audioFile": "7_159.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 2,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 3,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 4,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 5,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 6,
+      "startMs": 0,
+      "endMs": 975,
+      "durationMs": 975
+    },
+    {
+      "position": 7,
+      "startMs": 975,
+      "endMs": 1825,
+      "durationMs": 850
+    },
+    {
+      "position": 8,
+      "startMs": 1825,
+      "endMs": 5680,
+      "durationMs": 3855
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:06.366Z"
+}

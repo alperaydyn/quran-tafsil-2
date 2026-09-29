@@ -1,0 +1,81 @@
+{
+  "surah": 4,
+  "ayah": 147,
+  "verseKey": "4:147",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4073320,
+  "timestampToGlobalMs": 4087790,
+  "durationMs": 14470,
+  "audioFile": "4_147.mp3",
+  "wordCount": 11,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 185,
+      "durationMs": 185
+    },
+    {
+      "position": 2,
+      "startMs": 185,
+      "endMs": 1095,
+      "durationMs": 910
+    },
+    {
+      "position": 3,
+      "startMs": 1095,
+      "endMs": 1985,
+      "durationMs": 890
+    },
+    {
+      "position": 4,
+      "startMs": 1985,
+      "endMs": 3465,
+      "durationMs": 1480
+    },
+    {
+      "position": 5,
+      "startMs": 3465,
+      "endMs": 4745,
+      "durationMs": 1280
+    },
+    {
+      "position": 6,
+      "startMs": 4745,
+      "endMs": 5965,
+      "durationMs": 1220
+    },
+    {
+      "position": 7,
+      "startMs": 5965,
+      "endMs": 8615,
+      "durationMs": 2650
+    },
+    {
+      "position": 8,
+      "startMs": 8615,
+      "endMs": 9545,
+      "durationMs": 930
+    },
+    {
+      "position": 9,
+      "startMs": 9545,
+      "endMs": 10645,
+      "durationMs": 1100
+    },
+    {
+      "position": 10,
+      "startMs": 10645,
+      "endMs": 11995,
+      "durationMs": 1350
+    },
+    {
+      "position": 11,
+      "startMs": 11995,
+      "endMs": 14100,
+      "durationMs": 2105
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:28.486Z"
+}

@@ -1,0 +1,57 @@
+{
+  "surah": 23,
+  "ayah": 65,
+  "verseKey": "23:65",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 832420,
+  "timestampToGlobalMs": 844670,
+  "durationMs": 12250,
+  "audioFile": "23_65.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 475,
+      "durationMs": 475
+    },
+    {
+      "position": 2,
+      "startMs": 475,
+      "endMs": 3765,
+      "durationMs": 3290
+    },
+    {
+      "position": 3,
+      "startMs": 3765,
+      "endMs": 3935,
+      "durationMs": 170
+    },
+    {
+      "position": 4,
+      "startMs": 3935,
+      "endMs": 5835,
+      "durationMs": 1900
+    },
+    {
+      "position": 5,
+      "startMs": 5835,
+      "endMs": 7975,
+      "durationMs": 2140
+    },
+    {
+      "position": 6,
+      "startMs": 7975,
+      "endMs": 8365,
+      "durationMs": 390
+    },
+    {
+      "position": 7,
+      "startMs": 8365,
+      "endMs": 12150,
+      "durationMs": 3785
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:50.837Z"
+}

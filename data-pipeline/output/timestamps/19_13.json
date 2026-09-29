@@ -1,0 +1,51 @@
+{
+  "surah": 19,
+  "ayah": 13,
+  "verseKey": "19:13",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 147710,
+  "timestampToGlobalMs": 156300,
+  "durationMs": 8600,
+  "audioFile": "19_13.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 765,
+      "durationMs": 765
+    },
+    {
+      "position": 2,
+      "startMs": 765,
+      "endMs": 2135,
+      "durationMs": 1370
+    },
+    {
+      "position": 3,
+      "startMs": 2135,
+      "endMs": 3605,
+      "durationMs": 1470
+    },
+    {
+      "position": 4,
+      "startMs": 3605,
+      "endMs": 4965,
+      "durationMs": 1360
+    },
+    {
+      "position": 5,
+      "startMs": 4965,
+      "endMs": 6475,
+      "durationMs": 1510
+    },
+    {
+      "position": 6,
+      "startMs": 6475,
+      "endMs": 7760,
+      "durationMs": 1285
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:28.401Z"
+}

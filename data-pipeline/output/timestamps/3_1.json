@@ -1,0 +1,21 @@
+{
+  "surah": 3,
+  "ayah": 1,
+  "verseKey": "3:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 6320,
+  "durationMs": 6320,
+  "audioFile": "3_1.mp3",
+  "wordCount": 1,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 6275,
+      "durationMs": 6275
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:08.051Z"
+}

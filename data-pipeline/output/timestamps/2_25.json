@@ -1,0 +1,219 @@
+{
+  "surah": 2,
+  "ayah": 25,
+  "verseKey": "2:25",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 377210,
+  "timestampToGlobalMs": 415560,
+  "durationMs": 38350,
+  "audioFile": "2_25.mp3",
+  "wordCount": 34,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1035,
+      "durationMs": 1035
+    },
+    {
+      "position": 2,
+      "startMs": 1035,
+      "endMs": 1785,
+      "durationMs": 750
+    },
+    {
+      "position": 3,
+      "startMs": 1785,
+      "endMs": 2795,
+      "durationMs": 1010
+    },
+    {
+      "position": 4,
+      "startMs": 2795,
+      "endMs": 3415,
+      "durationMs": 620
+    },
+    {
+      "position": 5,
+      "startMs": 3415,
+      "endMs": 4745,
+      "durationMs": 1330
+    },
+    {
+      "position": 6,
+      "startMs": 4745,
+      "endMs": 5665,
+      "durationMs": 920
+    },
+    {
+      "position": 7,
+      "startMs": 5665,
+      "endMs": 6265,
+      "durationMs": 600
+    },
+    {
+      "position": 8,
+      "startMs": 6265,
+      "endMs": 8155,
+      "durationMs": 1890
+    },
+    {
+      "position": 9,
+      "startMs": 8155,
+      "endMs": 9355,
+      "durationMs": 1200
+    },
+    {
+      "position": 10,
+      "startMs": 9355,
+      "endMs": 10255,
+      "durationMs": 900
+    },
+    {
+      "position": 11,
+      "startMs": 10255,
+      "endMs": 10945,
+      "durationMs": 690
+    },
+    {
+      "position": 12,
+      "startMs": 10945,
+      "endMs": 13725,
+      "durationMs": 2780
+    },
+    {
+      "position": 13,
+      "startMs": 13725,
+      "endMs": 14565,
+      "durationMs": 840
+    },
+    {
+      "position": 14,
+      "startMs": 14565,
+      "endMs": 15315,
+      "durationMs": 750
+    },
+    {
+      "position": 15,
+      "startMs": 15315,
+      "endMs": 16065,
+      "durationMs": 750
+    },
+    {
+      "position": 16,
+      "startMs": 16065,
+      "endMs": 17075,
+      "durationMs": 1010
+    },
+    {
+      "position": 17,
+      "startMs": 17075,
+      "endMs": 17875,
+      "durationMs": 800
+    },
+    {
+      "position": 18,
+      "startMs": 17875,
+      "endMs": 19265,
+      "durationMs": 1390
+    },
+    {
+      "position": 19,
+      "startMs": 19265,
+      "endMs": 20125,
+      "durationMs": 860
+    },
+    {
+      "position": 20,
+      "startMs": 20125,
+      "endMs": 20595,
+      "durationMs": 470
+    },
+    {
+      "position": 21,
+      "startMs": 20595,
+      "endMs": 21345,
+      "durationMs": 750
+    },
+    {
+      "position": 22,
+      "startMs": 21345,
+      "endMs": 22275,
+      "durationMs": 930
+    },
+    {
+      "position": 23,
+      "startMs": 22275,
+      "endMs": 23375,
+      "durationMs": 1100
+    },
+    {
+      "position": 24,
+      "startMs": 23375,
+      "endMs": 23885,
+      "durationMs": 510
+    },
+    {
+      "position": 25,
+      "startMs": 23885,
+      "endMs": 24585,
+      "durationMs": 700
+    },
+    {
+      "position": 26,
+      "startMs": 24585,
+      "endMs": 25155,
+      "durationMs": 570
+    },
+    {
+      "position": 27,
+      "startMs": 25155,
+      "endMs": 26995,
+      "durationMs": 1840
+    },
+    {
+      "position": 28,
+      "startMs": 26995,
+      "endMs": 27675,
+      "durationMs": 680
+    },
+    {
+      "position": 29,
+      "startMs": 27675,
+      "endMs": 30125,
+      "durationMs": 2450
+    },
+    {
+      "position": 30,
+      "startMs": 30125,
+      "endMs": 31085,
+      "durationMs": 960
+    },
+    {
+      "position": 31,
+      "startMs": 31085,
+      "endMs": 33785,
+      "durationMs": 2700
+    },
+    {
+      "position": 32,
+      "startMs": 33785,
+      "endMs": 34405,
+      "durationMs": 620
+    },
+    {
+      "position": 33,
+      "startMs": 34405,
+      "endMs": 35245,
+      "durationMs": 840
+    },
+    {
+      "position": 34,
+      "startMs": 35245,
+      "endMs": 38160,
+      "durationMs": 2915
+    }
+  ],
+  "processedAt": "2026-09-29T22:24:47.669Z"
+}

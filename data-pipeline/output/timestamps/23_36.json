@@ -1,0 +1,39 @@
+{
+  "surah": 23,
+  "ayah": 36,
+  "verseKey": "23:36",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 510430,
+  "timestampToGlobalMs": 516780,
+  "durationMs": 6350,
+  "audioFile": "23_36.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1195,
+      "durationMs": 1195
+    },
+    {
+      "position": 2,
+      "startMs": 1195,
+      "endMs": 2125,
+      "durationMs": 930
+    },
+    {
+      "position": 3,
+      "startMs": 2125,
+      "endMs": 2785,
+      "durationMs": 660
+    },
+    {
+      "position": 4,
+      "startMs": 2785,
+      "endMs": 6260,
+      "durationMs": 3475
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:50.242Z"
+}

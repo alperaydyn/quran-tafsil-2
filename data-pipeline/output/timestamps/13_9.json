@@ -1,0 +1,45 @@
+{
+  "surah": 13,
+  "ayah": 9,
+  "verseKey": "13:9",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 261950,
+  "timestampToGlobalMs": 270150,
+  "durationMs": 8200,
+  "audioFile": "13_9.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 985,
+      "durationMs": 985
+    },
+    {
+      "position": 2,
+      "startMs": 985,
+      "endMs": 2045,
+      "durationMs": 1060
+    },
+    {
+      "position": 3,
+      "startMs": 2045,
+      "endMs": 3795,
+      "durationMs": 1750
+    },
+    {
+      "position": 4,
+      "startMs": 3795,
+      "endMs": 4945,
+      "durationMs": 1150
+    },
+    {
+      "position": 5,
+      "startMs": 4945,
+      "endMs": 7870,
+      "durationMs": 2925
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:59.002Z"
+}

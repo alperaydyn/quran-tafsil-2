@@ -1,0 +1,57 @@
+{
+  "surah": 25,
+  "ayah": 25,
+  "verseKey": "25:25",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 457400,
+  "timestampToGlobalMs": 470330,
+  "durationMs": 12930,
+  "audioFile": "25_25.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 805,
+      "durationMs": 805
+    },
+    {
+      "position": 2,
+      "startMs": 805,
+      "endMs": 1925,
+      "durationMs": 1120
+    },
+    {
+      "position": 3,
+      "startMs": 1925,
+      "endMs": 4645,
+      "durationMs": 2720
+    },
+    {
+      "position": 4,
+      "startMs": 4645,
+      "endMs": 5945,
+      "durationMs": 1300
+    },
+    {
+      "position": 5,
+      "startMs": 5945,
+      "endMs": 6925,
+      "durationMs": 980
+    },
+    {
+      "position": 6,
+      "startMs": 6925,
+      "endMs": 10145,
+      "durationMs": 3220
+    },
+    {
+      "position": 7,
+      "startMs": 10145,
+      "endMs": 12860,
+      "durationMs": 2715
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:00.447Z"
+}

@@ -1,0 +1,69 @@
+{
+  "surah": 24,
+  "ayah": 10,
+  "verseKey": "24:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 206100,
+  "timestampToGlobalMs": 219110,
+  "durationMs": 13010,
+  "audioFile": "24_10.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1135,
+      "durationMs": 1135
+    },
+    {
+      "position": 2,
+      "startMs": 1135,
+      "endMs": 1845,
+      "durationMs": 710
+    },
+    {
+      "position": 3,
+      "startMs": 1845,
+      "endMs": 2825,
+      "durationMs": 980
+    },
+    {
+      "position": 4,
+      "startMs": 2825,
+      "endMs": 3945,
+      "durationMs": 1120
+    },
+    {
+      "position": 5,
+      "startMs": 3945,
+      "endMs": 5645,
+      "durationMs": 1700
+    },
+    {
+      "position": 6,
+      "startMs": 5645,
+      "endMs": 7335,
+      "durationMs": 1690
+    },
+    {
+      "position": 7,
+      "startMs": 7335,
+      "endMs": 8295,
+      "durationMs": 960
+    },
+    {
+      "position": 8,
+      "startMs": 8295,
+      "endMs": 9685,
+      "durationMs": 1390
+    },
+    {
+      "position": 9,
+      "startMs": 9685,
+      "endMs": 12730,
+      "durationMs": 3045
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:55.933Z"
+}

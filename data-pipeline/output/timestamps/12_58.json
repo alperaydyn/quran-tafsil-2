@@ -1,0 +1,69 @@
+{
+  "surah": 12,
+  "ayah": 58,
+  "verseKey": "12:58",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1337330,
+  "timestampToGlobalMs": 1350180,
+  "durationMs": 12850,
+  "audioFile": "12_58.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2505,
+      "durationMs": 2505
+    },
+    {
+      "position": 2,
+      "startMs": 2505,
+      "endMs": 3385,
+      "durationMs": 880
+    },
+    {
+      "position": 3,
+      "startMs": 3385,
+      "endMs": 4265,
+      "durationMs": 880
+    },
+    {
+      "position": 4,
+      "startMs": 4265,
+      "endMs": 5325,
+      "durationMs": 1060
+    },
+    {
+      "position": 5,
+      "startMs": 5325,
+      "endMs": 6245,
+      "durationMs": 920
+    },
+    {
+      "position": 6,
+      "startMs": 6245,
+      "endMs": 7555,
+      "durationMs": 1310
+    },
+    {
+      "position": 7,
+      "startMs": 7555,
+      "endMs": 8095,
+      "durationMs": 540
+    },
+    {
+      "position": 8,
+      "startMs": 8095,
+      "endMs": 8785,
+      "durationMs": 690
+    },
+    {
+      "position": 9,
+      "startMs": 8785,
+      "endMs": 12780,
+      "durationMs": 3995
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:54.635Z"
+}

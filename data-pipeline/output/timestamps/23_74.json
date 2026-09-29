@@ -1,0 +1,63 @@
+{
+  "surah": 23,
+  "ayah": 74,
+  "verseKey": "23:74",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 944910,
+  "timestampToGlobalMs": 955050,
+  "durationMs": 10140,
+  "audioFile": "23_74.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1275,
+      "durationMs": 1275
+    },
+    {
+      "position": 2,
+      "startMs": 1275,
+      "endMs": 2195,
+      "durationMs": 920
+    },
+    {
+      "position": 3,
+      "startMs": 2195,
+      "endMs": 2695,
+      "durationMs": 500
+    },
+    {
+      "position": 4,
+      "startMs": 2695,
+      "endMs": 3815,
+      "durationMs": 1120
+    },
+    {
+      "position": 5,
+      "startMs": 3815,
+      "endMs": 5255,
+      "durationMs": 1440
+    },
+    {
+      "position": 6,
+      "startMs": 5255,
+      "endMs": 5615,
+      "durationMs": 360
+    },
+    {
+      "position": 7,
+      "startMs": 5615,
+      "endMs": 6675,
+      "durationMs": 1060
+    },
+    {
+      "position": 8,
+      "startMs": 6675,
+      "endMs": 10020,
+      "durationMs": 3345
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:51.038Z"
+}

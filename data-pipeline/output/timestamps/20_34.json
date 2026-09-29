@@ -1,0 +1,27 @@
+{
+  "surah": 20,
+  "ayah": 34,
+  "verseKey": "20:34",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 249600,
+  "timestampToGlobalMs": 252550,
+  "durationMs": 2950,
+  "audioFile": "20_34.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1375,
+      "durationMs": 1375
+    },
+    {
+      "position": 2,
+      "startMs": 1375,
+      "endMs": 2900,
+      "durationMs": 1525
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:33.834Z"
+}

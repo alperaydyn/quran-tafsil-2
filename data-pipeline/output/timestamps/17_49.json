@@ -1,0 +1,69 @@
+{
+  "surah": 17,
+  "ayah": 49,
+  "verseKey": "17:49",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 862210,
+  "timestampToGlobalMs": 875530,
+  "durationMs": 13320,
+  "audioFile": "17_49.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2125,
+      "durationMs": 2125
+    },
+    {
+      "position": 2,
+      "startMs": 2125,
+      "endMs": 2915,
+      "durationMs": 790
+    },
+    {
+      "position": 3,
+      "startMs": 2915,
+      "endMs": 4225,
+      "durationMs": 1310
+    },
+    {
+      "position": 4,
+      "startMs": 4225,
+      "endMs": 5385,
+      "durationMs": 1160
+    },
+    {
+      "position": 5,
+      "startMs": 5385,
+      "endMs": 7045,
+      "durationMs": 1660
+    },
+    {
+      "position": 6,
+      "startMs": 7045,
+      "endMs": 8475,
+      "durationMs": 1430
+    },
+    {
+      "position": 7,
+      "startMs": 8475,
+      "endMs": 10155,
+      "durationMs": 1680
+    },
+    {
+      "position": 8,
+      "startMs": 10155,
+      "endMs": 11545,
+      "durationMs": 1390
+    },
+    {
+      "position": 9,
+      "startMs": 11545,
+      "endMs": 13220,
+      "durationMs": 1675
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:17.734Z"
+}

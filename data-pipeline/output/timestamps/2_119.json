@@ -1,0 +1,75 @@
+{
+  "surah": 2,
+  "ayah": 119,
+  "verseKey": "2:119",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2539220,
+  "timestampToGlobalMs": 2553980,
+  "durationMs": 14760,
+  "audioFile": "2_119.mp3",
+  "wordCount": 10,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2865,
+      "durationMs": 2865
+    },
+    {
+      "position": 2,
+      "startMs": 2865,
+      "endMs": 4295,
+      "durationMs": 1430
+    },
+    {
+      "position": 3,
+      "startMs": 4295,
+      "endMs": 5335,
+      "durationMs": 1040
+    },
+    {
+      "position": 4,
+      "startMs": 5335,
+      "endMs": 6445,
+      "durationMs": 1110
+    },
+    {
+      "position": 5,
+      "startMs": 6445,
+      "endMs": 8935,
+      "durationMs": 2490
+    },
+    {
+      "position": 6,
+      "startMs": 8935,
+      "endMs": 9475,
+      "durationMs": 540
+    },
+    {
+      "position": 7,
+      "startMs": 9475,
+      "endMs": 10205,
+      "durationMs": 730
+    },
+    {
+      "position": 8,
+      "startMs": 10205,
+      "endMs": 10675,
+      "durationMs": 470
+    },
+    {
+      "position": 9,
+      "startMs": 10675,
+      "endMs": 11635,
+      "durationMs": 960
+    },
+    {
+      "position": 10,
+      "startMs": 11635,
+      "endMs": 14610,
+      "durationMs": 2975
+    }
+  ],
+  "processedAt": "2026-09-29T22:24:50.325Z"
+}

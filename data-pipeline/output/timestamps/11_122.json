@@ -1,0 +1,33 @@
+{
+  "surah": 11,
+  "ayah": 122,
+  "verseKey": "11:122",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2736710,
+  "timestampToGlobalMs": 2746900,
+  "durationMs": 10190,
+  "audioFile": "11_122.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 3705,
+      "durationMs": 3705
+    },
+    {
+      "position": 2,
+      "startMs": 3705,
+      "endMs": 5635,
+      "durationMs": 1930
+    },
+    {
+      "position": 3,
+      "startMs": 5635,
+      "endMs": 10070,
+      "durationMs": 4435
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:46.682Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 15,
+  "ayah": 92,
+  "verseKey": "15:92",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 892640,
+  "timestampToGlobalMs": 899170,
+  "durationMs": 6530,
+  "audioFile": "15_92.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1245,
+      "durationMs": 1245
+    },
+    {
+      "position": 2,
+      "startMs": 1245,
+      "endMs": 3935,
+      "durationMs": 2690
+    },
+    {
+      "position": 3,
+      "startMs": 3935,
+      "endMs": 6480,
+      "durationMs": 2545
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:05.655Z"
+}

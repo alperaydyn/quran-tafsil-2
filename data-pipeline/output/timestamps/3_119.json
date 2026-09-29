@@ -1,0 +1,177 @@
+{
+  "surah": 3,
+  "ayah": 119,
+  "verseKey": "3:119",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2762620,
+  "timestampToGlobalMs": 2801410,
+  "durationMs": 38790,
+  "audioFile": "3_119.mp3",
+  "wordCount": 27,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 3755,
+      "durationMs": 3755
+    },
+    {
+      "position": 2,
+      "startMs": 3755,
+      "endMs": 5845,
+      "durationMs": 2090
+    },
+    {
+      "position": 3,
+      "startMs": 5845,
+      "endMs": 7635,
+      "durationMs": 1790
+    },
+    {
+      "position": 4,
+      "startMs": 7635,
+      "endMs": 8285,
+      "durationMs": 650
+    },
+    {
+      "position": 5,
+      "startMs": 8285,
+      "endMs": 10115,
+      "durationMs": 1830
+    },
+    {
+      "position": 6,
+      "startMs": 10115,
+      "endMs": 11615,
+      "durationMs": 1500
+    },
+    {
+      "position": 7,
+      "startMs": 11615,
+      "endMs": 13095,
+      "durationMs": 1480
+    },
+    {
+      "position": 8,
+      "startMs": 13095,
+      "endMs": 14375,
+      "durationMs": 1280
+    },
+    {
+      "position": 9,
+      "startMs": 14375,
+      "endMs": 15285,
+      "durationMs": 910
+    },
+    {
+      "position": 10,
+      "startMs": 15285,
+      "endMs": 16505,
+      "durationMs": 1220
+    },
+    {
+      "position": 11,
+      "startMs": 16505,
+      "endMs": 18475,
+      "durationMs": 1970
+    },
+    {
+      "position": 12,
+      "startMs": 18475,
+      "endMs": 20275,
+      "durationMs": 1800
+    },
+    {
+      "position": 13,
+      "startMs": 20275,
+      "endMs": 21155,
+      "durationMs": 880
+    },
+    {
+      "position": 14,
+      "startMs": 21155,
+      "endMs": 21955,
+      "durationMs": 800
+    },
+    {
+      "position": 15,
+      "startMs": 21955,
+      "endMs": 22865,
+      "durationMs": 910
+    },
+    {
+      "position": 16,
+      "startMs": 22865,
+      "endMs": 23965,
+      "durationMs": 1100
+    },
+    {
+      "position": 17,
+      "startMs": 23965,
+      "endMs": 25435,
+      "durationMs": 1470
+    },
+    {
+      "position": 18,
+      "startMs": 25435,
+      "endMs": 25765,
+      "durationMs": 330
+    },
+    {
+      "position": 19,
+      "startMs": 25765,
+      "endMs": 28355,
+      "durationMs": 2590
+    },
+    {
+      "position": 20,
+      "startMs": 28355,
+      "endMs": 28805,
+      "durationMs": 450
+    },
+    {
+      "position": 21,
+      "startMs": 28805,
+      "endMs": 29695,
+      "durationMs": 890
+    },
+    {
+      "position": 22,
+      "startMs": 29695,
+      "endMs": 31485,
+      "durationMs": 1790
+    },
+    {
+      "position": 23,
+      "startMs": 31485,
+      "endMs": 32535,
+      "durationMs": 1050
+    },
+    {
+      "position": 24,
+      "startMs": 32535,
+      "endMs": 33485,
+      "durationMs": 950
+    },
+    {
+      "position": 25,
+      "startMs": 33485,
+      "endMs": 35165,
+      "durationMs": 1680
+    },
+    {
+      "position": 26,
+      "startMs": 35165,
+      "endMs": 35975,
+      "durationMs": 810
+    },
+    {
+      "position": 27,
+      "startMs": 35975,
+      "endMs": 38690,
+      "durationMs": 2715
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:11.339Z"
+}

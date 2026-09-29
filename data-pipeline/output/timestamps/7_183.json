@@ -1,0 +1,45 @@
+{
+  "surah": 7,
+  "ayah": 183,
+  "verseKey": "7:183",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4314480,
+  "timestampToGlobalMs": 4321740,
+  "durationMs": 7260,
+  "audioFile": "7_183.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1015,
+      "durationMs": 1015
+    },
+    {
+      "position": 2,
+      "startMs": 1015,
+      "endMs": 1685,
+      "durationMs": 670
+    },
+    {
+      "position": 3,
+      "startMs": 1685,
+      "endMs": 3365,
+      "durationMs": 1680
+    },
+    {
+      "position": 4,
+      "startMs": 3365,
+      "endMs": 4275,
+      "durationMs": 910
+    },
+    {
+      "position": 5,
+      "startMs": 4275,
+      "endMs": 7180,
+      "durationMs": 2905
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:07.618Z"
+}

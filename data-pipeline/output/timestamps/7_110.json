@@ -1,0 +1,57 @@
+{
+  "surah": 7,
+  "ayah": 110,
+  "verseKey": "7:110",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2518750,
+  "timestampToGlobalMs": 2528940,
+  "durationMs": 10190,
+  "audioFile": "7_110.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 825,
+      "durationMs": 825
+    },
+    {
+      "position": 2,
+      "startMs": 825,
+      "endMs": 1155,
+      "durationMs": 330
+    },
+    {
+      "position": 3,
+      "startMs": 1155,
+      "endMs": 3065,
+      "durationMs": 1910
+    },
+    {
+      "position": 4,
+      "startMs": 3065,
+      "endMs": 4355,
+      "durationMs": 1290
+    },
+    {
+      "position": 5,
+      "startMs": 4355,
+      "endMs": 5945,
+      "durationMs": 1590
+    },
+    {
+      "position": 6,
+      "startMs": 5945,
+      "endMs": 6955,
+      "durationMs": 1010
+    },
+    {
+      "position": 7,
+      "startMs": 6955,
+      "endMs": 10110,
+      "durationMs": 3155
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:04.306Z"
+}

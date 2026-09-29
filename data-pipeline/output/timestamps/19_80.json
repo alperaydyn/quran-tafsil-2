@@ -1,0 +1,45 @@
+{
+  "surah": 19,
+  "ayah": 80,
+  "verseKey": "19:80",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1111570,
+  "timestampToGlobalMs": 1117320,
+  "durationMs": 5750,
+  "audioFile": "19_80.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1045,
+      "durationMs": 1045
+    },
+    {
+      "position": 2,
+      "startMs": 1045,
+      "endMs": 1485,
+      "durationMs": 440
+    },
+    {
+      "position": 3,
+      "startMs": 1485,
+      "endMs": 2555,
+      "durationMs": 1070
+    },
+    {
+      "position": 4,
+      "startMs": 2555,
+      "endMs": 4055,
+      "durationMs": 1500
+    },
+    {
+      "position": 5,
+      "startMs": 4055,
+      "endMs": 5160,
+      "durationMs": 1105
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:29.777Z"
+}

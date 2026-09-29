@@ -1,0 +1,45 @@
+{
+  "surah": 23,
+  "ayah": 98,
+  "verseKey": "23:98",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1207750,
+  "timestampToGlobalMs": 1213890,
+  "durationMs": 6140,
+  "audioFile": "23_98.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 995,
+      "durationMs": 995
+    },
+    {
+      "position": 2,
+      "startMs": 995,
+      "endMs": 1465,
+      "durationMs": 470
+    },
+    {
+      "position": 3,
+      "startMs": 1465,
+      "endMs": 2055,
+      "durationMs": 590
+    },
+    {
+      "position": 4,
+      "startMs": 2055,
+      "endMs": 2245,
+      "durationMs": 190
+    },
+    {
+      "position": 5,
+      "startMs": 2245,
+      "endMs": 6030,
+      "durationMs": 3785
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:51.633Z"
+}

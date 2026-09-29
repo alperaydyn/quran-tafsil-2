@@ -1,0 +1,81 @@
+{
+  "surah": 20,
+  "ayah": 112,
+  "verseKey": "20:112",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1277030,
+  "timestampToGlobalMs": 1288860,
+  "durationMs": 11830,
+  "audioFile": "20_112.mp3",
+  "wordCount": 11,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 85,
+      "durationMs": 85
+    },
+    {
+      "position": 2,
+      "startMs": 85,
+      "endMs": 1635,
+      "durationMs": 1550
+    },
+    {
+      "position": 3,
+      "startMs": 1635,
+      "endMs": 1965,
+      "durationMs": 330
+    },
+    {
+      "position": 4,
+      "startMs": 1965,
+      "endMs": 3555,
+      "durationMs": 1590
+    },
+    {
+      "position": 5,
+      "startMs": 3555,
+      "endMs": 4125,
+      "durationMs": 570
+    },
+    {
+      "position": 6,
+      "startMs": 4125,
+      "endMs": 5995,
+      "durationMs": 1870
+    },
+    {
+      "position": 7,
+      "startMs": 5995,
+      "endMs": 6765,
+      "durationMs": 770
+    },
+    {
+      "position": 8,
+      "startMs": 6765,
+      "endMs": 7525,
+      "durationMs": 760
+    },
+    {
+      "position": 9,
+      "startMs": 7525,
+      "endMs": 9455,
+      "durationMs": 1930
+    },
+    {
+      "position": 10,
+      "startMs": 9455,
+      "endMs": 9935,
+      "durationMs": 480
+    },
+    {
+      "position": 11,
+      "startMs": 9935,
+      "endMs": 11080,
+      "durationMs": 1145
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:35.505Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 15,
+  "ayah": 73,
+  "verseKey": "15:73",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 710680,
+  "timestampToGlobalMs": 716170,
+  "durationMs": 5490,
+  "audioFile": "15_73.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 2435,
+      "durationMs": 1130
+    },
+    {
+      "position": 3,
+      "startMs": 2435,
+      "endMs": 5360,
+      "durationMs": 2925
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:05.235Z"
+}

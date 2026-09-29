@@ -1,0 +1,51 @@
+{
+  "surah": 19,
+  "ayah": 82,
+  "verseKey": "19:82",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1126120,
+  "timestampToGlobalMs": 1135320,
+  "durationMs": 9200,
+  "audioFile": "19_82.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 895,
+      "durationMs": 895
+    },
+    {
+      "position": 2,
+      "startMs": 895,
+      "endMs": 2775,
+      "durationMs": 1880
+    },
+    {
+      "position": 3,
+      "startMs": 2775,
+      "endMs": 4765,
+      "durationMs": 1990
+    },
+    {
+      "position": 4,
+      "startMs": 4765,
+      "endMs": 6295,
+      "durationMs": 1530
+    },
+    {
+      "position": 5,
+      "startMs": 6295,
+      "endMs": 7485,
+      "durationMs": 1190
+    },
+    {
+      "position": 6,
+      "startMs": 7485,
+      "endMs": 8500,
+      "durationMs": 1015
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:29.826Z"
+}

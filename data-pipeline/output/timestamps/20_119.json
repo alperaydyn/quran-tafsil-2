@@ -1,0 +1,51 @@
+{
+  "surah": 20,
+  "ayah": 119,
+  "verseKey": "20:119",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1373860,
+  "timestampToGlobalMs": 1379580,
+  "durationMs": 5720,
+  "audioFile": "20_119.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1455,
+      "durationMs": 1455
+    },
+    {
+      "position": 2,
+      "startMs": 1455,
+      "endMs": 1835,
+      "durationMs": 380
+    },
+    {
+      "position": 3,
+      "startMs": 1835,
+      "endMs": 2725,
+      "durationMs": 890
+    },
+    {
+      "position": 4,
+      "startMs": 2725,
+      "endMs": 3565,
+      "durationMs": 840
+    },
+    {
+      "position": 5,
+      "startMs": 3565,
+      "endMs": 4235,
+      "durationMs": 670
+    },
+    {
+      "position": 6,
+      "startMs": 4235,
+      "endMs": 5270,
+      "durationMs": 1035
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:35.693Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 19,
+  "ayah": 88,
+  "verseKey": "19:88",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1177590,
+  "timestampToGlobalMs": 1182210,
+  "durationMs": 4620,
+  "audioFile": "19_88.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 965,
+      "durationMs": 965
+    },
+    {
+      "position": 2,
+      "startMs": 965,
+      "endMs": 1865,
+      "durationMs": 900
+    },
+    {
+      "position": 3,
+      "startMs": 1865,
+      "endMs": 3375,
+      "durationMs": 1510
+    },
+    {
+      "position": 4,
+      "startMs": 3375,
+      "endMs": 4350,
+      "durationMs": 975
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:29.982Z"
+}

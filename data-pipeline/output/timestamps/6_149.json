@@ -1,0 +1,63 @@
+{
+  "surah": 6,
+  "ayah": 149,
+  "verseKey": "6:149",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 3834330,
+  "timestampToGlobalMs": 3846870,
+  "durationMs": 12540,
+  "audioFile": "6_149.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 2,
+      "startMs": 0,
+      "endMs": 1195,
+      "durationMs": 1195
+    },
+    {
+      "position": 3,
+      "startMs": 1195,
+      "endMs": 2315,
+      "durationMs": 1120
+    },
+    {
+      "position": 4,
+      "startMs": 2315,
+      "endMs": 4085,
+      "durationMs": 1770
+    },
+    {
+      "position": 5,
+      "startMs": 4085,
+      "endMs": 4685,
+      "durationMs": 600
+    },
+    {
+      "position": 6,
+      "startMs": 4685,
+      "endMs": 7225,
+      "durationMs": 2540
+    },
+    {
+      "position": 7,
+      "startMs": 7225,
+      "endMs": 8475,
+      "durationMs": 1250
+    },
+    {
+      "position": 8,
+      "startMs": 8475,
+      "endMs": 11900,
+      "durationMs": 3425
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:53.110Z"
+}

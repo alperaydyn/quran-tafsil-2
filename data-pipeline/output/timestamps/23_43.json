@@ -1,0 +1,57 @@
+{
+  "surah": 23,
+  "ayah": 43,
+  "verseKey": "23:43",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 574990,
+  "timestampToGlobalMs": 583740,
+  "durationMs": 8750,
+  "audioFile": "23_43.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 505,
+      "durationMs": 505
+    },
+    {
+      "position": 2,
+      "startMs": 505,
+      "endMs": 1415,
+      "durationMs": 910
+    },
+    {
+      "position": 3,
+      "startMs": 1415,
+      "endMs": 1785,
+      "durationMs": 370
+    },
+    {
+      "position": 4,
+      "startMs": 1785,
+      "endMs": 3315,
+      "durationMs": 1530
+    },
+    {
+      "position": 5,
+      "startMs": 3315,
+      "endMs": 4345,
+      "durationMs": 1030
+    },
+    {
+      "position": 6,
+      "startMs": 4345,
+      "endMs": 5035,
+      "durationMs": 690
+    },
+    {
+      "position": 7,
+      "startMs": 5035,
+      "endMs": 8670,
+      "durationMs": 3635
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:50.379Z"
+}

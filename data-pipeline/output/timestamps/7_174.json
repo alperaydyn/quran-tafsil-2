@@ -1,0 +1,45 @@
+{
+  "surah": 7,
+  "ayah": 174,
+  "verseKey": "7:174",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4138540,
+  "timestampToGlobalMs": 4146820,
+  "durationMs": 8280,
+  "audioFile": "7_174.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1285,
+      "durationMs": 1285
+    },
+    {
+      "position": 2,
+      "startMs": 1285,
+      "endMs": 2305,
+      "durationMs": 1020
+    },
+    {
+      "position": 3,
+      "startMs": 2305,
+      "endMs": 3715,
+      "durationMs": 1410
+    },
+    {
+      "position": 4,
+      "startMs": 3715,
+      "endMs": 5125,
+      "durationMs": 1410
+    },
+    {
+      "position": 5,
+      "startMs": 5125,
+      "endMs": 8200,
+      "durationMs": 3075
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:07.132Z"
+}

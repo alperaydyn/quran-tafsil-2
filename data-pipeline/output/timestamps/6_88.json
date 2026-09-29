@@ -1,0 +1,111 @@
+{
+  "surah": 6,
+  "ayah": 88,
+  "verseKey": "6:88",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2047840,
+  "timestampToGlobalMs": 2066050,
+  "durationMs": 18210,
+  "audioFile": "6_88.mp3",
+  "wordCount": 16,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 895,
+      "durationMs": 895
+    },
+    {
+      "position": 2,
+      "startMs": 895,
+      "endMs": 1335,
+      "durationMs": 440
+    },
+    {
+      "position": 3,
+      "startMs": 1335,
+      "endMs": 2205,
+      "durationMs": 870
+    },
+    {
+      "position": 4,
+      "startMs": 2205,
+      "endMs": 3035,
+      "durationMs": 830
+    },
+    {
+      "position": 5,
+      "startMs": 3035,
+      "endMs": 3645,
+      "durationMs": 610
+    },
+    {
+      "position": 6,
+      "startMs": 3645,
+      "endMs": 3795,
+      "durationMs": 150
+    },
+    {
+      "position": 7,
+      "startMs": 3795,
+      "endMs": 7355,
+      "durationMs": 3560
+    },
+    {
+      "position": 8,
+      "startMs": 7355,
+      "endMs": 7735,
+      "durationMs": 380
+    },
+    {
+      "position": 9,
+      "startMs": 7735,
+      "endMs": 9335,
+      "durationMs": 1600
+    },
+    {
+      "position": 10,
+      "startMs": 9335,
+      "endMs": 9935,
+      "durationMs": 600
+    },
+    {
+      "position": 11,
+      "startMs": 9935,
+      "endMs": 10925,
+      "durationMs": 990
+    },
+    {
+      "position": 12,
+      "startMs": 10925,
+      "endMs": 11775,
+      "durationMs": 850
+    },
+    {
+      "position": 13,
+      "startMs": 11775,
+      "endMs": 12535,
+      "durationMs": 760
+    },
+    {
+      "position": 14,
+      "startMs": 12535,
+      "endMs": 13715,
+      "durationMs": 1180
+    },
+    {
+      "position": 15,
+      "startMs": 13715,
+      "endMs": 14615,
+      "durationMs": 900
+    },
+    {
+      "position": 16,
+      "startMs": 14615,
+      "endMs": 18100,
+      "durationMs": 3485
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:50.530Z"
+}

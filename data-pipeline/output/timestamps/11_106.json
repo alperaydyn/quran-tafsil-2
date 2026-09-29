@@ -1,0 +1,69 @@
+{
+  "surah": 11,
+  "ayah": 106,
+  "verseKey": "11:106",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2420200,
+  "timestampToGlobalMs": 2432140,
+  "durationMs": 11940,
+  "audioFile": "11_106.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1445,
+      "durationMs": 1445
+    },
+    {
+      "position": 2,
+      "startMs": 1445,
+      "endMs": 2415,
+      "durationMs": 970
+    },
+    {
+      "position": 3,
+      "startMs": 2415,
+      "endMs": 3195,
+      "durationMs": 780
+    },
+    {
+      "position": 4,
+      "startMs": 3195,
+      "endMs": 3655,
+      "durationMs": 460
+    },
+    {
+      "position": 5,
+      "startMs": 3655,
+      "endMs": 5065,
+      "durationMs": 1410
+    },
+    {
+      "position": 6,
+      "startMs": 5065,
+      "endMs": 5675,
+      "durationMs": 610
+    },
+    {
+      "position": 7,
+      "startMs": 5675,
+      "endMs": 6525,
+      "durationMs": 850
+    },
+    {
+      "position": 8,
+      "startMs": 6525,
+      "endMs": 8515,
+      "durationMs": 1990
+    },
+    {
+      "position": 9,
+      "startMs": 8515,
+      "endMs": 11850,
+      "durationMs": 3335
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:46.057Z"
+}

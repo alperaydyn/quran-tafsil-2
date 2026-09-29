@@ -1,0 +1,51 @@
+{
+  "surah": 7,
+  "ayah": 118,
+  "verseKey": "7:118",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2628260,
+  "timestampToGlobalMs": 2635700,
+  "durationMs": 7450,
+  "audioFile": "7_118.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 885,
+      "durationMs": 885
+    },
+    {
+      "position": 2,
+      "startMs": 885,
+      "endMs": 1835,
+      "durationMs": 950
+    },
+    {
+      "position": 3,
+      "startMs": 1835,
+      "endMs": 2675,
+      "durationMs": 840
+    },
+    {
+      "position": 4,
+      "startMs": 2675,
+      "endMs": 3025,
+      "durationMs": 350
+    },
+    {
+      "position": 5,
+      "startMs": 3025,
+      "endMs": 3925,
+      "durationMs": 900
+    },
+    {
+      "position": 6,
+      "startMs": 3925,
+      "endMs": 7320,
+      "durationMs": 3395
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:04.607Z"
+}

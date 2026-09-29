@@ -1,0 +1,69 @@
+{
+  "surah": 11,
+  "ayah": 121,
+  "verseKey": "11:121",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2724750,
+  "timestampToGlobalMs": 2736710,
+  "durationMs": 11970,
+  "audioFile": "11_121.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 495,
+      "durationMs": 495
+    },
+    {
+      "position": 2,
+      "startMs": 495,
+      "endMs": 1885,
+      "durationMs": 1390
+    },
+    {
+      "position": 3,
+      "startMs": 1885,
+      "endMs": 2215,
+      "durationMs": 330
+    },
+    {
+      "position": 4,
+      "startMs": 2215,
+      "endMs": 3415,
+      "durationMs": 1200
+    },
+    {
+      "position": 5,
+      "startMs": 3415,
+      "endMs": 4295,
+      "durationMs": 880
+    },
+    {
+      "position": 6,
+      "startMs": 4295,
+      "endMs": 4975,
+      "durationMs": 680
+    },
+    {
+      "position": 7,
+      "startMs": 4975,
+      "endMs": 6455,
+      "durationMs": 1480
+    },
+    {
+      "position": 8,
+      "startMs": 6455,
+      "endMs": 8215,
+      "durationMs": 1760
+    },
+    {
+      "position": 9,
+      "startMs": 8215,
+      "endMs": 11850,
+      "durationMs": 3635
+    }
+  ],
+  "processedAt": "2026-09-29T22:26:46.642Z"
+}

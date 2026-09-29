@@ -1,0 +1,219 @@
+{
+  "surah": 5,
+  "ayah": 107,
+  "verseKey": "5:107",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 3312430,
+  "timestampToGlobalMs": 3360030,
+  "durationMs": 47600,
+  "audioFile": "5_107.mp3",
+  "wordCount": 34,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 635,
+      "durationMs": 635
+    },
+    {
+      "position": 2,
+      "startMs": 635,
+      "endMs": 1355,
+      "durationMs": 720
+    },
+    {
+      "position": 3,
+      "startMs": 1355,
+      "endMs": 2965,
+      "durationMs": 1610
+    },
+    {
+      "position": 4,
+      "startMs": 2965,
+      "endMs": 4525,
+      "durationMs": 1560
+    },
+    {
+      "position": 5,
+      "startMs": 4525,
+      "endMs": 7125,
+      "durationMs": 2600
+    },
+    {
+      "position": 6,
+      "startMs": 7125,
+      "endMs": 8465,
+      "durationMs": 1340
+    },
+    {
+      "position": 7,
+      "startMs": 8465,
+      "endMs": 10025,
+      "durationMs": 1560
+    },
+    {
+      "position": 8,
+      "startMs": 10025,
+      "endMs": 11235,
+      "durationMs": 1210
+    },
+    {
+      "position": 9,
+      "startMs": 11235,
+      "endMs": 12855,
+      "durationMs": 1620
+    },
+    {
+      "position": 10,
+      "startMs": 12855,
+      "endMs": 13285,
+      "durationMs": 430
+    },
+    {
+      "position": 7,
+      "startMs": 13285,
+      "endMs": 14755,
+      "durationMs": 1470
+    },
+    {
+      "position": 8,
+      "startMs": 14755,
+      "endMs": 16015,
+      "durationMs": 1260
+    },
+    {
+      "position": 9,
+      "startMs": 16015,
+      "endMs": 17535,
+      "durationMs": 1520
+    },
+    {
+      "position": 10,
+      "startMs": 17535,
+      "endMs": 17855,
+      "durationMs": 320
+    },
+    {
+      "position": 11,
+      "startMs": 17855,
+      "endMs": 18915,
+      "durationMs": 1060
+    },
+    {
+      "position": 12,
+      "startMs": 18915,
+      "endMs": 20055,
+      "durationMs": 1140
+    },
+    {
+      "position": 13,
+      "startMs": 20055,
+      "endMs": 21035,
+      "durationMs": 980
+    },
+    {
+      "position": 14,
+      "startMs": 21035,
+      "endMs": 22595,
+      "durationMs": 1560
+    },
+    {
+      "position": 15,
+      "startMs": 22595,
+      "endMs": 24465,
+      "durationMs": 1870
+    },
+    {
+      "position": 14,
+      "startMs": 24465,
+      "endMs": 26175,
+      "durationMs": 1710
+    },
+    {
+      "position": 15,
+      "startMs": 26175,
+      "endMs": 27635,
+      "durationMs": 1460
+    },
+    {
+      "position": 16,
+      "startMs": 27635,
+      "endMs": 28705,
+      "durationMs": 1070
+    },
+    {
+      "position": 17,
+      "startMs": 28705,
+      "endMs": 31375,
+      "durationMs": 2670
+    },
+    {
+      "position": 18,
+      "startMs": 31375,
+      "endMs": 32225,
+      "durationMs": 850
+    },
+    {
+      "position": 19,
+      "startMs": 32225,
+      "endMs": 33025,
+      "durationMs": 800
+    },
+    {
+      "position": 20,
+      "startMs": 33025,
+      "endMs": 34855,
+      "durationMs": 1830
+    },
+    {
+      "position": 21,
+      "startMs": 34855,
+      "endMs": 35135,
+      "durationMs": 280
+    },
+    {
+      "position": 22,
+      "startMs": 35135,
+      "endMs": 36625,
+      "durationMs": 1490
+    },
+    {
+      "position": 21,
+      "startMs": 36625,
+      "endMs": 37425,
+      "durationMs": 800
+    },
+    {
+      "position": 22,
+      "startMs": 37425,
+      "endMs": 40105,
+      "durationMs": 2680
+    },
+    {
+      "position": 23,
+      "startMs": 40105,
+      "endMs": 43034,
+      "durationMs": 2929
+    },
+    {
+      "position": 24,
+      "startMs": 43035,
+      "endMs": 43455,
+      "durationMs": 420
+    },
+    {
+      "position": 25,
+      "startMs": 43455,
+      "endMs": 44335,
+      "durationMs": 880
+    },
+    {
+      "position": 26,
+      "startMs": 44335,
+      "endMs": 47500,
+      "durationMs": 3165
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:39.826Z"
+}

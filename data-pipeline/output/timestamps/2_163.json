@@ -1,0 +1,69 @@
+{
+  "surah": 2,
+  "ayah": 163,
+  "verseKey": "2:163",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 3552930,
+  "timestampToGlobalMs": 3564760,
+  "durationMs": 11830,
+  "audioFile": "2_163.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1335,
+      "durationMs": 1335
+    },
+    {
+      "position": 2,
+      "startMs": 1335,
+      "endMs": 2895,
+      "durationMs": 1560
+    },
+    {
+      "position": 3,
+      "startMs": 2895,
+      "endMs": 4025,
+      "durationMs": 1130
+    },
+    {
+      "position": 4,
+      "startMs": 4025,
+      "endMs": 5695,
+      "durationMs": 1670
+    },
+    {
+      "position": 5,
+      "startMs": 5695,
+      "endMs": 6435,
+      "durationMs": 740
+    },
+    {
+      "position": 6,
+      "startMs": 6435,
+      "endMs": 7235,
+      "durationMs": 800
+    },
+    {
+      "position": 7,
+      "startMs": 7235,
+      "endMs": 7625,
+      "durationMs": 390
+    },
+    {
+      "position": 8,
+      "startMs": 7625,
+      "endMs": 8895,
+      "durationMs": 1270
+    },
+    {
+      "position": 9,
+      "startMs": 8895,
+      "endMs": 11690,
+      "durationMs": 2795
+    }
+  ],
+  "processedAt": "2026-09-29T22:24:52.241Z"
+}

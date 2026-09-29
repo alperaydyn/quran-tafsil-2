@@ -1,0 +1,63 @@
+{
+  "surah": 19,
+  "ayah": 6,
+  "verseKey": "19:6",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 59480,
+  "timestampToGlobalMs": 67530,
+  "durationMs": 8050,
+  "audioFile": "19_6.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 795,
+      "durationMs": 795
+    },
+    {
+      "position": 2,
+      "startMs": 795,
+      "endMs": 1725,
+      "durationMs": 930
+    },
+    {
+      "position": 3,
+      "startMs": 1725,
+      "endMs": 2165,
+      "durationMs": 440
+    },
+    {
+      "position": 4,
+      "startMs": 2165,
+      "endMs": 2835,
+      "durationMs": 670
+    },
+    {
+      "position": 5,
+      "startMs": 2835,
+      "endMs": 3985,
+      "durationMs": 1150
+    },
+    {
+      "position": 6,
+      "startMs": 3985,
+      "endMs": 5105,
+      "durationMs": 1120
+    },
+    {
+      "position": 7,
+      "startMs": 5105,
+      "endMs": 5705,
+      "durationMs": 600
+    },
+    {
+      "position": 8,
+      "startMs": 5705,
+      "endMs": 7510,
+      "durationMs": 1805
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:28.288Z"
+}

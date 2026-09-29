@@ -1,0 +1,69 @@
+{
+  "surah": 3,
+  "ayah": 189,
+  "verseKey": "3:189",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4479200,
+  "timestampToGlobalMs": 4491950,
+  "durationMs": 12750,
+  "audioFile": "3_189.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 1945,
+      "durationMs": 640
+    },
+    {
+      "position": 3,
+      "startMs": 1945,
+      "endMs": 3605,
+      "durationMs": 1660
+    },
+    {
+      "position": 4,
+      "startMs": 3605,
+      "endMs": 4985,
+      "durationMs": 1380
+    },
+    {
+      "position": 5,
+      "startMs": 4985,
+      "endMs": 6065,
+      "durationMs": 1080
+    },
+    {
+      "position": 6,
+      "startMs": 6065,
+      "endMs": 6805,
+      "durationMs": 740
+    },
+    {
+      "position": 7,
+      "startMs": 6805,
+      "endMs": 7545,
+      "durationMs": 740
+    },
+    {
+      "position": 8,
+      "startMs": 7545,
+      "endMs": 9515,
+      "durationMs": 1970
+    },
+    {
+      "position": 9,
+      "startMs": 9515,
+      "endMs": 12630,
+      "durationMs": 3115
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:14.739Z"
+}

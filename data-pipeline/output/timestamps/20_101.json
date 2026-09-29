@@ -1,0 +1,57 @@
+{
+  "surah": 20,
+  "ayah": 101,
+  "verseKey": "20:101",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1169310,
+  "timestampToGlobalMs": 1179260,
+  "durationMs": 9950,
+  "audioFile": "20_101.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1205,
+      "durationMs": 1205
+    },
+    {
+      "position": 2,
+      "startMs": 1205,
+      "endMs": 3685,
+      "durationMs": 2480
+    },
+    {
+      "position": 3,
+      "startMs": 3685,
+      "endMs": 5964,
+      "durationMs": 2279
+    },
+    {
+      "position": 4,
+      "startMs": 5965,
+      "endMs": 6625,
+      "durationMs": 660
+    },
+    {
+      "position": 5,
+      "startMs": 6625,
+      "endMs": 7155,
+      "durationMs": 530
+    },
+    {
+      "position": 6,
+      "startMs": 7155,
+      "endMs": 8545,
+      "durationMs": 1390
+    },
+    {
+      "position": 7,
+      "startMs": 8545,
+      "endMs": 9850,
+      "durationMs": 1305
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:35.223Z"
+}

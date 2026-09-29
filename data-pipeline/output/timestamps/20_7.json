@@ -1,0 +1,57 @@
+{
+  "surah": 20,
+  "ayah": 7,
+  "verseKey": "20:7",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 39490,
+  "timestampToGlobalMs": 48060,
+  "durationMs": 8570,
+  "audioFile": "20_7.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 885,
+      "durationMs": 885
+    },
+    {
+      "position": 2,
+      "startMs": 885,
+      "endMs": 2325,
+      "durationMs": 1440
+    },
+    {
+      "position": 3,
+      "startMs": 2325,
+      "endMs": 3385,
+      "durationMs": 1060
+    },
+    {
+      "position": 4,
+      "startMs": 3385,
+      "endMs": 5115,
+      "durationMs": 1730
+    },
+    {
+      "position": 5,
+      "startMs": 5115,
+      "endMs": 6075,
+      "durationMs": 960
+    },
+    {
+      "position": 6,
+      "startMs": 6075,
+      "endMs": 7115,
+      "durationMs": 1040
+    },
+    {
+      "position": 7,
+      "startMs": 7115,
+      "endMs": 8230,
+      "durationMs": 1115
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:33.414Z"
+}

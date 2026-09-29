@@ -1,0 +1,45 @@
+{
+  "surah": 25,
+  "ayah": 64,
+  "verseKey": "25:64",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 986930,
+  "timestampToGlobalMs": 994920,
+  "durationMs": 7990,
+  "audioFile": "25_64.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1185,
+      "durationMs": 1185
+    },
+    {
+      "position": 2,
+      "startMs": 1185,
+      "endMs": 2615,
+      "durationMs": 1430
+    },
+    {
+      "position": 3,
+      "startMs": 2615,
+      "endMs": 3915,
+      "durationMs": 1300
+    },
+    {
+      "position": 4,
+      "startMs": 3915,
+      "endMs": 5795,
+      "durationMs": 1880
+    },
+    {
+      "position": 5,
+      "startMs": 5795,
+      "endMs": 7470,
+      "durationMs": 1675
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:01.269Z"
+}

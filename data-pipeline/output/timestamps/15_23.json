@@ -1,0 +1,51 @@
+{
+  "surah": 15,
+  "ayah": 23,
+  "verseKey": "15:23",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 236370,
+  "timestampToGlobalMs": 243970,
+  "durationMs": 7600,
+  "audioFile": "15_23.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1335,
+      "durationMs": 1335
+    },
+    {
+      "position": 2,
+      "startMs": 1335,
+      "endMs": 2155,
+      "durationMs": 820
+    },
+    {
+      "position": 3,
+      "startMs": 2155,
+      "endMs": 2955,
+      "durationMs": 800
+    },
+    {
+      "position": 4,
+      "startMs": 2955,
+      "endMs": 4065,
+      "durationMs": 1110
+    },
+    {
+      "position": 5,
+      "startMs": 4065,
+      "endMs": 4775,
+      "durationMs": 710
+    },
+    {
+      "position": 6,
+      "startMs": 4775,
+      "endMs": 7550,
+      "durationMs": 2775
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:04.283Z"
+}

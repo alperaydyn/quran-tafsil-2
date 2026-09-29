@@ -1,0 +1,69 @@
+{
+  "surah": 3,
+  "ayah": 115,
+  "verseKey": "3:115",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2652040,
+  "timestampToGlobalMs": 2666880,
+  "durationMs": 14840,
+  "audioFile": "3_115.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 725,
+      "durationMs": 725
+    },
+    {
+      "position": 2,
+      "startMs": 725,
+      "endMs": 1785,
+      "durationMs": 1060
+    },
+    {
+      "position": 3,
+      "startMs": 1785,
+      "endMs": 2085,
+      "durationMs": 300
+    },
+    {
+      "position": 4,
+      "startMs": 2085,
+      "endMs": 3065,
+      "durationMs": 980
+    },
+    {
+      "position": 5,
+      "startMs": 3065,
+      "endMs": 4375,
+      "durationMs": 1310
+    },
+    {
+      "position": 6,
+      "startMs": 4375,
+      "endMs": 8245,
+      "durationMs": 3870
+    },
+    {
+      "position": 7,
+      "startMs": 8245,
+      "endMs": 9335,
+      "durationMs": 1090
+    },
+    {
+      "position": 8,
+      "startMs": 9335,
+      "endMs": 11035,
+      "durationMs": 1700
+    },
+    {
+      "position": 9,
+      "startMs": 11035,
+      "endMs": 14750,
+      "durationMs": 3715
+    }
+  ],
+  "processedAt": "2026-09-29T22:25:11.178Z"
+}

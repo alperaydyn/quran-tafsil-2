@@ -1,0 +1,69 @@
+{
+  "surah": 20,
+  "ayah": 85,
+  "verseKey": "20:85",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 922960,
+  "timestampToGlobalMs": 933100,
+  "durationMs": 10140,
+  "audioFile": "20_85.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 735,
+      "durationMs": 735
+    },
+    {
+      "position": 2,
+      "startMs": 735,
+      "endMs": 2085,
+      "durationMs": 1350
+    },
+    {
+      "position": 3,
+      "startMs": 2085,
+      "endMs": 2515,
+      "durationMs": 430
+    },
+    {
+      "position": 4,
+      "startMs": 2515,
+      "endMs": 3985,
+      "durationMs": 1470
+    },
+    {
+      "position": 5,
+      "startMs": 3985,
+      "endMs": 4885,
+      "durationMs": 900
+    },
+    {
+      "position": 6,
+      "startMs": 4885,
+      "endMs": 5635,
+      "durationMs": 750
+    },
+    {
+      "position": 7,
+      "startMs": 5635,
+      "endMs": 6685,
+      "durationMs": 1050
+    },
+    {
+      "position": 8,
+      "startMs": 6685,
+      "endMs": 8135,
+      "durationMs": 1450
+    },
+    {
+      "position": 9,
+      "startMs": 8135,
+      "endMs": 10090,
+      "durationMs": 1955
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:34.835Z"
+}

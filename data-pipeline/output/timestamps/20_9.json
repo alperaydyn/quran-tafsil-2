@@ -1,0 +1,39 @@
+{
+  "surah": 20,
+  "ayah": 9,
+  "verseKey": "20:9",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 58140,
+  "timestampToGlobalMs": 62350,
+  "durationMs": 4210,
+  "audioFile": "20_9.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 445,
+      "durationMs": 445
+    },
+    {
+      "position": 2,
+      "startMs": 445,
+      "endMs": 1385,
+      "durationMs": 940
+    },
+    {
+      "position": 3,
+      "startMs": 1385,
+      "endMs": 2405,
+      "durationMs": 1020
+    },
+    {
+      "position": 4,
+      "startMs": 2405,
+      "endMs": 3440,
+      "durationMs": 1035
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:33.443Z"
+}

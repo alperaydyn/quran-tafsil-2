@@ -1,0 +1,69 @@
+{
+  "surah": 20,
+  "ayah": 91,
+  "verseKey": "20:91",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1035080,
+  "timestampToGlobalMs": 1044300,
+  "durationMs": 9220,
+  "audioFile": "20_91.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 675,
+      "durationMs": 675
+    },
+    {
+      "position": 2,
+      "startMs": 675,
+      "endMs": 985,
+      "durationMs": 310
+    },
+    {
+      "position": 3,
+      "startMs": 985,
+      "endMs": 2355,
+      "durationMs": 1370
+    },
+    {
+      "position": 4,
+      "startMs": 2355,
+      "endMs": 3285,
+      "durationMs": 930
+    },
+    {
+      "position": 5,
+      "startMs": 3285,
+      "endMs": 4605,
+      "durationMs": 1320
+    },
+    {
+      "position": 6,
+      "startMs": 4605,
+      "endMs": 5485,
+      "durationMs": 880
+    },
+    {
+      "position": 7,
+      "startMs": 5485,
+      "endMs": 6405,
+      "durationMs": 920
+    },
+    {
+      "position": 8,
+      "startMs": 6405,
+      "endMs": 7445,
+      "durationMs": 1040
+    },
+    {
+      "position": 9,
+      "startMs": 7445,
+      "endMs": 8510,
+      "durationMs": 1065
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:34.977Z"
+}

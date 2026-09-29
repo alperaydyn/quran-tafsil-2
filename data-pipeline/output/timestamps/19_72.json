@@ -1,0 +1,63 @@
+{
+  "surah": 19,
+  "ayah": 72,
+  "verseKey": "19:72",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 989100,
+  "timestampToGlobalMs": 998450,
+  "durationMs": 9350,
+  "audioFile": "19_72.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 775,
+      "durationMs": 775
+    },
+    {
+      "position": 2,
+      "startMs": 775,
+      "endMs": 1685,
+      "durationMs": 910
+    },
+    {
+      "position": 3,
+      "startMs": 1685,
+      "endMs": 2745,
+      "durationMs": 1060
+    },
+    {
+      "position": 4,
+      "startMs": 2745,
+      "endMs": 3735,
+      "durationMs": 990
+    },
+    {
+      "position": 5,
+      "startMs": 3735,
+      "endMs": 4615,
+      "durationMs": 880
+    },
+    {
+      "position": 6,
+      "startMs": 4615,
+      "endMs": 6265,
+      "durationMs": 1650
+    },
+    {
+      "position": 7,
+      "startMs": 6265,
+      "endMs": 7265,
+      "durationMs": 1000
+    },
+    {
+      "position": 8,
+      "startMs": 7265,
+      "endMs": 8560,
+      "durationMs": 1295
+    }
+  ],
+  "processedAt": "2026-09-29T22:27:29.579Z"
+}
