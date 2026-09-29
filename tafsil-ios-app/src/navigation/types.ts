@@ -4,7 +4,7 @@ export type MainTabParamList = {
   Home: undefined;
   SurahList: undefined;
   Memorization: undefined;
-  DagExplorer: undefined;
+  DagExplorer: { conceptSlug?: string; root?: string } | undefined;
   Settings: undefined;
 };
 
@@ -12,6 +12,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   Auth: undefined;
   Main: NavigatorScreenParams<MainTabParamList>;
+  Search: { initialQuery?: string } | undefined;
   Reading: { surahId: number; ayahNo?: number; autoPlay?: boolean };
   MemorizationStudio: { sessionId?: string; surahId?: number; startAyah?: number; endAyah?: number };
   ProgressMatrix: { initialTab?: 'reading' | 'memorization' } | undefined;

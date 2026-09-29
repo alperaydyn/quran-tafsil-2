@@ -267,6 +267,7 @@ export function ReadingScreen({ route, navigation }: Props) {
   // Audio state
   const [isPlaying, setIsPlaying] = useState(Boolean(autoPlay));
   const [activeAyah, setActiveAyah] = useState(initialAyahNo ?? 1);
+  const [selectedAyahNo, setSelectedAyahNo] = useState<number | null>(initialAyahNo ?? null);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
 
   // Aktif açık olan kavram zinciri ve hangi ayete ait olduğu
@@ -275,6 +276,15 @@ export function ReadingScreen({ route, navigation }: Props) {
 
   const scrollViewRef = useRef<ScrollView>(null);
   const verseLayouts = useRef<{ [ayahNo: number]: { y: number; height: number } }>({});
+  const hasScrolledToInitialRef = useRef(false);
+
+  useEffect(() => {
+    if (initialAyahNo) {
+      setSelectedAyahNo(initialAyahNo);
+      setActiveAyah(initialAyahNo);
+      hasScrolledToInitialRef.current = false;
+    }
+  }, [initialAyahNo, surahId]);
 
   const markVerseRead = useReadingProgressStore((s) => s.markVerseRead);
   const setLastRead = useReadingProgressStore((s) => s.setLastRead);
@@ -448,16 +458,26 @@ export function ReadingScreen({ route, navigation }: Props) {
               <VerseCard
                 key={v.id}
                 verse={v}
-                isVerseActive={isPlaying && activeAyah === v.ayahNo}
+                isVerseActive={(isPlaying && activeAyah === v.ayahNo) || selectedAyahNo === v.ayahNo}
                 activeWordIndex={isPlaying && activeAyah === v.ayahNo ? activeWordIndex : null}
                 onWordPress={handleWordPress}
                 onBookmarkToggle={() => toggleBookmark(v.ayahNo)}
                 isBookmarked={bookmarkedSet.has(v.ayahNo)}
                 onLayout={(e) => {
+                  const y = e.nativeEvent.layout.y;
                   verseLayouts.current[v.ayahNo] = {
-                    y: e.nativeEvent.layout.y,
+                    y,
                     height: e.nativeEvent.layout.height,
                   };
+                  if (initialAyahNo && v.ayahNo === initialAyahNo && !hasScrolledToInitialRef.current) {
+                    hasScrolledToInitialRef.current = true;
+                    setTimeout(() => {
+                      scrollViewRef.current?.scrollTo({
+                        y: Math.max(0, y - 70),
+                        animated: true,
+                      });
+                    }, 120);
+                  }
                 }}
                 activeChain={chainAyah === v.ayahNo ? activeChain : []}
                 onConceptPress={(slug) => handleConceptPress(v.ayahNo, slug)}

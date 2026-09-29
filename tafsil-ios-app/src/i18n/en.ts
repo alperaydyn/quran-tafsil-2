@@ -77,7 +77,7 @@ export const en: TranslationSchema = {
     heroTitle: 'Tafsil',
     heroSubtitle: 'Understand the Quran in its own context',
     continueReading: 'Continue Reading',
-    gardenTitle: 'Your Garden',
+    gardenTitle: 'Reading History',
     gardenWateredWeeks: 'Watered for {count} weeks',
     gardenWaiting: 'Waiting to be watered today',
     readingStreak: 'Reading Streak',
@@ -90,6 +90,7 @@ export const en: TranslationSchema = {
     daysCount: '{count} days',
     versesCount: '{count} verses',
     startReading: 'Start Reading',
+    allSurahs: 'all surahs',
   },
   surahList: {
     title: 'Surahs',

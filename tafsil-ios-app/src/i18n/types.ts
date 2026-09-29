@@ -122,6 +122,7 @@ export interface TranslationSchema {
     daysCount: string;
     versesCount: string;
     startReading: string;
+    allSurahs: string;
   };
   surahList: {
     title: string;

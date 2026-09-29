@@ -77,7 +77,7 @@ export const tr: TranslationSchema = {
     heroTitle: 'Tafsil',
     heroSubtitle: 'Kur\'an\'ı kendi bağlamından anla',
     continueReading: 'Kaldığım Yerden Devam Et',
-    gardenTitle: 'Bahçen',
+    gardenTitle: 'Okuma Geçmişi',
     gardenWateredWeeks: '{count} haftadır sulanıyor',
     gardenWaiting: 'Bugün sulanmayı bekliyor',
     readingStreak: 'Okuma Serisi',
@@ -90,6 +90,7 @@ export const tr: TranslationSchema = {
     daysCount: '{count} gün',
     versesCount: '{count} ayet',
     startReading: 'Okumaya Başla',
+    allSurahs: 'tüm sureler',
   },
   surahList: {
     title: 'Sureler',

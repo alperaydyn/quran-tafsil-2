@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Pressable, ScrollView, View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
 import { Button } from '../components/common/Button';
 import { useTheme } from '../theme';
+import { CONCEPTS_DICTIONARY } from '../data/concepts.seed';
 
 interface DagNode {
   id: string;
@@ -92,10 +94,36 @@ const DEFAULT_NODES: DagNode[] = [
 
 export function DagExplorerScreen() {
   const theme = useTheme();
+  const navigation = useNavigation<any>();
+  const route = useRoute<any>();
   const [activeTab, setActiveTab] = useState<'graph' | 'list'>('graph');
   const [filterTag, setFilterTag] = useState<'benim' | 'topluluk' | 'paylasilan'>('benim');
   const [selectedNode, setSelectedNode] = useState<DagNode>(DEFAULT_NODES[0]);
   const [timelineVisible, setTimelineVisible] = useState(false);
+
+  // Gelen conceptSlug varsa ilgili kavramı seçili yap
+  useEffect(() => {
+    const slug = route?.params?.conceptSlug;
+    if (slug) {
+      const foundInDefault = DEFAULT_NODES.find((n) => n.slug === slug);
+      if (foundInDefault) {
+        setSelectedNode(foundInDefault);
+      } else {
+        const foundInDict = CONCEPTS_DICTIONARY[slug];
+        if (foundInDict) {
+          setSelectedNode({
+            id: `concept-${slug}`,
+            slug: foundInDict.slug,
+            label: foundInDict.label,
+            arabic: foundInDict.root,
+            relType: 'merkez',
+            relationLabel: 'Merkez Kavram',
+            meta: `${foundInDict.rootTr} · ${foundInDict.gloss}`,
+          });
+        }
+      }
+    }
+  }, [route?.params?.conceptSlug]);
 
   // İlişki türüne göre gruplama (Liste Görünümü için)
   const groupedRelations = [
@@ -135,9 +163,20 @@ export function DagExplorerScreen() {
           borderBottomColor: theme.colors.line,
         }}
       >
-        <StyledText variant="title" color="mut">
-          ‹
-        </StyledText>
+        <Pressable
+          onPress={() => {
+            if (navigation.canGoBack()) {
+              navigation.goBack();
+            } else {
+              navigation.navigate('Home');
+            }
+          }}
+          hitSlop={12}
+        >
+          <StyledText variant="title" color="mut" style={{ fontSize: 24 }}>
+            ‹
+          </StyledText>
+        </Pressable>
         <View style={{ alignItems: 'center' }}>
           <StyledText variant="headline" color="ink">
             {selectedNode.label.toUpperCase()} ağı

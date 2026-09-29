@@ -77,7 +77,7 @@ export const ar: TranslationSchema = {
     heroTitle: 'تفصيل',
     heroSubtitle: 'فهم القرآن الكريم من سياقه الذاتي وروابطه',
     continueReading: 'متابعة القراءة',
-    gardenTitle: 'حديقتك',
+    gardenTitle: 'سجل القراءة',
     gardenWateredWeeks: 'تُسقى منذ {count} أسابيع',
     gardenWaiting: 'بانتظار السقيا اليوم',
     readingStreak: 'أيام المداومة',
@@ -90,6 +90,7 @@ export const ar: TranslationSchema = {
     daysCount: '{count} يوم',
     versesCount: '{count} آيات',
     startReading: 'ابدأ القراءة',
+    allSurahs: 'جميع السور',
   },
   surahList: {
     title: 'فهرس السور',

@@ -8,11 +8,8 @@ import { useTheme } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 import { useReadingProgressStore } from '../store/useReadingProgressStore';
 import { useMemorizationStore } from '../store/useMemorizationStore';
-import { useUserSettingsStore } from '../store/useUserSettingsStore';
 import { useTranslation } from '../i18n';
 import { mockSurahs } from '../api/mock/surahs.mock';
-
-import { useAuthStore } from '../store/useAuthStore';
 import { OfflineSyncService } from '../services/offlineSyncService';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -324,48 +321,6 @@ function UnderstandingResumeCard() {
   );
 }
 
-function ModeBadge() {
-  const theme = useTheme();
-  const { t } = useTranslation();
-  const readingMode = useUserSettingsStore((s) => s.readingMode);
-  const modeTitle = t(`readingModes.${readingMode}.title`);
-  return (
-    <View
-      style={{
-        alignSelf: 'flex-start',
-        backgroundColor: theme.colors.accSoft,
-        borderRadius: theme.radius.pill,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-      }}
-    >
-      <StyledText variant="caption" color="acc">
-        {modeTitle.toUpperCase()} {t('home.activeMode').toUpperCase()}
-      </StyledText>
-    </View>
-  );
-}
-
-function GreetingHeader() {
-  const { t } = useTranslation();
-  const user = useAuthStore((s) => s.user);
-  const displayName = user?.name ? user.name.split(' ')[0] : 'Kâri';
-
-  return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, marginBottom: 14 }}>
-      <View>
-        <StyledText variant="caption" color="faint">
-          {t('home.heroSubtitle')}
-        </StyledText>
-        <StyledText variant="title" style={{ marginTop: 2 }}>
-          {displayName}
-        </StyledText>
-      </View>
-      <ModeBadge />
-    </View>
-  );
-}
-
 function QuickSearchBar() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
@@ -373,7 +328,7 @@ function QuickSearchBar() {
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('Main', { screen: 'SurahList' })}
+      onPress={() => navigation.navigate('Search')}
       style={{
         flexDirection: 'row',
         alignItems: 'center',
@@ -392,14 +347,14 @@ function QuickSearchBar() {
       </StyledText>
       <View
         style={{
-          paddingHorizontal: 8,
-          paddingVertical: 3,
+          paddingHorizontal: 10,
+          paddingVertical: 4,
           borderRadius: theme.radius.sm,
           backgroundColor: theme.colors.band,
         }}
       >
         <StyledText variant="caption" color="mut" style={{ fontSize: 11, fontWeight: '600' }}>
-          114 Sure
+          Ara
         </StyledText>
       </View>
     </Pressable>
@@ -429,9 +384,7 @@ export function HomeScreen() {
 
   return (
     <Screen>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 36 }}>
-        <GreetingHeader />
-
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 36, paddingTop: 10 }}>
         <View style={{ gap: theme.spacing.md }}>
           {/* HIZLI ARAMA ÇUBUĞU */}
           <QuickSearchBar />

@@ -15,6 +15,7 @@ import { MemorizationStudioScreen } from '../screens/MemorizationStudioScreen';
 import { ProgressMatrixScreen } from '../screens/ProgressMatrixScreen';
 import { UnderstandingListScreen } from '../screens/UnderstandingListScreen';
 import { UnderstandingStudioScreen } from '../screens/UnderstandingStudioScreen';
+import { SearchScreen } from '../screens/SearchScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,6 +32,7 @@ const linking: LinkingOptions<RootStackParamList> = {
           Settings: 'ayarlar',
         },
       },
+      Search: 'arama',
       Reading: 'ayet/:surahId/:ayahNo',
       UnderstandingStudio: 'oturum/:id',
       UnderstandingList: 'anlama',
@@ -68,6 +70,11 @@ export function RootNavigator() {
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         {!onboardingCompleted && <Stack.Screen name="Onboarding" component={OnboardingScreen} />}
         <Stack.Screen name="Main" component={BottomTabNavigator} />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{ headerShown: false, animation: 'fade' }}
+        />
         <Stack.Screen
           name="Auth"
           component={AuthScreen}
