@@ -1,0 +1,51 @@
+{
+  "surah": 73,
+  "ayah": 18,
+  "verseKey": "73:18",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 128620,
+  "timestampToGlobalMs": 138390,
+  "durationMs": 9770,
+  "audioFile": "73_18.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2284,
+      "durationMs": 2284
+    },
+    {
+      "position": 2,
+      "startMs": 2285,
+      "endMs": 4895,
+      "durationMs": 2610
+    },
+    {
+      "position": 3,
+      "startMs": 4895,
+      "endMs": 5905,
+      "durationMs": 1010
+    },
+    {
+      "position": 4,
+      "startMs": 5905,
+      "endMs": 6515,
+      "durationMs": 610
+    },
+    {
+      "position": 5,
+      "startMs": 6515,
+      "endMs": 7425,
+      "durationMs": 910
+    },
+    {
+      "position": 6,
+      "startMs": 7425,
+      "endMs": 9160,
+      "durationMs": 1735
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:01.829Z"
+}

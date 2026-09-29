@@ -1,0 +1,39 @@
+{
+  "surah": 90,
+  "ayah": 6,
+  "verseKey": "90:6",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 26150,
+  "timestampToGlobalMs": 30560,
+  "durationMs": 4420,
+  "audioFile": "90_6.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 815,
+      "durationMs": 815
+    },
+    {
+      "position": 2,
+      "startMs": 815,
+      "endMs": 1875,
+      "durationMs": 1060
+    },
+    {
+      "position": 3,
+      "startMs": 1875,
+      "endMs": 2535,
+      "durationMs": 660
+    },
+    {
+      "position": 4,
+      "startMs": 2535,
+      "endMs": 3770,
+      "durationMs": 1235
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:18.597Z"
+}

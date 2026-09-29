@@ -1,0 +1,27 @@
+{
+  "surah": 92,
+  "ayah": 10,
+  "verseKey": "92:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 36380,
+  "timestampToGlobalMs": 39980,
+  "durationMs": 3610,
+  "audioFile": "92_10.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1345,
+      "durationMs": 1345
+    },
+    {
+      "position": 2,
+      "startMs": 1345,
+      "endMs": 3140,
+      "durationMs": 1795
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:19.733Z"
+}

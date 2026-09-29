@@ -1,0 +1,27 @@
+{
+  "surah": 70,
+  "ayah": 22,
+  "verseKey": "70:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 113780,
+  "timestampToGlobalMs": 117590,
+  "durationMs": 3810,
+  "audioFile": "70_22.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 485,
+      "durationMs": 485
+    },
+    {
+      "position": 2,
+      "startMs": 485,
+      "endMs": 3720,
+      "durationMs": 3235
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.402Z"
+}

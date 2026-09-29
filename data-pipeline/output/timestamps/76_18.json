@@ -1,0 +1,39 @@
+{
+  "surah": 76,
+  "ayah": 18,
+  "verseKey": "76:18",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 162450,
+  "timestampToGlobalMs": 168140,
+  "durationMs": 5700,
+  "audioFile": "76_18.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1505,
+      "durationMs": 1505
+    },
+    {
+      "position": 2,
+      "startMs": 1505,
+      "endMs": 2295,
+      "durationMs": 790
+    },
+    {
+      "position": 3,
+      "startMs": 2295,
+      "endMs": 3695,
+      "durationMs": 1400
+    },
+    {
+      "position": 4,
+      "startMs": 3695,
+      "endMs": 5600,
+      "durationMs": 1905
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:06.106Z"
+}

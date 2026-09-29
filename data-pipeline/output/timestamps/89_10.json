@@ -1,0 +1,33 @@
+{
+  "surah": 89,
+  "ayah": 10,
+  "verseKey": "89:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 37720,
+  "timestampToGlobalMs": 42970,
+  "durationMs": 5250,
+  "audioFile": "89_10.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1225,
+      "durationMs": 1225
+    },
+    {
+      "position": 2,
+      "startMs": 1225,
+      "endMs": 1575,
+      "durationMs": 350
+    },
+    {
+      "position": 3,
+      "startMs": 1575,
+      "endMs": 5100,
+      "durationMs": 3525
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:17.902Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 102,
+  "ayah": 4,
+  "verseKey": "102:4",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 12820,
+  "timestampToGlobalMs": 19560,
+  "durationMs": 6740,
+  "audioFile": "102_4.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1515,
+      "durationMs": 1515
+    },
+    {
+      "position": 2,
+      "startMs": 1515,
+      "endMs": 2425,
+      "durationMs": 910
+    },
+    {
+      "position": 3,
+      "startMs": 2425,
+      "endMs": 3215,
+      "durationMs": 790
+    },
+    {
+      "position": 4,
+      "startMs": 3215,
+      "endMs": 6560,
+      "durationMs": 3345
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:24.291Z"
+}

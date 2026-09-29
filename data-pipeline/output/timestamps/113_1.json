@@ -1,0 +1,39 @@
+{
+  "surah": 113,
+  "ayah": 1,
+  "verseKey": "113:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 3470,
+  "durationMs": 3480,
+  "audioFile": "113_1.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 360,
+      "durationMs": 360
+    },
+    {
+      "position": 2,
+      "startMs": 360,
+      "endMs": 1280,
+      "durationMs": 920
+    },
+    {
+      "position": 3,
+      "startMs": 1280,
+      "endMs": 2110,
+      "durationMs": 830
+    },
+    {
+      "position": 4,
+      "startMs": 2110,
+      "endMs": 3005,
+      "durationMs": 895
+    }
+  ],
+  "processedAt": "2026-09-29T22:20:33.944Z"
+}

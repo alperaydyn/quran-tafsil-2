@@ -1,0 +1,39 @@
+{
+  "surah": 84,
+  "ayah": 19,
+  "verseKey": "84:19",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 97010,
+  "timestampToGlobalMs": 102440,
+  "durationMs": 5430,
+  "audioFile": "84_19.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2315,
+      "durationMs": 2315
+    },
+    {
+      "position": 2,
+      "startMs": 2315,
+      "endMs": 3095,
+      "durationMs": 780
+    },
+    {
+      "position": 3,
+      "startMs": 3095,
+      "endMs": 4385,
+      "durationMs": 1290
+    },
+    {
+      "position": 4,
+      "startMs": 4385,
+      "endMs": 5370,
+      "durationMs": 985
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:14.717Z"
+}

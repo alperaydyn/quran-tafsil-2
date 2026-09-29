@@ -1,0 +1,51 @@
+{
+  "surah": 81,
+  "ayah": 20,
+  "verseKey": "81:20",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 66630,
+  "timestampToGlobalMs": 72090,
+  "durationMs": 5460,
+  "audioFile": "81_20.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 305,
+      "durationMs": 305
+    },
+    {
+      "position": 2,
+      "startMs": 305,
+      "endMs": 1385,
+      "durationMs": 1080
+    },
+    {
+      "position": 3,
+      "startMs": 1385,
+      "endMs": 2355,
+      "durationMs": 970
+    },
+    {
+      "position": 4,
+      "startMs": 2355,
+      "endMs": 2505,
+      "durationMs": 150
+    },
+    {
+      "position": 5,
+      "startMs": 2505,
+      "endMs": 3385,
+      "durationMs": 880
+    },
+    {
+      "position": 6,
+      "startMs": 3385,
+      "endMs": 5340,
+      "durationMs": 1955
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:12.096Z"
+}

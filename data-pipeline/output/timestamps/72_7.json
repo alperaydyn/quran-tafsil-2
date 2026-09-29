@@ -1,0 +1,69 @@
+{
+  "surah": 72,
+  "ayah": 7,
+  "verseKey": "72:7",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 66730,
+  "timestampToGlobalMs": 76400,
+  "durationMs": 9670,
+  "audioFile": "72_7.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1825,
+      "durationMs": 1825
+    },
+    {
+      "position": 2,
+      "startMs": 1825,
+      "endMs": 3135,
+      "durationMs": 1310
+    },
+    {
+      "position": 3,
+      "startMs": 3135,
+      "endMs": 3715,
+      "durationMs": 580
+    },
+    {
+      "position": 4,
+      "startMs": 3715,
+      "endMs": 5225,
+      "durationMs": 1510
+    },
+    {
+      "position": 5,
+      "startMs": 5225,
+      "endMs": 5435,
+      "durationMs": 210
+    },
+    {
+      "position": 6,
+      "startMs": 5435,
+      "endMs": 5745,
+      "durationMs": 310
+    },
+    {
+      "position": 7,
+      "startMs": 5745,
+      "endMs": 7145,
+      "durationMs": 1400
+    },
+    {
+      "position": 8,
+      "startMs": 7145,
+      "endMs": 7985,
+      "durationMs": 840
+    },
+    {
+      "position": 9,
+      "startMs": 7985,
+      "endMs": 8930,
+      "durationMs": 945
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:00.560Z"
+}

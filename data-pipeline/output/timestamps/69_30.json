@@ -1,0 +1,27 @@
+{
+  "surah": 69,
+  "ayah": 30,
+  "verseKey": "69:30",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 232140,
+  "timestampToGlobalMs": 236970,
+  "durationMs": 4830,
+  "audioFile": "69_30.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 865,
+      "durationMs": 865
+    },
+    {
+      "position": 2,
+      "startMs": 865,
+      "endMs": 4680,
+      "durationMs": 3815
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:56.870Z"
+}

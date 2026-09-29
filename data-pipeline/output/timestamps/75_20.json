@@ -1,0 +1,39 @@
+{
+  "surah": 75,
+  "ayah": 20,
+  "verseKey": "75:20",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 97280,
+  "timestampToGlobalMs": 101280,
+  "durationMs": 4000,
+  "audioFile": "75_20.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 815,
+      "durationMs": 815
+    },
+    {
+      "position": 2,
+      "startMs": 815,
+      "endMs": 1145,
+      "durationMs": 330
+    },
+    {
+      "position": 3,
+      "startMs": 1145,
+      "endMs": 2335,
+      "durationMs": 1190
+    },
+    {
+      "position": 4,
+      "startMs": 2335,
+      "endMs": 3860,
+      "durationMs": 1525
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:04.853Z"
+}

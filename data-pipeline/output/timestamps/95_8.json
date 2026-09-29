@@ -1,0 +1,45 @@
+{
+  "surah": 95,
+  "ayah": 8,
+  "verseKey": "95:8",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 46160,
+  "timestampToGlobalMs": 59250,
+  "durationMs": 13090,
+  "audioFile": "95_8.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 854,
+      "durationMs": 854
+    },
+    {
+      "position": 2,
+      "startMs": 854,
+      "endMs": 1891,
+      "durationMs": 1037
+    },
+    {
+      "position": 3,
+      "startMs": 1891,
+      "endMs": 2880,
+      "durationMs": 989
+    },
+    {
+      "position": 4,
+      "startMs": 2880,
+      "endMs": 7141,
+      "durationMs": 4261
+    },
+    {
+      "position": 4,
+      "startMs": 7141,
+      "endMs": null,
+      "durationMs": null
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:20.925Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 89,
+  "ayah": 29,
+  "verseKey": "89:29",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 187420,
+  "timestampToGlobalMs": 190630,
+  "durationMs": 3210,
+  "audioFile": "89_29.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 955,
+      "durationMs": 955
+    },
+    {
+      "position": 2,
+      "startMs": 955,
+      "endMs": 1435,
+      "durationMs": 480
+    },
+    {
+      "position": 3,
+      "startMs": 1435,
+      "endMs": 2610,
+      "durationMs": 1175
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:18.190Z"
+}

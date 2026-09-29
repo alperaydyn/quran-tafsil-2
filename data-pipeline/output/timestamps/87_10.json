@@ -1,0 +1,33 @@
+{
+  "surah": 87,
+  "ayah": 10,
+  "verseKey": "87:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 46180,
+  "timestampToGlobalMs": 50830,
+  "durationMs": 4650,
+  "audioFile": "87_10.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1635,
+      "durationMs": 1635
+    },
+    {
+      "position": 2,
+      "startMs": 1635,
+      "endMs": 1875,
+      "durationMs": 240
+    },
+    {
+      "position": 3,
+      "startMs": 1875,
+      "endMs": 4070,
+      "durationMs": 2195
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:16.505Z"
+}

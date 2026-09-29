@@ -1,0 +1,27 @@
+{
+  "surah": 78,
+  "ayah": 1,
+  "verseKey": "78:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 6430,
+  "durationMs": 6430,
+  "audioFile": "78_1.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1240,
+      "durationMs": 1240
+    },
+    {
+      "position": 2,
+      "startMs": 1240,
+      "endMs": 6345,
+      "durationMs": 5105
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:08.157Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 84,
+  "ayah": 22,
+  "verseKey": "84:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 115530,
+  "timestampToGlobalMs": 121620,
+  "durationMs": 6090,
+  "audioFile": "84_22.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 425,
+      "durationMs": 425
+    },
+    {
+      "position": 2,
+      "startMs": 425,
+      "endMs": 1395,
+      "durationMs": 970
+    },
+    {
+      "position": 3,
+      "startMs": 1395,
+      "endMs": 2225,
+      "durationMs": 830
+    },
+    {
+      "position": 4,
+      "startMs": 2225,
+      "endMs": 6000,
+      "durationMs": 3775
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:14.762Z"
+}

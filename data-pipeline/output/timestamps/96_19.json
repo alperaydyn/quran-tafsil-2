@@ -1,0 +1,45 @@
+{
+  "surah": 96,
+  "ayah": 19,
+  "verseKey": "96:19",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 77690,
+  "timestampToGlobalMs": 83720,
+  "durationMs": 6040,
+  "audioFile": "96_19.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 885,
+      "durationMs": 885
+    },
+    {
+      "position": 2,
+      "startMs": 885,
+      "endMs": 1285,
+      "durationMs": 400
+    },
+    {
+      "position": 3,
+      "startMs": 1285,
+      "endMs": 2315,
+      "durationMs": 1030
+    },
+    {
+      "position": 4,
+      "startMs": 2315,
+      "endMs": 3125,
+      "durationMs": 810
+    },
+    {
+      "position": 5,
+      "startMs": 3125,
+      "endMs": 5960,
+      "durationMs": 2835
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:21.427Z"
+}

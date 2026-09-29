@@ -1,0 +1,57 @@
+{
+  "surah": 70,
+  "ayah": 40,
+  "verseKey": "70:40",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 255260,
+  "timestampToGlobalMs": 265970,
+  "durationMs": 10710,
+  "audioFile": "70_40.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1765,
+      "durationMs": 1765
+    },
+    {
+      "position": 2,
+      "startMs": 1765,
+      "endMs": 2595,
+      "durationMs": 830
+    },
+    {
+      "position": 3,
+      "startMs": 2595,
+      "endMs": 3345,
+      "durationMs": 750
+    },
+    {
+      "position": 4,
+      "startMs": 3345,
+      "endMs": 4555,
+      "durationMs": 1210
+    },
+    {
+      "position": 5,
+      "startMs": 4555,
+      "endMs": 5875,
+      "durationMs": 1320
+    },
+    {
+      "position": 6,
+      "startMs": 5875,
+      "endMs": 7345,
+      "durationMs": 1470
+    },
+    {
+      "position": 7,
+      "startMs": 7345,
+      "endMs": 10550,
+      "durationMs": 3205
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.728Z"
+}

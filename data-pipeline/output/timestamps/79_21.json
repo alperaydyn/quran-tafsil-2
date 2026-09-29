@@ -1,0 +1,27 @@
+{
+  "surah": 79,
+  "ayah": 21,
+  "verseKey": "79:21",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 93480,
+  "timestampToGlobalMs": 95830,
+  "durationMs": 2350,
+  "audioFile": "79_21.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1125,
+      "durationMs": 1125
+    },
+    {
+      "position": 2,
+      "startMs": 1125,
+      "endMs": 2070,
+      "durationMs": 945
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:09.537Z"
+}

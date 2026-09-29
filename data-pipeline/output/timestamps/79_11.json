@@ -1,0 +1,39 @@
+{
+  "surah": 79,
+  "ayah": 11,
+  "verseKey": "79:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 41000,
+  "timestampToGlobalMs": 47010,
+  "durationMs": 6010,
+  "audioFile": "79_11.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 755,
+      "durationMs": 755
+    },
+    {
+      "position": 2,
+      "startMs": 755,
+      "endMs": 2585,
+      "durationMs": 1830
+    },
+    {
+      "position": 3,
+      "startMs": 2585,
+      "endMs": 3525,
+      "durationMs": 940
+    },
+    {
+      "position": 4,
+      "startMs": 3525,
+      "endMs": 5890,
+      "durationMs": 2365
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:09.382Z"
+}

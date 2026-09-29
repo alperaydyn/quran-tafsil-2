@@ -1,0 +1,45 @@
+{
+  "surah": 68,
+  "ayah": 10,
+  "verseKey": "68:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 62300,
+  "timestampToGlobalMs": 68940,
+  "durationMs": 6640,
+  "audioFile": "68_10.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 495,
+      "durationMs": 495
+    },
+    {
+      "position": 2,
+      "startMs": 495,
+      "endMs": 1105,
+      "durationMs": 610
+    },
+    {
+      "position": 3,
+      "startMs": 1105,
+      "endMs": 1745,
+      "durationMs": 640
+    },
+    {
+      "position": 4,
+      "startMs": 1745,
+      "endMs": 2965,
+      "durationMs": 1220
+    },
+    {
+      "position": 5,
+      "startMs": 2965,
+      "endMs": 6510,
+      "durationMs": 3545
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:54.953Z"
+}

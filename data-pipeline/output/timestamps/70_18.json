@@ -1,0 +1,27 @@
+{
+  "surah": 70,
+  "ayah": 18,
+  "verseKey": "70:18",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 97870,
+  "timestampToGlobalMs": 100380,
+  "durationMs": 2510,
+  "audioFile": "70_18.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 565,
+      "durationMs": 565
+    },
+    {
+      "position": 2,
+      "startMs": 565,
+      "endMs": 1810,
+      "durationMs": 1245
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.339Z"
+}

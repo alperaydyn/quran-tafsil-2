@@ -1,0 +1,51 @@
+{
+  "surah": 68,
+  "ayah": 24,
+  "verseKey": "68:24",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 169380,
+  "timestampToGlobalMs": 177740,
+  "durationMs": 8360,
+  "audioFile": "68_24.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 245,
+      "durationMs": 245
+    },
+    {
+      "position": 2,
+      "startMs": 245,
+      "endMs": 795,
+      "durationMs": 550
+    },
+    {
+      "position": 3,
+      "startMs": 795,
+      "endMs": 2745,
+      "durationMs": 1950
+    },
+    {
+      "position": 4,
+      "startMs": 2745,
+      "endMs": 3575,
+      "durationMs": 830
+    },
+    {
+      "position": 5,
+      "startMs": 3575,
+      "endMs": 4715,
+      "durationMs": 1140
+    },
+    {
+      "position": 6,
+      "startMs": 4715,
+      "endMs": 8220,
+      "durationMs": 3505
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:55.168Z"
+}

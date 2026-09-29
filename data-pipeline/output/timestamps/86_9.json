@@ -1,0 +1,33 @@
+{
+  "surah": 86,
+  "ayah": 9,
+  "verseKey": "86:9",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 46930,
+  "timestampToGlobalMs": 51450,
+  "durationMs": 4520,
+  "audioFile": "86_9.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 505,
+      "durationMs": 505
+    },
+    {
+      "position": 2,
+      "startMs": 505,
+      "endMs": 1215,
+      "durationMs": 710
+    },
+    {
+      "position": 3,
+      "startMs": 1215,
+      "endMs": 4390,
+      "durationMs": 3175
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:15.963Z"
+}

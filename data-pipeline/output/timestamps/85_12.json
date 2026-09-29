@@ -1,0 +1,39 @@
+{
+  "surah": 85,
+  "ayah": 12,
+  "verseKey": "85:12",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 112970,
+  "timestampToGlobalMs": 119530,
+  "durationMs": 6560,
+  "audioFile": "85_12.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1345,
+      "durationMs": 1345
+    },
+    {
+      "position": 2,
+      "startMs": 1345,
+      "endMs": 1985,
+      "durationMs": 640
+    },
+    {
+      "position": 3,
+      "startMs": 1985,
+      "endMs": 2755,
+      "durationMs": 770
+    },
+    {
+      "position": 4,
+      "startMs": 2755,
+      "endMs": 6300,
+      "durationMs": 3545
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:15.402Z"
+}

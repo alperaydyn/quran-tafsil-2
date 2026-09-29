@@ -1,0 +1,33 @@
+{
+  "surah": 82,
+  "ayah": 15,
+  "verseKey": "82:15",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 73460,
+  "timestampToGlobalMs": 78060,
+  "durationMs": 4600,
+  "audioFile": "82_15.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1415,
+      "durationMs": 1415
+    },
+    {
+      "position": 2,
+      "startMs": 1415,
+      "endMs": 2005,
+      "durationMs": 590
+    },
+    {
+      "position": 3,
+      "startMs": 2005,
+      "endMs": 4440,
+      "durationMs": 2435
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:12.900Z"
+}

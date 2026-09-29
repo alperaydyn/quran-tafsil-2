@@ -1,0 +1,45 @@
+{
+  "surah": 75,
+  "ayah": 39,
+  "verseKey": "75:39",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 191380,
+  "timestampToGlobalMs": 197540,
+  "durationMs": 6170,
+  "audioFile": "75_39.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 175,
+      "durationMs": 175
+    },
+    {
+      "position": 2,
+      "startMs": 175,
+      "endMs": 745,
+      "durationMs": 570
+    },
+    {
+      "position": 3,
+      "startMs": 745,
+      "endMs": 2045,
+      "durationMs": 1300
+    },
+    {
+      "position": 4,
+      "startMs": 2045,
+      "endMs": 2865,
+      "durationMs": 820
+    },
+    {
+      "position": 5,
+      "startMs": 2865,
+      "endMs": 5030,
+      "durationMs": 2165
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:05.201Z"
+}

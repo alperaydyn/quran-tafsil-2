@@ -1,0 +1,45 @@
+{
+  "surah": 87,
+  "ayah": 18,
+  "verseKey": "87:18",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 84590,
+  "timestampToGlobalMs": 89840,
+  "durationMs": 5250,
+  "audioFile": "87_18.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1375,
+      "durationMs": 1375
+    },
+    {
+      "position": 2,
+      "startMs": 1375,
+      "endMs": 2275,
+      "durationMs": 900
+    },
+    {
+      "position": 3,
+      "startMs": 2275,
+      "endMs": 2655,
+      "durationMs": 380
+    },
+    {
+      "position": 4,
+      "startMs": 2655,
+      "endMs": 3615,
+      "durationMs": 960
+    },
+    {
+      "position": 5,
+      "startMs": 3615,
+      "endMs": 4780,
+      "durationMs": 1165
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:16.624Z"
+}

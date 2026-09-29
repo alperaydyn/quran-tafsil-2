@@ -1,0 +1,39 @@
+{
+  "surah": 86,
+  "ayah": 17,
+  "verseKey": "86:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 80780,
+  "timestampToGlobalMs": 88020,
+  "durationMs": 7240,
+  "audioFile": "86_17.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 535,
+      "durationMs": 535
+    },
+    {
+      "position": 2,
+      "startMs": 535,
+      "endMs": 2185,
+      "durationMs": 1650
+    },
+    {
+      "position": 3,
+      "startMs": 2185,
+      "endMs": 3675,
+      "durationMs": 1490
+    },
+    {
+      "position": 4,
+      "startMs": 3675,
+      "endMs": 6340,
+      "durationMs": 2665
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:16.081Z"
+}

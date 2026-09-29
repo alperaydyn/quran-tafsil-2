@@ -1,0 +1,69 @@
+{
+  "surah": 67,
+  "ayah": 26,
+  "verseKey": "67:26",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 358780,
+  "timestampToGlobalMs": 372260,
+  "durationMs": 13480,
+  "audioFile": "67_26.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 315,
+      "durationMs": 315
+    },
+    {
+      "position": 2,
+      "startMs": 315,
+      "endMs": 2035,
+      "durationMs": 1720
+    },
+    {
+      "position": 3,
+      "startMs": 2035,
+      "endMs": 2795,
+      "durationMs": 760
+    },
+    {
+      "position": 4,
+      "startMs": 2795,
+      "endMs": 3855,
+      "durationMs": 1060
+    },
+    {
+      "position": 5,
+      "startMs": 3855,
+      "endMs": 4675,
+      "durationMs": 820
+    },
+    {
+      "position": 6,
+      "startMs": 4675,
+      "endMs": 8315,
+      "durationMs": 3640
+    },
+    {
+      "position": 7,
+      "startMs": 8315,
+      "endMs": 8725,
+      "durationMs": 410
+    },
+    {
+      "position": 8,
+      "startMs": 8725,
+      "endMs": 9535,
+      "durationMs": 810
+    },
+    {
+      "position": 9,
+      "startMs": 9535,
+      "endMs": 13340,
+      "durationMs": 3805
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:53.858Z"
+}

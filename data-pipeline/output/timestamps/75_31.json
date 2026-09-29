@@ -1,0 +1,39 @@
+{
+  "surah": 75,
+  "ayah": 31,
+  "verseKey": "75:31",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 151200,
+  "timestampToGlobalMs": 154570,
+  "durationMs": 3370,
+  "audioFile": "75_31.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 535,
+      "durationMs": 535
+    },
+    {
+      "position": 2,
+      "startMs": 535,
+      "endMs": 1435,
+      "durationMs": 900
+    },
+    {
+      "position": 3,
+      "startMs": 1435,
+      "endMs": 1915,
+      "durationMs": 480
+    },
+    {
+      "position": 4,
+      "startMs": 1915,
+      "endMs": 2980,
+      "durationMs": 1065
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:05.052Z"
+}

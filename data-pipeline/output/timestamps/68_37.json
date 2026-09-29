@@ -1,0 +1,45 @@
+{
+  "surah": 68,
+  "ayah": 37,
+  "verseKey": "68:37",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 289990,
+  "timestampToGlobalMs": 296050,
+  "durationMs": 6060,
+  "audioFile": "68_37.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 295,
+      "durationMs": 295
+    },
+    {
+      "position": 2,
+      "startMs": 295,
+      "endMs": 855,
+      "durationMs": 560
+    },
+    {
+      "position": 3,
+      "startMs": 855,
+      "endMs": 1655,
+      "durationMs": 800
+    },
+    {
+      "position": 4,
+      "startMs": 1655,
+      "endMs": 3075,
+      "durationMs": 1420
+    },
+    {
+      "position": 5,
+      "startMs": 3075,
+      "endMs": 5930,
+      "durationMs": 2855
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:55.390Z"
+}

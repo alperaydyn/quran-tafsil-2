@@ -1,0 +1,33 @@
+{
+  "surah": 69,
+  "ayah": 17,
+  "verseKey": "69:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 134660,
+  "timestampToGlobalMs": 149840,
+  "durationMs": 15180,
+  "audioFile": "69_17.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1105,
+      "durationMs": 1105
+    },
+    {
+      "position": 2,
+      "startMs": 1105,
+      "endMs": 3125,
+      "durationMs": 2020
+    },
+    {
+      "position": 3,
+      "startMs": 3125,
+      "endMs": 6270,
+      "durationMs": 3145
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:56.632Z"
+}

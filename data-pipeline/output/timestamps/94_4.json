@@ -1,0 +1,33 @@
+{
+  "surah": 94,
+  "ayah": 4,
+  "verseKey": "94:4",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 13510,
+  "timestampToGlobalMs": 17060,
+  "durationMs": 3550,
+  "audioFile": "94_4.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1335,
+      "durationMs": 1335
+    },
+    {
+      "position": 2,
+      "startMs": 1335,
+      "endMs": 1755,
+      "durationMs": 420
+    },
+    {
+      "position": 3,
+      "startMs": 1755,
+      "endMs": 3390,
+      "durationMs": 1635
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:20.567Z"
+}

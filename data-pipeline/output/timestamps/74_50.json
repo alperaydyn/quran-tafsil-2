@@ -1,0 +1,33 @@
+{
+  "surah": 74,
+  "ayah": 50,
+  "verseKey": "74:50",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 271440,
+  "timestampToGlobalMs": 277000,
+  "durationMs": 5570,
+  "audioFile": "74_50.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1425,
+      "durationMs": 1425
+    },
+    {
+      "position": 2,
+      "startMs": 1425,
+      "endMs": 2105,
+      "durationMs": 680
+    },
+    {
+      "position": 3,
+      "startMs": 2105,
+      "endMs": 5400,
+      "durationMs": 3295
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:03.999Z"
+}

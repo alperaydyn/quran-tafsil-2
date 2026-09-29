@@ -1,0 +1,27 @@
+{
+  "surah": 70,
+  "ayah": 12,
+  "verseKey": "70:12",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 65120,
+  "timestampToGlobalMs": 69950,
+  "durationMs": 4830,
+  "audioFile": "70_12.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1725,
+      "durationMs": 1725
+    },
+    {
+      "position": 2,
+      "startMs": 1725,
+      "endMs": 4690,
+      "durationMs": 2965
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.248Z"
+}

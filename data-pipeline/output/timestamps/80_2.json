@@ -1,0 +1,33 @@
+{
+  "surah": 80,
+  "ayah": 2,
+  "verseKey": "80:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2930,
+  "timestampToGlobalMs": 8310,
+  "durationMs": 5380,
+  "audioFile": "80_2.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 2,
+      "startMs": 0,
+      "endMs": 2785,
+      "durationMs": 2785
+    },
+    {
+      "position": 3,
+      "startMs": 2785,
+      "endMs": 3830,
+      "durationMs": 1045
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:10.863Z"
+}

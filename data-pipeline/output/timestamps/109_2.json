@@ -1,0 +1,39 @@
+{
+  "surah": 109,
+  "ayah": 2,
+  "verseKey": "109:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 7520,
+  "timestampToGlobalMs": 14960,
+  "durationMs": 7450,
+  "audioFile": "109_2.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2495,
+      "durationMs": 2495
+    },
+    {
+      "position": 2,
+      "startMs": 2495,
+      "endMs": 3365,
+      "durationMs": 870
+    },
+    {
+      "position": 3,
+      "startMs": 3365,
+      "endMs": 3745,
+      "durationMs": 380
+    },
+    {
+      "position": 4,
+      "startMs": 3745,
+      "endMs": 7270,
+      "durationMs": 3525
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:26.263Z"
+}

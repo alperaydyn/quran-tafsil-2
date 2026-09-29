@@ -1,0 +1,45 @@
+{
+  "surah": 79,
+  "ayah": 10,
+  "verseKey": "79:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 33840,
+  "timestampToGlobalMs": 41000,
+  "durationMs": 7160,
+  "audioFile": "79_10.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1195,
+      "durationMs": 1195
+    },
+    {
+      "position": 2,
+      "startMs": 1195,
+      "endMs": 3145,
+      "durationMs": 1950
+    },
+    {
+      "position": 3,
+      "startMs": 3145,
+      "endMs": 4845,
+      "durationMs": 1700
+    },
+    {
+      "position": 4,
+      "startMs": 4845,
+      "endMs": 5085,
+      "durationMs": 240
+    },
+    {
+      "position": 5,
+      "startMs": 5085,
+      "endMs": 6950,
+      "durationMs": 1865
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:09.366Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 85,
+  "ayah": 4,
+  "verseKey": "85:4",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 20440,
+  "timestampToGlobalMs": 26450,
+  "durationMs": 6010,
+  "audioFile": "85_4.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 585,
+      "durationMs": 585
+    },
+    {
+      "position": 2,
+      "startMs": 585,
+      "endMs": 1545,
+      "durationMs": 960
+    },
+    {
+      "position": 3,
+      "startMs": 1545,
+      "endMs": 5870,
+      "durationMs": 4325
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:15.275Z"
+}

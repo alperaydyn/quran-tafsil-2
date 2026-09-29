@@ -1,0 +1,57 @@
+{
+  "surah": 76,
+  "ayah": 10,
+  "verseKey": "76:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 93340,
+  "timestampToGlobalMs": 101200,
+  "durationMs": 7860,
+  "audioFile": "76_10.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 2115,
+      "durationMs": 810
+    },
+    {
+      "position": 3,
+      "startMs": 2115,
+      "endMs": 2245,
+      "durationMs": 130
+    },
+    {
+      "position": 4,
+      "startMs": 2245,
+      "endMs": 3435,
+      "durationMs": 1190
+    },
+    {
+      "position": 5,
+      "startMs": 3435,
+      "endMs": 4145,
+      "durationMs": 710
+    },
+    {
+      "position": 6,
+      "startMs": 4145,
+      "endMs": 5155,
+      "durationMs": 1010
+    },
+    {
+      "position": 7,
+      "startMs": 5155,
+      "endMs": 7760,
+      "durationMs": 2605
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:05.979Z"
+}

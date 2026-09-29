@@ -1,0 +1,51 @@
+{
+  "surah": 89,
+  "ayah": 21,
+  "verseKey": "89:21",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 123110,
+  "timestampToGlobalMs": 129950,
+  "durationMs": 6850,
+  "audioFile": "89_21.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 345,
+      "durationMs": 345
+    },
+    {
+      "position": 2,
+      "startMs": 345,
+      "endMs": 1495,
+      "durationMs": 1150
+    },
+    {
+      "position": 3,
+      "startMs": 1495,
+      "endMs": 2365,
+      "durationMs": 870
+    },
+    {
+      "position": 4,
+      "startMs": 2365,
+      "endMs": 3185,
+      "durationMs": 820
+    },
+    {
+      "position": 5,
+      "startMs": 3185,
+      "endMs": 4805,
+      "durationMs": 1620
+    },
+    {
+      "position": 6,
+      "startMs": 4805,
+      "endMs": 5940,
+      "durationMs": 1135
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:18.065Z"
+}

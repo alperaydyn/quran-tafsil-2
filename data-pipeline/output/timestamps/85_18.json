@@ -1,0 +1,27 @@
+{
+  "surah": 85,
+  "ayah": 18,
+  "verseKey": "85:18",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 147320,
+  "timestampToGlobalMs": 152100,
+  "durationMs": 4780,
+  "audioFile": "85_18.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 935,
+      "durationMs": 935
+    },
+    {
+      "position": 2,
+      "startMs": 935,
+      "endMs": 4630,
+      "durationMs": 3695
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:15.494Z"
+}

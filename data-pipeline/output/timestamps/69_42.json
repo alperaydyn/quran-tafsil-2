@@ -1,0 +1,51 @@
+{
+  "surah": 69,
+  "ayah": 42,
+  "verseKey": "69:42",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 318920,
+  "timestampToGlobalMs": 327960,
+  "durationMs": 9040,
+  "audioFile": "69_42.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 585,
+      "durationMs": 585
+    },
+    {
+      "position": 2,
+      "startMs": 585,
+      "endMs": 1465,
+      "durationMs": 880
+    },
+    {
+      "position": 3,
+      "startMs": 1465,
+      "endMs": 2295,
+      "durationMs": 830
+    },
+    {
+      "position": 4,
+      "startMs": 2295,
+      "endMs": 3555,
+      "durationMs": 1260
+    },
+    {
+      "position": 5,
+      "startMs": 3555,
+      "endMs": 4735,
+      "durationMs": 1180
+    },
+    {
+      "position": 6,
+      "startMs": 4735,
+      "endMs": 8900,
+      "durationMs": 4165
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:57.091Z"
+}

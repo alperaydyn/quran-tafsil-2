@@ -1,0 +1,267 @@
+{
+  "surah": 61,
+  "ayah": 14,
+  "verseKey": "61:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 225000,
+  "timestampToGlobalMs": 286700,
+  "durationMs": 60990,
+  "audioFile": "61_14.mp3",
+  "wordCount": 42,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2825,
+      "durationMs": 2825
+    },
+    {
+      "position": 2,
+      "startMs": 2825,
+      "endMs": 3685,
+      "durationMs": 860
+    },
+    {
+      "position": 3,
+      "startMs": 3685,
+      "endMs": 4655,
+      "durationMs": 970
+    },
+    {
+      "position": 4,
+      "startMs": 4655,
+      "endMs": 5905,
+      "durationMs": 1250
+    },
+    {
+      "position": 4,
+      "startMs": 5905,
+      "endMs": 6975,
+      "durationMs": 1070
+    },
+    {
+      "position": 5,
+      "startMs": 6975,
+      "endMs": 8795,
+      "durationMs": 1820
+    },
+    {
+      "position": 6,
+      "startMs": 8795,
+      "endMs": 9485,
+      "durationMs": 690
+    },
+    {
+      "position": 7,
+      "startMs": 9485,
+      "endMs": 9985,
+      "durationMs": 500
+    },
+    {
+      "position": 8,
+      "startMs": 9985,
+      "endMs": 10545,
+      "durationMs": 560
+    },
+    {
+      "position": 9,
+      "startMs": 10545,
+      "endMs": 11185,
+      "durationMs": 640
+    },
+    {
+      "position": 10,
+      "startMs": 11185,
+      "endMs": 11625,
+      "durationMs": 440
+    },
+    {
+      "position": 11,
+      "startMs": 11625,
+      "endMs": 12375,
+      "durationMs": 750
+    },
+    {
+      "position": 12,
+      "startMs": 12375,
+      "endMs": 16875,
+      "durationMs": 4500
+    },
+    {
+      "position": 7,
+      "startMs": 16905,
+      "endMs": 17365,
+      "durationMs": 460
+    },
+    {
+      "position": 8,
+      "startMs": 17365,
+      "endMs": 18025,
+      "durationMs": 660
+    },
+    {
+      "position": 9,
+      "startMs": 18025,
+      "endMs": 18615,
+      "durationMs": 590
+    },
+    {
+      "position": 10,
+      "startMs": 18615,
+      "endMs": 19005,
+      "durationMs": 390
+    },
+    {
+      "position": 11,
+      "startMs": 19005,
+      "endMs": 19735,
+      "durationMs": 730
+    },
+    {
+      "position": 12,
+      "startMs": 19735,
+      "endMs": 21715,
+      "durationMs": 1980
+    },
+    {
+      "position": 13,
+      "startMs": 21715,
+      "endMs": 22045,
+      "durationMs": 330
+    },
+    {
+      "position": 14,
+      "startMs": 22045,
+      "endMs": 24455,
+      "durationMs": 2410
+    },
+    {
+      "position": 15,
+      "startMs": 24455,
+      "endMs": 25964,
+      "durationMs": 1509
+    },
+    {
+      "position": 16,
+      "startMs": 25965,
+      "endMs": 28545,
+      "durationMs": 2580
+    },
+    {
+      "position": 17,
+      "startMs": 28545,
+      "endMs": 29085,
+      "durationMs": 540
+    },
+    {
+      "position": 18,
+      "startMs": 29085,
+      "endMs": 30895,
+      "durationMs": 1810
+    },
+    {
+      "position": 19,
+      "startMs": 30895,
+      "endMs": 31435,
+      "durationMs": 540
+    },
+    {
+      "position": 20,
+      "startMs": 31435,
+      "endMs": 33425,
+      "durationMs": 1990
+    },
+    {
+      "position": 21,
+      "startMs": 33425,
+      "endMs": 36575,
+      "durationMs": 3150
+    },
+    {
+      "position": 22,
+      "startMs": 36575,
+      "endMs": 37585,
+      "durationMs": 1010
+    },
+    {
+      "position": 23,
+      "startMs": 37585,
+      "endMs": 40395,
+      "durationMs": 2810
+    },
+    {
+      "position": 24,
+      "startMs": 40395,
+      "endMs": 42364,
+      "durationMs": 1969
+    },
+    {
+      "position": 25,
+      "startMs": 42365,
+      "endMs": 44575,
+      "durationMs": 2210
+    },
+    {
+      "position": 26,
+      "startMs": 44575,
+      "endMs": 47475,
+      "durationMs": 2900
+    },
+    {
+      "position": 27,
+      "startMs": 47475,
+      "endMs": 48265,
+      "durationMs": 790
+    },
+    {
+      "position": 28,
+      "startMs": 48265,
+      "endMs": 51515,
+      "durationMs": 3250
+    },
+    {
+      "position": 29,
+      "startMs": 51515,
+      "endMs": 52675,
+      "durationMs": 1160
+    },
+    {
+      "position": 30,
+      "startMs": 52675,
+      "endMs": 53575,
+      "durationMs": 900
+    },
+    {
+      "position": 31,
+      "startMs": 53575,
+      "endMs": 54595,
+      "durationMs": 1020
+    },
+    {
+      "position": 32,
+      "startMs": 54595,
+      "endMs": 55155,
+      "durationMs": 560
+    },
+    {
+      "position": 33,
+      "startMs": 55155,
+      "endMs": 56425,
+      "durationMs": 1270
+    },
+    {
+      "position": 34,
+      "startMs": 56425,
+      "endMs": 57735,
+      "durationMs": 1310
+    },
+    {
+      "position": 35,
+      "startMs": 57735,
+      "endMs": 60670,
+      "durationMs": 2935
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:47.767Z"
+}

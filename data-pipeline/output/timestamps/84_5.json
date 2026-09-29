@@ -1,0 +1,33 @@
+{
+  "surah": 84,
+  "ayah": 5,
+  "verseKey": "84:5",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 16030,
+  "timestampToGlobalMs": 19900,
+  "durationMs": 3870,
+  "audioFile": "84_5.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 985,
+      "durationMs": 985
+    },
+    {
+      "position": 2,
+      "startMs": 985,
+      "endMs": 2165,
+      "durationMs": 1180
+    },
+    {
+      "position": 3,
+      "startMs": 2165,
+      "endMs": 3750,
+      "durationMs": 1585
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:14.513Z"
+}

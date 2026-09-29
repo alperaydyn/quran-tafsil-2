@@ -1,0 +1,45 @@
+{
+  "surah": 81,
+  "ayah": 28,
+  "verseKey": "81:28",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 105020,
+  "timestampToGlobalMs": 113300,
+  "durationMs": 8280,
+  "audioFile": "81_28.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1415,
+      "durationMs": 1415
+    },
+    {
+      "position": 2,
+      "startMs": 1415,
+      "endMs": 3035,
+      "durationMs": 1620
+    },
+    {
+      "position": 3,
+      "startMs": 3035,
+      "endMs": 4235,
+      "durationMs": 1200
+    },
+    {
+      "position": 4,
+      "startMs": 4235,
+      "endMs": 4535,
+      "durationMs": 300
+    },
+    {
+      "position": 5,
+      "startMs": 4535,
+      "endMs": 8120,
+      "durationMs": 3585
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:12.225Z"
+}

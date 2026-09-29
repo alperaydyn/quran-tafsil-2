@@ -1,0 +1,39 @@
+{
+  "surah": 74,
+  "ayah": 12,
+  "verseKey": "74:12",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 43110,
+  "timestampToGlobalMs": 47600,
+  "durationMs": 4490,
+  "audioFile": "74_12.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 485,
+      "durationMs": 485
+    },
+    {
+      "position": 2,
+      "startMs": 485,
+      "endMs": 1035,
+      "durationMs": 550
+    },
+    {
+      "position": 3,
+      "startMs": 1035,
+      "endMs": 1695,
+      "durationMs": 660
+    },
+    {
+      "position": 4,
+      "startMs": 1695,
+      "endMs": 3660,
+      "durationMs": 1965
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:03.301Z"
+}

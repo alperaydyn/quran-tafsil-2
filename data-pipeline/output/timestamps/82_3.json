@@ -1,0 +1,33 @@
+{
+  "surah": 82,
+  "ayah": 3,
+  "verseKey": "82:3",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 9510,
+  "timestampToGlobalMs": 12200,
+  "durationMs": 2690,
+  "audioFile": "82_3.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 525,
+      "durationMs": 525
+    },
+    {
+      "position": 2,
+      "startMs": 525,
+      "endMs": 1615,
+      "durationMs": 1090
+    },
+    {
+      "position": 3,
+      "startMs": 1615,
+      "endMs": 2580,
+      "durationMs": 965
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:12.724Z"
+}

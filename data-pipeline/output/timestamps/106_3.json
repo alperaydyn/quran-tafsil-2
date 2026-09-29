@@ -1,0 +1,39 @@
+{
+  "surah": 106,
+  "ayah": 3,
+  "verseKey": "106:3",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 13480,
+  "timestampToGlobalMs": 19440,
+  "durationMs": 5960,
+  "audioFile": "106_3.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1485,
+      "durationMs": 1485
+    },
+    {
+      "position": 2,
+      "startMs": 1485,
+      "endMs": 2095,
+      "durationMs": 610
+    },
+    {
+      "position": 3,
+      "startMs": 2095,
+      "endMs": 2705,
+      "durationMs": 610
+    },
+    {
+      "position": 4,
+      "startMs": 2705,
+      "endMs": 5460,
+      "durationMs": 2755
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:25.454Z"
+}

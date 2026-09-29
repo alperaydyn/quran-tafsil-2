@@ -1,0 +1,45 @@
+{
+  "surah": 80,
+  "ayah": 23,
+  "verseKey": "80:23",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 95210,
+  "timestampToGlobalMs": 101710,
+  "durationMs": 6510,
+  "audioFile": "80_23.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 845,
+      "durationMs": 845
+    },
+    {
+      "position": 2,
+      "startMs": 845,
+      "endMs": 2335,
+      "durationMs": 1490
+    },
+    {
+      "position": 3,
+      "startMs": 2335,
+      "endMs": 3095,
+      "durationMs": 760
+    },
+    {
+      "position": 4,
+      "startMs": 3095,
+      "endMs": 5025,
+      "durationMs": 1930
+    },
+    {
+      "position": 5,
+      "startMs": 5025,
+      "endMs": 6360,
+      "durationMs": 1335
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:11.178Z"
+}

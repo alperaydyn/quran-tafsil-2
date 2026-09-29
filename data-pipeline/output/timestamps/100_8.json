@@ -1,0 +1,39 @@
+{
+  "surah": 100,
+  "ayah": 8,
+  "verseKey": "100:8",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 30490,
+  "timestampToGlobalMs": 37600,
+  "durationMs": 7110,
+  "audioFile": "100_8.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2005,
+      "durationMs": 2005
+    },
+    {
+      "position": 2,
+      "startMs": 2005,
+      "endMs": 2845,
+      "durationMs": 840
+    },
+    {
+      "position": 3,
+      "startMs": 2845,
+      "endMs": 3755,
+      "durationMs": 910
+    },
+    {
+      "position": 4,
+      "startMs": 3755,
+      "endMs": 6970,
+      "durationMs": 3215
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:23.644Z"
+}

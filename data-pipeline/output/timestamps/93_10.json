@@ -1,0 +1,39 @@
+{
+  "surah": 93,
+  "ayah": 10,
+  "verseKey": "93:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 42830,
+  "timestampToGlobalMs": 49070,
+  "durationMs": 6240,
+  "audioFile": "93_10.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1265,
+      "durationMs": 1265
+    },
+    {
+      "position": 2,
+      "startMs": 1265,
+      "endMs": 4195,
+      "durationMs": 2930
+    },
+    {
+      "position": 3,
+      "startMs": 4195,
+      "endMs": 4795,
+      "durationMs": 600
+    },
+    {
+      "position": 4,
+      "startMs": 4795,
+      "endMs": 6110,
+      "durationMs": 1315
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:20.269Z"
+}

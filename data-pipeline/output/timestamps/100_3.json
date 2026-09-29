@@ -1,0 +1,27 @@
+{
+  "surah": 100,
+  "ayah": 3,
+  "verseKey": "100:3",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 6560,
+  "timestampToGlobalMs": 9640,
+  "durationMs": 3080,
+  "audioFile": "100_3.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1195,
+      "durationMs": 1195
+    },
+    {
+      "position": 2,
+      "startMs": 1195,
+      "endMs": 2230,
+      "durationMs": 1035
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:23.565Z"
+}

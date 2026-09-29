@@ -1,0 +1,27 @@
+{
+  "surah": 83,
+  "ayah": 9,
+  "verseKey": "83:9",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 60130,
+  "timestampToGlobalMs": 65490,
+  "durationMs": 5360,
+  "audioFile": "83_9.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 835,
+      "durationMs": 835
+    },
+    {
+      "position": 2,
+      "startMs": 835,
+      "endMs": 5060,
+      "durationMs": 4225
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:13.611Z"
+}

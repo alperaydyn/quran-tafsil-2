@@ -1,0 +1,51 @@
+{
+  "surah": 73,
+  "ayah": 7,
+  "verseKey": "73:7",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 35110,
+  "timestampToGlobalMs": 41330,
+  "durationMs": 6220,
+  "audioFile": "73_7.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 405,
+      "durationMs": 405
+    },
+    {
+      "position": 2,
+      "startMs": 405,
+      "endMs": 835,
+      "durationMs": 430
+    },
+    {
+      "position": 3,
+      "startMs": 835,
+      "endMs": 1075,
+      "durationMs": 240
+    },
+    {
+      "position": 4,
+      "startMs": 1075,
+      "endMs": 2725,
+      "durationMs": 1650
+    },
+    {
+      "position": 5,
+      "startMs": 2725,
+      "endMs": 4015,
+      "durationMs": 1290
+    },
+    {
+      "position": 6,
+      "startMs": 4015,
+      "endMs": 5610,
+      "durationMs": 1595
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:01.634Z"
+}

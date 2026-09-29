@@ -1,0 +1,33 @@
+{
+  "surah": 91,
+  "ayah": 5,
+  "verseKey": "91:5",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 15040,
+  "timestampToGlobalMs": 20030,
+  "durationMs": 4990,
+  "audioFile": "91_5.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2305,
+      "durationMs": 2305
+    },
+    {
+      "position": 2,
+      "startMs": 2305,
+      "endMs": 2975,
+      "durationMs": 670
+    },
+    {
+      "position": 3,
+      "startMs": 2975,
+      "endMs": 4210,
+      "durationMs": 1235
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:19.089Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 103,
+  "ayah": 2,
+  "verseKey": "103:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1780,
+  "timestampToGlobalMs": 7580,
+  "durationMs": 5800,
+  "audioFile": "103_2.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1185,
+      "durationMs": 1185
+    },
+    {
+      "position": 2,
+      "startMs": 1185,
+      "endMs": 3835,
+      "durationMs": 2650
+    },
+    {
+      "position": 3,
+      "startMs": 3835,
+      "endMs": 4415,
+      "durationMs": 580
+    },
+    {
+      "position": 4,
+      "startMs": 4415,
+      "endMs": 5480,
+      "durationMs": 1065
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:24.585Z"
+}

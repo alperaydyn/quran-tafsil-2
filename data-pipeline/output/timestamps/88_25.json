@@ -1,0 +1,33 @@
+{
+  "surah": 88,
+  "ayah": 25,
+  "verseKey": "88:25",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 108580,
+  "timestampToGlobalMs": 114330,
+  "durationMs": 5750,
+  "audioFile": "88_25.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1265,
+      "durationMs": 1265
+    },
+    {
+      "position": 2,
+      "startMs": 1265,
+      "endMs": 3705,
+      "durationMs": 2440
+    },
+    {
+      "position": 3,
+      "startMs": 3705,
+      "endMs": 5510,
+      "durationMs": 1805
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:17.315Z"
+}

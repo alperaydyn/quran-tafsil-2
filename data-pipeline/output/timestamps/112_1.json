@@ -1,0 +1,39 @@
+{
+  "surah": 112,
+  "ayah": 1,
+  "verseKey": "112:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 2980,
+  "durationMs": 2980,
+  "audioFile": "112_1.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 430,
+      "durationMs": 430
+    },
+    {
+      "position": 2,
+      "startMs": 430,
+      "endMs": 700,
+      "durationMs": 270
+    },
+    {
+      "position": 3,
+      "startMs": 700,
+      "endMs": 1680,
+      "durationMs": 980
+    },
+    {
+      "position": 4,
+      "startMs": 1680,
+      "endMs": 2915,
+      "durationMs": 1235
+    }
+  ],
+  "processedAt": "2026-09-29T22:20:33.693Z"
+}

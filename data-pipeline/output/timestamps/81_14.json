@@ -1,0 +1,39 @@
+{
+  "surah": 81,
+  "ayah": 14,
+  "verseKey": "81:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 39890,
+  "timestampToGlobalMs": 44930,
+  "durationMs": 5040,
+  "audioFile": "81_14.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 825,
+      "durationMs": 825
+    },
+    {
+      "position": 2,
+      "startMs": 825,
+      "endMs": 1545,
+      "durationMs": 720
+    },
+    {
+      "position": 3,
+      "startMs": 1545,
+      "endMs": 3385,
+      "durationMs": 1840
+    },
+    {
+      "position": 4,
+      "startMs": 3385,
+      "endMs": 4950,
+      "durationMs": 1565
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:12.007Z"
+}

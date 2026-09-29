@@ -1,0 +1,33 @@
+{
+  "surah": 86,
+  "ayah": 14,
+  "verseKey": "86:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 70700,
+  "timestampToGlobalMs": 73260,
+  "durationMs": 2560,
+  "audioFile": "86_14.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 545,
+      "durationMs": 545
+    },
+    {
+      "position": 2,
+      "startMs": 545,
+      "endMs": 955,
+      "durationMs": 410
+    },
+    {
+      "position": 3,
+      "startMs": 955,
+      "endMs": 2060,
+      "durationMs": 1105
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:16.038Z"
+}

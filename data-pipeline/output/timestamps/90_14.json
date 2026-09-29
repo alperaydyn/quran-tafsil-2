@@ -1,0 +1,51 @@
+{
+  "surah": 90,
+  "ayah": 14,
+  "verseKey": "90:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 63000,
+  "timestampToGlobalMs": 69270,
+  "durationMs": 6270,
+  "audioFile": "90_14.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 345,
+      "durationMs": 345
+    },
+    {
+      "position": 2,
+      "startMs": 345,
+      "endMs": 2205,
+      "durationMs": 1860
+    },
+    {
+      "position": 3,
+      "startMs": 2205,
+      "endMs": 2745,
+      "durationMs": 540
+    },
+    {
+      "position": 4,
+      "startMs": 2745,
+      "endMs": 4265,
+      "durationMs": 1520
+    },
+    {
+      "position": 5,
+      "startMs": 4265,
+      "endMs": 4715,
+      "durationMs": 450
+    },
+    {
+      "position": 6,
+      "startMs": 4715,
+      "endMs": 6120,
+      "durationMs": 1405
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:18.715Z"
+}

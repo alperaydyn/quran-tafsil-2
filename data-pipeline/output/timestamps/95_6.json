@@ -1,0 +1,69 @@
+{
+  "surah": 95,
+  "ayah": 6,
+  "verseKey": "95:6",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 29490,
+  "timestampToGlobalMs": 40070,
+  "durationMs": 10580,
+  "audioFile": "95_6.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 555,
+      "durationMs": 555
+    },
+    {
+      "position": 2,
+      "startMs": 555,
+      "endMs": 1485,
+      "durationMs": 930
+    },
+    {
+      "position": 3,
+      "startMs": 1485,
+      "endMs": 2635,
+      "durationMs": 1150
+    },
+    {
+      "position": 4,
+      "startMs": 2635,
+      "endMs": 3375,
+      "durationMs": 740
+    },
+    {
+      "position": 5,
+      "startMs": 3375,
+      "endMs": 4825,
+      "durationMs": 1450
+    },
+    {
+      "position": 6,
+      "startMs": 4825,
+      "endMs": 5585,
+      "durationMs": 760
+    },
+    {
+      "position": 7,
+      "startMs": 5585,
+      "endMs": 6305,
+      "durationMs": 720
+    },
+    {
+      "position": 8,
+      "startMs": 6305,
+      "endMs": 6945,
+      "durationMs": 640
+    },
+    {
+      "position": 9,
+      "startMs": 6945,
+      "endMs": 10460,
+      "durationMs": 3515
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:20.895Z"
+}

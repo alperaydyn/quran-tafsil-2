@@ -1,0 +1,45 @@
+{
+  "surah": 68,
+  "ayah": 52,
+  "verseKey": "68:52",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 443430,
+  "timestampToGlobalMs": 451820,
+  "durationMs": 8390,
+  "audioFile": "68_52.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 575,
+      "durationMs": 575
+    },
+    {
+      "position": 2,
+      "startMs": 575,
+      "endMs": 935,
+      "durationMs": 360
+    },
+    {
+      "position": 3,
+      "startMs": 935,
+      "endMs": 1855,
+      "durationMs": 920
+    },
+    {
+      "position": 4,
+      "startMs": 1855,
+      "endMs": 2495,
+      "durationMs": 640
+    },
+    {
+      "position": 5,
+      "startMs": 2495,
+      "endMs": 8100,
+      "durationMs": 5605
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:55.659Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 84,
+  "ayah": 11,
+  "verseKey": "84:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 59940,
+  "timestampToGlobalMs": 63210,
+  "durationMs": 3270,
+  "audioFile": "84_11.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 755,
+      "durationMs": 755
+    },
+    {
+      "position": 2,
+      "startMs": 755,
+      "endMs": 1505,
+      "durationMs": 750
+    },
+    {
+      "position": 3,
+      "startMs": 1505,
+      "endMs": 3170,
+      "durationMs": 1665
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:14.600Z"
+}

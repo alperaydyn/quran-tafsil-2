@@ -1,0 +1,33 @@
+{
+  "surah": 79,
+  "ayah": 44,
+  "verseKey": "79:44",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 211210,
+  "timestampToGlobalMs": 215550,
+  "durationMs": 4340,
+  "audioFile": "79_44.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 215,
+      "durationMs": 215
+    },
+    {
+      "position": 2,
+      "startMs": 215,
+      "endMs": 1105,
+      "durationMs": 890
+    },
+    {
+      "position": 3,
+      "startMs": 1105,
+      "endMs": 3510,
+      "durationMs": 2405
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:09.906Z"
+}

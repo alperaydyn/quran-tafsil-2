@@ -1,0 +1,51 @@
+{
+  "surah": 79,
+  "ayah": 16,
+  "verseKey": "79:16",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 66890,
+  "timestampToGlobalMs": 73110,
+  "durationMs": 6220,
+  "audioFile": "79_16.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 2,
+      "startMs": 0,
+      "endMs": 885,
+      "durationMs": 885
+    },
+    {
+      "position": 3,
+      "startMs": 885,
+      "endMs": 1885,
+      "durationMs": 1000
+    },
+    {
+      "position": 4,
+      "startMs": 1885,
+      "endMs": 3045,
+      "durationMs": 1160
+    },
+    {
+      "position": 5,
+      "startMs": 3045,
+      "endMs": 4385,
+      "durationMs": 1340
+    },
+    {
+      "position": 6,
+      "startMs": 4385,
+      "endMs": 5510,
+      "durationMs": 1125
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:09.457Z"
+}

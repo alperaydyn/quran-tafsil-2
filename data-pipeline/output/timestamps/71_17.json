@@ -1,0 +1,45 @@
+{
+  "surah": 71,
+  "ayah": 17,
+  "verseKey": "71:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 158450,
+  "timestampToGlobalMs": 164750,
+  "durationMs": 6300,
+  "audioFile": "71_17.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 845,
+      "durationMs": 845
+    },
+    {
+      "position": 2,
+      "startMs": 845,
+      "endMs": 2695,
+      "durationMs": 1850
+    },
+    {
+      "position": 3,
+      "startMs": 2695,
+      "endMs": 3865,
+      "durationMs": 1170
+    },
+    {
+      "position": 4,
+      "startMs": 3865,
+      "endMs": 4695,
+      "durationMs": 830
+    },
+    {
+      "position": 5,
+      "startMs": 4695,
+      "endMs": 5850,
+      "durationMs": 1155
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:59.587Z"
+}

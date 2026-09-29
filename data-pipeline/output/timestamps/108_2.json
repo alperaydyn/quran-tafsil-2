@@ -1,0 +1,33 @@
+{
+  "surah": 108,
+  "ayah": 2,
+  "verseKey": "108:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 6710,
+  "timestampToGlobalMs": 10260,
+  "durationMs": 3550,
+  "audioFile": "108_2.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 345,
+      "durationMs": 345
+    },
+    {
+      "position": 2,
+      "startMs": 345,
+      "endMs": 1555,
+      "durationMs": 1210
+    },
+    {
+      "position": 3,
+      "startMs": 1555,
+      "endMs": 2970,
+      "durationMs": 1415
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:25.992Z"
+}

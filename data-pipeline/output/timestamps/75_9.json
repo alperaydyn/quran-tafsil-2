@@ -1,0 +1,33 @@
+{
+  "surah": 75,
+  "ayah": 9,
+  "verseKey": "75:9",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 43200,
+  "timestampToGlobalMs": 46330,
+  "durationMs": 3140,
+  "audioFile": "75_9.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 785,
+      "durationMs": 785
+    },
+    {
+      "position": 2,
+      "startMs": 785,
+      "endMs": 1685,
+      "durationMs": 900
+    },
+    {
+      "position": 3,
+      "startMs": 1685,
+      "endMs": 3020,
+      "durationMs": 1335
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:04.650Z"
+}

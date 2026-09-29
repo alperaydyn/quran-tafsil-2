@@ -1,0 +1,33 @@
+{
+  "surah": 74,
+  "ayah": 19,
+  "verseKey": "74:19",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 72040,
+  "timestampToGlobalMs": 74600,
+  "durationMs": 2560,
+  "audioFile": "74_19.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 805,
+      "durationMs": 805
+    },
+    {
+      "position": 2,
+      "startMs": 805,
+      "endMs": 1365,
+      "durationMs": 560
+    },
+    {
+      "position": 3,
+      "startMs": 1365,
+      "endMs": 2390,
+      "durationMs": 1025
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:03.421Z"
+}

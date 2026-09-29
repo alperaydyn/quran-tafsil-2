@@ -1,0 +1,69 @@
+{
+  "surah": 103,
+  "ayah": 3,
+  "verseKey": "103:3",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 7580,
+  "timestampToGlobalMs": 20120,
+  "durationMs": 12540,
+  "audioFile": "103_3.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 425,
+      "durationMs": 425
+    },
+    {
+      "position": 2,
+      "startMs": 425,
+      "endMs": 1435,
+      "durationMs": 1010
+    },
+    {
+      "position": 3,
+      "startMs": 1435,
+      "endMs": 2715,
+      "durationMs": 1280
+    },
+    {
+      "position": 4,
+      "startMs": 2715,
+      "endMs": 3535,
+      "durationMs": 820
+    },
+    {
+      "position": 5,
+      "startMs": 3535,
+      "endMs": 5155,
+      "durationMs": 1620
+    },
+    {
+      "position": 6,
+      "startMs": 5155,
+      "endMs": 6415,
+      "durationMs": 1260
+    },
+    {
+      "position": 7,
+      "startMs": 6415,
+      "endMs": 7475,
+      "durationMs": 1060
+    },
+    {
+      "position": 8,
+      "startMs": 7475,
+      "endMs": 8865,
+      "durationMs": 1390
+    },
+    {
+      "position": 9,
+      "startMs": 8865,
+      "endMs": 12000,
+      "durationMs": 3135
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:24.605Z"
+}

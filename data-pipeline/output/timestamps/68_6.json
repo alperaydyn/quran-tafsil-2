@@ -1,0 +1,27 @@
+{
+  "surah": 68,
+  "ayah": 6,
+  "verseKey": "68:6",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 35210,
+  "timestampToGlobalMs": 39760,
+  "durationMs": 4550,
+  "audioFile": "68_6.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1075,
+      "durationMs": 1075
+    },
+    {
+      "position": 2,
+      "startMs": 1075,
+      "endMs": 4410,
+      "durationMs": 3335
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:54.893Z"
+}

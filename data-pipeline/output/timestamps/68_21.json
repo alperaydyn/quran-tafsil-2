@@ -1,0 +1,27 @@
+{
+  "surah": 68,
+  "ayah": 21,
+  "verseKey": "68:21",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 150390,
+  "timestampToGlobalMs": 154700,
+  "durationMs": 4310,
+  "audioFile": "68_21.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1185,
+      "durationMs": 1185
+    },
+    {
+      "position": 2,
+      "startMs": 1185,
+      "endMs": 4210,
+      "durationMs": 3025
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:55.120Z"
+}

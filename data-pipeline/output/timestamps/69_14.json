@@ -1,0 +1,51 @@
+{
+  "surah": 69,
+  "ayah": 14,
+  "verseKey": "69:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 111750,
+  "timestampToGlobalMs": 120320,
+  "durationMs": 8570,
+  "audioFile": "69_14.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1125,
+      "durationMs": 1125
+    },
+    {
+      "position": 2,
+      "startMs": 1125,
+      "endMs": 2045,
+      "durationMs": 920
+    },
+    {
+      "position": 3,
+      "startMs": 2045,
+      "endMs": 3275,
+      "durationMs": 1230
+    },
+    {
+      "position": 4,
+      "startMs": 3275,
+      "endMs": 4645,
+      "durationMs": 1370
+    },
+    {
+      "position": 5,
+      "startMs": 4645,
+      "endMs": 5695,
+      "durationMs": 1050
+    },
+    {
+      "position": 6,
+      "startMs": 5695,
+      "endMs": 8420,
+      "durationMs": 2725
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:56.575Z"
+}

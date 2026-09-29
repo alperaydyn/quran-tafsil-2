@@ -1,0 +1,51 @@
+{
+  "surah": 98,
+  "ayah": 2,
+  "verseKey": "98:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 12560,
+  "timestampToGlobalMs": 19770,
+  "durationMs": 7210,
+  "audioFile": "98_2.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 945,
+      "durationMs": 945
+    },
+    {
+      "position": 2,
+      "startMs": 945,
+      "endMs": 2175,
+      "durationMs": 1230
+    },
+    {
+      "position": 3,
+      "startMs": 2175,
+      "endMs": 3055,
+      "durationMs": 880
+    },
+    {
+      "position": 4,
+      "startMs": 3055,
+      "endMs": 3755,
+      "durationMs": 700
+    },
+    {
+      "position": 5,
+      "startMs": 3755,
+      "endMs": 4475,
+      "durationMs": 720
+    },
+    {
+      "position": 6,
+      "startMs": 4475,
+      "endMs": 7060,
+      "durationMs": 2585
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:22.185Z"
+}

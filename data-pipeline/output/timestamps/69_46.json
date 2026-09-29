@@ -1,0 +1,39 @@
+{
+  "surah": 69,
+  "ayah": 46,
+  "verseKey": "69:46",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 347470,
+  "timestampToGlobalMs": 354000,
+  "durationMs": 6530,
+  "audioFile": "69_46.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 885,
+      "durationMs": 885
+    },
+    {
+      "position": 2,
+      "startMs": 885,
+      "endMs": 2255,
+      "durationMs": 1370
+    },
+    {
+      "position": 3,
+      "startMs": 2255,
+      "endMs": 2865,
+      "durationMs": 610
+    },
+    {
+      "position": 4,
+      "startMs": 2865,
+      "endMs": 6400,
+      "durationMs": 3535
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:57.164Z"
+}

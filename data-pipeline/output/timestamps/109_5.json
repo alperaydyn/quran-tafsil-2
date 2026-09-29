@@ -1,0 +1,45 @@
+{
+  "surah": 109,
+  "ayah": 5,
+  "verseKey": "109:5",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 29850,
+  "timestampToGlobalMs": 38290,
+  "durationMs": 8440,
+  "audioFile": "109_5.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1785,
+      "durationMs": 1785
+    },
+    {
+      "position": 2,
+      "startMs": 1785,
+      "endMs": 3445,
+      "durationMs": 1660
+    },
+    {
+      "position": 3,
+      "startMs": 3445,
+      "endMs": 4895,
+      "durationMs": 1450
+    },
+    {
+      "position": 4,
+      "startMs": 4895,
+      "endMs": 6735,
+      "durationMs": 1840
+    },
+    {
+      "position": 5,
+      "startMs": 6735,
+      "endMs": 8030,
+      "durationMs": 1295
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:26.316Z"
+}

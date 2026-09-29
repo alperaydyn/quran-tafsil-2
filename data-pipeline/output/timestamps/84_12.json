@@ -1,0 +1,27 @@
+{
+  "surah": 84,
+  "ayah": 12,
+  "verseKey": "84:12",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 63210,
+  "timestampToGlobalMs": 65930,
+  "durationMs": 2720,
+  "audioFile": "84_12.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 915,
+      "durationMs": 915
+    },
+    {
+      "position": 2,
+      "startMs": 915,
+      "endMs": 2640,
+      "durationMs": 1725
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:14.614Z"
+}

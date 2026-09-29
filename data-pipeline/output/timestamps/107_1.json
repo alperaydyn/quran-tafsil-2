@@ -1,0 +1,39 @@
+{
+  "surah": 107,
+  "ayah": 1,
+  "verseKey": "107:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 6270,
+  "durationMs": 6270,
+  "audioFile": "107_1.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1010,
+      "durationMs": 1010
+    },
+    {
+      "position": 2,
+      "startMs": 1010,
+      "endMs": 1670,
+      "durationMs": 660
+    },
+    {
+      "position": 3,
+      "startMs": 1670,
+      "endMs": 2990,
+      "durationMs": 1320
+    },
+    {
+      "position": 4,
+      "startMs": 2990,
+      "endMs": 6185,
+      "durationMs": 3195
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:25.715Z"
+}

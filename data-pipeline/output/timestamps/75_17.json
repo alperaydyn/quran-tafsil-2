@@ -1,0 +1,39 @@
+{
+  "surah": 75,
+  "ayah": 17,
+  "verseKey": "75:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 82200,
+  "timestampToGlobalMs": 87560,
+  "durationMs": 5360,
+  "audioFile": "75_17.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1165,
+      "durationMs": 1165
+    },
+    {
+      "position": 2,
+      "startMs": 1165,
+      "endMs": 2195,
+      "durationMs": 1030
+    },
+    {
+      "position": 3,
+      "startMs": 2195,
+      "endMs": 3285,
+      "durationMs": 1090
+    },
+    {
+      "position": 4,
+      "startMs": 3285,
+      "endMs": 5180,
+      "durationMs": 1895
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:04.800Z"
+}

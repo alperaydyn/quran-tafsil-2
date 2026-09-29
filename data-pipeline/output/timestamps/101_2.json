@@ -1,0 +1,27 @@
+{
+  "surah": 101,
+  "ayah": 2,
+  "verseKey": "101:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 2320,
+  "timestampToGlobalMs": 4620,
+  "durationMs": 2300,
+  "audioFile": "101_2.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 155,
+      "durationMs": 155
+    },
+    {
+      "position": 2,
+      "startMs": 155,
+      "endMs": 2130,
+      "durationMs": 1975
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:23.915Z"
+}

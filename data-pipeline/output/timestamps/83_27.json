@@ -1,0 +1,33 @@
+{
+  "surah": 83,
+  "ayah": 27,
+  "verseKey": "83:27",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 198760,
+  "timestampToGlobalMs": 204790,
+  "durationMs": 6040,
+  "audioFile": "83_27.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1535,
+      "durationMs": 1535
+    },
+    {
+      "position": 2,
+      "startMs": 1535,
+      "endMs": 2145,
+      "durationMs": 610
+    },
+    {
+      "position": 3,
+      "startMs": 2145,
+      "endMs": 5870,
+      "durationMs": 3725
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:13.886Z"
+}

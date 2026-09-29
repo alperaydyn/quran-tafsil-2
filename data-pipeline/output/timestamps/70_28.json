@@ -1,0 +1,45 @@
+{
+  "surah": 70,
+  "ayah": 28,
+  "verseKey": "70:28",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 155360,
+  "timestampToGlobalMs": 161940,
+  "durationMs": 6580,
+  "audioFile": "70_28.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1005,
+      "durationMs": 1005
+    },
+    {
+      "position": 2,
+      "startMs": 1005,
+      "endMs": 1835,
+      "durationMs": 830
+    },
+    {
+      "position": 3,
+      "startMs": 1835,
+      "endMs": 2765,
+      "durationMs": 930
+    },
+    {
+      "position": 4,
+      "startMs": 2765,
+      "endMs": 3415,
+      "durationMs": 650
+    },
+    {
+      "position": 5,
+      "startMs": 3415,
+      "endMs": 6450,
+      "durationMs": 3035
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.501Z"
+}

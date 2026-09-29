@@ -1,0 +1,117 @@
+{
+  "surah": 64,
+  "ayah": 1,
+  "verseKey": "64:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 14860,
+  "durationMs": 14860,
+  "audioFile": "64_1.mp3",
+  "wordCount": 17,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1000,
+      "durationMs": 1000
+    },
+    {
+      "position": 2,
+      "startMs": 1000,
+      "endMs": 2040,
+      "durationMs": 1040
+    },
+    {
+      "position": 3,
+      "startMs": 2040,
+      "endMs": 2390,
+      "durationMs": 350
+    },
+    {
+      "position": 4,
+      "startMs": 2390,
+      "endMs": 2590,
+      "durationMs": 200
+    },
+    {
+      "position": 5,
+      "startMs": 2590,
+      "endMs": 4090,
+      "durationMs": 1500
+    },
+    {
+      "position": 6,
+      "startMs": 4090,
+      "endMs": 4680,
+      "durationMs": 590
+    },
+    {
+      "position": 7,
+      "startMs": 4680,
+      "endMs": 4950,
+      "durationMs": 270
+    },
+    {
+      "position": 8,
+      "startMs": 4950,
+      "endMs": 5790,
+      "durationMs": 840
+    },
+    {
+      "position": 9,
+      "startMs": 5790,
+      "endMs": 6160,
+      "durationMs": 370
+    },
+    {
+      "position": 10,
+      "startMs": 6160,
+      "endMs": 7070,
+      "durationMs": 910
+    },
+    {
+      "position": 11,
+      "startMs": 7070,
+      "endMs": 7580,
+      "durationMs": 510
+    },
+    {
+      "position": 12,
+      "startMs": 7580,
+      "endMs": 8490,
+      "durationMs": 910
+    },
+    {
+      "position": 13,
+      "startMs": 8490,
+      "endMs": 9120,
+      "durationMs": 630
+    },
+    {
+      "position": 14,
+      "startMs": 9120,
+      "endMs": 9690,
+      "durationMs": 570
+    },
+    {
+      "position": 15,
+      "startMs": 9690,
+      "endMs": 10320,
+      "durationMs": 630
+    },
+    {
+      "position": 16,
+      "startMs": 10320,
+      "endMs": 12160,
+      "durationMs": 1840
+    },
+    {
+      "position": 17,
+      "startMs": 12160,
+      "endMs": 14815,
+      "durationMs": 2655
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:50.388Z"
+}

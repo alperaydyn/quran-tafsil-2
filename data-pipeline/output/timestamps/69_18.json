@@ -1,0 +1,51 @@
+{
+  "surah": 69,
+  "ayah": 18,
+  "verseKey": "69:18",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 149840,
+  "timestampToGlobalMs": 158300,
+  "durationMs": 8460,
+  "audioFile": "69_18.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 2,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 3,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 4,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 5,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 6,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:56.650Z"
+}

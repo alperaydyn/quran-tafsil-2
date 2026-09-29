@@ -1,0 +1,33 @@
+{
+  "surah": 100,
+  "ayah": 5,
+  "verseKey": "100:5",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 12720,
+  "timestampToGlobalMs": 16040,
+  "durationMs": 3320,
+  "audioFile": "100_5.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 675,
+      "durationMs": 675
+    },
+    {
+      "position": 2,
+      "startMs": 675,
+      "endMs": 1355,
+      "durationMs": 680
+    },
+    {
+      "position": 3,
+      "startMs": 1355,
+      "endMs": 2860,
+      "durationMs": 1505
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:23.598Z"
+}

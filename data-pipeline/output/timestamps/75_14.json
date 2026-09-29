@@ -1,0 +1,45 @@
+{
+  "surah": 75,
+  "ayah": 14,
+  "verseKey": "75:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 68230,
+  "timestampToGlobalMs": 73610,
+  "durationMs": 5380,
+  "audioFile": "75_14.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 365,
+      "durationMs": 365
+    },
+    {
+      "position": 2,
+      "startMs": 365,
+      "endMs": 2245,
+      "durationMs": 1880
+    },
+    {
+      "position": 3,
+      "startMs": 2245,
+      "endMs": 2865,
+      "durationMs": 620
+    },
+    {
+      "position": 4,
+      "startMs": 2865,
+      "endMs": 3835,
+      "durationMs": 970
+    },
+    {
+      "position": 5,
+      "startMs": 3835,
+      "endMs": 5230,
+      "durationMs": 1395
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:04.748Z"
+}

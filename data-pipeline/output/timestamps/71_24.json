@@ -1,0 +1,63 @@
+{
+  "surah": 71,
+  "ayah": 24,
+  "verseKey": "71:24",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 211410,
+  "timestampToGlobalMs": 219640,
+  "durationMs": 8230,
+  "audioFile": "71_24.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 505,
+      "durationMs": 505
+    },
+    {
+      "position": 2,
+      "startMs": 505,
+      "endMs": 1405,
+      "durationMs": 900
+    },
+    {
+      "position": 3,
+      "startMs": 1405,
+      "endMs": 2965,
+      "durationMs": 1560
+    },
+    {
+      "position": 4,
+      "startMs": 2965,
+      "endMs": 3495,
+      "durationMs": 530
+    },
+    {
+      "position": 5,
+      "startMs": 3495,
+      "endMs": 4085,
+      "durationMs": 590
+    },
+    {
+      "position": 6,
+      "startMs": 4085,
+      "endMs": 5445,
+      "durationMs": 1360
+    },
+    {
+      "position": 7,
+      "startMs": 5445,
+      "endMs": 6255,
+      "durationMs": 810
+    },
+    {
+      "position": 8,
+      "startMs": 6255,
+      "endMs": 7630,
+      "durationMs": 1375
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:59.729Z"
+}

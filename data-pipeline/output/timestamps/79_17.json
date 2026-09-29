@@ -1,0 +1,45 @@
+{
+  "surah": 79,
+  "ayah": 17,
+  "verseKey": "79:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 73110,
+  "timestampToGlobalMs": 78830,
+  "durationMs": 5720,
+  "audioFile": "79_17.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 775,
+      "durationMs": 775
+    },
+    {
+      "position": 2,
+      "startMs": 775,
+      "endMs": 1395,
+      "durationMs": 620
+    },
+    {
+      "position": 3,
+      "startMs": 1395,
+      "endMs": 2465,
+      "durationMs": 1070
+    },
+    {
+      "position": 4,
+      "startMs": 2465,
+      "endMs": 4255,
+      "durationMs": 1790
+    },
+    {
+      "position": 5,
+      "startMs": 4255,
+      "endMs": 5570,
+      "durationMs": 1315
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:09.473Z"
+}

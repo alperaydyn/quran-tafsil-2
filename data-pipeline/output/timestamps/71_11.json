@@ -1,0 +1,39 @@
+{
+  "surah": 71,
+  "ayah": 11,
+  "verseKey": "71:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 116260,
+  "timestampToGlobalMs": 123080,
+  "durationMs": 6820,
+  "audioFile": "71_11.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 745,
+      "durationMs": 745
+    },
+    {
+      "position": 2,
+      "startMs": 745,
+      "endMs": 3045,
+      "durationMs": 2300
+    },
+    {
+      "position": 3,
+      "startMs": 3045,
+      "endMs": 3975,
+      "durationMs": 930
+    },
+    {
+      "position": 4,
+      "startMs": 3975,
+      "endMs": 6720,
+      "durationMs": 2745
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:59.480Z"
+}

@@ -1,0 +1,27 @@
+{
+  "surah": 96,
+  "ayah": 17,
+  "verseKey": "96:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 72260,
+  "timestampToGlobalMs": 74790,
+  "durationMs": 2530,
+  "audioFile": "96_17.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1055,
+      "durationMs": 1055
+    },
+    {
+      "position": 2,
+      "startMs": 1055,
+      "endMs": 2470,
+      "durationMs": 1415
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:21.397Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 69,
+  "ayah": 15,
+  "verseKey": "69:15",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 120320,
+  "timestampToGlobalMs": 125620,
+  "durationMs": 5300,
+  "audioFile": "69_15.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1595,
+      "durationMs": 1595
+    },
+    {
+      "position": 2,
+      "startMs": 1595,
+      "endMs": 3265,
+      "durationMs": 1670
+    },
+    {
+      "position": 3,
+      "startMs": 3265,
+      "endMs": 5150,
+      "durationMs": 1885
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:56.595Z"
+}

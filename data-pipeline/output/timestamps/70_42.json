@@ -1,0 +1,63 @@
+{
+  "surah": 70,
+  "ayah": 42,
+  "verseKey": "70:42",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 276890,
+  "timestampToGlobalMs": 287080,
+  "durationMs": 10190,
+  "audioFile": "70_42.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 935,
+      "durationMs": 935
+    },
+    {
+      "position": 2,
+      "startMs": 935,
+      "endMs": 2065,
+      "durationMs": 1130
+    },
+    {
+      "position": 3,
+      "startMs": 2065,
+      "endMs": 3145,
+      "durationMs": 1080
+    },
+    {
+      "position": 4,
+      "startMs": 3145,
+      "endMs": 3965,
+      "durationMs": 820
+    },
+    {
+      "position": 5,
+      "startMs": 3965,
+      "endMs": 4955,
+      "durationMs": 990
+    },
+    {
+      "position": 6,
+      "startMs": 4955,
+      "endMs": 6005,
+      "durationMs": 1050
+    },
+    {
+      "position": 7,
+      "startMs": 6005,
+      "endMs": 6885,
+      "durationMs": 880
+    },
+    {
+      "position": 8,
+      "startMs": 6885,
+      "endMs": 10050,
+      "durationMs": 3165
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.768Z"
+}

@@ -1,0 +1,57 @@
+{
+  "surah": 68,
+  "ayah": 15,
+  "verseKey": "68:15",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 99900,
+  "timestampToGlobalMs": 109200,
+  "durationMs": 9300,
+  "audioFile": "68_15.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 535,
+      "durationMs": 535
+    },
+    {
+      "position": 2,
+      "startMs": 535,
+      "endMs": 1385,
+      "durationMs": 850
+    },
+    {
+      "position": 3,
+      "startMs": 1385,
+      "endMs": 2195,
+      "durationMs": 810
+    },
+    {
+      "position": 4,
+      "startMs": 2195,
+      "endMs": 3645,
+      "durationMs": 1450
+    },
+    {
+      "position": 5,
+      "startMs": 3645,
+      "endMs": 4345,
+      "durationMs": 700
+    },
+    {
+      "position": 6,
+      "startMs": 4345,
+      "endMs": 5465,
+      "durationMs": 1120
+    },
+    {
+      "position": 7,
+      "startMs": 5465,
+      "endMs": 9170,
+      "durationMs": 3705
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:55.028Z"
+}

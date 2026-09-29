@@ -1,0 +1,63 @@
+{
+  "surah": 83,
+  "ayah": 17,
+  "verseKey": "83:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 124970,
+  "timestampToGlobalMs": 135470,
+  "durationMs": 10500,
+  "audioFile": "83_17.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1075,
+      "durationMs": 1075
+    },
+    {
+      "position": 2,
+      "startMs": 1075,
+      "endMs": 2035,
+      "durationMs": 960
+    },
+    {
+      "position": 3,
+      "startMs": 2035,
+      "endMs": 2625,
+      "durationMs": 590
+    },
+    {
+      "position": 4,
+      "startMs": 2625,
+      "endMs": 3525,
+      "durationMs": 900
+    },
+    {
+      "position": 5,
+      "startMs": 3525,
+      "endMs": 5005,
+      "durationMs": 1480
+    },
+    {
+      "position": 5,
+      "startMs": 5005,
+      "endMs": 6255,
+      "durationMs": 1250
+    },
+    {
+      "position": 6,
+      "startMs": 6255,
+      "endMs": 6835,
+      "durationMs": 580
+    },
+    {
+      "position": 7,
+      "startMs": 6835,
+      "endMs": 10340,
+      "durationMs": 3505
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:13.731Z"
+}

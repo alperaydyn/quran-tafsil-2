@@ -1,0 +1,39 @@
+{
+  "surah": 70,
+  "ayah": 35,
+  "verseKey": "70:35",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 214360,
+  "timestampToGlobalMs": 223140,
+  "durationMs": 8780,
+  "audioFile": "70_35.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2465,
+      "durationMs": 2465
+    },
+    {
+      "position": 2,
+      "startMs": 2465,
+      "endMs": 2835,
+      "durationMs": 370
+    },
+    {
+      "position": 3,
+      "startMs": 2835,
+      "endMs": 4855,
+      "durationMs": 2020
+    },
+    {
+      "position": 4,
+      "startMs": 4855,
+      "endMs": 8640,
+      "durationMs": 3785
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.632Z"
+}

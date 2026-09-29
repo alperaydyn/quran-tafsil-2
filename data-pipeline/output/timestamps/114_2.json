@@ -1,0 +1,27 @@
+{
+  "surah": 114,
+  "ayah": 2,
+  "verseKey": "114:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 6110,
+  "timestampToGlobalMs": 11390,
+  "durationMs": 5280,
+  "audioFile": "114_2.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 615,
+      "durationMs": 615
+    },
+    {
+      "position": 2,
+      "startMs": 615,
+      "endMs": 5180,
+      "durationMs": 4565
+    }
+  ],
+  "processedAt": "2026-09-29T22:20:34.844Z"
+}

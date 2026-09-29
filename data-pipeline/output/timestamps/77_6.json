@@ -1,0 +1,33 @@
+{
+  "surah": 77,
+  "ayah": 6,
+  "verseKey": "77:6",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 15260,
+  "timestampToGlobalMs": 17790,
+  "durationMs": 2530,
+  "audioFile": "77_6.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 795,
+      "durationMs": 795
+    },
+    {
+      "position": 2,
+      "startMs": 795,
+      "endMs": 1165,
+      "durationMs": 370
+    },
+    {
+      "position": 3,
+      "startMs": 1165,
+      "endMs": 2470,
+      "durationMs": 1305
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:06.953Z"
+}

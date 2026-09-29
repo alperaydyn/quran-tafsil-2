@@ -1,0 +1,33 @@
+{
+  "surah": 70,
+  "ayah": 15,
+  "verseKey": "70:15",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 85100,
+  "timestampToGlobalMs": 90740,
+  "durationMs": 5640,
+  "audioFile": "70_15.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2495,
+      "durationMs": 2495
+    },
+    {
+      "position": 2,
+      "startMs": 2495,
+      "endMs": 4305,
+      "durationMs": 1810
+    },
+    {
+      "position": 3,
+      "startMs": 4305,
+      "endMs": 5520,
+      "durationMs": 1215
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:58.293Z"
+}

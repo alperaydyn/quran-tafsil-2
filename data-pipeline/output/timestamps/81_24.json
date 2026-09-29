@@ -1,0 +1,45 @@
+{
+  "surah": 81,
+  "ayah": 24,
+  "verseKey": "81:24",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 87460,
+  "timestampToGlobalMs": 92610,
+  "durationMs": 5150,
+  "audioFile": "81_24.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 565,
+      "durationMs": 565
+    },
+    {
+      "position": 2,
+      "startMs": 565,
+      "endMs": 895,
+      "durationMs": 330
+    },
+    {
+      "position": 3,
+      "startMs": 895,
+      "endMs": 1375,
+      "durationMs": 480
+    },
+    {
+      "position": 4,
+      "startMs": 1375,
+      "endMs": 2285,
+      "durationMs": 910
+    },
+    {
+      "position": 5,
+      "startMs": 2285,
+      "endMs": 5040,
+      "durationMs": 2755
+    }
+  ],
+  "processedAt": "2026-09-29T22:30:12.160Z"
+}
