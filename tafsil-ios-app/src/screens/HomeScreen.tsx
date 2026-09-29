@@ -215,25 +215,35 @@ function ResumeCard() {
   const lastRead = useReadingProgressStore((s) => s.lastRead);
   const surah = lastRead ? mockSurahs.find((s) => s.id === lastRead.surahId) : undefined;
 
+  const handlePress = () => {
+    if (lastRead) {
+      navigation.navigate('Reading', { surahId: lastRead.surahId, ayahNo: lastRead.ayahNo });
+    } else {
+      navigation.navigate('Reading', { surahId: 1, ayahNo: 1 });
+    }
+  };
+
   return (
     <Pressable
-      onPress={() =>
-        lastRead && navigation.navigate('Reading', { surahId: lastRead.surahId, ayahNo: lastRead.ayahNo })
-      }
-      disabled={!lastRead}
+      onPress={handlePress}
       style={[styles.actionCard, { backgroundColor: theme.colors.ink, borderRadius: theme.radius.xxxl }]}
     >
-      <StyledText variant="eyebrow" style={{ color: theme.colors.faint }}>
-        {t('home.continueReading').toUpperCase()}
-      </StyledText>
-      <StyledText variant="headline" style={{ color: theme.colors.surf, marginTop: 4 }}>
-        {lastRead ? `${surah?.nameTr ?? t('common.surah')} · ${lastRead.ayahNo}. ${t('common.ayah').toLowerCase()}` : t('home.startReading')}
-      </StyledText>
-      {!lastRead && (
-        <StyledText variant="footnote" style={{ color: theme.colors.faint, marginTop: 2 }}>
-          {t('surahList.searchPlaceholder')}
-        </StyledText>
-      )}
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={{ flex: 1 }}>
+          <StyledText variant="eyebrow" style={{ color: theme.colors.faint }}>
+            {t('home.continueReading').toUpperCase()}
+          </StyledText>
+          <StyledText variant="headline" style={{ color: theme.colors.surf, marginTop: 4 }}>
+            {lastRead ? `${surah?.nameTr ?? t('common.surah')} · ${lastRead.ayahNo}. ${t('common.ayah').toLowerCase()}` : t('home.startReading')}
+          </StyledText>
+          {!lastRead && (
+            <StyledText variant="footnote" style={{ color: theme.colors.faint, marginTop: 2 }}>
+              {`1 · ${mockSurahs[0]?.nameTr ?? 'Fâtiha'}`}
+            </StyledText>
+          )}
+        </View>
+        <StyledText variant="title" style={{ color: theme.colors.faint, fontSize: 20 }}>›</StyledText>
+      </View>
     </Pressable>
   );
 }
