@@ -43,7 +43,9 @@
         }
       ],
       "expo-font",
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      "expo-audio",
+      "expo-asset"
     ],
     "extra": {
       "eas": {

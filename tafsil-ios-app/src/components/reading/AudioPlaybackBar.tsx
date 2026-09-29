@@ -103,6 +103,9 @@ interface AudioPlaybackBarProps {
   currentAyah: number;
   activeWordIndex: number | null;
   isPlaying: boolean;
+  isBuffering?: boolean;
+  playbackRate?: number;
+  onRateChange?: (rate: number) => void;
   onTogglePlay: () => void;
   onNextVerse: () => void;
   onPrevVerse: () => void;
@@ -113,18 +116,34 @@ export function AudioPlaybackBar({
   totalVerses,
   currentAyah,
   isPlaying,
+  isBuffering = false,
+  playbackRate = 1.0,
+  onRateChange,
   onTogglePlay,
   onNextVerse,
   onPrevVerse,
 }: AudioPlaybackBarProps) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const [speed, setSpeed] = useState<'1.0x' | '1.25x' | '1.5x'>('1.0x');
+  const [speed, setSpeed] = useState<'1.0x' | '1.25x' | '1.5x'>(
+    playbackRate === 1.25 ? '1.25x' : playbackRate === 1.5 ? '1.5x' : '1.0x'
+  );
 
   const cycleSpeed = () => {
-    if (speed === '1.0x') setSpeed('1.25x');
-    else if (speed === '1.25x') setSpeed('1.5x');
-    else setSpeed('1.0x');
+    let nextSpeed: '1.0x' | '1.25x' | '1.5x' = '1.0x';
+    let nextRate = 1.0;
+    if (speed === '1.0x') {
+      nextSpeed = '1.25x';
+      nextRate = 1.25;
+    } else if (speed === '1.25x') {
+      nextSpeed = '1.5x';
+      nextRate = 1.5;
+    } else {
+      nextSpeed = '1.0x';
+      nextRate = 1.0;
+    }
+    setSpeed(nextSpeed);
+    onRateChange?.(nextRate);
   };
 
   const progressPercent =

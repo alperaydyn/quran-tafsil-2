@@ -23,6 +23,12 @@ export const USE_MOCK = {
   verses: false,
 };
 
+export function getAyahAudioUrl(surahId: number, ayahNo: number): string {
+  const s = String(surahId).padStart(3, '0');
+  const a = String(ayahNo).padStart(3, '0');
+  return `https://everyayah.com/data/Alafasy_128kbps/${s}${a}.mp3`;
+}
+
 function getVersesFromSnapshot(surahId: number): Verse[] {
   const list = (ayetlerSnapshot as any[]).filter((a) => a.s === surahId);
   return list.map((a, idx) => ({
@@ -34,7 +40,7 @@ function getVersesFromSnapshot(surahId: number): Verse[] {
     textAr: a.ar,
     transliterationTr: a.translit ?? '',
     mealTr: a.tr ?? '',
-    audioUrl: null,
+    audioUrl: getAyahAudioUrl(a.s, a.a),
     words: typeof a.ar === 'string'
       ? a.ar.split(' ').map((w: string, wIdx: number) => ({
           id: wIdx + 1,
@@ -62,6 +68,8 @@ function mapSurahFromBackend(row: any): Surah {
 }
 
 function mapVerseFromBackend(row: any): Verse {
+  const surahId = row.sure_id ?? row.surahId;
+  const ayahNo = row.ayet_no ?? row.ayahNo;
   const words: Word[] = Array.isArray(row.kelimeler)
     ? row.kelimeler.map((k: any, idx: number) => ({
         id: k.id ?? idx + 1,
@@ -81,14 +89,14 @@ function mapVerseFromBackend(row: any): Verse {
 
   return {
     id: row.id,
-    surahId: row.sure_id ?? row.surahId,
-    ayahNo: row.ayet_no ?? row.ayahNo,
+    surahId,
+    ayahNo,
     juzNo: row.cuz_no ?? row.juzNo ?? 1,
     pageNo: row.sayfa_no ?? row.pageNo ?? 1,
     textAr: row.metin_ar ?? row.textAr ?? '',
     transliterationTr: row.transliterasyon_tr ?? row.transliterationTr ?? '',
     mealTr: row.meal_tr ?? row.mealTr ?? '',
-    audioUrl: row.ses_dosyasi_url ?? row.audioUrl ?? null,
+    audioUrl: row.ses_dosyasi_url ?? row.audioUrl ?? getAyahAudioUrl(surahId, ayahNo),
     words,
   };
 }

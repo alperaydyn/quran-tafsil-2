@@ -8,8 +8,9 @@ import { WordDetailSheet } from '../components/lexicon/WordDetailSheet';
 import { AudioPlaybackBar } from '../components/reading/AudioPlaybackBar';
 import { ConceptContextCard } from '../components/reading/ConceptContextCard';
 import { OfflineSyncService } from '../services/offlineSyncService';
+import { audioPlayerService } from '../services/audioPlayerService';
 import { useTheme } from '../theme';
-import { getVerses } from '../api/client';
+import { getVerses, getAyahAudioUrl } from '../api/client';
 import { mockSurahs } from '../api/mock/surahs.mock';
 import type { Verse, Word } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
@@ -281,9 +282,20 @@ export function ReadingScreen({ route, navigation }: Props) {
 
   // Audio state
   const [isPlaying, setIsPlaying] = useState(Boolean(autoPlay));
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState(1.0);
   const [activeAyah, setActiveAyah] = useState(initialAyahNo ?? 1);
   const [selectedAyahNo, setSelectedAyahNo] = useState<number | null>(initialAyahNo ?? null);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
+
+  const activeAyahRef = useRef(activeAyah);
+  activeAyahRef.current = activeAyah;
+
+  const versesRef = useRef(verses);
+  versesRef.current = verses;
+
+  const isPlayingRef = useRef(isPlaying);
+  isPlayingRef.current = isPlaying;
 
   // Aktif açık olan kavram zinciri ve hangi ayete ait olduğu
   const [activeChain, setActiveChain] = useState<string[]>([]);
@@ -493,42 +505,50 @@ export function ReadingScreen({ route, navigation }: Props) {
     handleScrollPosition(contentOffset.y);
   };
 
-  // Simulated word-by-word karaoke sync timer when playing
+  // Audio player listener ve unmount temizliği
+  useEffect(() => {
+    audioPlayerService.setListeners(
+      (state) => {
+        setIsBuffering(state.isBuffering);
+        if (state.activeWordIndex !== undefined) {
+          setActiveWordIndex(state.activeWordIndex);
+        }
+      },
+      () => {
+        // Ayet tilaveti tamamlandığında: sonraki ayete veya sureye geç
+        const currentAyahVal = activeAyahRef.current;
+        const versesVal = versesRef.current;
+        if (currentAyahVal < versesVal.length) {
+          const nextAyah = currentAyahVal + 1;
+          handleAyahSelect(nextAyah);
+          setActiveWordIndex(0);
+        } else if (surahId < 114) {
+          navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: true });
+        } else {
+          setIsPlaying(false);
+          setActiveWordIndex(null);
+        }
+      }
+    );
+
+    return () => {
+      audioPlayerService.stopAndUnload();
+    };
+  }, [surahId, navigation]);
+
+  // isPlaying veya activeAyah değiştiğinde gerçek ses dosyasını çal/duraklat
   useEffect(() => {
     if (!isPlaying) {
-      setActiveWordIndex(null);
+      audioPlayerService.pause();
       return;
     }
 
+    if (verses.length === 0) return;
+
     const currentVerse = verses.find((v) => v.ayahNo === activeAyah);
-    const wordCount = currentVerse?.words?.length || currentVerse?.textAr.split(' ').length || 5;
-
-    let currentWord = 0;
-    setActiveWordIndex(0);
-
-    const interval = setInterval(() => {
-      currentWord++;
-      if (currentWord < wordCount) {
-        setActiveWordIndex(currentWord);
-      } else {
-        // Move to next verse or next surah
-        if (activeAyah < verses.length) {
-          setActiveAyah((prev) => prev + 1);
-          currentWord = 0;
-        } else {
-          // Okunan sure bitti! Son sure değilse (surahId < 114) otomatik sonrakine geç ve otomatik çalmaya başla
-          if (surahId < 114) {
-            navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: true });
-          } else {
-            setIsPlaying(false);
-            setActiveWordIndex(null);
-          }
-        }
-      }
-    }, 900);
-
-    return () => clearInterval(interval);
-  }, [isPlaying, activeAyah, verses, surahId, navigation]);
+    const audioUrl = currentVerse?.audioUrl || getAyahAudioUrl(surahId, activeAyah);
+    audioPlayerService.playAyah(audioUrl, currentVerse?.words || [], true);
+  }, [isPlaying, activeAyah, verses, surahId]);
 
   const toggleBookmark = (ayahNo: number) => {
     const next = new Set(bookmarkedSet);
@@ -790,10 +810,19 @@ export function ReadingScreen({ route, navigation }: Props) {
             currentAyah={activeAyah}
             activeWordIndex={activeWordIndex}
             isPlaying={isPlaying}
-            onTogglePlay={() => setIsPlaying(!isPlaying)}
+            isBuffering={isBuffering}
+            playbackRate={playbackRate}
+            onRateChange={(rate) => {
+              setPlaybackRate(rate);
+              audioPlayerService.setRate(rate);
+            }}
+            onTogglePlay={() => {
+              setIsPlaying((prev) => !prev);
+            }}
             onNextVerse={() => {
               if (activeAyah < verses.length) {
-                setActiveAyah(activeAyah + 1);
+                const next = activeAyah + 1;
+                handleAyahSelect(next);
                 setActiveWordIndex(0);
               } else if (surahId < 114) {
                 // Sure bittiğinde sonraki butonuyla da sıradaki sureye geç ve çalmaya devam et
@@ -802,7 +831,8 @@ export function ReadingScreen({ route, navigation }: Props) {
             }}
             onPrevVerse={() => {
               if (activeAyah > 1) {
-                setActiveAyah(activeAyah - 1);
+                const prev = activeAyah - 1;
+                handleAyahSelect(prev);
                 setActiveWordIndex(0);
               }
             }}

@@ -37,7 +37,7 @@ interface UserSettingsState {
 export const useUserSettingsStore = create<UserSettingsState>()(
   persist(
     (set) => ({
-      onboardingCompleted: false,
+      onboardingCompleted: true,
       readingMode: 'ogrenme',
       colorSchemePreference: 'system',
       accentVariant: 'ceviz',
