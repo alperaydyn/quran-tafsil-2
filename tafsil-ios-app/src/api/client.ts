@@ -4,6 +4,7 @@ import { mockSurahs } from './mock/surahs.mock';
 import { mockVersesBySurah } from './mock/verses.mock';
 
 import ayetlerSnapshot from '../data/ayetler.snapshot.json';
+import { TimestampService } from '../services/timestampService';
 
 /**
  * Backend REST istemcisi (MOB-004).
@@ -31,17 +32,8 @@ export function getAyahAudioUrl(surahId: number, ayahNo: number): string {
 
 function getVersesFromSnapshot(surahId: number): Verse[] {
   const list = (ayetlerSnapshot as any[]).filter((a) => a.s === surahId);
-  return list.map((a, idx) => ({
-    id: surahId * 1000 + a.a,
-    surahId: a.s,
-    ayahNo: a.a,
-    juzNo: Math.ceil(a.s / 4),
-    pageNo: 1,
-    textAr: a.ar,
-    transliterationTr: a.translit ?? '',
-    mealTr: a.tr ?? '',
-    audioUrl: getAyahAudioUrl(a.s, a.a),
-    words: typeof a.ar === 'string'
+  return list.map((a, idx) => {
+    const rawWords: Word[] = typeof a.ar === 'string'
       ? a.ar.split(' ').map((w: string, wIdx: number) => ({
           id: wIdx + 1,
           position: wIdx + 1,
@@ -51,8 +43,23 @@ function getVersesFromSnapshot(surahId: number): Verse[] {
           startMs: 0,
           endMs: 0,
         }))
-      : [],
-  }));
+      : [];
+
+    const words = TimestampService.enrichWordsWithTimestamps(a.s, a.a, rawWords);
+
+    return {
+      id: surahId * 1000 + a.a,
+      surahId: a.s,
+      ayahNo: a.a,
+      juzNo: Math.ceil(a.s / 4),
+      pageNo: 1,
+      textAr: a.ar,
+      transliterationTr: a.translit ?? '',
+      mealTr: a.tr ?? '',
+      audioUrl: getAyahAudioUrl(a.s, a.a),
+      words,
+    };
+  });
 }
 
 function mapSurahFromBackend(row: any): Surah {
@@ -70,7 +77,7 @@ function mapSurahFromBackend(row: any): Surah {
 function mapVerseFromBackend(row: any): Verse {
   const surahId = row.sure_id ?? row.surahId;
   const ayahNo = row.ayet_no ?? row.ayahNo;
-  const words: Word[] = Array.isArray(row.kelimeler)
+  let words: Word[] = Array.isArray(row.kelimeler)
     ? row.kelimeler.map((k: any, idx: number) => ({
         id: k.id ?? idx + 1,
         position: k.kelime_no ?? k.sira ?? idx + 1,
@@ -86,6 +93,11 @@ function mapVerseFromBackend(row: any): Verse {
         endMs: k.end_ms ?? 0,
       }))
     : [];
+
+  // Eğer kelimelerin startMs değerleri 0 ise, offline zaman damgalarıyla zenginleştir
+  if (words.length > 0 && words.every((w) => w.startMs === 0 && w.endMs === 0)) {
+    words = TimestampService.enrichWordsWithTimestamps(surahId, ayahNo, words);
+  }
 
   return {
     id: row.id,

@@ -9,6 +9,7 @@ import { AudioPlaybackBar } from '../components/reading/AudioPlaybackBar';
 import { ConceptContextCard } from '../components/reading/ConceptContextCard';
 import { OfflineSyncService } from '../services/offlineSyncService';
 import { audioPlayerService } from '../services/audioPlayerService';
+import { TimestampService } from '../services/timestampService';
 import { useTheme } from '../theme';
 import { getVerses, getAyahAudioUrl } from '../api/client';
 import { mockSurahs } from '../api/mock/surahs.mock';
@@ -78,7 +79,7 @@ const VerseCard = React.memo(function VerseCard({
   const mode = useReadingMode();
 
   const words: Word[] = useMemo(() => {
-    return verse.words && verse.words.length > 0
+    const list: Word[] = verse.words && verse.words.length > 0
       ? verse.words
       : verse.textAr.split(' ').map((w, idx) => ({
           id: idx + 1,
@@ -89,7 +90,9 @@ const VerseCard = React.memo(function VerseCard({
           startMs: 0,
           endMs: 0,
         }));
-  }, [verse.words, verse.textAr]);
+
+    return TimestampService.enrichWordsWithTimestamps(verse.surahId, verse.ayahNo, list);
+  }, [verse.words, verse.textAr, verse.surahId, verse.ayahNo]);
 
   const activeTint = theme.scheme === 'dark' ? 'rgba(127, 163, 204, 0.07)' : 'rgba(63, 95, 134, 0.04)';
   const segments = useMemo(() => {
@@ -543,12 +546,16 @@ export function ReadingScreen({ route, navigation }: Props) {
       return;
     }
 
-    if (verses.length === 0) return;
+    const currentVerses = versesRef.current;
+    if (currentVerses.length === 0) return;
 
-    const currentVerse = verses.find((v) => v.ayahNo === activeAyah);
+    const currentVerse = currentVerses.find((v) => v.ayahNo === activeAyah);
     const audioUrl = currentVerse?.audioUrl || getAyahAudioUrl(surahId, activeAyah);
-    audioPlayerService.playAyah(audioUrl, currentVerse?.words || [], true);
-  }, [isPlaying, activeAyah, verses, surahId]);
+    const wordsWithTimestamps = currentVerse
+      ? TimestampService.enrichWordsWithTimestamps(surahId, activeAyah, currentVerse.words || [])
+      : [];
+    audioPlayerService.playAyah(audioUrl, wordsWithTimestamps, true);
+  }, [isPlaying, activeAyah, surahId]);
 
   const toggleBookmark = (ayahNo: number) => {
     const next = new Set(bookmarkedSet);

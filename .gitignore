@@ -61,3 +61,11 @@ tmp/
 temp/
 coverage/
 .turbo/
+
+# Data Pipeline ETL artifacts & large audio files
+data-pipeline/output/audio/
+data-pipeline/output/timestamps/
+data-pipeline/output/*.sql
+data-pipeline/cache/
+data-pipeline/elevenlabs/output/
+*.mp3

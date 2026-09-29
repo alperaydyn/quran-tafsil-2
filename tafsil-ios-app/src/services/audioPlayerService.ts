@@ -23,6 +23,8 @@ class AudioPlayerService {
   private subscription: { remove: () => void } | null = null;
   private trackingInterval: ReturnType<typeof setInterval> | null = null;
   private hasFinishedVerse: boolean = false;
+  private stallCounter: number = 0;
+  private lastPositionMs: number = -1;
 
   private onStateChange: PlaybackStateListener | null = null;
   private onVerseFinish: VerseFinishListener | null = null;
@@ -67,6 +69,8 @@ class AudioPlayerService {
       clearInterval(this.trackingInterval);
       this.trackingInterval = null;
     }
+    this.stallCounter = 0;
+    this.lastPositionMs = -1;
   }
 
   private startTracking(loadId: number) {
@@ -95,7 +99,7 @@ class AudioPlayerService {
   private processPlaybackTick(
     curTimeSec: number,
     durSec: number,
-    isPlaying: boolean,
+    isNativePlaying: boolean,
     isBuffering: boolean,
     loadId: number
   ) {
@@ -103,6 +107,26 @@ class AudioPlayerService {
 
     const positionMs = Math.round(curTimeSec * 1000);
     const durationMs = Math.round(durSec * 1000);
+
+    // Watchdog / Stall Recovery:
+    // Eğer kullanıcı oynatıyor modundaysa (this.state.isPlaying === true)
+    // ancak player oynamıyorsa ve buffer'da takılı kalmışsa otomatik toparla
+    if (this.state.isPlaying && !this.hasFinishedVerse) {
+      if (!isNativePlaying && !isBuffering && durationMs > 0 && positionMs < durationMs - 300) {
+        this.stallCounter++;
+        // 3 tick (~240ms) boyunca asılı kaldıysa resume sinyali gönder
+        if (this.stallCounter >= 3) {
+          this.stallCounter = 0;
+          try {
+            this.player?.play();
+          } catch (e) {
+            // Guard
+          }
+        }
+      } else {
+        this.stallCounter = 0;
+      }
+    }
 
     // Kelime senkronizasyon hesabı
     let activeWordIndex: number | null = null;
@@ -127,7 +151,7 @@ class AudioPlayerService {
     }
 
     this.notify({
-      isPlaying,
+      isPlaying: isNativePlaying || this.state.isPlaying,
       isBuffering,
       durationMs,
       positionMs,
@@ -135,13 +159,20 @@ class AudioPlayerService {
     });
 
     // Ayet bitiş tespiti:
-    // Ses belirli bir süre çalmışsa ve ses dosyasının sonuna (son 250ms) ulaşılmışsa
-    if (!this.hasFinishedVerse && durationMs > 1000 && positionMs >= durationMs - 250) {
+    // Sadece ses dosyasının gerçekten sonuna gelindiğinde tetikle
+    if (
+      !this.hasFinishedVerse &&
+      durationMs > 1000 &&
+      positionMs >= durationMs - 80 &&
+      (!isNativePlaying || positionMs === this.lastPositionMs)
+    ) {
       this.hasFinishedVerse = true;
       this.stopTracking();
       this.notify({ activeWordIndex: null });
       this.onVerseFinish?.();
     }
+
+    this.lastPositionMs = positionMs;
   }
 
   /**
@@ -154,7 +185,7 @@ class AudioPlayerService {
     this.words = words;
     this.hasFinishedVerse = false;
 
-    // Eğer aynı URL zaten yüklüyse
+    // Eğer aynı URL zaten yüklüyse tekrar createAudioPlayer yapma
     if (this.player && this.currentUrl === url) {
       if (shouldPlay) {
         try {
@@ -190,6 +221,15 @@ class AudioPlayerService {
 
       this.subscription = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
         if (currentLoadId !== this.loadId) return;
+
+        // Ağdan ses hazır olduğunda ve çalması gerekiyorsa oynamayı garanti et
+        if (status.isLoaded && shouldPlay && !status.playing && !status.didJustFinish && !this.hasFinishedVerse) {
+          try {
+            player.play();
+          } catch (e) {
+            // Guard
+          }
+        }
 
         if (status.didJustFinish && !this.hasFinishedVerse) {
           this.hasFinishedVerse = true;

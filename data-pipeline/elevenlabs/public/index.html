@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tafsil.net — ElevenLabs Ayet Seslendirme & Senkronizasyon Stüdyosu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/app.css">
+</head>
+
+<body>
+  <div class="app-layout">
+    <!-- Header -->
+    <header class="studio-header">
+      <div class="brand">
+        <div class="brand-badge">tafsil.net</div>
+        <h1>ElevenLabs Ayet Seslendirme & Kelime Senkron Stüdyosu</h1>
+      </div>
+      <div class="header-status">
+        <span class="status-indicator"></span>
+        <span id="apiStatusText">ElevenLabs API Hazır</span>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="studio-main">
+      <!-- Sol Panel: Ayarlar ve Metin Girişi -->
+      <section class="panel control-panel">
+        <div class="panel-header">
+          <h2>1. Ayet ve Metin Seçimi</h2>
+          <span class="badge">Kaynak</span>
+        </div>
+
+        <!-- Hızlı Ayet Seçimi -->
+        <div class="form-group">
+          <label class="group-label">Hızlı Seçim Örnekleri</label>
+          <div class="quick-chips">
+            <button type="button" class="chip active" data-surah="1" data-ayah="1">Fatiha 1:1</button>
+            <button type="button" class="chip" data-surah="1" data-ayah="2">Fatiha 1:2</button>
+            <button type="button" class="chip" data-surah="1" data-ayah="7">Fatiha 1:7</button>
+            <button type="button" class="chip" data-surah="112" data-ayah="1">İhlas 112:1</button>
+            <button type="button" class="chip" data-surah="112" data-ayah="2">İhlas 112:2</button>
+            <button type="button" class="chip" data-surah="103" data-ayah="1">Asr 103:1</button>
+            <button type="button" class="chip" data-surah="2" data-ayah="255">Ayetel Kürsi</button>
+          </div>
+        </div>
+
+        <!-- Sure / Ayet Seçici -->
+        <div class="surah-ayah-row">
+          <div class="form-group flex-1">
+            <label for="surahSelect">Sure</label>
+            <select id="surahSelect" class="form-control"></select>
+          </div>
+          <div class="form-group w-80">
+            <label for="ayahInput">Ayet No</label>
+            <input type="number" id="ayahInput" class="form-control" value="1" min="1" max="286">
+          </div>
+          <button type="button" id="btnLoadVerse" class="btn btn-secondary align-self-end">Yükle</button>
+        </div>
+
+        <!-- Metin Türü Seçimi -->
+        <div class="form-group">
+          <label class="group-label">Seslendirilecek Metin Türü</label>
+          <div class="segmented-control">
+            <button type="button" class="seg-btn active" id="btnModeArabic">Orijinal Arapça</button>
+            <button type="button" class="seg-btn" id="btnModeTurkish">Türkçe Meal</button>
+          </div>
+        </div>
+
+        <!-- Metin Alanı -->
+        <div class="form-group">
+          <div class="textarea-header">
+            <label for="verseTextInput">Metin (Canlı Düzenlenebilir)</label>
+            <span id="charCount" class="text-muted">0 karakter</span>
+          </div>
+          <textarea id="verseTextInput" class="form-control verse-textarea arabic-font" rows="3"
+            placeholder="Ayet metni buraya gelecek..."></textarea>
+        </div>
+
+        <!-- 2. ElevenLabs Finetune Ayarları -->
+        <div class="panel-header mt-4">
+          <h2>2. ElevenLabs Finetune Ayarları</h2>
+          <span class="badge badge-gold">Model & Ses</span>
+        </div>
+
+        <!-- Profil Seçici Presets -->
+        <div class="form-group">
+          <label class="group-label">Hızlı Profil Seçimi (Kur'ani Tilavet / Meal)</label>
+          <div class="quick-chips">
+            <button type="button" class="chip active" id="btnPresetQuran">📖 Kur'ani Tertiyl (Tecvid Önerisi)</button>
+            <button type="button" class="chip" id="btnPresetMeal">🎙️ Türkçe Meal / Anlatıcı</button>
+          </div>
+        </div>
+
+        <!-- Voice ID Girişi ve Seçimi -->
+        <div class="form-group voice-id-card">
+          <div class="d-flex justify-between align-center mb-1">
+            <label for="voiceIdInput" class="voice-id-label">🎯 Voice ID (Doğrudan Giriş)</label>
+            <span class="badge badge-gold">Canlı Ses ID</span>
+          </div>
+
+          <div class="voice-input-row">
+            <input type="text" id="voiceIdInput" class="form-control font-mono font-bold"
+              placeholder="ElevenLabs Voice ID yapıştırın...">
+            <button type="button" id="btnVerifyVoice" class="btn btn-secondary btn-sm"
+              title="Sesin adını ve önizlemesini getir">🔍 Kontrol Et</button>
+            <button type="button" id="btnPlayVoicePreview" class="btn btn-secondary btn-sm"
+              title="Ses Önizlemesi Çal">🔊 Dinle</button>
+          </div>
+
+          <!-- Doğrulanan Ses Bilgi Kartı -->
+          <div id="verifiedVoiceBadge" class="voice-verified-box hidden">
+            <span class="voice-status-dot"></span>
+            <span id="verifiedVoiceName" class="voice-name-text">George - Warm Storyteller</span>
+            <span id="verifiedVoiceCategory" class="badge">premade</span>
+          </div>
+
+          <!-- Hesaptaki Seslerden Seçme Dropdown'ı -->
+          <div class="mt-2">
+            <label for="voiceSelect" class="text-muted text-xs">Veya hesaptaki mevcut seslerden seçip doldurun:</label>
+            <select id="voiceSelect" class="form-control form-control-sm mt-1">
+              <option value="">Sesler yükleniyor...</option>
+            </select>
+          </div>
+
+          <!-- Hızlı Voice ID Örnekleri -->
+          <div class="mt-2">
+            <span class="text-muted text-xs">Hızlı Test Sesleri:</span>
+            <div class="quick-chips mt-1">
+              <button type="button" class="chip chip-voice" data-id="JBFqnCBsd6RMkjVDRZzb"
+                data-name="George (Önerilen)">George (Vakarlı)</button>
+              <button type="button" class="chip chip-voice" data-id="EXAVITQu4vr4xnSDxMaL" data-name="Sarah">Sarah
+                (Sakin)</button>
+              <button type="button" class="chip chip-voice" data-id="IKne3meq5aSn9XLyUdCD" data-name="Charlie">Charlie
+                (Tok Ses)</button>
+              <button type="button" class="chip chip-voice" data-id="onwK4e9ZLuTAKqWW03F9" data-name="Daniel">Daniel
+                (Haberci)</button>
+            </div>
+          </div>
+          <div class="slider-hint mt-1">💡 Kendi klonladığınız Kâri sesinin (Voice Lab'deki) ID'sini doğrudan yukarıdaki
+            alana yapıştırabilirsiniz!</div>
+        </div>
+
+        <!-- Model Seçimi -->
+        <div class="form-group">
+          <label for="modelSelect">Model (Model ID)</label>
+          <select id="modelSelect" class="form-control">
+            <option value="eleven_v4">eleven_v4 (Eleven v4 - En Yeni Amiral Gemisi)</option>
+            <option value="eleven_v4_turbo">eleven_v4_turbo (Eleven v4 Turbo - Yeni Hızlı)</option>
+            <option value="eleven_v3">eleven_v3 (Eleven v3)</option>
+            <option value="eleven_v3_conversational">eleven_v3_conversational (Eleven v3 Konuşma)</option>
+            <option value="eleven_multilingual_v2" selected>eleven_multilingual_v2 (Önerilen - Zengin Çok Dilli)</option>
+            <option value="eleven_turbo_v2_5">eleven_turbo_v2_5 (Turbo v2.5)</option>
+            <option value="eleven_flash_v2_5">eleven_flash_v2_5 (Flash v2.5)</option>
+          </select>
+        </div>
+
+        <!-- Finetune Slider'ları -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="sliderStability">Stability (Kararlılık / Tektip Ton)</label>
+            <span id="valStability" class="slider-val">0.75</span>
+          </div>
+          <input type="range" id="sliderStability" min="0" max="1" step="0.05" value="0.75" class="slider">
+          <div class="slider-hint">Daha yüksek değerler tecvid ve telaffuzda ritmik stabilite sağlar.</div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="sliderSimilarity">Similarity Boost (Netlik & Orijinallik)</label>
+            <span id="valSimilarity" class="slider-val">0.85</span>
+          </div>
+          <input type="range" id="sliderSimilarity" min="0" max="1" step="0.05" value="0.85" class="slider">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="sliderStyle">Style Exaggeration (Duygu Vurgusu)</label>
+            <span id="valStyle" class="slider-val">0.00</span>
+          </div>
+          <input type="range" id="sliderStyle" min="0" max="1" step="0.05" value="0.00" class="slider">
+          <div class="slider-hint">Kur'an tilavetinde yapay iniş çıkışları önlemek için 0.00 önerilir.</div>
+        </div>
+
+        <div class="form-checkbox">
+          <input type="checkbox" id="chkSpeakerBoost" checked>
+          <label for="chkSpeakerBoost">Speaker Boost (Ses netliğini artır)</label>
+        </div>
+
+        <div class="form-checkbox">
+          <input type="checkbox" id="chkSaveToFile" checked>
+          <label for="chkSaveToFile">Çıktıyı <code>output/</code> klasörüne kaydet (.mp3 ve .json)</label>
+        </div>
+
+        <!-- Ana Seslendir Butonu -->
+        <button type="button" id="btnSynthesize" class="btn btn-primary btn-block">
+          <span class="btn-icon">⚡</span>
+          <span class="btn-text">Seslendir ve Kelime Zaman Damgalarını Çıkar</span>
+        </button>
+      </section>
+
+      <!-- Sağ Panel: Karaoke & Zaman Damgası Önizleme -->
+      <section class="panel preview-panel">
+        <div class="panel-header">
+          <h2>3. Senkronize Karaoke & Dinleme Alanı</h2>
+          <div class="audio-timing-badge" id="timingBadge">Süre: 0.00s | 0 Kelime</div>
+        </div>
+
+        <!-- Boş Durum (Placeholder) -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">🎙️</div>
+          <h3>Henüz bir seslendirme yapılmadı</h3>
+          <p>Soldaki panelden bir ayet seçip veya kendi metninizi girip <strong>"Seslendir ve Kelime Zaman Damgalarını
+              Çıkar"</strong> butonuna basın.</p>
+        </div>
+
+        <!-- Yükleniyor Durumu -->
+        <div id="loadingState" class="loading-state hidden">
+          <div class="spinner"></div>
+          <h3>ElevenLabs ile seslendiriliyor ve hizalanıyor...</h3>
+          <p class="text-muted">Arapça/Türkçe kelime zaman sınırları milisaniye hassasiyetinde hesaplanıyor.</p>
+        </div>
+
+        <!-- Sonuç Alanı -->
+        <div id="resultContainer" class="result-container hidden">
+          <!-- Ses Oynatıcı Kontrolleri -->
+          <div class="audio-player-card">
+            <audio id="audioElement" preload="auto"></audio>
+
+            <div class="player-top-row">
+              <button type="button" id="btnPlayPause" class="btn-circle-play" title="Çal / Durdur">
+                <span class="play-icon">▶</span>
+              </button>
+
+              <div class="timeline-container">
+                <input type="range" id="audioTimeline" min="0" max="100" value="0" step="0.1" class="timeline-slider">
+                <div class="time-labels">
+                  <span id="currentTimeLabel">0:00.0</span>
+                  <span id="totalDurationLabel">0:00.0</span>
+                </div>
+              </div>
+
+              <div class="speed-control">
+                <label for="playbackSpeed">Hız:</label>
+                <select id="playbackSpeed" class="speed-select">
+                  <option value="0.75">0.75x</option>
+                  <option value="1.0" selected>1.0x</option>
+                  <option value="1.25">1.25x</option>
+                  <option value="1.5">1.5x</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Canlı Karaoke Kelime Sahnesi -->
+          <div class="karaoke-stage-wrapper">
+            <div class="stage-header">
+              <span class="stage-title">Canlı Kelime Vurgulama (Karaoke)</span>
+              <span class="stage-hint">İpucu: İstediğiniz kelimeye tıklayarak o saniyeye atlayabilirsiniz!</span>
+            </div>
+
+            <div id="karaokeBox" class="karaoke-box arabic-mode">
+              <!-- Kelimeler JS ile buraya dinamik eklenecek -->
+            </div>
+          </div>
+
+          <!-- Sekmeli Detay Bölümü (Tablo / JSON / Batch Kodu) -->
+          <div class="details-section">
+            <div class="details-tabs">
+              <button type="button" class="tab-btn active" data-tab="tabTable">Kelime Zaman Damgaları</button>
+              <button type="button" class="tab-btn" data-tab="tabJson">JSON Çıktısı</button>
+              <button type="button" class="tab-btn" data-tab="tabBatch">Tüm Ayetler Döngü Kodu</button>
+            </div>
+
+            <!-- Tab 1: Tablo -->
+            <div id="tabTable" class="tab-pane active">
+              <div class="table-responsive">
+                <table class="timestamps-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Kelime</th>
+                      <th>Başlangıç</th>
+                      <th>Bitiş</th>
+                      <th>Süre</th>
+                      <th>İşlem</th>
+                    </tr>
+                  </thead>
+                  <tbody id="timestampsTableBody">
+                    <!-- Satırlar JS ile üretilecek -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 2: JSON -->
+            <div id="tabJson" class="tab-pane">
+              <div class="json-actions">
+                <button type="button" id="btnCopyJson" class="btn btn-sm btn-secondary">📋 JSON Kopyala</button>
+                <button type="button" id="btnDownloadJson" class="btn btn-sm btn-secondary">💾 .json İndir</button>
+                <button type="button" id="btnDownloadMp3" class="btn btn-sm btn-secondary">🎵 .mp3 İndir</button>
+              </div>
+              <pre id="jsonViewer" class="json-code-block"></pre>
+            </div>
+
+            <!-- Tab 3: Batch Kodu -->
+            <div id="tabBatch" class="tab-pane">
+              <div class="batch-helper">
+                <p>Bu ayarları beğendiyseniz, tüm Kur'an veya belirli sureler için toplu üretim komutunu
+                  kullanabilirsiniz:</p>
+                <div class="command-box">
+                  <code id="batchCommandCode">node data-pipeline/elevenlabs/batch.js --voice ...</code>
+                  <button type="button" id="btnCopyBatch" class="btn btn-sm btn-secondary">Kopyala</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+
+</html>
