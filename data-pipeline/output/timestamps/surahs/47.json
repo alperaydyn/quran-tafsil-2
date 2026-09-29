@@ -1,0 +1,3927 @@
+{
+  "surah": 47,
+  "ayahCount": 38,
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "ayahs": [
+    {
+      "surah": 47,
+      "ayah": 1,
+      "verseKey": "47:1",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 0,
+      "timestampToGlobalMs": 8780,
+      "durationMs": 8780,
+      "audioFile": "47_1.mp3",
+      "wordCount": 8,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1260,
+          "durationMs": 1260
+        },
+        {
+          "position": 2,
+          "startMs": 1260,
+          "endMs": 2190,
+          "durationMs": 930
+        },
+        {
+          "position": 3,
+          "startMs": 2190,
+          "endMs": 3180,
+          "durationMs": 990
+        },
+        {
+          "position": 4,
+          "startMs": 3180,
+          "endMs": 4160,
+          "durationMs": 980
+        },
+        {
+          "position": 5,
+          "startMs": 4160,
+          "endMs": 5340,
+          "durationMs": 1180
+        },
+        {
+          "position": 6,
+          "startMs": 5340,
+          "endMs": 5920,
+          "durationMs": 580
+        },
+        {
+          "position": 7,
+          "startMs": 5920,
+          "endMs": 6790,
+          "durationMs": 870
+        },
+        {
+          "position": 8,
+          "startMs": 6790,
+          "endMs": 8725,
+          "durationMs": 1935
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.058Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 2,
+      "verseKey": "47:2",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 8780,
+      "timestampToGlobalMs": 28320,
+      "durationMs": 19540,
+      "audioFile": "47_2.mp3",
+      "wordCount": 18,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1235,
+          "durationMs": 1235
+        },
+        {
+          "position": 2,
+          "startMs": 1235,
+          "endMs": 2405,
+          "durationMs": 1170
+        },
+        {
+          "position": 3,
+          "startMs": 2405,
+          "endMs": 3125,
+          "durationMs": 720
+        },
+        {
+          "position": 4,
+          "startMs": 3125,
+          "endMs": 4645,
+          "durationMs": 1520
+        },
+        {
+          "position": 5,
+          "startMs": 4645,
+          "endMs": 5825,
+          "durationMs": 1180
+        },
+        {
+          "position": 6,
+          "startMs": 5825,
+          "endMs": 6535,
+          "durationMs": 710
+        },
+        {
+          "position": 7,
+          "startMs": 6535,
+          "endMs": 7375,
+          "durationMs": 840
+        },
+        {
+          "position": 8,
+          "startMs": 7375,
+          "endMs": 7975,
+          "durationMs": 600
+        },
+        {
+          "position": 9,
+          "startMs": 7975,
+          "endMs": 9905,
+          "durationMs": 1930
+        },
+        {
+          "position": 10,
+          "startMs": 9905,
+          "endMs": 11035,
+          "durationMs": 1130
+        },
+        {
+          "position": 11,
+          "startMs": 11035,
+          "endMs": 11935,
+          "durationMs": 900
+        },
+        {
+          "position": 12,
+          "startMs": 11935,
+          "endMs": 12115,
+          "durationMs": 180
+        },
+        {
+          "position": 13,
+          "startMs": 12115,
+          "endMs": 13385,
+          "durationMs": 1270
+        },
+        {
+          "position": 14,
+          "startMs": 13385,
+          "endMs": 14245,
+          "durationMs": 860
+        },
+        {
+          "position": 15,
+          "startMs": 14245,
+          "endMs": 15025,
+          "durationMs": 780
+        },
+        {
+          "position": 16,
+          "startMs": 15025,
+          "endMs": 16755,
+          "durationMs": 1730
+        },
+        {
+          "position": 17,
+          "startMs": 16755,
+          "endMs": 17895,
+          "durationMs": 1140
+        },
+        {
+          "position": 18,
+          "startMs": 17895,
+          "endMs": 19420,
+          "durationMs": 1525
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.085Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 3,
+      "verseKey": "47:3",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 28320,
+      "timestampToGlobalMs": 47780,
+      "durationMs": 19460,
+      "audioFile": "47_3.mp3",
+      "wordCount": 18,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 945,
+          "durationMs": 945
+        },
+        {
+          "position": 2,
+          "startMs": 945,
+          "endMs": 2395,
+          "durationMs": 1450
+        },
+        {
+          "position": 3,
+          "startMs": 2395,
+          "endMs": 3455,
+          "durationMs": 1060
+        },
+        {
+          "position": 4,
+          "startMs": 3455,
+          "endMs": 4125,
+          "durationMs": 670
+        },
+        {
+          "position": 5,
+          "startMs": 4125,
+          "endMs": 4915,
+          "durationMs": 790
+        },
+        {
+          "position": 6,
+          "startMs": 4915,
+          "endMs": 6065,
+          "durationMs": 1150
+        },
+        {
+          "position": 7,
+          "startMs": 6065,
+          "endMs": 7385,
+          "durationMs": 1320
+        },
+        {
+          "position": 8,
+          "startMs": 7385,
+          "endMs": 8465,
+          "durationMs": 1080
+        },
+        {
+          "position": 9,
+          "startMs": 8465,
+          "endMs": 9265,
+          "durationMs": 800
+        },
+        {
+          "position": 10,
+          "startMs": 9265,
+          "endMs": 10125,
+          "durationMs": 860
+        },
+        {
+          "position": 11,
+          "startMs": 10125,
+          "endMs": 10995,
+          "durationMs": 870
+        },
+        {
+          "position": 12,
+          "startMs": 10995,
+          "endMs": 11145,
+          "durationMs": 150
+        },
+        {
+          "position": 13,
+          "startMs": 11145,
+          "endMs": 12945,
+          "durationMs": 1800
+        },
+        {
+          "position": 14,
+          "startMs": 12945,
+          "endMs": 13955,
+          "durationMs": 1010
+        },
+        {
+          "position": 15,
+          "startMs": 13955,
+          "endMs": 14775,
+          "durationMs": 820
+        },
+        {
+          "position": 16,
+          "startMs": 14775,
+          "endMs": 15655,
+          "durationMs": 880
+        },
+        {
+          "position": 17,
+          "startMs": 15655,
+          "endMs": 17325,
+          "durationMs": 1670
+        },
+        {
+          "position": 18,
+          "startMs": 17325,
+          "endMs": 19310,
+          "durationMs": 1985
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.106Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 4,
+      "verseKey": "47:4",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 47780,
+      "timestampToGlobalMs": 97650,
+      "durationMs": 49870,
+      "audioFile": "47_4.mp3",
+      "wordCount": 39,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 785,
+          "durationMs": 785
+        },
+        {
+          "position": 2,
+          "startMs": 785,
+          "endMs": 1805,
+          "durationMs": 1020
+        },
+        {
+          "position": 3,
+          "startMs": 1805,
+          "endMs": 2805,
+          "durationMs": 1000
+        },
+        {
+          "position": 4,
+          "startMs": 2805,
+          "endMs": 3675,
+          "durationMs": 870
+        },
+        {
+          "position": 5,
+          "startMs": 3675,
+          "endMs": 4465,
+          "durationMs": 790
+        },
+        {
+          "position": 6,
+          "startMs": 4465,
+          "endMs": 5605,
+          "durationMs": 1140
+        },
+        {
+          "position": 7,
+          "startMs": 5605,
+          "endMs": 7825,
+          "durationMs": 2220
+        },
+        {
+          "position": 16,
+          "startMs": 7825,
+          "endMs": 10405,
+          "durationMs": 2580
+        },
+        {
+          "position": 9,
+          "startMs": 10405,
+          "endMs": 12575,
+          "durationMs": 2170
+        },
+        {
+          "position": 10,
+          "startMs": 12575,
+          "endMs": 13425,
+          "durationMs": 850
+        },
+        {
+          "position": 11,
+          "startMs": 13425,
+          "endMs": 14465,
+          "durationMs": 1040
+        },
+        {
+          "position": 12,
+          "startMs": 14465,
+          "endMs": 16415,
+          "durationMs": 1950
+        },
+        {
+          "position": 13,
+          "startMs": 16415,
+          "endMs": 17775,
+          "durationMs": 1360
+        },
+        {
+          "position": 13,
+          "startMs": 17775,
+          "endMs": 18955,
+          "durationMs": 1180
+        },
+        {
+          "position": 14,
+          "startMs": 18955,
+          "endMs": 19605,
+          "durationMs": 650
+        },
+        {
+          "position": 15,
+          "startMs": 19605,
+          "endMs": 21315,
+          "durationMs": 1710
+        },
+        {
+          "position": 16,
+          "startMs": 21315,
+          "endMs": 24105,
+          "durationMs": 2790
+        },
+        {
+          "position": 17,
+          "startMs": 24105,
+          "endMs": 24915,
+          "durationMs": 810
+        },
+        {
+          "position": 18,
+          "startMs": 24915,
+          "endMs": 25595,
+          "durationMs": 680
+        },
+        {
+          "position": 19,
+          "startMs": 25595,
+          "endMs": 26465,
+          "durationMs": 870
+        },
+        {
+          "position": 20,
+          "startMs": 26465,
+          "endMs": 28095,
+          "durationMs": 1630
+        },
+        {
+          "position": 21,
+          "startMs": 28095,
+          "endMs": 29885,
+          "durationMs": 1790
+        },
+        {
+          "position": 22,
+          "startMs": 29885,
+          "endMs": 30425,
+          "durationMs": 540
+        },
+        {
+          "position": 23,
+          "startMs": 30425,
+          "endMs": 32635,
+          "durationMs": 2210
+        },
+        {
+          "position": 24,
+          "startMs": 32635,
+          "endMs": 33485,
+          "durationMs": 850
+        },
+        {
+          "position": 25,
+          "startMs": 33485,
+          "endMs": 35265,
+          "durationMs": 1780
+        },
+        {
+          "position": 26,
+          "startMs": 35265,
+          "endMs": 36145,
+          "durationMs": 880
+        },
+        {
+          "position": 27,
+          "startMs": 36145,
+          "endMs": 37035,
+          "durationMs": 890
+        },
+        {
+          "position": 28,
+          "startMs": 37035,
+          "endMs": 38145,
+          "durationMs": 1110
+        },
+        {
+          "position": 29,
+          "startMs": 38145,
+          "endMs": 40185,
+          "durationMs": 2040
+        },
+        {
+          "position": 30,
+          "startMs": 40185,
+          "endMs": 41055,
+          "durationMs": 870
+        },
+        {
+          "position": 31,
+          "startMs": 41075,
+          "endMs": 42665,
+          "durationMs": 1590
+        },
+        {
+          "position": 32,
+          "startMs": 42665,
+          "endMs": 43455,
+          "durationMs": 790
+        },
+        {
+          "position": 33,
+          "startMs": 43455,
+          "endMs": 43885,
+          "durationMs": 430
+        },
+        {
+          "position": 34,
+          "startMs": 43885,
+          "endMs": 45005,
+          "durationMs": 1120
+        },
+        {
+          "position": 35,
+          "startMs": 45005,
+          "endMs": 45615,
+          "durationMs": 610
+        },
+        {
+          "position": 36,
+          "startMs": 45615,
+          "endMs": 46225,
+          "durationMs": 610
+        },
+        {
+          "position": 37,
+          "startMs": 46225,
+          "endMs": 47885,
+          "durationMs": 1660
+        },
+        {
+          "position": 38,
+          "startMs": 47885,
+          "endMs": 49750,
+          "durationMs": 1865
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.124Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 5,
+      "verseKey": "47:5",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 97650,
+      "timestampToGlobalMs": 101780,
+      "durationMs": 4130,
+      "audioFile": "47_5.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1575,
+          "durationMs": 1575
+        },
+        {
+          "position": 2,
+          "startMs": 1575,
+          "endMs": 2565,
+          "durationMs": 990
+        },
+        {
+          "position": 3,
+          "startMs": 2565,
+          "endMs": 4060,
+          "durationMs": 1495
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.143Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 6,
+      "verseKey": "47:6",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 101780,
+      "timestampToGlobalMs": 107550,
+      "durationMs": 5770,
+      "audioFile": "47_6.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1455,
+          "durationMs": 1455
+        },
+        {
+          "position": 2,
+          "startMs": 1455,
+          "endMs": 3295,
+          "durationMs": 1840
+        },
+        {
+          "position": 3,
+          "startMs": 3295,
+          "endMs": 4655,
+          "durationMs": 1360
+        },
+        {
+          "position": 4,
+          "startMs": 4655,
+          "endMs": 5680,
+          "durationMs": 1025
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.159Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 7,
+      "verseKey": "47:7",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 107550,
+      "timestampToGlobalMs": 123300,
+      "durationMs": 15750,
+      "audioFile": "47_7.mp3",
+      "wordCount": 9,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 2995,
+          "durationMs": 2995
+        },
+        {
+          "position": 2,
+          "startMs": 2995,
+          "endMs": 4005,
+          "durationMs": 1010
+        },
+        {
+          "position": 3,
+          "startMs": 4005,
+          "endMs": 6715,
+          "durationMs": 2710
+        },
+        {
+          "position": 4,
+          "startMs": 6715,
+          "endMs": 7795,
+          "durationMs": 1080
+        },
+        {
+          "position": 5,
+          "startMs": 7795,
+          "endMs": 9395,
+          "durationMs": 1600
+        },
+        {
+          "position": 6,
+          "startMs": 9395,
+          "endMs": 10245,
+          "durationMs": 850
+        },
+        {
+          "position": 7,
+          "startMs": 10245,
+          "endMs": 12375,
+          "durationMs": 2130
+        },
+        {
+          "position": 8,
+          "startMs": 12375,
+          "endMs": 13615,
+          "durationMs": 1240
+        },
+        {
+          "position": 9,
+          "startMs": 13615,
+          "endMs": 15640,
+          "durationMs": 2025
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.174Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 8,
+      "verseKey": "47:8",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 123300,
+      "timestampToGlobalMs": 130330,
+      "durationMs": 7030,
+      "audioFile": "47_8.mp3",
+      "wordCount": 6,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1205,
+          "durationMs": 1205
+        },
+        {
+          "position": 2,
+          "startMs": 1205,
+          "endMs": 2025,
+          "durationMs": 820
+        },
+        {
+          "position": 3,
+          "startMs": 2025,
+          "endMs": 3015,
+          "durationMs": 990
+        },
+        {
+          "position": 4,
+          "startMs": 3015,
+          "endMs": 3875,
+          "durationMs": 860
+        },
+        {
+          "position": 5,
+          "startMs": 3875,
+          "endMs": 4955,
+          "durationMs": 1080
+        },
+        {
+          "position": 6,
+          "startMs": 4955,
+          "endMs": 6930,
+          "durationMs": 1975
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.190Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 9,
+      "verseKey": "47:9",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 130330,
+      "timestampToGlobalMs": 141850,
+      "durationMs": 11520,
+      "audioFile": "47_9.mp3",
+      "wordCount": 8,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 925,
+          "durationMs": 925
+        },
+        {
+          "position": 2,
+          "startMs": 925,
+          "endMs": 3005,
+          "durationMs": 2080
+        },
+        {
+          "position": 3,
+          "startMs": 3005,
+          "endMs": 3825,
+          "durationMs": 820
+        },
+        {
+          "position": 4,
+          "startMs": 3825,
+          "endMs": 5815,
+          "durationMs": 1990
+        },
+        {
+          "position": 5,
+          "startMs": 5815,
+          "endMs": 7205,
+          "durationMs": 1390
+        },
+        {
+          "position": 6,
+          "startMs": 7205,
+          "endMs": 8165,
+          "durationMs": 960
+        },
+        {
+          "position": 7,
+          "startMs": 8165,
+          "endMs": 9315,
+          "durationMs": 1150
+        },
+        {
+          "position": 8,
+          "startMs": 9315,
+          "endMs": 11410,
+          "durationMs": 2095
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.205Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 10,
+      "verseKey": "47:10",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 141850,
+      "timestampToGlobalMs": 161180,
+      "durationMs": 19330,
+      "audioFile": "47_10.mp3",
+      "wordCount": 16,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 825,
+          "durationMs": 825
+        },
+        {
+          "position": 2,
+          "startMs": 825,
+          "endMs": 1935,
+          "durationMs": 1110
+        },
+        {
+          "position": 3,
+          "startMs": 1935,
+          "endMs": 2135,
+          "durationMs": 200
+        },
+        {
+          "position": 4,
+          "startMs": 2135,
+          "endMs": 3005,
+          "durationMs": 870
+        },
+        {
+          "position": 5,
+          "startMs": 3005,
+          "endMs": 4925,
+          "durationMs": 1920
+        },
+        {
+          "position": 6,
+          "startMs": 4925,
+          "endMs": 5655,
+          "durationMs": 730
+        },
+        {
+          "position": 7,
+          "startMs": 5655,
+          "endMs": 6215,
+          "durationMs": 560
+        },
+        {
+          "position": 8,
+          "startMs": 6215,
+          "endMs": 7265,
+          "durationMs": 1050
+        },
+        {
+          "position": 9,
+          "startMs": 7265,
+          "endMs": 8225,
+          "durationMs": 960
+        },
+        {
+          "position": 10,
+          "startMs": 8225,
+          "endMs": 9615,
+          "durationMs": 1390
+        },
+        {
+          "position": 11,
+          "startMs": 9615,
+          "endMs": 11165,
+          "durationMs": 1550
+        },
+        {
+          "position": 12,
+          "startMs": 11165,
+          "endMs": 12585,
+          "durationMs": 1420
+        },
+        {
+          "position": 13,
+          "startMs": 12585,
+          "endMs": 13545,
+          "durationMs": 960
+        },
+        {
+          "position": 14,
+          "startMs": 13545,
+          "endMs": 15065,
+          "durationMs": 1520
+        },
+        {
+          "position": 15,
+          "startMs": 15065,
+          "endMs": 16895,
+          "durationMs": 1830
+        },
+        {
+          "position": 16,
+          "startMs": 16895,
+          "endMs": 18610,
+          "durationMs": 1715
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.221Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 11,
+      "verseKey": "47:11",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 161180,
+      "timestampToGlobalMs": 173380,
+      "durationMs": 12200,
+      "audioFile": "47_11.mp3",
+      "wordCount": 11,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 245,
+          "durationMs": 245
+        },
+        {
+          "position": 2,
+          "startMs": 245,
+          "endMs": 1645,
+          "durationMs": 1400
+        },
+        {
+          "position": 3,
+          "startMs": 1645,
+          "endMs": 2635,
+          "durationMs": 990
+        },
+        {
+          "position": 4,
+          "startMs": 2635,
+          "endMs": 3225,
+          "durationMs": 590
+        },
+        {
+          "position": 5,
+          "startMs": 3225,
+          "endMs": 4255,
+          "durationMs": 1030
+        },
+        {
+          "position": 6,
+          "startMs": 4255,
+          "endMs": 5535,
+          "durationMs": 1280
+        },
+        {
+          "position": 7,
+          "startMs": 5535,
+          "endMs": 6915,
+          "durationMs": 1380
+        },
+        {
+          "position": 8,
+          "startMs": 6915,
+          "endMs": 8425,
+          "durationMs": 1510
+        },
+        {
+          "position": 9,
+          "startMs": 8425,
+          "endMs": 8925,
+          "durationMs": 500
+        },
+        {
+          "position": 10,
+          "startMs": 8925,
+          "endMs": 10135,
+          "durationMs": 1210
+        },
+        {
+          "position": 11,
+          "startMs": 10135,
+          "endMs": 11330,
+          "durationMs": 1195
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.237Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 12,
+      "verseKey": "47:12",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 173380,
+      "timestampToGlobalMs": 201490,
+      "durationMs": 28110,
+      "audioFile": "47_12.mp3",
+      "wordCount": 22,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 945,
+          "durationMs": 945
+        },
+        {
+          "position": 2,
+          "startMs": 945,
+          "endMs": 1825,
+          "durationMs": 880
+        },
+        {
+          "position": 3,
+          "startMs": 1825,
+          "endMs": 2585,
+          "durationMs": 760
+        },
+        {
+          "position": 4,
+          "startMs": 2585,
+          "endMs": 3655,
+          "durationMs": 1070
+        },
+        {
+          "position": 5,
+          "startMs": 3655,
+          "endMs": 4775,
+          "durationMs": 1120
+        },
+        {
+          "position": 6,
+          "startMs": 4775,
+          "endMs": 5475,
+          "durationMs": 700
+        },
+        {
+          "position": 7,
+          "startMs": 5475,
+          "endMs": 7015,
+          "durationMs": 1540
+        },
+        {
+          "position": 8,
+          "startMs": 7015,
+          "endMs": 9325,
+          "durationMs": 2310
+        },
+        {
+          "position": 9,
+          "startMs": 9325,
+          "endMs": 10415,
+          "durationMs": 1090
+        },
+        {
+          "position": 10,
+          "startMs": 10415,
+          "endMs": 11105,
+          "durationMs": 690
+        },
+        {
+          "position": 11,
+          "startMs": 11105,
+          "endMs": 12285,
+          "durationMs": 1180
+        },
+        {
+          "position": 12,
+          "startMs": 12285,
+          "endMs": 16095,
+          "durationMs": 3810
+        },
+        {
+          "position": 13,
+          "startMs": 16095,
+          "endMs": 17255,
+          "durationMs": 1160
+        },
+        {
+          "position": 14,
+          "startMs": 17255,
+          "endMs": 18125,
+          "durationMs": 870
+        },
+        {
+          "position": 15,
+          "startMs": 18125,
+          "endMs": 19875,
+          "durationMs": 1750
+        },
+        {
+          "position": 16,
+          "startMs": 19875,
+          "endMs": 21265,
+          "durationMs": 1390
+        },
+        {
+          "position": 17,
+          "startMs": 21265,
+          "endMs": 21895,
+          "durationMs": 630
+        },
+        {
+          "position": 18,
+          "startMs": 21895,
+          "endMs": 22735,
+          "durationMs": 840
+        },
+        {
+          "position": 19,
+          "startMs": 22735,
+          "endMs": 24105,
+          "durationMs": 1370
+        },
+        {
+          "position": 20,
+          "startMs": 24105,
+          "endMs": 25885,
+          "durationMs": 1780
+        },
+        {
+          "position": 21,
+          "startMs": 25885,
+          "endMs": 26745,
+          "durationMs": 860
+        },
+        {
+          "position": 22,
+          "startMs": 26745,
+          "endMs": 27830,
+          "durationMs": 1085
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.252Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 13,
+      "verseKey": "47:13",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 201490,
+      "timestampToGlobalMs": 220560,
+      "durationMs": 19070,
+      "audioFile": "47_13.mp3",
+      "wordCount": 17,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1085,
+          "durationMs": 1085
+        },
+        {
+          "position": 2,
+          "startMs": 1085,
+          "endMs": 2175,
+          "durationMs": 1090
+        },
+        {
+          "position": 2,
+          "startMs": 2175,
+          "endMs": 2985,
+          "durationMs": 810
+        },
+        {
+          "position": 3,
+          "startMs": 2985,
+          "endMs": 4055,
+          "durationMs": 1070
+        },
+        {
+          "position": 4,
+          "startMs": 4055,
+          "endMs": 4465,
+          "durationMs": 410
+        },
+        {
+          "position": 5,
+          "startMs": 4465,
+          "endMs": 5275,
+          "durationMs": 810
+        },
+        {
+          "position": 6,
+          "startMs": 5275,
+          "endMs": 6225,
+          "durationMs": 950
+        },
+        {
+          "position": 7,
+          "startMs": 6225,
+          "endMs": 7965,
+          "durationMs": 1740
+        },
+        {
+          "position": 8,
+          "startMs": 7965,
+          "endMs": 8995,
+          "durationMs": 1030
+        },
+        {
+          "position": 9,
+          "startMs": 8995,
+          "endMs": 9665,
+          "durationMs": 670
+        },
+        {
+          "position": 4,
+          "startMs": 9665,
+          "endMs": 11165,
+          "durationMs": 1500
+        },
+        {
+          "position": 10,
+          "startMs": 11165,
+          "endMs": 12425,
+          "durationMs": 1260
+        },
+        {
+          "position": 11,
+          "startMs": 12425,
+          "endMs": 14665,
+          "durationMs": 2240
+        },
+        {
+          "position": 11,
+          "startMs": 14665,
+          "endMs": 16275,
+          "durationMs": 1610
+        },
+        {
+          "position": 12,
+          "startMs": 16275,
+          "endMs": 16965,
+          "durationMs": 690
+        },
+        {
+          "position": 13,
+          "startMs": 16965,
+          "endMs": 17865,
+          "durationMs": 900
+        },
+        {
+          "position": 14,
+          "startMs": 17865,
+          "endMs": 18970,
+          "durationMs": 1105
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.270Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 14,
+      "verseKey": "47:14",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 220560,
+      "timestampToGlobalMs": 239370,
+      "durationMs": 18810,
+      "audioFile": "47_14.mp3",
+      "wordCount": 13,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1645,
+          "durationMs": 1645
+        },
+        {
+          "position": 2,
+          "startMs": 1645,
+          "endMs": 2255,
+          "durationMs": 610
+        },
+        {
+          "position": 3,
+          "startMs": 2255,
+          "endMs": 2925,
+          "durationMs": 670
+        },
+        {
+          "position": 4,
+          "startMs": 2925,
+          "endMs": 4295,
+          "durationMs": 1370
+        },
+        {
+          "position": 5,
+          "startMs": 4295,
+          "endMs": 5235,
+          "durationMs": 940
+        },
+        {
+          "position": 6,
+          "startMs": 5235,
+          "endMs": 6585,
+          "durationMs": 1350
+        },
+        {
+          "position": 7,
+          "startMs": 6585,
+          "endMs": 7905,
+          "durationMs": 1320
+        },
+        {
+          "position": 8,
+          "startMs": 7905,
+          "endMs": 8745,
+          "durationMs": 840
+        },
+        {
+          "position": 9,
+          "startMs": 8745,
+          "endMs": 9265,
+          "durationMs": 520
+        },
+        {
+          "position": 10,
+          "startMs": 9265,
+          "endMs": 11385,
+          "durationMs": 2120
+        },
+        {
+          "position": 11,
+          "startMs": 11385,
+          "endMs": 12435,
+          "durationMs": 1050
+        },
+        {
+          "position": 12,
+          "startMs": 12435,
+          "endMs": 15085,
+          "durationMs": 2650
+        },
+        {
+          "position": 13,
+          "startMs": 15085,
+          "endMs": 18720,
+          "durationMs": 3635
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.286Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 15,
+      "verseKey": "47:15",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 239370,
+      "timestampToGlobalMs": 304680,
+      "durationMs": 65310,
+      "audioFile": "47_15.mp3",
+      "wordCount": 47,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 675,
+          "durationMs": 675
+        },
+        {
+          "position": 2,
+          "startMs": 675,
+          "endMs": 2635,
+          "durationMs": 1960
+        },
+        {
+          "position": 3,
+          "startMs": 2635,
+          "endMs": 3505,
+          "durationMs": 870
+        },
+        {
+          "position": 4,
+          "startMs": 3505,
+          "endMs": 4185,
+          "durationMs": 680
+        },
+        {
+          "position": 5,
+          "startMs": 4185,
+          "endMs": 7945,
+          "durationMs": 3760
+        },
+        {
+          "position": 6,
+          "startMs": 8085,
+          "endMs": 8775,
+          "durationMs": 690
+        },
+        {
+          "position": 11,
+          "startMs": 8775,
+          "endMs": 11085,
+          "durationMs": 2310
+        },
+        {
+          "position": 12,
+          "startMs": 11085,
+          "endMs": 12075,
+          "durationMs": 990
+        },
+        {
+          "position": 8,
+          "startMs": 12075,
+          "endMs": 13055,
+          "durationMs": 980
+        },
+        {
+          "position": 9,
+          "startMs": 13055,
+          "endMs": 16275,
+          "durationMs": 3220
+        },
+        {
+          "position": 10,
+          "startMs": 16275,
+          "endMs": 16925,
+          "durationMs": 650
+        },
+        {
+          "position": 11,
+          "startMs": 16925,
+          "endMs": 17885,
+          "durationMs": 960
+        },
+        {
+          "position": 36,
+          "startMs": 17885,
+          "endMs": 18955,
+          "durationMs": 1070
+        },
+        {
+          "position": 12,
+          "startMs": 18955,
+          "endMs": 20145,
+          "durationMs": 1190
+        },
+        {
+          "position": 13,
+          "startMs": 20145,
+          "endMs": 21025,
+          "durationMs": 880
+        },
+        {
+          "position": 14,
+          "startMs": 21025,
+          "endMs": 21925,
+          "durationMs": 900
+        },
+        {
+          "position": 15,
+          "startMs": 21925,
+          "endMs": 22525,
+          "durationMs": 600
+        },
+        {
+          "position": 16,
+          "startMs": 22525,
+          "endMs": 23935,
+          "durationMs": 1410
+        },
+        {
+          "position": 17,
+          "startMs": 23935,
+          "endMs": 25055,
+          "durationMs": 1120
+        },
+        {
+          "position": 18,
+          "startMs": 25055,
+          "endMs": 28345,
+          "durationMs": 3290
+        },
+        {
+          "position": 18,
+          "startMs": 28345,
+          "endMs": 29645,
+          "durationMs": 1300
+        },
+        {
+          "position": 19,
+          "startMs": 29645,
+          "endMs": 31165,
+          "durationMs": 1520
+        },
+        {
+          "position": 20,
+          "startMs": 31165,
+          "endMs": 31825,
+          "durationMs": 660
+        },
+        {
+          "position": 21,
+          "startMs": 31825,
+          "endMs": 32925,
+          "durationMs": 1100
+        },
+        {
+          "position": 22,
+          "startMs": 32925,
+          "endMs": 34775,
+          "durationMs": 1850
+        },
+        {
+          "position": 23,
+          "startMs": 34775,
+          "endMs": 36275,
+          "durationMs": 1500
+        },
+        {
+          "position": 24,
+          "startMs": 36275,
+          "endMs": 37305,
+          "durationMs": 1030
+        },
+        {
+          "position": 25,
+          "startMs": 37305,
+          "endMs": 38045,
+          "durationMs": 740
+        },
+        {
+          "position": 26,
+          "startMs": 38045,
+          "endMs": 41135,
+          "durationMs": 3090
+        },
+        {
+          "position": 27,
+          "startMs": 41135,
+          "endMs": 41935,
+          "durationMs": 800
+        },
+        {
+          "position": 28,
+          "startMs": 41935,
+          "endMs": 42925,
+          "durationMs": 990
+        },
+        {
+          "position": 29,
+          "startMs": 42925,
+          "endMs": 43825,
+          "durationMs": 900
+        },
+        {
+          "position": 30,
+          "startMs": 43825,
+          "endMs": 44535,
+          "durationMs": 710
+        },
+        {
+          "position": 31,
+          "startMs": 44535,
+          "endMs": 46065,
+          "durationMs": 1530
+        },
+        {
+          "position": 32,
+          "startMs": 46065,
+          "endMs": 47505,
+          "durationMs": 1440
+        },
+        {
+          "position": 33,
+          "startMs": 47505,
+          "endMs": 48635,
+          "durationMs": 1130
+        },
+        {
+          "position": 34,
+          "startMs": 48635,
+          "endMs": 50535,
+          "durationMs": 1900
+        },
+        {
+          "position": 35,
+          "startMs": 50565,
+          "endMs": 50995,
+          "durationMs": 430
+        },
+        {
+          "position": 36,
+          "startMs": 50995,
+          "endMs": 51605,
+          "durationMs": 610
+        },
+        {
+          "position": 37,
+          "startMs": 51605,
+          "endMs": 53275,
+          "durationMs": 1670
+        },
+        {
+          "position": 38,
+          "startMs": 53275,
+          "endMs": 53525,
+          "durationMs": 250
+        },
+        {
+          "position": 39,
+          "startMs": 53525,
+          "endMs": 55335,
+          "durationMs": 1810
+        },
+        {
+          "position": 40,
+          "startMs": 55335,
+          "endMs": 56225,
+          "durationMs": 890
+        },
+        {
+          "position": 41,
+          "startMs": 56225,
+          "endMs": 58545,
+          "durationMs": 2320
+        },
+        {
+          "position": 42,
+          "startMs": 58545,
+          "endMs": 59835,
+          "durationMs": 1290
+        },
+        {
+          "position": 43,
+          "startMs": 59835,
+          "endMs": 61635,
+          "durationMs": 1800
+        },
+        {
+          "position": 44,
+          "startMs": 61635,
+          "endMs": 65210,
+          "durationMs": 3575
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.303Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 16,
+      "verseKey": "47:16",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 304680,
+      "timestampToGlobalMs": 336550,
+      "durationMs": 31870,
+      "audioFile": "47_16.mp3",
+      "wordCount": 24,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1035,
+          "durationMs": 1035
+        },
+        {
+          "position": 2,
+          "startMs": 1035,
+          "endMs": 1775,
+          "durationMs": 740
+        },
+        {
+          "position": 3,
+          "startMs": 1776,
+          "endMs": 3635,
+          "durationMs": 1859
+        },
+        {
+          "position": 4,
+          "startMs": 3635,
+          "endMs": 4465,
+          "durationMs": 830
+        },
+        {
+          "position": 5,
+          "startMs": 4465,
+          "endMs": 6925,
+          "durationMs": 2460
+        },
+        {
+          "position": 6,
+          "startMs": 6925,
+          "endMs": 7555,
+          "durationMs": 630
+        },
+        {
+          "position": 7,
+          "startMs": 7555,
+          "endMs": 8455,
+          "durationMs": 900
+        },
+        {
+          "position": 8,
+          "startMs": 8455,
+          "endMs": 8865,
+          "durationMs": 410
+        },
+        {
+          "position": 9,
+          "startMs": 8865,
+          "endMs": 10595,
+          "durationMs": 1730
+        },
+        {
+          "position": 10,
+          "startMs": 10595,
+          "endMs": 11435,
+          "durationMs": 840
+        },
+        {
+          "position": 11,
+          "startMs": 11435,
+          "endMs": 12825,
+          "durationMs": 1390
+        },
+        {
+          "position": 12,
+          "startMs": 12825,
+          "endMs": 13415,
+          "durationMs": 590
+        },
+        {
+          "position": 13,
+          "startMs": 13415,
+          "endMs": 14355,
+          "durationMs": 940
+        },
+        {
+          "position": 14,
+          "startMs": 14355,
+          "endMs": 15215,
+          "durationMs": 860
+        },
+        {
+          "position": 15,
+          "startMs": 15215,
+          "endMs": 15975,
+          "durationMs": 760
+        },
+        {
+          "position": 16,
+          "startMs": 15975,
+          "endMs": 17255,
+          "durationMs": 1280
+        },
+        {
+          "position": 17,
+          "startMs": 17255,
+          "endMs": 20465,
+          "durationMs": 3210
+        },
+        {
+          "position": 18,
+          "startMs": 20465,
+          "endMs": 21535,
+          "durationMs": 1070
+        },
+        {
+          "position": 19,
+          "startMs": 21535,
+          "endMs": 22165,
+          "durationMs": 630
+        },
+        {
+          "position": 20,
+          "startMs": 22165,
+          "endMs": 23125,
+          "durationMs": 960
+        },
+        {
+          "position": 21,
+          "startMs": 23125,
+          "endMs": 23715,
+          "durationMs": 590
+        },
+        {
+          "position": 22,
+          "startMs": 23715,
+          "endMs": 25145,
+          "durationMs": 1430
+        },
+        {
+          "position": 23,
+          "startMs": 25145,
+          "endMs": 27685,
+          "durationMs": 2540
+        },
+        {
+          "position": 24,
+          "startMs": 27685,
+          "endMs": 31740,
+          "durationMs": 4055
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.323Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 17,
+      "verseKey": "47:17",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 336550,
+      "timestampToGlobalMs": 345010,
+      "durationMs": 8460,
+      "audioFile": "47_17.mp3",
+      "wordCount": 6,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1235,
+          "durationMs": 1235
+        },
+        {
+          "position": 2,
+          "startMs": 1235,
+          "endMs": 2135,
+          "durationMs": 900
+        },
+        {
+          "position": 3,
+          "startMs": 2135,
+          "endMs": 3285,
+          "durationMs": 1150
+        },
+        {
+          "position": 4,
+          "startMs": 3285,
+          "endMs": 3965,
+          "durationMs": 680
+        },
+        {
+          "position": 5,
+          "startMs": 3965,
+          "endMs": 6465,
+          "durationMs": 2500
+        },
+        {
+          "position": 6,
+          "startMs": 6465,
+          "endMs": 8330,
+          "durationMs": 1865
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.341Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 18,
+      "verseKey": "47:18",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 345010,
+      "timestampToGlobalMs": 367340,
+      "durationMs": 22340,
+      "audioFile": "47_18.mp3",
+      "wordCount": 15,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 635,
+          "durationMs": 635
+        },
+        {
+          "position": 2,
+          "startMs": 635,
+          "endMs": 2505,
+          "durationMs": 1870
+        },
+        {
+          "position": 3,
+          "startMs": 2505,
+          "endMs": 3155,
+          "durationMs": 650
+        },
+        {
+          "position": 4,
+          "startMs": 3155,
+          "endMs": 4385,
+          "durationMs": 1230
+        },
+        {
+          "position": 5,
+          "startMs": 4385,
+          "endMs": 5365,
+          "durationMs": 980
+        },
+        {
+          "position": 6,
+          "startMs": 5365,
+          "endMs": 7995,
+          "durationMs": 2630
+        },
+        {
+          "position": 7,
+          "startMs": 7995,
+          "endMs": 9355,
+          "durationMs": 1360
+        },
+        {
+          "position": 8,
+          "startMs": 9355,
+          "endMs": 9975,
+          "durationMs": 620
+        },
+        {
+          "position": 9,
+          "startMs": 9975,
+          "endMs": 12145,
+          "durationMs": 2170
+        },
+        {
+          "position": 10,
+          "startMs": 12145,
+          "endMs": 14015,
+          "durationMs": 1870
+        },
+        {
+          "position": 11,
+          "startMs": 14015,
+          "endMs": 16375,
+          "durationMs": 2360
+        },
+        {
+          "position": 12,
+          "startMs": 16375,
+          "endMs": 17025,
+          "durationMs": 650
+        },
+        {
+          "position": 13,
+          "startMs": 17025,
+          "endMs": 17685,
+          "durationMs": 660
+        },
+        {
+          "position": 14,
+          "startMs": 17685,
+          "endMs": 20415,
+          "durationMs": 2730
+        },
+        {
+          "position": 15,
+          "startMs": 20415,
+          "endMs": 22270,
+          "durationMs": 1855
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.358Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 19,
+      "verseKey": "47:19",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 367340,
+      "timestampToGlobalMs": 390070,
+      "durationMs": 22730,
+      "audioFile": "47_19.mp3",
+      "wordCount": 15,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 935,
+          "durationMs": 935
+        },
+        {
+          "position": 2,
+          "startMs": 935,
+          "endMs": 2555,
+          "durationMs": 1620
+        },
+        {
+          "position": 3,
+          "startMs": 2555,
+          "endMs": 4895,
+          "durationMs": 2340
+        },
+        {
+          "position": 4,
+          "startMs": 4895,
+          "endMs": 5725,
+          "durationMs": 830
+        },
+        {
+          "position": 5,
+          "startMs": 5725,
+          "endMs": 6375,
+          "durationMs": 650
+        },
+        {
+          "position": 6,
+          "startMs": 6375,
+          "endMs": 7395,
+          "durationMs": 1020
+        },
+        {
+          "position": 7,
+          "startMs": 7395,
+          "endMs": 8555,
+          "durationMs": 1160
+        },
+        {
+          "position": 8,
+          "startMs": 8555,
+          "endMs": 10485,
+          "durationMs": 1930
+        },
+        {
+          "position": 9,
+          "startMs": 10485,
+          "endMs": 12245,
+          "durationMs": 1760
+        },
+        {
+          "position": 10,
+          "startMs": 12245,
+          "endMs": 13685,
+          "durationMs": 1440
+        },
+        {
+          "position": 11,
+          "startMs": 13685,
+          "endMs": 15415,
+          "durationMs": 1730
+        },
+        {
+          "position": 11,
+          "startMs": 15415,
+          "endMs": 17135,
+          "durationMs": 1720
+        },
+        {
+          "position": 12,
+          "startMs": 17135,
+          "endMs": 18095,
+          "durationMs": 960
+        },
+        {
+          "position": 13,
+          "startMs": 18095,
+          "endMs": 20125,
+          "durationMs": 2030
+        },
+        {
+          "position": 14,
+          "startMs": 20125,
+          "endMs": 22020,
+          "durationMs": 1895
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.376Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 20,
+      "verseKey": "47:20",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 390070,
+      "timestampToGlobalMs": 423900,
+      "durationMs": 33830,
+      "audioFile": "47_20.mp3",
+      "wordCount": 28,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 455,
+          "durationMs": 455
+        },
+        {
+          "position": 2,
+          "startMs": 455,
+          "endMs": 1475,
+          "durationMs": 1020
+        },
+        {
+          "position": 3,
+          "startMs": 1475,
+          "endMs": 2605,
+          "durationMs": 1130
+        },
+        {
+          "position": 4,
+          "startMs": 2605,
+          "endMs": 3485,
+          "durationMs": 880
+        },
+        {
+          "position": 5,
+          "startMs": 3485,
+          "endMs": 4485,
+          "durationMs": 1000
+        },
+        {
+          "position": 6,
+          "startMs": 4485,
+          "endMs": 6145,
+          "durationMs": 1660
+        },
+        {
+          "position": 7,
+          "startMs": 6175,
+          "endMs": 8615,
+          "durationMs": 2440
+        },
+        {
+          "position": 8,
+          "startMs": 8615,
+          "endMs": 10165,
+          "durationMs": 1550
+        },
+        {
+          "position": 9,
+          "startMs": 10165,
+          "endMs": 11165,
+          "durationMs": 1000
+        },
+        {
+          "position": 10,
+          "startMs": 11165,
+          "endMs": 13515,
+          "durationMs": 2350
+        },
+        {
+          "position": 11,
+          "startMs": 13515,
+          "endMs": 14305,
+          "durationMs": 790
+        },
+        {
+          "position": 12,
+          "startMs": 14305,
+          "endMs": 14925,
+          "durationMs": 620
+        },
+        {
+          "position": 13,
+          "startMs": 14925,
+          "endMs": 16025,
+          "durationMs": 1100
+        },
+        {
+          "position": 14,
+          "startMs": 16025,
+          "endMs": 16865,
+          "durationMs": 840
+        },
+        {
+          "position": 15,
+          "startMs": 16865,
+          "endMs": 17975,
+          "durationMs": 1110
+        },
+        {
+          "position": 16,
+          "startMs": 17975,
+          "endMs": 18375,
+          "durationMs": 400
+        },
+        {
+          "position": 17,
+          "startMs": 18375,
+          "endMs": 19605,
+          "durationMs": 1230
+        },
+        {
+          "position": 18,
+          "startMs": 19605,
+          "endMs": 21055,
+          "durationMs": 1450
+        },
+        {
+          "position": 16,
+          "startMs": 21055,
+          "endMs": 22095,
+          "durationMs": 1040
+        },
+        {
+          "position": 19,
+          "startMs": 22095,
+          "endMs": 23935,
+          "durationMs": 1840
+        },
+        {
+          "position": 20,
+          "startMs": 23935,
+          "endMs": 24835,
+          "durationMs": 900
+        },
+        {
+          "position": 21,
+          "startMs": 24835,
+          "endMs": 25425,
+          "durationMs": 590
+        },
+        {
+          "position": 22,
+          "startMs": 25425,
+          "endMs": 26855,
+          "durationMs": 1430
+        },
+        {
+          "position": 23,
+          "startMs": 26855,
+          "endMs": 27745,
+          "durationMs": 890
+        },
+        {
+          "position": 24,
+          "startMs": 27745,
+          "endMs": 28085,
+          "durationMs": 340
+        },
+        {
+          "position": 25,
+          "startMs": 28085,
+          "endMs": 30315,
+          "durationMs": 2230
+        },
+        {
+          "position": 26,
+          "startMs": 30315,
+          "endMs": 31995,
+          "durationMs": 1680
+        },
+        {
+          "position": 27,
+          "startMs": 31995,
+          "endMs": 32810,
+          "durationMs": 815
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.395Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 21,
+      "verseKey": "47:21",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 423900,
+      "timestampToGlobalMs": 438760,
+      "durationMs": 14860,
+      "audioFile": "47_21.mp3",
+      "wordCount": 12,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1465,
+          "durationMs": 1465
+        },
+        {
+          "position": 2,
+          "startMs": 1465,
+          "endMs": 2285,
+          "durationMs": 820
+        },
+        {
+          "position": 3,
+          "startMs": 2285,
+          "endMs": 6805,
+          "durationMs": 4520
+        },
+        {
+          "position": 4,
+          "startMs": 6805,
+          "endMs": 7685,
+          "durationMs": 880
+        },
+        {
+          "position": 5,
+          "startMs": 7685,
+          "endMs": 8295,
+          "durationMs": 610
+        },
+        {
+          "position": 6,
+          "startMs": 8295,
+          "endMs": 9205,
+          "durationMs": 910
+        },
+        {
+          "position": 7,
+          "startMs": 9205,
+          "endMs": 9785,
+          "durationMs": 580
+        },
+        {
+          "position": 8,
+          "startMs": 9785,
+          "endMs": 10525,
+          "durationMs": 740
+        },
+        {
+          "position": 9,
+          "startMs": 10525,
+          "endMs": 11375,
+          "durationMs": 850
+        },
+        {
+          "position": 10,
+          "startMs": 11375,
+          "endMs": 12315,
+          "durationMs": 940
+        },
+        {
+          "position": 11,
+          "startMs": 12315,
+          "endMs": 13135,
+          "durationMs": 820
+        },
+        {
+          "position": 12,
+          "startMs": 13135,
+          "endMs": 14480,
+          "durationMs": 1345
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.415Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 22,
+      "verseKey": "47:22",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 438760,
+      "timestampToGlobalMs": 451480,
+      "durationMs": 12720,
+      "audioFile": "47_22.mp3",
+      "wordCount": 10,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 645,
+          "durationMs": 645
+        },
+        {
+          "position": 2,
+          "startMs": 645,
+          "endMs": 1785,
+          "durationMs": 1140
+        },
+        {
+          "position": 3,
+          "startMs": 1785,
+          "endMs": 2225,
+          "durationMs": 440
+        },
+        {
+          "position": 4,
+          "startMs": 2225,
+          "endMs": 4475,
+          "durationMs": 2250
+        },
+        {
+          "position": 5,
+          "startMs": 4475,
+          "endMs": 5405,
+          "durationMs": 930
+        },
+        {
+          "position": 6,
+          "startMs": 5405,
+          "endMs": 6445,
+          "durationMs": 1040
+        },
+        {
+          "position": 7,
+          "startMs": 6445,
+          "endMs": 6715,
+          "durationMs": 270
+        },
+        {
+          "position": 8,
+          "startMs": 6715,
+          "endMs": 7595,
+          "durationMs": 880
+        },
+        {
+          "position": 9,
+          "startMs": 7595,
+          "endMs": 10565,
+          "durationMs": 2970
+        },
+        {
+          "position": 10,
+          "startMs": 10565,
+          "endMs": 12620,
+          "durationMs": 2055
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.433Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 23,
+      "verseKey": "47:23",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 451480,
+      "timestampToGlobalMs": 464230,
+      "durationMs": 12750,
+      "audioFile": "47_23.mp3",
+      "wordCount": 7,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 2695,
+          "durationMs": 2695
+        },
+        {
+          "position": 2,
+          "startMs": 2695,
+          "endMs": 3665,
+          "durationMs": 970
+        },
+        {
+          "position": 3,
+          "startMs": 3665,
+          "endMs": 4855,
+          "durationMs": 1190
+        },
+        {
+          "position": 4,
+          "startMs": 4855,
+          "endMs": 5695,
+          "durationMs": 840
+        },
+        {
+          "position": 5,
+          "startMs": 5695,
+          "endMs": 7955,
+          "durationMs": 2260
+        },
+        {
+          "position": 6,
+          "startMs": 7955,
+          "endMs": 10595,
+          "durationMs": 2640
+        },
+        {
+          "position": 7,
+          "startMs": 10595,
+          "endMs": 12650,
+          "durationMs": 2055
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.451Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 24,
+      "verseKey": "47:24",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 464230,
+      "timestampToGlobalMs": 479750,
+      "durationMs": 15520,
+      "audioFile": "47_24.mp3",
+      "wordCount": 13,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 935,
+          "durationMs": 935
+        },
+        {
+          "position": 2,
+          "startMs": 935,
+          "endMs": 2655,
+          "durationMs": 1720
+        },
+        {
+          "position": 3,
+          "startMs": 2655,
+          "endMs": 4175,
+          "durationMs": 1520
+        },
+        {
+          "position": 4,
+          "startMs": 4175,
+          "endMs": 4315,
+          "durationMs": 140
+        },
+        {
+          "position": 5,
+          "startMs": 4315,
+          "endMs": 6065,
+          "durationMs": 1750
+        },
+        {
+          "position": 4,
+          "startMs": 6065,
+          "endMs": 6265,
+          "durationMs": 200
+        },
+        {
+          "position": 5,
+          "startMs": 6265,
+          "endMs": 7655,
+          "durationMs": 1390
+        },
+        {
+          "position": 2,
+          "startMs": 7655,
+          "endMs": 9435,
+          "durationMs": 1780
+        },
+        {
+          "position": 3,
+          "startMs": 9435,
+          "endMs": 10835,
+          "durationMs": 1400
+        },
+        {
+          "position": 4,
+          "startMs": 10835,
+          "endMs": 11255,
+          "durationMs": 420
+        },
+        {
+          "position": 5,
+          "startMs": 11255,
+          "endMs": 11955,
+          "durationMs": 700
+        },
+        {
+          "position": 6,
+          "startMs": 11955,
+          "endMs": 13155,
+          "durationMs": 1200
+        },
+        {
+          "position": 7,
+          "startMs": 13155,
+          "endMs": 14950,
+          "durationMs": 1795
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.469Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 25,
+      "verseKey": "47:25",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 479750,
+      "timestampToGlobalMs": 497700,
+      "durationMs": 17950,
+      "audioFile": "47_25.mp3",
+      "wordCount": 16,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 935,
+          "durationMs": 935
+        },
+        {
+          "position": 2,
+          "startMs": 935,
+          "endMs": 2015,
+          "durationMs": 1080
+        },
+        {
+          "position": 3,
+          "startMs": 2015,
+          "endMs": 3165,
+          "durationMs": 1150
+        },
+        {
+          "position": 4,
+          "startMs": 3165,
+          "endMs": 5235,
+          "durationMs": 2070
+        },
+        {
+          "position": 5,
+          "startMs": 5235,
+          "endMs": 6685,
+          "durationMs": 1450
+        },
+        {
+          "position": 6,
+          "startMs": 6685,
+          "endMs": 8684,
+          "durationMs": 1999
+        },
+        {
+          "position": 7,
+          "startMs": 8685,
+          "endMs": 9415,
+          "durationMs": 730
+        },
+        {
+          "position": 8,
+          "startMs": 9415,
+          "endMs": 9765,
+          "durationMs": 350
+        },
+        {
+          "position": 9,
+          "startMs": 9765,
+          "endMs": 10965,
+          "durationMs": 1200
+        },
+        {
+          "position": 10,
+          "startMs": 10965,
+          "endMs": 11575,
+          "durationMs": 610
+        },
+        {
+          "position": 11,
+          "startMs": 11575,
+          "endMs": 12165,
+          "durationMs": 590
+        },
+        {
+          "position": 12,
+          "startMs": 12165,
+          "endMs": 13505,
+          "durationMs": 1340
+        },
+        {
+          "position": 13,
+          "startMs": 13505,
+          "endMs": 14505,
+          "durationMs": 1000
+        },
+        {
+          "position": 14,
+          "startMs": 14505,
+          "endMs": 15205,
+          "durationMs": 700
+        },
+        {
+          "position": 15,
+          "startMs": 15205,
+          "endMs": 16265,
+          "durationMs": 1060
+        },
+        {
+          "position": 16,
+          "startMs": 16265,
+          "endMs": 17330,
+          "durationMs": 1065
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.488Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 26,
+      "verseKey": "47:26",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 497700,
+      "timestampToGlobalMs": 513840,
+      "durationMs": 16140,
+      "audioFile": "47_26.mp3",
+      "wordCount": 15,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 915,
+          "durationMs": 915
+        },
+        {
+          "position": 2,
+          "startMs": 915,
+          "endMs": 2935,
+          "durationMs": 2020
+        },
+        {
+          "position": 3,
+          "startMs": 2935,
+          "endMs": 3835,
+          "durationMs": 900
+        },
+        {
+          "position": 4,
+          "startMs": 3835,
+          "endMs": 5065,
+          "durationMs": 1230
+        },
+        {
+          "position": 5,
+          "startMs": 5065,
+          "endMs": 6025,
+          "durationMs": 960
+        },
+        {
+          "position": 6,
+          "startMs": 6025,
+          "endMs": 6515,
+          "durationMs": 490
+        },
+        {
+          "position": 7,
+          "startMs": 6515,
+          "endMs": 7375,
+          "durationMs": 860
+        },
+        {
+          "position": 8,
+          "startMs": 7375,
+          "endMs": 8215,
+          "durationMs": 840
+        },
+        {
+          "position": 9,
+          "startMs": 8215,
+          "endMs": 9735,
+          "durationMs": 1520
+        },
+        {
+          "position": 10,
+          "startMs": 9735,
+          "endMs": 10215,
+          "durationMs": 480
+        },
+        {
+          "position": 11,
+          "startMs": 10215,
+          "endMs": 10905,
+          "durationMs": 690
+        },
+        {
+          "position": 12,
+          "startMs": 10905,
+          "endMs": 11515,
+          "durationMs": 610
+        },
+        {
+          "position": 13,
+          "startMs": 11515,
+          "endMs": 13095,
+          "durationMs": 1580
+        },
+        {
+          "position": 14,
+          "startMs": 13095,
+          "endMs": 14025,
+          "durationMs": 930
+        },
+        {
+          "position": 15,
+          "startMs": 14025,
+          "endMs": 15960,
+          "durationMs": 1935
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.508Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 27,
+      "verseKey": "47:27",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 513840,
+      "timestampToGlobalMs": 524790,
+      "durationMs": 10950,
+      "audioFile": "47_27.mp3",
+      "wordCount": 7,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 675,
+          "durationMs": 675
+        },
+        {
+          "position": 2,
+          "startMs": 675,
+          "endMs": 1345,
+          "durationMs": 670
+        },
+        {
+          "position": 3,
+          "startMs": 1345,
+          "endMs": 2885,
+          "durationMs": 1540
+        },
+        {
+          "position": 4,
+          "startMs": 2885,
+          "endMs": 5965,
+          "durationMs": 3080
+        },
+        {
+          "position": 5,
+          "startMs": 5965,
+          "endMs": 7245,
+          "durationMs": 1280
+        },
+        {
+          "position": 6,
+          "startMs": 7245,
+          "endMs": 8705,
+          "durationMs": 1460
+        },
+        {
+          "position": 7,
+          "startMs": 8705,
+          "endMs": 10800,
+          "durationMs": 2095
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.527Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 28,
+      "verseKey": "47:28",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 524790,
+      "timestampToGlobalMs": 538430,
+      "durationMs": 13640,
+      "audioFile": "47_28.mp3",
+      "wordCount": 10,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1015,
+          "durationMs": 1015
+        },
+        {
+          "position": 2,
+          "startMs": 1015,
+          "endMs": 2825,
+          "durationMs": 1810
+        },
+        {
+          "position": 3,
+          "startMs": 2825,
+          "endMs": 3965,
+          "durationMs": 1140
+        },
+        {
+          "position": 4,
+          "startMs": 3965,
+          "endMs": 6104,
+          "durationMs": 2139
+        },
+        {
+          "position": 5,
+          "startMs": 6105,
+          "endMs": 6865,
+          "durationMs": 760
+        },
+        {
+          "position": 6,
+          "startMs": 6865,
+          "endMs": 7855,
+          "durationMs": 990
+        },
+        {
+          "position": 7,
+          "startMs": 7855,
+          "endMs": 8895,
+          "durationMs": 1040
+        },
+        {
+          "position": 8,
+          "startMs": 8895,
+          "endMs": 10375,
+          "durationMs": 1480
+        },
+        {
+          "position": 9,
+          "startMs": 10375,
+          "endMs": 11565,
+          "durationMs": 1190
+        },
+        {
+          "position": 10,
+          "startMs": 11565,
+          "endMs": 13530,
+          "durationMs": 1965
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.546Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 29,
+      "verseKey": "47:29",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 538430,
+      "timestampToGlobalMs": 549450,
+      "durationMs": 11020,
+      "audioFile": "47_29.mp3",
+      "wordCount": 10,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 435,
+          "durationMs": 435
+        },
+        {
+          "position": 2,
+          "startMs": 435,
+          "endMs": 1095,
+          "durationMs": 660
+        },
+        {
+          "position": 3,
+          "startMs": 1095,
+          "endMs": 2235,
+          "durationMs": 1140
+        },
+        {
+          "position": 4,
+          "startMs": 2235,
+          "endMs": 2625,
+          "durationMs": 390
+        },
+        {
+          "position": 5,
+          "startMs": 2625,
+          "endMs": 3845,
+          "durationMs": 1220
+        },
+        {
+          "position": 6,
+          "startMs": 3845,
+          "endMs": 5615,
+          "durationMs": 1770
+        },
+        {
+          "position": 3,
+          "startMs": 5615,
+          "endMs": 7195,
+          "durationMs": 1580
+        },
+        {
+          "position": 9,
+          "startMs": 7195,
+          "endMs": 7875,
+          "durationMs": 680
+        },
+        {
+          "position": 10,
+          "startMs": 7875,
+          "endMs": 8855,
+          "durationMs": 980
+        },
+        {
+          "position": 11,
+          "startMs": 8855,
+          "endMs": 10950,
+          "durationMs": 2095
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.565Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 30,
+      "verseKey": "47:30",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 549450,
+      "timestampToGlobalMs": 570110,
+      "durationMs": 20660,
+      "audioFile": "47_30.mp3",
+      "wordCount": 12,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 695,
+          "durationMs": 695
+        },
+        {
+          "position": 2,
+          "startMs": 695,
+          "endMs": 3145,
+          "durationMs": 2450
+        },
+        {
+          "position": 3,
+          "startMs": 3145,
+          "endMs": 5055,
+          "durationMs": 1910
+        },
+        {
+          "position": 4,
+          "startMs": 5055,
+          "endMs": 7565,
+          "durationMs": 2510
+        },
+        {
+          "position": 5,
+          "startMs": 7565,
+          "endMs": 9725,
+          "durationMs": 2160
+        },
+        {
+          "position": 6,
+          "startMs": 9725,
+          "endMs": 12375,
+          "durationMs": 2650
+        },
+        {
+          "position": 7,
+          "startMs": 12375,
+          "endMs": 12895,
+          "durationMs": 520
+        },
+        {
+          "position": 8,
+          "startMs": 12895,
+          "endMs": 13505,
+          "durationMs": 610
+        },
+        {
+          "position": 9,
+          "startMs": 13505,
+          "endMs": 16015,
+          "durationMs": 2510
+        },
+        {
+          "position": 10,
+          "startMs": 16016,
+          "endMs": 17605,
+          "durationMs": 1589
+        },
+        {
+          "position": 11,
+          "startMs": 17605,
+          "endMs": 18545,
+          "durationMs": 940
+        },
+        {
+          "position": 12,
+          "startMs": 18545,
+          "endMs": 20590,
+          "durationMs": 2045
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.585Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 31,
+      "verseKey": "47:31",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 570110,
+      "timestampToGlobalMs": 583150,
+      "durationMs": 13040,
+      "audioFile": "47_31.mp3",
+      "wordCount": 8,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 2895,
+          "durationMs": 2895
+        },
+        {
+          "position": 2,
+          "startMs": 2895,
+          "endMs": 3805,
+          "durationMs": 910
+        },
+        {
+          "position": 3,
+          "startMs": 3805,
+          "endMs": 4615,
+          "durationMs": 810
+        },
+        {
+          "position": 4,
+          "startMs": 4615,
+          "endMs": 6455,
+          "durationMs": 1840
+        },
+        {
+          "position": 5,
+          "startMs": 6455,
+          "endMs": 8055,
+          "durationMs": 1600
+        },
+        {
+          "position": 6,
+          "startMs": 8055,
+          "endMs": 9795,
+          "durationMs": 1740
+        },
+        {
+          "position": 7,
+          "startMs": 9795,
+          "endMs": 10935,
+          "durationMs": 1140
+        },
+        {
+          "position": 8,
+          "startMs": 10935,
+          "endMs": 12970,
+          "durationMs": 2035
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.606Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 32,
+      "verseKey": "47:32",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 583150,
+      "timestampToGlobalMs": 612380,
+      "durationMs": 29230,
+      "audioFile": "47_32.mp3",
+      "wordCount": 24,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1335,
+          "durationMs": 1335
+        },
+        {
+          "position": 2,
+          "startMs": 1335,
+          "endMs": 2445,
+          "durationMs": 1110
+        },
+        {
+          "position": 3,
+          "startMs": 2445,
+          "endMs": 3455,
+          "durationMs": 1010
+        },
+        {
+          "position": 4,
+          "startMs": 3455,
+          "endMs": 4475,
+          "durationMs": 1020
+        },
+        {
+          "position": 5,
+          "startMs": 4475,
+          "endMs": 5765,
+          "durationMs": 1290
+        },
+        {
+          "position": 6,
+          "startMs": 5765,
+          "endMs": 6945,
+          "durationMs": 1180
+        },
+        {
+          "position": 7,
+          "startMs": 6945,
+          "endMs": 7585,
+          "durationMs": 640
+        },
+        {
+          "position": 8,
+          "startMs": 7585,
+          "endMs": 10965,
+          "durationMs": 3380
+        },
+        {
+          "position": 9,
+          "startMs": 10965,
+          "endMs": 12055,
+          "durationMs": 1090
+        },
+        {
+          "position": 10,
+          "startMs": 12055,
+          "endMs": 12995,
+          "durationMs": 940
+        },
+        {
+          "position": 11,
+          "startMs": 12995,
+          "endMs": 13685,
+          "durationMs": 690
+        },
+        {
+          "position": 12,
+          "startMs": 13685,
+          "endMs": 14085,
+          "durationMs": 400
+        },
+        {
+          "position": 13,
+          "startMs": 14085,
+          "endMs": 15255,
+          "durationMs": 1170
+        },
+        {
+          "position": 14,
+          "startMs": 15255,
+          "endMs": 15835,
+          "durationMs": 580
+        },
+        {
+          "position": 15,
+          "startMs": 15835,
+          "endMs": 16755,
+          "durationMs": 920
+        },
+        {
+          "position": 16,
+          "startMs": 16755,
+          "endMs": 16925,
+          "durationMs": 170
+        },
+        {
+          "position": 17,
+          "startMs": 16925,
+          "endMs": 18615,
+          "durationMs": 1690
+        },
+        {
+          "position": 18,
+          "startMs": 18615,
+          "endMs": 19325,
+          "durationMs": 710
+        },
+        {
+          "position": 19,
+          "startMs": 19325,
+          "endMs": 21245,
+          "durationMs": 1920
+        },
+        {
+          "position": 2,
+          "startMs": 21245,
+          "endMs": 22585,
+          "durationMs": 1340
+        },
+        {
+          "position": 18,
+          "startMs": 22585,
+          "endMs": 24055,
+          "durationMs": 1470
+        },
+        {
+          "position": 19,
+          "startMs": 24055,
+          "endMs": 24805,
+          "durationMs": 750
+        },
+        {
+          "position": 20,
+          "startMs": 24805,
+          "endMs": 26815,
+          "durationMs": 2010
+        },
+        {
+          "position": 21,
+          "startMs": 26815,
+          "endMs": 29000,
+          "durationMs": 2185
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.627Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 33,
+      "verseKey": "47:33",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 612380,
+      "timestampToGlobalMs": 627350,
+      "durationMs": 14970,
+      "audioFile": "47_33.mp3",
+      "wordCount": 10,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 2625,
+          "durationMs": 2625
+        },
+        {
+          "position": 2,
+          "startMs": 2625,
+          "endMs": 3555,
+          "durationMs": 930
+        },
+        {
+          "position": 3,
+          "startMs": 3555,
+          "endMs": 6045,
+          "durationMs": 2490
+        },
+        {
+          "position": 4,
+          "startMs": 6045,
+          "endMs": 6975,
+          "durationMs": 930
+        },
+        {
+          "position": 5,
+          "startMs": 6975,
+          "endMs": 7785,
+          "durationMs": 810
+        },
+        {
+          "position": 6,
+          "startMs": 7785,
+          "endMs": 8935,
+          "durationMs": 1150
+        },
+        {
+          "position": 7,
+          "startMs": 8935,
+          "endMs": 9855,
+          "durationMs": 920
+        },
+        {
+          "position": 8,
+          "startMs": 9855,
+          "endMs": 10425,
+          "durationMs": 570
+        },
+        {
+          "position": 9,
+          "startMs": 10425,
+          "endMs": 12745,
+          "durationMs": 2320
+        },
+        {
+          "position": 10,
+          "startMs": 12745,
+          "endMs": 14700,
+          "durationMs": 1955
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.647Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 34,
+      "verseKey": "47:34",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 627350,
+      "timestampToGlobalMs": 643520,
+      "durationMs": 16170,
+      "audioFile": "47_34.mp3",
+      "wordCount": 15,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1375,
+          "durationMs": 1375
+        },
+        {
+          "position": 2,
+          "startMs": 1375,
+          "endMs": 2405,
+          "durationMs": 1030
+        },
+        {
+          "position": 3,
+          "startMs": 2405,
+          "endMs": 3335,
+          "durationMs": 930
+        },
+        {
+          "position": 4,
+          "startMs": 3335,
+          "endMs": 4345,
+          "durationMs": 1010
+        },
+        {
+          "position": 5,
+          "startMs": 4345,
+          "endMs": 5415,
+          "durationMs": 1070
+        },
+        {
+          "position": 6,
+          "startMs": 5415,
+          "endMs": 6585,
+          "durationMs": 1170
+        },
+        {
+          "position": 7,
+          "startMs": 6585,
+          "endMs": 7195,
+          "durationMs": 610
+        },
+        {
+          "position": 8,
+          "startMs": 7195,
+          "endMs": 8585,
+          "durationMs": 1390
+        },
+        {
+          "position": 9,
+          "startMs": 8585,
+          "endMs": 9485,
+          "durationMs": 900
+        },
+        {
+          "position": 10,
+          "startMs": 9485,
+          "endMs": 10095,
+          "durationMs": 610
+        },
+        {
+          "position": 11,
+          "startMs": 10095,
+          "endMs": 11885,
+          "durationMs": 1790
+        },
+        {
+          "position": 12,
+          "startMs": 11885,
+          "endMs": 12645,
+          "durationMs": 760
+        },
+        {
+          "position": 13,
+          "startMs": 12645,
+          "endMs": 13965,
+          "durationMs": 1320
+        },
+        {
+          "position": 14,
+          "startMs": 13965,
+          "endMs": 14835,
+          "durationMs": 870
+        },
+        {
+          "position": 15,
+          "startMs": 14835,
+          "endMs": 16070,
+          "durationMs": 1235
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.667Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 35,
+      "verseKey": "47:35",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 643520,
+      "timestampToGlobalMs": 657890,
+      "durationMs": 14370,
+      "audioFile": "47_35.mp3",
+      "wordCount": 12,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 645,
+          "durationMs": 645
+        },
+        {
+          "position": 2,
+          "startMs": 645,
+          "endMs": 1595,
+          "durationMs": 950
+        },
+        {
+          "position": 3,
+          "startMs": 1595,
+          "endMs": 3985,
+          "durationMs": 2390
+        },
+        {
+          "position": 4,
+          "startMs": 3985,
+          "endMs": 4325,
+          "durationMs": 340
+        },
+        {
+          "position": 5,
+          "startMs": 4325,
+          "endMs": 5265,
+          "durationMs": 940
+        },
+        {
+          "position": 6,
+          "startMs": 5265,
+          "endMs": 6815,
+          "durationMs": 1550
+        },
+        {
+          "position": 7,
+          "startMs": 6815,
+          "endMs": 8105,
+          "durationMs": 1290
+        },
+        {
+          "position": 8,
+          "startMs": 8105,
+          "endMs": 9255,
+          "durationMs": 1150
+        },
+        {
+          "position": 9,
+          "startMs": 9255,
+          "endMs": 10115,
+          "durationMs": 860
+        },
+        {
+          "position": 10,
+          "startMs": 10115,
+          "endMs": 10495,
+          "durationMs": 380
+        },
+        {
+          "position": 11,
+          "startMs": 10495,
+          "endMs": 12165,
+          "durationMs": 1670
+        },
+        {
+          "position": 12,
+          "startMs": 12165,
+          "endMs": 14180,
+          "durationMs": 2015
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.690Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 36,
+      "verseKey": "47:36",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 657890,
+      "timestampToGlobalMs": 675050,
+      "durationMs": 17160,
+      "audioFile": "47_36.mp3",
+      "wordCount": 13,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1595,
+          "durationMs": 1595
+        },
+        {
+          "position": 2,
+          "startMs": 1595,
+          "endMs": 2685,
+          "durationMs": 1090
+        },
+        {
+          "position": 3,
+          "startMs": 2685,
+          "endMs": 3775,
+          "durationMs": 1090
+        },
+        {
+          "position": 4,
+          "startMs": 3775,
+          "endMs": 5405,
+          "durationMs": 1630
+        },
+        {
+          "position": 5,
+          "startMs": 5405,
+          "endMs": 6245,
+          "durationMs": 840
+        },
+        {
+          "position": 6,
+          "startMs": 6245,
+          "endMs": 7935,
+          "durationMs": 1690
+        },
+        {
+          "position": 7,
+          "startMs": 7935,
+          "endMs": 9345,
+          "durationMs": 1410
+        },
+        {
+          "position": 8,
+          "startMs": 9345,
+          "endMs": 10545,
+          "durationMs": 1200
+        },
+        {
+          "position": 9,
+          "startMs": 10545,
+          "endMs": 11625,
+          "durationMs": 1080
+        },
+        {
+          "position": 10,
+          "startMs": 11625,
+          "endMs": 12965,
+          "durationMs": 1340
+        },
+        {
+          "position": 11,
+          "startMs": 12965,
+          "endMs": 13565,
+          "durationMs": 600
+        },
+        {
+          "position": 12,
+          "startMs": 13565,
+          "endMs": 14875,
+          "durationMs": 1310
+        },
+        {
+          "position": 13,
+          "startMs": 14875,
+          "endMs": 16920,
+          "durationMs": 2045
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.713Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 37,
+      "verseKey": "47:37",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 675050,
+      "timestampToGlobalMs": 684060,
+      "durationMs": 9010,
+      "audioFile": "47_37.mp3",
+      "wordCount": 6,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1355,
+          "durationMs": 1355
+        },
+        {
+          "position": 2,
+          "startMs": 1355,
+          "endMs": 3235,
+          "durationMs": 1880
+        },
+        {
+          "position": 3,
+          "startMs": 3235,
+          "endMs": 4665,
+          "durationMs": 1430
+        },
+        {
+          "position": 4,
+          "startMs": 4665,
+          "endMs": 5805,
+          "durationMs": 1140
+        },
+        {
+          "position": 5,
+          "startMs": 5805,
+          "endMs": 6835,
+          "durationMs": 1030
+        },
+        {
+          "position": 6,
+          "startMs": 6835,
+          "endMs": 8880,
+          "durationMs": 2045
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.735Z"
+    },
+    {
+      "surah": 47,
+      "ayah": 38,
+      "verseKey": "47:38",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 684060,
+      "timestampToGlobalMs": 732230,
+      "durationMs": 47880,
+      "audioFile": "47_38.mp3",
+      "wordCount": 31,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 3895,
+          "durationMs": 3895
+        },
+        {
+          "position": 2,
+          "startMs": 3895,
+          "endMs": 8395,
+          "durationMs": 4500
+        },
+        {
+          "position": 3,
+          "startMs": 8395,
+          "endMs": 9385,
+          "durationMs": 990
+        },
+        {
+          "position": 4,
+          "startMs": 9385,
+          "endMs": 11435,
+          "durationMs": 2050
+        },
+        {
+          "position": 5,
+          "startMs": 11435,
+          "endMs": 11865,
+          "durationMs": 430
+        },
+        {
+          "position": 6,
+          "startMs": 11865,
+          "endMs": 13025,
+          "durationMs": 1160
+        },
+        {
+          "position": 7,
+          "startMs": 13025,
+          "endMs": 13755,
+          "durationMs": 730
+        },
+        {
+          "position": 8,
+          "startMs": 13755,
+          "endMs": 15325,
+          "durationMs": 1570
+        },
+        {
+          "position": 9,
+          "startMs": 15325,
+          "endMs": 16305,
+          "durationMs": 980
+        },
+        {
+          "position": 5,
+          "startMs": 16305,
+          "endMs": 17205,
+          "durationMs": 900
+        },
+        {
+          "position": 10,
+          "startMs": 17205,
+          "endMs": 17975,
+          "durationMs": 770
+        },
+        {
+          "position": 11,
+          "startMs": 17975,
+          "endMs": 18945,
+          "durationMs": 970
+        },
+        {
+          "position": 5,
+          "startMs": 18945,
+          "endMs": 19805,
+          "durationMs": 860
+        },
+        {
+          "position": 12,
+          "startMs": 19805,
+          "endMs": 20565,
+          "durationMs": 760
+        },
+        {
+          "position": 13,
+          "startMs": 20565,
+          "endMs": 22645,
+          "durationMs": 2080
+        },
+        {
+          "position": 14,
+          "startMs": 22645,
+          "endMs": 23565,
+          "durationMs": 920
+        },
+        {
+          "position": 15,
+          "startMs": 23565,
+          "endMs": 23815,
+          "durationMs": 250
+        },
+        {
+          "position": 16,
+          "startMs": 23815,
+          "endMs": 25665,
+          "durationMs": 1850
+        },
+        {
+          "position": 17,
+          "startMs": 25665,
+          "endMs": 27425,
+          "durationMs": 1760
+        },
+        {
+          "position": 18,
+          "startMs": 27425,
+          "endMs": 28425,
+          "durationMs": 1000
+        },
+        {
+          "position": 19,
+          "startMs": 28425,
+          "endMs": 30265,
+          "durationMs": 1840
+        },
+        {
+          "position": 20,
+          "startMs": 30265,
+          "endMs": 33775,
+          "durationMs": 3510
+        },
+        {
+          "position": 21,
+          "startMs": 33775,
+          "endMs": 35805,
+          "durationMs": 2030
+        },
+        {
+          "position": 22,
+          "startMs": 35805,
+          "endMs": 37175,
+          "durationMs": 1370
+        },
+        {
+          "position": 23,
+          "startMs": 37175,
+          "endMs": 38405,
+          "durationMs": 1230
+        },
+        {
+          "position": 24,
+          "startMs": 38405,
+          "endMs": 39345,
+          "durationMs": 940
+        },
+        {
+          "position": 25,
+          "startMs": 39345,
+          "endMs": 40475,
+          "durationMs": 1130
+        },
+        {
+          "position": 26,
+          "startMs": 40475,
+          "endMs": 41885,
+          "durationMs": 1410
+        },
+        {
+          "position": 27,
+          "startMs": 41885,
+          "endMs": 42425,
+          "durationMs": 540
+        },
+        {
+          "position": 28,
+          "startMs": 42425,
+          "endMs": 45315,
+          "durationMs": 2890
+        },
+        {
+          "position": 29,
+          "startMs": 45315,
+          "endMs": 47520,
+          "durationMs": 2205
+        }
+      ],
+      "processedAt": "2026-09-29T22:29:23.756Z"
+    }
+  ],
+  "generatedAt": "2026-09-29T22:29:23.780Z"
+}

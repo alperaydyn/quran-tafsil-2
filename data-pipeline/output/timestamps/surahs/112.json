@@ -1,0 +1,159 @@
+{
+  "surah": 112,
+  "ayahCount": 4,
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "ayahs": [
+    {
+      "surah": 112,
+      "ayah": 1,
+      "verseKey": "112:1",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 0,
+      "timestampToGlobalMs": 2980,
+      "durationMs": 2980,
+      "audioFile": "112_1.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 430,
+          "durationMs": 430
+        },
+        {
+          "position": 2,
+          "startMs": 430,
+          "endMs": 700,
+          "durationMs": 270
+        },
+        {
+          "position": 3,
+          "startMs": 700,
+          "endMs": 1680,
+          "durationMs": 980
+        },
+        {
+          "position": 4,
+          "startMs": 1680,
+          "endMs": 2915,
+          "durationMs": 1235
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:26.915Z"
+    },
+    {
+      "surah": 112,
+      "ayah": 2,
+      "verseKey": "112:2",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 2980,
+      "timestampToGlobalMs": 5510,
+      "durationMs": 2530,
+      "audioFile": "112_2.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 985,
+          "durationMs": 985
+        },
+        {
+          "position": 2,
+          "startMs": 985,
+          "endMs": 2420,
+          "durationMs": 1435
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:26.915Z"
+    },
+    {
+      "surah": 112,
+      "ayah": 3,
+      "verseKey": "112:3",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 5510,
+      "timestampToGlobalMs": 8490,
+      "durationMs": 2980,
+      "audioFile": "112_3.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 385,
+          "durationMs": 385
+        },
+        {
+          "position": 2,
+          "startMs": 385,
+          "endMs": 1005,
+          "durationMs": 620
+        },
+        {
+          "position": 3,
+          "startMs": 1005,
+          "endMs": 1695,
+          "durationMs": 690
+        },
+        {
+          "position": 4,
+          "startMs": 1695,
+          "endMs": 2870,
+          "durationMs": 1175
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:26.915Z"
+    },
+    {
+      "surah": 112,
+      "ayah": 4,
+      "verseKey": "112:4",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 8490,
+      "timestampToGlobalMs": 13350,
+      "durationMs": 4860,
+      "audioFile": "112_4.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 465,
+          "durationMs": 465
+        },
+        {
+          "position": 2,
+          "startMs": 465,
+          "endMs": 1185,
+          "durationMs": 720
+        },
+        {
+          "position": 3,
+          "startMs": 1185,
+          "endMs": 2015,
+          "durationMs": 830
+        },
+        {
+          "position": 4,
+          "startMs": 2015,
+          "endMs": 2935,
+          "durationMs": 920
+        },
+        {
+          "position": 5,
+          "startMs": 2935,
+          "endMs": 4630,
+          "durationMs": 1695
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:26.915Z"
+    }
+  ],
+  "generatedAt": "2026-09-29T22:30:26.915Z"
+}

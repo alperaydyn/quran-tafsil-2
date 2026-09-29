@@ -1,0 +1,264 @@
+{
+  "surah": 107,
+  "ayahCount": 7,
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "ayahs": [
+    {
+      "surah": 107,
+      "ayah": 1,
+      "verseKey": "107:1",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 0,
+      "timestampToGlobalMs": 6270,
+      "durationMs": 6270,
+      "audioFile": "107_1.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1010,
+          "durationMs": 1010
+        },
+        {
+          "position": 2,
+          "startMs": 1010,
+          "endMs": 1670,
+          "durationMs": 660
+        },
+        {
+          "position": 3,
+          "startMs": 1670,
+          "endMs": 2990,
+          "durationMs": 1320
+        },
+        {
+          "position": 4,
+          "startMs": 2990,
+          "endMs": 6185,
+          "durationMs": 3195
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:25.715Z"
+    },
+    {
+      "surah": 107,
+      "ayah": 2,
+      "verseKey": "107:2",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 6270,
+      "timestampToGlobalMs": 12800,
+      "durationMs": 6530,
+      "audioFile": "107_2.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1065,
+          "durationMs": 1065
+        },
+        {
+          "position": 2,
+          "startMs": 1065,
+          "endMs": 1915,
+          "durationMs": 850
+        },
+        {
+          "position": 3,
+          "startMs": 1915,
+          "endMs": 2685,
+          "durationMs": 770
+        },
+        {
+          "position": 4,
+          "startMs": 2685,
+          "endMs": 6350,
+          "durationMs": 3665
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:25.749Z"
+    },
+    {
+      "surah": 107,
+      "ayah": 3,
+      "verseKey": "107:3",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 12800,
+      "timestampToGlobalMs": 20010,
+      "durationMs": 7210,
+      "audioFile": "107_3.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 665,
+          "durationMs": 665
+        },
+        {
+          "position": 2,
+          "startMs": 665,
+          "endMs": 1635,
+          "durationMs": 970
+        },
+        {
+          "position": 3,
+          "startMs": 1635,
+          "endMs": 2145,
+          "durationMs": 510
+        },
+        {
+          "position": 4,
+          "startMs": 2145,
+          "endMs": 3055,
+          "durationMs": 910
+        },
+        {
+          "position": 5,
+          "startMs": 3055,
+          "endMs": 7050,
+          "durationMs": 3995
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:25.770Z"
+    },
+    {
+      "surah": 107,
+      "ayah": 4,
+      "verseKey": "107:4",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 20010,
+      "timestampToGlobalMs": 25730,
+      "durationMs": 5720,
+      "audioFile": "107_4.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 865,
+          "durationMs": 865
+        },
+        {
+          "position": 2,
+          "startMs": 865,
+          "endMs": 5300,
+          "durationMs": 4435
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:25.787Z"
+    },
+    {
+      "surah": 107,
+      "ayah": 5,
+      "verseKey": "107:5",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 25730,
+      "timestampToGlobalMs": 33280,
+      "durationMs": 7550,
+      "audioFile": "107_5.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 935,
+          "durationMs": 935
+        },
+        {
+          "position": 2,
+          "startMs": 935,
+          "endMs": 1325,
+          "durationMs": 390
+        },
+        {
+          "position": 3,
+          "startMs": 1325,
+          "endMs": 2075,
+          "durationMs": 750
+        },
+        {
+          "position": 4,
+          "startMs": 2075,
+          "endMs": 3735,
+          "durationMs": 1660
+        },
+        {
+          "position": 5,
+          "startMs": 3735,
+          "endMs": 7120,
+          "durationMs": 3385
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:25.802Z"
+    },
+    {
+      "surah": 107,
+      "ayah": 6,
+      "verseKey": "107:6",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 33280,
+      "timestampToGlobalMs": 40910,
+      "durationMs": 7630,
+      "audioFile": "107_6.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1155,
+          "durationMs": 1155
+        },
+        {
+          "position": 2,
+          "startMs": 1155,
+          "endMs": 1615,
+          "durationMs": 460
+        },
+        {
+          "position": 3,
+          "startMs": 1615,
+          "endMs": 7380,
+          "durationMs": 5765
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:25.818Z"
+    },
+    {
+      "surah": 107,
+      "ayah": 7,
+      "verseKey": "107:7",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 40910,
+      "timestampToGlobalMs": 48170,
+      "durationMs": 7260,
+      "audioFile": "107_7.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1325,
+          "durationMs": 1325
+        },
+        {
+          "position": 2,
+          "startMs": 1325,
+          "endMs": 6350,
+          "durationMs": 5025
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:25.832Z"
+    }
+  ],
+  "generatedAt": "2026-09-29T22:30:25.847Z"
+}

@@ -1,0 +1,2397 @@
+{
+  "surah": 74,
+  "ayahCount": 56,
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "ayahs": [
+    {
+      "surah": 74,
+      "ayah": 1,
+      "verseKey": "74:1",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 0,
+      "timestampToGlobalMs": 4810,
+      "durationMs": 4810,
+      "audioFile": "74_1.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 2960,
+          "durationMs": 2960
+        },
+        {
+          "position": 2,
+          "startMs": 2960,
+          "endMs": 4745,
+          "durationMs": 1785
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.112Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 2,
+      "verseKey": "74:2",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 4810,
+      "timestampToGlobalMs": 7630,
+      "durationMs": 2820,
+      "audioFile": "74_2.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 335,
+          "durationMs": 335
+        },
+        {
+          "position": 2,
+          "startMs": 335,
+          "endMs": 2700,
+          "durationMs": 2365
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.130Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 3,
+      "verseKey": "74:3",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 7630,
+      "timestampToGlobalMs": 9980,
+      "durationMs": 2350,
+      "audioFile": "74_3.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 905,
+          "durationMs": 905
+        },
+        {
+          "position": 2,
+          "startMs": 905,
+          "endMs": 2220,
+          "durationMs": 1315
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.147Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 4,
+      "verseKey": "74:4",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 9980,
+      "timestampToGlobalMs": 12640,
+      "durationMs": 2670,
+      "audioFile": "74_4.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1145,
+          "durationMs": 1145
+        },
+        {
+          "position": 2,
+          "startMs": 1145,
+          "endMs": 2540,
+          "durationMs": 1395
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.164Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 5,
+      "verseKey": "74:5",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 12640,
+      "timestampToGlobalMs": 14890,
+      "durationMs": 2250,
+      "audioFile": "74_5.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 935,
+          "durationMs": 935
+        },
+        {
+          "position": 2,
+          "startMs": 935,
+          "endMs": 2090,
+          "durationMs": 1155
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.182Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 6,
+      "verseKey": "74:6",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 14890,
+      "timestampToGlobalMs": 18630,
+      "durationMs": 3740,
+      "audioFile": "74_6.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 515,
+          "durationMs": 515
+        },
+        {
+          "position": 2,
+          "startMs": 515,
+          "endMs": 1635,
+          "durationMs": 1120
+        },
+        {
+          "position": 3,
+          "startMs": 1635,
+          "endMs": 3550,
+          "durationMs": 1915
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.198Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 7,
+      "verseKey": "74:7",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 18630,
+      "timestampToGlobalMs": 21090,
+      "durationMs": 2460,
+      "audioFile": "74_7.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1045,
+          "durationMs": 1045
+        },
+        {
+          "position": 2,
+          "startMs": 1045,
+          "endMs": 2310,
+          "durationMs": 1265
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.215Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 8,
+      "verseKey": "74:8",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 21090,
+      "timestampToGlobalMs": 26990,
+      "durationMs": 5900,
+      "audioFile": "74_8.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 725,
+          "durationMs": 725
+        },
+        {
+          "position": 2,
+          "startMs": 725,
+          "endMs": 1305,
+          "durationMs": 580
+        },
+        {
+          "position": 3,
+          "startMs": 1305,
+          "endMs": 1495,
+          "durationMs": 190
+        },
+        {
+          "position": 4,
+          "startMs": 1495,
+          "endMs": 5780,
+          "durationMs": 4285
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.232Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 9,
+      "verseKey": "74:9",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 26990,
+      "timestampToGlobalMs": 33360,
+      "durationMs": 6370,
+      "audioFile": "74_9.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 915,
+          "durationMs": 915
+        },
+        {
+          "position": 2,
+          "startMs": 915,
+          "endMs": 2685,
+          "durationMs": 1770
+        },
+        {
+          "position": 3,
+          "startMs": 2685,
+          "endMs": 3335,
+          "durationMs": 650
+        },
+        {
+          "position": 4,
+          "startMs": 3335,
+          "endMs": 6220,
+          "durationMs": 2885
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.249Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 10,
+      "verseKey": "74:10",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 33360,
+      "timestampToGlobalMs": 39030,
+      "durationMs": 5670,
+      "audioFile": "74_10.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 335,
+          "durationMs": 335
+        },
+        {
+          "position": 2,
+          "startMs": 335,
+          "endMs": 1745,
+          "durationMs": 1410
+        },
+        {
+          "position": 3,
+          "startMs": 1745,
+          "endMs": 2295,
+          "durationMs": 550
+        },
+        {
+          "position": 4,
+          "startMs": 2295,
+          "endMs": 5510,
+          "durationMs": 3215
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.266Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 11,
+      "verseKey": "74:11",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 39030,
+      "timestampToGlobalMs": 43110,
+      "durationMs": 4080,
+      "audioFile": "74_11.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 875,
+          "durationMs": 875
+        },
+        {
+          "position": 2,
+          "startMs": 875,
+          "endMs": 1395,
+          "durationMs": 520
+        },
+        {
+          "position": 3,
+          "startMs": 1395,
+          "endMs": 2295,
+          "durationMs": 900
+        },
+        {
+          "position": 4,
+          "startMs": 2295,
+          "endMs": 3530,
+          "durationMs": 1235
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.283Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 12,
+      "verseKey": "74:12",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 43110,
+      "timestampToGlobalMs": 47600,
+      "durationMs": 4490,
+      "audioFile": "74_12.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 485,
+          "durationMs": 485
+        },
+        {
+          "position": 2,
+          "startMs": 485,
+          "endMs": 1035,
+          "durationMs": 550
+        },
+        {
+          "position": 3,
+          "startMs": 1035,
+          "endMs": 1695,
+          "durationMs": 660
+        },
+        {
+          "position": 4,
+          "startMs": 1695,
+          "endMs": 3660,
+          "durationMs": 1965
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.301Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 13,
+      "verseKey": "74:13",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 47600,
+      "timestampToGlobalMs": 50110,
+      "durationMs": 2510,
+      "audioFile": "74_13.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 605,
+          "durationMs": 605
+        },
+        {
+          "position": 2,
+          "startMs": 605,
+          "endMs": 1910,
+          "durationMs": 1305
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.318Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 14,
+      "verseKey": "74:14",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 50110,
+      "timestampToGlobalMs": 53710,
+      "durationMs": 3610,
+      "audioFile": "74_14.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 965,
+          "durationMs": 965
+        },
+        {
+          "position": 2,
+          "startMs": 965,
+          "endMs": 1445,
+          "durationMs": 480
+        },
+        {
+          "position": 3,
+          "startMs": 1445,
+          "endMs": 2910,
+          "durationMs": 1465
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.335Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 15,
+      "verseKey": "74:15",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 53710,
+      "timestampToGlobalMs": 58930,
+      "durationMs": 5230,
+      "audioFile": "74_15.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 665,
+          "durationMs": 665
+        },
+        {
+          "position": 2,
+          "startMs": 665,
+          "endMs": 1465,
+          "durationMs": 800
+        },
+        {
+          "position": 3,
+          "startMs": 1465,
+          "endMs": 1815,
+          "durationMs": 350
+        },
+        {
+          "position": 4,
+          "startMs": 1815,
+          "endMs": 4720,
+          "durationMs": 2905
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.351Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 16,
+      "verseKey": "74:16",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 58930,
+      "timestampToGlobalMs": 65670,
+      "durationMs": 6740,
+      "audioFile": "74_16.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 845,
+          "durationMs": 845
+        },
+        {
+          "position": 2,
+          "startMs": 845,
+          "endMs": 2855,
+          "durationMs": 2010
+        },
+        {
+          "position": 3,
+          "startMs": 2855,
+          "endMs": 3455,
+          "durationMs": 600
+        },
+        {
+          "position": 4,
+          "startMs": 3455,
+          "endMs": 5075,
+          "durationMs": 1620
+        },
+        {
+          "position": 5,
+          "startMs": 5075,
+          "endMs": 6290,
+          "durationMs": 1215
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.368Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 17,
+      "verseKey": "74:17",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 65670,
+      "timestampToGlobalMs": 68670,
+      "durationMs": 3010,
+      "audioFile": "74_17.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 925,
+          "durationMs": 925
+        },
+        {
+          "position": 2,
+          "startMs": 925,
+          "endMs": 2540,
+          "durationMs": 1615
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.385Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 18,
+      "verseKey": "74:18",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 68670,
+      "timestampToGlobalMs": 72040,
+      "durationMs": 3370,
+      "audioFile": "74_18.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1185,
+          "durationMs": 1185
+        },
+        {
+          "position": 2,
+          "startMs": 1185,
+          "endMs": 2025,
+          "durationMs": 840
+        },
+        {
+          "position": 3,
+          "startMs": 2025,
+          "endMs": 3230,
+          "durationMs": 1205
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.403Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 19,
+      "verseKey": "74:19",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 72040,
+      "timestampToGlobalMs": 74600,
+      "durationMs": 2560,
+      "audioFile": "74_19.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 805,
+          "durationMs": 805
+        },
+        {
+          "position": 2,
+          "startMs": 805,
+          "endMs": 1365,
+          "durationMs": 560
+        },
+        {
+          "position": 3,
+          "startMs": 1365,
+          "endMs": 2390,
+          "durationMs": 1025
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.421Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 20,
+      "verseKey": "74:20",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 74600,
+      "timestampToGlobalMs": 78280,
+      "durationMs": 3680,
+      "audioFile": "74_20.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1135,
+          "durationMs": 1135
+        },
+        {
+          "position": 2,
+          "startMs": 1135,
+          "endMs": 1795,
+          "durationMs": 660
+        },
+        {
+          "position": 3,
+          "startMs": 1795,
+          "endMs": 2355,
+          "durationMs": 560
+        },
+        {
+          "position": 4,
+          "startMs": 2355,
+          "endMs": 3510,
+          "durationMs": 1155
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.440Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 21,
+      "verseKey": "74:21",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 78280,
+      "timestampToGlobalMs": 80660,
+      "durationMs": 2380,
+      "audioFile": "74_21.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1255,
+          "durationMs": 1255
+        },
+        {
+          "position": 2,
+          "startMs": 1255,
+          "endMs": 2250,
+          "durationMs": 995
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.462Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 22,
+      "verseKey": "74:22",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 80660,
+      "timestampToGlobalMs": 83950,
+      "durationMs": 3290,
+      "audioFile": "74_22.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1295,
+          "durationMs": 1295
+        },
+        {
+          "position": 2,
+          "startMs": 1295,
+          "endMs": 2005,
+          "durationMs": 710
+        },
+        {
+          "position": 3,
+          "startMs": 2005,
+          "endMs": 3100,
+          "durationMs": 1095
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.483Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 23,
+      "verseKey": "74:23",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 83950,
+      "timestampToGlobalMs": 87450,
+      "durationMs": 3500,
+      "audioFile": "74_23.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1025,
+          "durationMs": 1025
+        },
+        {
+          "position": 2,
+          "startMs": 1025,
+          "endMs": 1915,
+          "durationMs": 890
+        },
+        {
+          "position": 3,
+          "startMs": 1915,
+          "endMs": 3310,
+          "durationMs": 1395
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.502Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 24,
+      "verseKey": "74:24",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 87450,
+      "timestampToGlobalMs": 93900,
+      "durationMs": 6450,
+      "audioFile": "74_24.mp3",
+      "wordCount": 6,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 705,
+          "durationMs": 705
+        },
+        {
+          "position": 2,
+          "startMs": 705,
+          "endMs": 1025,
+          "durationMs": 320
+        },
+        {
+          "position": 3,
+          "startMs": 1025,
+          "endMs": 3075,
+          "durationMs": 2050
+        },
+        {
+          "position": 4,
+          "startMs": 3075,
+          "endMs": 3865,
+          "durationMs": 790
+        },
+        {
+          "position": 5,
+          "startMs": 3865,
+          "endMs": 4635,
+          "durationMs": 770
+        },
+        {
+          "position": 6,
+          "startMs": 4635,
+          "endMs": 6310,
+          "durationMs": 1675
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.519Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 25,
+      "verseKey": "74:25",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 93900,
+      "timestampToGlobalMs": 98860,
+      "durationMs": 4960,
+      "audioFile": "74_25.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 355,
+          "durationMs": 355
+        },
+        {
+          "position": 2,
+          "startMs": 355,
+          "endMs": 2265,
+          "durationMs": 1910
+        },
+        {
+          "position": 3,
+          "startMs": 2265,
+          "endMs": 3045,
+          "durationMs": 780
+        },
+        {
+          "position": 4,
+          "startMs": 3045,
+          "endMs": 3675,
+          "durationMs": 630
+        },
+        {
+          "position": 5,
+          "startMs": 3675,
+          "endMs": 4820,
+          "durationMs": 1145
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.536Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 26,
+      "verseKey": "74:26",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 98860,
+      "timestampToGlobalMs": 101050,
+      "durationMs": 2200,
+      "audioFile": "74_26.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1135,
+          "durationMs": 1135
+        },
+        {
+          "position": 2,
+          "startMs": 1135,
+          "endMs": 2040,
+          "durationMs": 905
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.554Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 27,
+      "verseKey": "74:27",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 101050,
+      "timestampToGlobalMs": 105370,
+      "durationMs": 4290,
+      "audioFile": "74_27.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1965,
+          "durationMs": 1965
+        },
+        {
+          "position": 2,
+          "startMs": 1965,
+          "endMs": 2935,
+          "durationMs": 970
+        },
+        {
+          "position": 3,
+          "startMs": 2935,
+          "endMs": 3255,
+          "durationMs": 320
+        },
+        {
+          "position": 4,
+          "startMs": 3255,
+          "endMs": 4160,
+          "durationMs": 905
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.571Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 28,
+      "verseKey": "74:28",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 105370,
+      "timestampToGlobalMs": 108320,
+      "durationMs": 2950,
+      "audioFile": "74_28.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 415,
+          "durationMs": 415
+        },
+        {
+          "position": 2,
+          "startMs": 415,
+          "endMs": 1225,
+          "durationMs": 810
+        },
+        {
+          "position": 3,
+          "startMs": 1225,
+          "endMs": 1775,
+          "durationMs": 550
+        },
+        {
+          "position": 4,
+          "startMs": 1775,
+          "endMs": 2830,
+          "durationMs": 1055
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.588Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 29,
+      "verseKey": "74:29",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 108320,
+      "timestampToGlobalMs": 111040,
+      "durationMs": 2720,
+      "audioFile": "74_29.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1195,
+          "durationMs": 1195
+        },
+        {
+          "position": 2,
+          "startMs": 1195,
+          "endMs": 2590,
+          "durationMs": 1395
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.605Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 30,
+      "verseKey": "74:30",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 111040,
+      "timestampToGlobalMs": 114040,
+      "durationMs": 3010,
+      "audioFile": "74_30.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1015,
+          "durationMs": 1015
+        },
+        {
+          "position": 2,
+          "startMs": 1015,
+          "endMs": 1795,
+          "durationMs": 780
+        },
+        {
+          "position": 3,
+          "startMs": 1795,
+          "endMs": 2890,
+          "durationMs": 1095
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.623Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 31,
+      "verseKey": "74:31",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 114040,
+      "timestampToGlobalMs": 179160,
+      "durationMs": 64940,
+      "audioFile": "74_31.mp3",
+      "wordCount": 60,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 525,
+          "durationMs": 525
+        },
+        {
+          "position": 2,
+          "startMs": 525,
+          "endMs": 2735,
+          "durationMs": 2210
+        },
+        {
+          "position": 3,
+          "startMs": 2735,
+          "endMs": 3705,
+          "durationMs": 970
+        },
+        {
+          "position": 4,
+          "startMs": 3705,
+          "endMs": 5325,
+          "durationMs": 1620
+        },
+        {
+          "position": 5,
+          "startMs": 5325,
+          "endMs": 6155,
+          "durationMs": 830
+        },
+        {
+          "position": 6,
+          "startMs": 6155,
+          "endMs": 8865,
+          "durationMs": 2710
+        },
+        {
+          "position": 7,
+          "startMs": 8865,
+          "endMs": 9845,
+          "durationMs": 980
+        },
+        {
+          "position": 8,
+          "startMs": 9845,
+          "endMs": 10865,
+          "durationMs": 1020
+        },
+        {
+          "position": 9,
+          "startMs": 10865,
+          "endMs": 12075,
+          "durationMs": 1210
+        },
+        {
+          "position": 10,
+          "startMs": 12075,
+          "endMs": 12795,
+          "durationMs": 720
+        },
+        {
+          "position": 11,
+          "startMs": 12795,
+          "endMs": 13575,
+          "durationMs": 780
+        },
+        {
+          "position": 12,
+          "startMs": 13575,
+          "endMs": 14885,
+          "durationMs": 1310
+        },
+        {
+          "position": 13,
+          "startMs": 14885,
+          "endMs": 15725,
+          "durationMs": 840
+        },
+        {
+          "position": 14,
+          "startMs": 15725,
+          "endMs": 16975,
+          "durationMs": 1250
+        },
+        {
+          "position": 15,
+          "startMs": 16975,
+          "endMs": 18015,
+          "durationMs": 1040
+        },
+        {
+          "position": 16,
+          "startMs": 18015,
+          "endMs": 18555,
+          "durationMs": 540
+        },
+        {
+          "position": 17,
+          "startMs": 18555,
+          "endMs": 19575,
+          "durationMs": 1020
+        },
+        {
+          "position": 18,
+          "startMs": 19575,
+          "endMs": 20715,
+          "durationMs": 1140
+        },
+        {
+          "position": 19,
+          "startMs": 20715,
+          "endMs": 21665,
+          "durationMs": 950
+        },
+        {
+          "position": 20,
+          "startMs": 21665,
+          "endMs": 23935,
+          "durationMs": 2270
+        },
+        {
+          "position": 21,
+          "startMs": 23935,
+          "endMs": 24955,
+          "durationMs": 1020
+        },
+        {
+          "position": 52,
+          "startMs": 24955,
+          "endMs": 25885,
+          "durationMs": 930
+        },
+        {
+          "position": 22,
+          "startMs": 25885,
+          "endMs": 26355,
+          "durationMs": 470
+        },
+        {
+          "position": 23,
+          "startMs": 26355,
+          "endMs": 27325,
+          "durationMs": 970
+        },
+        {
+          "position": 24,
+          "startMs": 27325,
+          "endMs": 28385,
+          "durationMs": 1060
+        },
+        {
+          "position": 25,
+          "startMs": 28385,
+          "endMs": 28925,
+          "durationMs": 540
+        },
+        {
+          "position": 26,
+          "startMs": 28925,
+          "endMs": 29985,
+          "durationMs": 1060
+        },
+        {
+          "position": 27,
+          "startMs": 29985,
+          "endMs": 31495,
+          "durationMs": 1510
+        },
+        {
+          "position": 28,
+          "startMs": 31495,
+          "endMs": 32535,
+          "durationMs": 1040
+        },
+        {
+          "position": 29,
+          "startMs": 32535,
+          "endMs": 33485,
+          "durationMs": 950
+        },
+        {
+          "position": 30,
+          "startMs": 33485,
+          "endMs": 33925,
+          "durationMs": 440
+        },
+        {
+          "position": 31,
+          "startMs": 33925,
+          "endMs": 35755,
+          "durationMs": 1830
+        },
+        {
+          "position": 32,
+          "startMs": 35755,
+          "endMs": 37275,
+          "durationMs": 1520
+        },
+        {
+          "position": 33,
+          "startMs": 37275,
+          "endMs": 38785,
+          "durationMs": 1510
+        },
+        {
+          "position": 34,
+          "startMs": 38785,
+          "endMs": 40885,
+          "durationMs": 2100
+        },
+        {
+          "position": 35,
+          "startMs": 40885,
+          "endMs": 41595,
+          "durationMs": 710
+        },
+        {
+          "position": 36,
+          "startMs": 41595,
+          "endMs": 42485,
+          "durationMs": 890
+        },
+        {
+          "position": 37,
+          "startMs": 42485,
+          "endMs": 43455,
+          "durationMs": 970
+        },
+        {
+          "position": 38,
+          "startMs": 43455,
+          "endMs": 44935,
+          "durationMs": 1480
+        },
+        {
+          "position": 39,
+          "startMs": 44955,
+          "endMs": 45915,
+          "durationMs": 960
+        },
+        {
+          "position": 40,
+          "startMs": 45915,
+          "endMs": 46675,
+          "durationMs": 760
+        },
+        {
+          "position": 41,
+          "startMs": 46675,
+          "endMs": 47485,
+          "durationMs": 810
+        },
+        {
+          "position": 42,
+          "startMs": 47485,
+          "endMs": 47625,
+          "durationMs": 140
+        },
+        {
+          "position": 43,
+          "startMs": 47625,
+          "endMs": 50895,
+          "durationMs": 3270
+        },
+        {
+          "position": 44,
+          "startMs": 50895,
+          "endMs": 51845,
+          "durationMs": 950
+        },
+        {
+          "position": 45,
+          "startMs": 51845,
+          "endMs": 52025,
+          "durationMs": 180
+        },
+        {
+          "position": 54,
+          "startMs": 52025,
+          "endMs": 53185,
+          "durationMs": 1160
+        },
+        {
+          "position": 55,
+          "startMs": 53185,
+          "endMs": 55705,
+          "durationMs": 2520
+        },
+        {
+          "position": 41,
+          "startMs": 55705,
+          "endMs": 55865,
+          "durationMs": 160
+        },
+        {
+          "position": 42,
+          "startMs": 55865,
+          "endMs": 56965,
+          "durationMs": 1100
+        },
+        {
+          "position": 48,
+          "startMs": 56965,
+          "endMs": 57695,
+          "durationMs": 730
+        },
+        {
+          "position": 49,
+          "startMs": 57695,
+          "endMs": 58565,
+          "durationMs": 870
+        },
+        {
+          "position": 50,
+          "startMs": 58565,
+          "endMs": 59275,
+          "durationMs": 710
+        },
+        {
+          "position": 51,
+          "startMs": 59275,
+          "endMs": 60135,
+          "durationMs": 860
+        },
+        {
+          "position": 52,
+          "startMs": 60135,
+          "endMs": 60655,
+          "durationMs": 520
+        },
+        {
+          "position": 53,
+          "startMs": 60685,
+          "endMs": 61625,
+          "durationMs": 940
+        },
+        {
+          "position": 54,
+          "startMs": 61625,
+          "endMs": 62035,
+          "durationMs": 410
+        },
+        {
+          "position": 55,
+          "startMs": 62035,
+          "endMs": 62825,
+          "durationMs": 790
+        },
+        {
+          "position": 56,
+          "startMs": 62825,
+          "endMs": 63645,
+          "durationMs": 820
+        },
+        {
+          "position": 57,
+          "startMs": 63645,
+          "endMs": 64470,
+          "durationMs": 825
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.640Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 32,
+      "verseKey": "74:32",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 179160,
+      "timestampToGlobalMs": 181480,
+      "durationMs": 2330,
+      "audioFile": "74_32.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 465,
+          "durationMs": 465
+        },
+        {
+          "position": 2,
+          "startMs": 465,
+          "endMs": 1860,
+          "durationMs": 1395
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.663Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 33,
+      "verseKey": "74:33",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 181480,
+      "timestampToGlobalMs": 184120,
+      "durationMs": 2640,
+      "audioFile": "74_33.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 845,
+          "durationMs": 845
+        },
+        {
+          "position": 2,
+          "startMs": 845,
+          "endMs": 1325,
+          "durationMs": 480
+        },
+        {
+          "position": 3,
+          "startMs": 1325,
+          "endMs": 2520,
+          "durationMs": 1195
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.681Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 34,
+      "verseKey": "74:34",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 184120,
+      "timestampToGlobalMs": 188060,
+      "durationMs": 3950,
+      "audioFile": "74_34.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 915,
+          "durationMs": 915
+        },
+        {
+          "position": 2,
+          "startMs": 915,
+          "endMs": 2575,
+          "durationMs": 1660
+        },
+        {
+          "position": 3,
+          "startMs": 2575,
+          "endMs": 3770,
+          "durationMs": 1195
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.700Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 35,
+      "verseKey": "74:35",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 188060,
+      "timestampToGlobalMs": 191590,
+      "durationMs": 3530,
+      "audioFile": "74_35.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1475,
+          "durationMs": 1475
+        },
+        {
+          "position": 2,
+          "startMs": 1475,
+          "endMs": 2225,
+          "durationMs": 750
+        },
+        {
+          "position": 3,
+          "startMs": 2225,
+          "endMs": 3350,
+          "durationMs": 1125
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.719Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 36,
+      "verseKey": "74:36",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 191590,
+      "timestampToGlobalMs": 193970,
+      "durationMs": 2380,
+      "audioFile": "74_36.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 795,
+          "durationMs": 795
+        },
+        {
+          "position": 2,
+          "startMs": 795,
+          "endMs": 1840,
+          "durationMs": 1045
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.737Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 37,
+      "verseKey": "74:37",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 193970,
+      "timestampToGlobalMs": 202960,
+      "durationMs": 8990,
+      "audioFile": "74_37.mp3",
+      "wordCount": 7,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 755,
+          "durationMs": 755
+        },
+        {
+          "position": 2,
+          "startMs": 755,
+          "endMs": 2745,
+          "durationMs": 1990
+        },
+        {
+          "position": 3,
+          "startMs": 2745,
+          "endMs": 4045,
+          "durationMs": 1300
+        },
+        {
+          "position": 4,
+          "startMs": 4045,
+          "endMs": 4345,
+          "durationMs": 300
+        },
+        {
+          "position": 5,
+          "startMs": 4345,
+          "endMs": 6365,
+          "durationMs": 2020
+        },
+        {
+          "position": 6,
+          "startMs": 6365,
+          "endMs": 6735,
+          "durationMs": 370
+        },
+        {
+          "position": 7,
+          "startMs": 6735,
+          "endMs": 8420,
+          "durationMs": 1685
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.755Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 38,
+      "verseKey": "74:38",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 202960,
+      "timestampToGlobalMs": 207710,
+      "durationMs": 4760,
+      "audioFile": "74_38.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 465,
+          "durationMs": 465
+        },
+        {
+          "position": 2,
+          "startMs": 465,
+          "endMs": 1685,
+          "durationMs": 1220
+        },
+        {
+          "position": 3,
+          "startMs": 1685,
+          "endMs": 2465,
+          "durationMs": 780
+        },
+        {
+          "position": 4,
+          "startMs": 2465,
+          "endMs": 3295,
+          "durationMs": 830
+        },
+        {
+          "position": 5,
+          "startMs": 3295,
+          "endMs": 4620,
+          "durationMs": 1325
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.774Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 39,
+      "verseKey": "74:39",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 207710,
+      "timestampToGlobalMs": 213610,
+      "durationMs": 5900,
+      "audioFile": "74_39.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 2005,
+          "durationMs": 2005
+        },
+        {
+          "position": 2,
+          "startMs": 2005,
+          "endMs": 2895,
+          "durationMs": 890
+        },
+        {
+          "position": 3,
+          "startMs": 2895,
+          "endMs": 5790,
+          "durationMs": 2895
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.790Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 40,
+      "verseKey": "74:40",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 213610,
+      "timestampToGlobalMs": 221450,
+      "durationMs": 7840,
+      "audioFile": "74_40.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 405,
+          "durationMs": 405
+        },
+        {
+          "position": 2,
+          "startMs": 405,
+          "endMs": 3135,
+          "durationMs": 2730
+        },
+        {
+          "position": 3,
+          "startMs": 3135,
+          "endMs": 7700,
+          "durationMs": 4565
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.809Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 41,
+      "verseKey": "74:41",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 221450,
+      "timestampToGlobalMs": 225680,
+      "durationMs": 4230,
+      "audioFile": "74_41.mp3",
+      "wordCount": 2,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 395,
+          "durationMs": 395
+        },
+        {
+          "position": 2,
+          "startMs": 395,
+          "endMs": 3920,
+          "durationMs": 3525
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.827Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 42,
+      "verseKey": "74:42",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 225680,
+      "timestampToGlobalMs": 228760,
+      "durationMs": 3080,
+      "audioFile": "74_42.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 185,
+          "durationMs": 185
+        },
+        {
+          "position": 2,
+          "startMs": 185,
+          "endMs": 1275,
+          "durationMs": 1090
+        },
+        {
+          "position": 3,
+          "startMs": 1275,
+          "endMs": 1615,
+          "durationMs": 340
+        },
+        {
+          "position": 4,
+          "startMs": 1615,
+          "endMs": 2790,
+          "durationMs": 1175
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.845Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 43,
+      "verseKey": "74:43",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 228760,
+      "timestampToGlobalMs": 233980,
+      "durationMs": 5230,
+      "audioFile": "74_43.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 665,
+          "durationMs": 665
+        },
+        {
+          "position": 2,
+          "startMs": 665,
+          "endMs": 1065,
+          "durationMs": 400
+        },
+        {
+          "position": 3,
+          "startMs": 1065,
+          "endMs": 1465,
+          "durationMs": 400
+        },
+        {
+          "position": 4,
+          "startMs": 1465,
+          "endMs": 1765,
+          "durationMs": 300
+        },
+        {
+          "position": 5,
+          "startMs": 1765,
+          "endMs": 5110,
+          "durationMs": 3345
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.863Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 44,
+      "verseKey": "74:44",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 233980,
+      "timestampToGlobalMs": 239020,
+      "durationMs": 5040,
+      "audioFile": "74_44.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 545,
+          "durationMs": 545
+        },
+        {
+          "position": 2,
+          "startMs": 545,
+          "endMs": 905,
+          "durationMs": 360
+        },
+        {
+          "position": 3,
+          "startMs": 905,
+          "endMs": 1615,
+          "durationMs": 710
+        },
+        {
+          "position": 4,
+          "startMs": 1615,
+          "endMs": 4910,
+          "durationMs": 3295
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.882Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 45,
+      "verseKey": "74:45",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 239020,
+      "timestampToGlobalMs": 246390,
+      "durationMs": 7370,
+      "audioFile": "74_45.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1565,
+          "durationMs": 1565
+        },
+        {
+          "position": 2,
+          "startMs": 1565,
+          "endMs": 2345,
+          "durationMs": 780
+        },
+        {
+          "position": 3,
+          "startMs": 2345,
+          "endMs": 2675,
+          "durationMs": 330
+        },
+        {
+          "position": 4,
+          "startMs": 2675,
+          "endMs": 7230,
+          "durationMs": 4555
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.901Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 46,
+      "verseKey": "74:46",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 246390,
+      "timestampToGlobalMs": 252710,
+      "durationMs": 6320,
+      "audioFile": "74_46.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1555,
+          "durationMs": 1555
+        },
+        {
+          "position": 2,
+          "startMs": 1555,
+          "endMs": 2545,
+          "durationMs": 990
+        },
+        {
+          "position": 3,
+          "startMs": 2545,
+          "endMs": 3265,
+          "durationMs": 720
+        },
+        {
+          "position": 4,
+          "startMs": 3265,
+          "endMs": 6200,
+          "durationMs": 2935
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.920Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 47,
+      "verseKey": "74:47",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 252710,
+      "timestampToGlobalMs": 258560,
+      "durationMs": 5850,
+      "audioFile": "74_47.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 2135,
+          "durationMs": 2135
+        },
+        {
+          "position": 2,
+          "startMs": 2135,
+          "endMs": 2895,
+          "durationMs": 760
+        },
+        {
+          "position": 3,
+          "startMs": 2895,
+          "endMs": 5740,
+          "durationMs": 2845
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.939Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 48,
+      "verseKey": "74:48",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 258560,
+      "timestampToGlobalMs": 265460,
+      "durationMs": 6900,
+      "audioFile": "74_48.mp3",
+      "wordCount": 4,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 505,
+          "durationMs": 505
+        },
+        {
+          "position": 2,
+          "startMs": 505,
+          "endMs": 2445,
+          "durationMs": 1940
+        },
+        {
+          "position": 3,
+          "startMs": 2445,
+          "endMs": 3525,
+          "durationMs": 1080
+        },
+        {
+          "position": 4,
+          "startMs": 3525,
+          "endMs": 6770,
+          "durationMs": 3245
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.958Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 49,
+      "verseKey": "74:49",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 265460,
+      "timestampToGlobalMs": 271440,
+      "durationMs": 5980,
+      "audioFile": "74_49.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 535,
+          "durationMs": 535
+        },
+        {
+          "position": 2,
+          "startMs": 535,
+          "endMs": 1065,
+          "durationMs": 530
+        },
+        {
+          "position": 3,
+          "startMs": 1065,
+          "endMs": 1455,
+          "durationMs": 390
+        },
+        {
+          "position": 4,
+          "startMs": 1455,
+          "endMs": 2725,
+          "durationMs": 1270
+        },
+        {
+          "position": 5,
+          "startMs": 2725,
+          "endMs": 5830,
+          "durationMs": 3105
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.979Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 50,
+      "verseKey": "74:50",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 271440,
+      "timestampToGlobalMs": 277000,
+      "durationMs": 5570,
+      "audioFile": "74_50.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1425,
+          "durationMs": 1425
+        },
+        {
+          "position": 2,
+          "startMs": 1425,
+          "endMs": 2105,
+          "durationMs": 680
+        },
+        {
+          "position": 3,
+          "startMs": 2105,
+          "endMs": 5400,
+          "durationMs": 3295
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:03.999Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 51,
+      "verseKey": "74:51",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 277000,
+      "timestampToGlobalMs": 280530,
+      "durationMs": 3530,
+      "audioFile": "74_51.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 715,
+          "durationMs": 715
+        },
+        {
+          "position": 2,
+          "startMs": 715,
+          "endMs": 1965,
+          "durationMs": 1250
+        },
+        {
+          "position": 3,
+          "startMs": 1965,
+          "endMs": 3380,
+          "durationMs": 1415
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:04.018Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 52,
+      "verseKey": "74:52",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 280530,
+      "timestampToGlobalMs": 289540,
+      "durationMs": 9010,
+      "audioFile": "74_52.mp3",
+      "wordCount": 9,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 325,
+          "durationMs": 325
+        },
+        {
+          "position": 2,
+          "startMs": 325,
+          "endMs": 1165,
+          "durationMs": 840
+        },
+        {
+          "position": 3,
+          "startMs": 1165,
+          "endMs": 1705,
+          "durationMs": 540
+        },
+        {
+          "position": 4,
+          "startMs": 1705,
+          "endMs": 2355,
+          "durationMs": 650
+        },
+        {
+          "position": 5,
+          "startMs": 2355,
+          "endMs": 3965,
+          "durationMs": 1610
+        },
+        {
+          "position": 6,
+          "startMs": 3965,
+          "endMs": 4215,
+          "durationMs": 250
+        },
+        {
+          "position": 7,
+          "startMs": 4215,
+          "endMs": 5625,
+          "durationMs": 1410
+        },
+        {
+          "position": 8,
+          "startMs": 5625,
+          "endMs": 6515,
+          "durationMs": 890
+        },
+        {
+          "position": 9,
+          "startMs": 6515,
+          "endMs": 8900,
+          "durationMs": 2385
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:04.038Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 53,
+      "verseKey": "74:53",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 289540,
+      "timestampToGlobalMs": 294530,
+      "durationMs": 4990,
+      "audioFile": "74_53.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 865,
+          "durationMs": 865
+        },
+        {
+          "position": 2,
+          "startMs": 865,
+          "endMs": 1555,
+          "durationMs": 690
+        },
+        {
+          "position": 3,
+          "startMs": 1555,
+          "endMs": 2085,
+          "durationMs": 530
+        },
+        {
+          "position": 4,
+          "startMs": 2085,
+          "endMs": 3235,
+          "durationMs": 1150
+        },
+        {
+          "position": 5,
+          "startMs": 3235,
+          "endMs": 4860,
+          "durationMs": 1625
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:04.058Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 54,
+      "verseKey": "74:54",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 294530,
+      "timestampToGlobalMs": 299650,
+      "durationMs": 5120,
+      "audioFile": "74_54.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1995,
+          "durationMs": 1995
+        },
+        {
+          "position": 2,
+          "startMs": 1995,
+          "endMs": 3425,
+          "durationMs": 1430
+        },
+        {
+          "position": 3,
+          "startMs": 3425,
+          "endMs": 4950,
+          "durationMs": 1525
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:04.077Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 55,
+      "verseKey": "74:55",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 299650,
+      "timestampToGlobalMs": 304300,
+      "durationMs": 4650,
+      "audioFile": "74_55.mp3",
+      "wordCount": 3,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 1025,
+          "durationMs": 1025
+        },
+        {
+          "position": 2,
+          "startMs": 1025,
+          "endMs": 3245,
+          "durationMs": 2220
+        },
+        {
+          "position": 3,
+          "startMs": 3245,
+          "endMs": 4490,
+          "durationMs": 1245
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:04.096Z"
+    },
+    {
+      "surah": 74,
+      "ayah": 56,
+      "verseKey": "74:56",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 304300,
+      "timestampToGlobalMs": 321930,
+      "durationMs": 17630,
+      "audioFile": "74_56.mp3",
+      "wordCount": 11,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 315,
+          "durationMs": 315
+        },
+        {
+          "position": 2,
+          "startMs": 315,
+          "endMs": 1655,
+          "durationMs": 1340
+        },
+        {
+          "position": 3,
+          "startMs": 1655,
+          "endMs": 3905,
+          "durationMs": 2250
+        },
+        {
+          "position": 4,
+          "startMs": 3905,
+          "endMs": 3995,
+          "durationMs": 90
+        },
+        {
+          "position": 5,
+          "startMs": 3995,
+          "endMs": 6705,
+          "durationMs": 2710
+        },
+        {
+          "position": 6,
+          "startMs": 6705,
+          "endMs": 10365,
+          "durationMs": 3660
+        },
+        {
+          "position": 7,
+          "startMs": 10365,
+          "endMs": 10675,
+          "durationMs": 310
+        },
+        {
+          "position": 8,
+          "startMs": 10675,
+          "endMs": 11315,
+          "durationMs": 640
+        },
+        {
+          "position": 9,
+          "startMs": 11315,
+          "endMs": 12475,
+          "durationMs": 1160
+        },
+        {
+          "position": 10,
+          "startMs": 12475,
+          "endMs": 13315,
+          "durationMs": 840
+        },
+        {
+          "position": 11,
+          "startMs": 13315,
+          "endMs": 17480,
+          "durationMs": 4165
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:04.116Z"
+    }
+  ],
+  "generatedAt": "2026-09-29T22:30:04.137Z"
+}

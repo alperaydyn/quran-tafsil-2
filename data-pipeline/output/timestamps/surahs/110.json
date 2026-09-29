@@ -1,0 +1,168 @@
+{
+  "surah": 110,
+  "ayahCount": 3,
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "ayahs": [
+    {
+      "surah": 110,
+      "ayah": 1,
+      "verseKey": "110:1",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 0,
+      "timestampToGlobalMs": 6920,
+      "durationMs": 6920,
+      "audioFile": "110_1.mp3",
+      "wordCount": 5,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 720,
+          "durationMs": 720
+        },
+        {
+          "position": 2,
+          "startMs": 720,
+          "endMs": 3630,
+          "durationMs": 2910
+        },
+        {
+          "position": 3,
+          "startMs": 3630,
+          "endMs": 4190,
+          "durationMs": 560
+        },
+        {
+          "position": 4,
+          "startMs": 4190,
+          "endMs": 5170,
+          "durationMs": 980
+        },
+        {
+          "position": 5,
+          "startMs": 5170,
+          "endMs": 6795,
+          "durationMs": 1625
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:26.478Z"
+    },
+    {
+      "surah": 110,
+      "ayah": 2,
+      "verseKey": "110:2",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 6920,
+      "timestampToGlobalMs": 15100,
+      "durationMs": 8180,
+      "audioFile": "110_2.mp3",
+      "wordCount": 7,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 905,
+          "durationMs": 905
+        },
+        {
+          "position": 2,
+          "startMs": 905,
+          "endMs": 2595,
+          "durationMs": 1690
+        },
+        {
+          "position": 3,
+          "startMs": 2595,
+          "endMs": 3805,
+          "durationMs": 1210
+        },
+        {
+          "position": 4,
+          "startMs": 3805,
+          "endMs": 4275,
+          "durationMs": 470
+        },
+        {
+          "position": 5,
+          "startMs": 4275,
+          "endMs": 5215,
+          "durationMs": 940
+        },
+        {
+          "position": 6,
+          "startMs": 5215,
+          "endMs": 5845,
+          "durationMs": 630
+        },
+        {
+          "position": 7,
+          "startMs": 5845,
+          "endMs": 7360,
+          "durationMs": 1515
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:26.498Z"
+    },
+    {
+      "surah": 110,
+      "ayah": 3,
+      "verseKey": "110:3",
+      "reciterId": 7,
+      "reciterName": "Mishari Rashid al-`Afasy",
+      "timestampFromGlobalMs": 15100,
+      "timestampToGlobalMs": 25160,
+      "durationMs": 10060,
+      "audioFile": "110_3.mp3",
+      "wordCount": 7,
+      "words": [
+        {
+          "position": 1,
+          "startMs": 0,
+          "endMs": 355,
+          "durationMs": 355
+        },
+        {
+          "position": 2,
+          "startMs": 355,
+          "endMs": 1155,
+          "durationMs": 800
+        },
+        {
+          "position": 3,
+          "startMs": 1155,
+          "endMs": 2155,
+          "durationMs": 1000
+        },
+        {
+          "position": 4,
+          "startMs": 2155,
+          "endMs": 3915,
+          "durationMs": 1760
+        },
+        {
+          "position": 5,
+          "startMs": 3915,
+          "endMs": 5695,
+          "durationMs": 1780
+        },
+        {
+          "position": 6,
+          "startMs": 5695,
+          "endMs": 6445,
+          "durationMs": 750
+        },
+        {
+          "position": 7,
+          "startMs": 6445,
+          "endMs": 8090,
+          "durationMs": 1645
+        }
+      ],
+      "processedAt": "2026-09-29T22:30:26.516Z"
+    }
+  ],
+  "generatedAt": "2026-09-29T22:30:26.532Z"
+}
