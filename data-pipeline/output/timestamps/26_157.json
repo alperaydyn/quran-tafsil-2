@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 157,
+  "verseKey": "26:157",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1371270,
+  "timestampToGlobalMs": 1377230,
+  "durationMs": 5960,
+  "audioFile": "26_157.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1495,
+      "durationMs": 1495
+    },
+    {
+      "position": 2,
+      "startMs": 1495,
+      "endMs": 2835,
+      "durationMs": 1340
+    },
+    {
+      "position": 3,
+      "startMs": 2835,
+      "endMs": 5910,
+      "durationMs": 3075
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.219Z"
+}

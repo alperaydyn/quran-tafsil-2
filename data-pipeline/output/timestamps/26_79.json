@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 79,
+  "verseKey": "26:79",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 768860,
+  "timestampToGlobalMs": 774710,
+  "durationMs": 5850,
+  "audioFile": "26_79.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1055,
+      "durationMs": 1055
+    },
+    {
+      "position": 2,
+      "startMs": 1055,
+      "endMs": 1425,
+      "durationMs": 370
+    },
+    {
+      "position": 3,
+      "startMs": 1425,
+      "endMs": 2705,
+      "durationMs": 1280
+    },
+    {
+      "position": 4,
+      "startMs": 2705,
+      "endMs": 5740,
+      "durationMs": 3035
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.371Z"
+}

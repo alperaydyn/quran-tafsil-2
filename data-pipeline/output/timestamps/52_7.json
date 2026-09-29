@@ -1,0 +1,39 @@
+{
+  "surah": 52,
+  "ayah": 7,
+  "verseKey": "52:7",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 29220,
+  "timestampToGlobalMs": 33920,
+  "durationMs": 4700,
+  "audioFile": "52_7.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1185,
+      "durationMs": 1185
+    },
+    {
+      "position": 2,
+      "startMs": 1185,
+      "endMs": 2065,
+      "durationMs": 880
+    },
+    {
+      "position": 3,
+      "startMs": 2065,
+      "endMs": 2995,
+      "durationMs": 930
+    },
+    {
+      "position": 4,
+      "startMs": 2995,
+      "endMs": 4570,
+      "durationMs": 1575
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:31.331Z"
+}

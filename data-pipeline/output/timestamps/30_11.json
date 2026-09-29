@@ -1,0 +1,63 @@
+{
+  "surah": 30,
+  "ayah": 11,
+  "verseKey": "30:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 192770,
+  "timestampToGlobalMs": 204210,
+  "durationMs": 11440,
+  "audioFile": "30_11.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1385,
+      "durationMs": 1385
+    },
+    {
+      "position": 2,
+      "startMs": 1385,
+      "endMs": 2175,
+      "durationMs": 790
+    },
+    {
+      "position": 3,
+      "startMs": 2175,
+      "endMs": 3045,
+      "durationMs": 870
+    },
+    {
+      "position": 4,
+      "startMs": 3045,
+      "endMs": 4315,
+      "durationMs": 1270
+    },
+    {
+      "position": 5,
+      "startMs": 4315,
+      "endMs": 5605,
+      "durationMs": 1290
+    },
+    {
+      "position": 6,
+      "startMs": 5605,
+      "endMs": 7315,
+      "durationMs": 1710
+    },
+    {
+      "position": 7,
+      "startMs": 7315,
+      "endMs": 8205,
+      "durationMs": 890
+    },
+    {
+      "position": 8,
+      "startMs": 8205,
+      "endMs": 11380,
+      "durationMs": 3175
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:28.008Z"
+}

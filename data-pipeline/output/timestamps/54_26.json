@@ -1,0 +1,45 @@
+{
+  "surah": 54,
+  "ayah": 26,
+  "verseKey": "54:26",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 233950,
+  "timestampToGlobalMs": 240660,
+  "durationMs": 6710,
+  "audioFile": "54_26.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1515,
+      "durationMs": 1515
+    },
+    {
+      "position": 2,
+      "startMs": 1515,
+      "endMs": 2215,
+      "durationMs": 700
+    },
+    {
+      "position": 3,
+      "startMs": 2215,
+      "endMs": 3735,
+      "durationMs": 1520
+    },
+    {
+      "position": 4,
+      "startMs": 3735,
+      "endMs": 5075,
+      "durationMs": 1340
+    },
+    {
+      "position": 5,
+      "startMs": 5075,
+      "endMs": 6630,
+      "durationMs": 1555
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:35.100Z"
+}

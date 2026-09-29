@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 145,
+  "verseKey": "37:145",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1168920,
+  "timestampToGlobalMs": 1177360,
+  "durationMs": 8440,
+  "audioFile": "37_145.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1475,
+      "durationMs": 1475
+    },
+    {
+      "position": 2,
+      "startMs": 1475,
+      "endMs": 4385,
+      "durationMs": 2910
+    },
+    {
+      "position": 3,
+      "startMs": 4385,
+      "endMs": 4925,
+      "durationMs": 540
+    },
+    {
+      "position": 4,
+      "startMs": 4925,
+      "endMs": 8290,
+      "durationMs": 3365
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.239Z"
+}

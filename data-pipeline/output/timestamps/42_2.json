@@ -1,0 +1,21 @@
+{
+  "surah": 42,
+  "ayah": 2,
+  "verseKey": "42:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4810,
+  "timestampToGlobalMs": 19960,
+  "durationMs": 15150,
+  "audioFile": "42_2.mp3",
+  "wordCount": 1,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 15090,
+      "durationMs": 15090
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:10.574Z"
+}

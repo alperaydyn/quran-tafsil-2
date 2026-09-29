@@ -1,0 +1,57 @@
+{
+  "surah": 42,
+  "ayah": 34,
+  "verseKey": "42:34",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 737650,
+  "timestampToGlobalMs": 746770,
+  "durationMs": 9120,
+  "audioFile": "42_34.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 455,
+      "durationMs": 455
+    },
+    {
+      "position": 2,
+      "startMs": 455,
+      "endMs": 2725,
+      "durationMs": 2270
+    },
+    {
+      "position": 3,
+      "startMs": 2725,
+      "endMs": 3315,
+      "durationMs": 590
+    },
+    {
+      "position": 4,
+      "startMs": 3315,
+      "endMs": 4325,
+      "durationMs": 1010
+    },
+    {
+      "position": 5,
+      "startMs": 4325,
+      "endMs": 5125,
+      "durationMs": 800
+    },
+    {
+      "position": 6,
+      "startMs": 5125,
+      "endMs": 6155,
+      "durationMs": 1030
+    },
+    {
+      "position": 7,
+      "startMs": 6155,
+      "endMs": 9040,
+      "durationMs": 2885
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:11.184Z"
+}

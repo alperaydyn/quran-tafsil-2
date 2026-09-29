@@ -1,0 +1,21 @@
+{
+  "surah": 29,
+  "ayah": 1,
+  "verseKey": "29:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 10420,
+  "durationMs": 10420,
+  "audioFile": "29_1.mp3",
+  "wordCount": 1,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 10365,
+      "durationMs": 10365
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:23.712Z"
+}

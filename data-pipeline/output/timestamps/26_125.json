@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 125,
+  "verseKey": "26:125",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1116230,
+  "timestampToGlobalMs": 1121660,
+  "durationMs": 5430,
+  "audioFile": "26_125.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1295,
+      "durationMs": 1295
+    },
+    {
+      "position": 2,
+      "startMs": 1295,
+      "endMs": 1865,
+      "durationMs": 570
+    },
+    {
+      "position": 3,
+      "startMs": 1865,
+      "endMs": 2855,
+      "durationMs": 990
+    },
+    {
+      "position": 4,
+      "startMs": 2855,
+      "endMs": 5360,
+      "durationMs": 2505
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.415Z"
+}

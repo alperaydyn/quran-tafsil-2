@@ -1,0 +1,63 @@
+{
+  "surah": 51,
+  "ayah": 50,
+  "verseKey": "51:50",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 420280,
+  "timestampToGlobalMs": 435950,
+  "durationMs": 15670,
+  "audioFile": "51_50.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2915,
+      "durationMs": 2915
+    },
+    {
+      "position": 2,
+      "startMs": 2915,
+      "endMs": 3285,
+      "durationMs": 370
+    },
+    {
+      "position": 3,
+      "startMs": 3285,
+      "endMs": 7025,
+      "durationMs": 3740
+    },
+    {
+      "position": 4,
+      "startMs": 7025,
+      "endMs": 8925,
+      "durationMs": 1900
+    },
+    {
+      "position": 5,
+      "startMs": 8925,
+      "endMs": 9585,
+      "durationMs": 660
+    },
+    {
+      "position": 6,
+      "startMs": 9585,
+      "endMs": 10835,
+      "durationMs": 1250
+    },
+    {
+      "position": 7,
+      "startMs": 10835,
+      "endMs": 12095,
+      "durationMs": 1260
+    },
+    {
+      "position": 8,
+      "startMs": 12095,
+      "endMs": 15520,
+      "durationMs": 3425
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:30.132Z"
+}

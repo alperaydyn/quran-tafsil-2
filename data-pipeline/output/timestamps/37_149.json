@@ -1,0 +1,45 @@
+{
+  "surah": 37,
+  "ayah": 149,
+  "verseKey": "37:149",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1201760,
+  "timestampToGlobalMs": 1209540,
+  "durationMs": 7790,
+  "audioFile": "37_149.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1405,
+      "durationMs": 1405
+    },
+    {
+      "position": 2,
+      "startMs": 1405,
+      "endMs": 2615,
+      "durationMs": 1210
+    },
+    {
+      "position": 3,
+      "startMs": 2615,
+      "endMs": 3805,
+      "durationMs": 1190
+    },
+    {
+      "position": 4,
+      "startMs": 3805,
+      "endMs": 4565,
+      "durationMs": 760
+    },
+    {
+      "position": 5,
+      "startMs": 4565,
+      "endMs": 7650,
+      "durationMs": 3085
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.338Z"
+}

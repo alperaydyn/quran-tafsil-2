@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 160,
+  "verseKey": "37:160",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1287650,
+  "timestampToGlobalMs": 1293890,
+  "durationMs": 6240,
+  "audioFile": "37_160.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 755,
+      "durationMs": 755
+    },
+    {
+      "position": 2,
+      "startMs": 755,
+      "endMs": 1605,
+      "durationMs": 850
+    },
+    {
+      "position": 3,
+      "startMs": 1605,
+      "endMs": 2445,
+      "durationMs": 840
+    },
+    {
+      "position": 4,
+      "startMs": 2445,
+      "endMs": 6090,
+      "durationMs": 3645
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.603Z"
+}

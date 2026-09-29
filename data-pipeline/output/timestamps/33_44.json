@@ -1,0 +1,63 @@
+{
+  "surah": 33,
+  "ayah": 44,
+  "verseKey": "33:44",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 927580,
+  "timestampToGlobalMs": 937450,
+  "durationMs": 9880,
+  "audioFile": "33_44.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1245,
+      "durationMs": 1245
+    },
+    {
+      "position": 2,
+      "startMs": 1245,
+      "endMs": 1795,
+      "durationMs": 550
+    },
+    {
+      "position": 3,
+      "startMs": 1795,
+      "endMs": 3015,
+      "durationMs": 1220
+    },
+    {
+      "position": 4,
+      "startMs": 3015,
+      "endMs": 5275,
+      "durationMs": 2260
+    },
+    {
+      "position": 5,
+      "startMs": 5275,
+      "endMs": 6505,
+      "durationMs": 1230
+    },
+    {
+      "position": 6,
+      "startMs": 6505,
+      "endMs": 7035,
+      "durationMs": 530
+    },
+    {
+      "position": 7,
+      "startMs": 7035,
+      "endMs": 8375,
+      "durationMs": 1340
+    },
+    {
+      "position": 8,
+      "startMs": 8375,
+      "endMs": 9450,
+      "durationMs": 1075
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:36.024Z"
+}

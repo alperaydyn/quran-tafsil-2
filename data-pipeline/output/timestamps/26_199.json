@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 199,
+  "verseKey": "26:199",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1733910,
+  "timestampToGlobalMs": 1741800,
+  "durationMs": 7890,
+  "audioFile": "26_199.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1155,
+      "durationMs": 1155
+    },
+    {
+      "position": 2,
+      "startMs": 1155,
+      "endMs": 2115,
+      "durationMs": 960
+    },
+    {
+      "position": 3,
+      "startMs": 2115,
+      "endMs": 3295,
+      "durationMs": 1180
+    },
+    {
+      "position": 4,
+      "startMs": 3295,
+      "endMs": 4195,
+      "durationMs": 900
+    },
+    {
+      "position": 5,
+      "startMs": 4195,
+      "endMs": 4885,
+      "durationMs": 690
+    },
+    {
+      "position": 6,
+      "startMs": 4885,
+      "endMs": 7780,
+      "durationMs": 2895
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.404Z"
+}

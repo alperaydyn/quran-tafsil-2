@@ -1,0 +1,63 @@
+{
+  "surah": 30,
+  "ayah": 59,
+  "verseKey": "30:59",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1136110,
+  "timestampToGlobalMs": 1145150,
+  "durationMs": 9040,
+  "audioFile": "30_59.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1135,
+      "durationMs": 1135
+    },
+    {
+      "position": 2,
+      "startMs": 1135,
+      "endMs": 1975,
+      "durationMs": 840
+    },
+    {
+      "position": 3,
+      "startMs": 1975,
+      "endMs": 2825,
+      "durationMs": 850
+    },
+    {
+      "position": 4,
+      "startMs": 2825,
+      "endMs": 3365,
+      "durationMs": 540
+    },
+    {
+      "position": 5,
+      "startMs": 3365,
+      "endMs": 4295,
+      "durationMs": 930
+    },
+    {
+      "position": 6,
+      "startMs": 4295,
+      "endMs": 5255,
+      "durationMs": 960
+    },
+    {
+      "position": 7,
+      "startMs": 5255,
+      "endMs": 5725,
+      "durationMs": 470
+    },
+    {
+      "position": 8,
+      "startMs": 5725,
+      "endMs": 8960,
+      "durationMs": 3235
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:29.020Z"
+}

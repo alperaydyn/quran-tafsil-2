@@ -1,0 +1,39 @@
+{
+  "surah": 52,
+  "ayah": 9,
+  "verseKey": "52:9",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 37920,
+  "timestampToGlobalMs": 43720,
+  "durationMs": 5800,
+  "audioFile": "52_9.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 655,
+      "durationMs": 655
+    },
+    {
+      "position": 2,
+      "startMs": 655,
+      "endMs": 1555,
+      "durationMs": 900
+    },
+    {
+      "position": 3,
+      "startMs": 1555,
+      "endMs": 4225,
+      "durationMs": 2670
+    },
+    {
+      "position": 4,
+      "startMs": 4225,
+      "endMs": 5690,
+      "durationMs": 1465
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:31.360Z"
+}

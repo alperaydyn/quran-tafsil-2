@@ -1,0 +1,45 @@
+{
+  "surah": 36,
+  "ayah": 24,
+  "verseKey": "36:24",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 293880,
+  "timestampToGlobalMs": 303620,
+  "durationMs": 9740,
+  "audioFile": "36_24.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2935,
+      "durationMs": 2935
+    },
+    {
+      "position": 2,
+      "startMs": 2935,
+      "endMs": 3365,
+      "durationMs": 430
+    },
+    {
+      "position": 3,
+      "startMs": 3365,
+      "endMs": 4155,
+      "durationMs": 790
+    },
+    {
+      "position": 4,
+      "startMs": 4155,
+      "endMs": 5705,
+      "durationMs": 1550
+    },
+    {
+      "position": 5,
+      "startMs": 5705,
+      "endMs": 9570,
+      "durationMs": 3865
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:44.995Z"
+}

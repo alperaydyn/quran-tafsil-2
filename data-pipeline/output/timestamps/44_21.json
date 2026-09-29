@@ -1,0 +1,45 @@
+{
+  "surah": 44,
+  "ayah": 21,
+  "verseKey": "44:21",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 211520,
+  "timestampToGlobalMs": 218180,
+  "durationMs": 6660,
+  "audioFile": "44_21.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 465,
+      "durationMs": 465
+    },
+    {
+      "position": 2,
+      "startMs": 465,
+      "endMs": 1015,
+      "durationMs": 550
+    },
+    {
+      "position": 3,
+      "startMs": 1015,
+      "endMs": 2195,
+      "durationMs": 1180
+    },
+    {
+      "position": 4,
+      "startMs": 2195,
+      "endMs": 2595,
+      "durationMs": 400
+    },
+    {
+      "position": 5,
+      "startMs": 2595,
+      "endMs": 6570,
+      "durationMs": 3975
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:16.810Z"
+}

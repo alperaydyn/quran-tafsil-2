@@ -1,0 +1,33 @@
+{
+  "surah": 37,
+  "ayah": 165,
+  "verseKey": "37:165",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1323930,
+  "timestampToGlobalMs": 1333780,
+  "durationMs": 9850,
+  "audioFile": "37_165.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1775,
+      "durationMs": 1775
+    },
+    {
+      "position": 2,
+      "startMs": 1775,
+      "endMs": 2505,
+      "durationMs": 730
+    },
+    {
+      "position": 3,
+      "startMs": 2505,
+      "endMs": 9720,
+      "durationMs": 7215
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.725Z"
+}

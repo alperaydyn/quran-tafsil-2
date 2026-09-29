@@ -1,0 +1,57 @@
+{
+  "surah": 26,
+  "ayah": 106,
+  "verseKey": "26:106",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 972300,
+  "timestampToGlobalMs": 979770,
+  "durationMs": 7470,
+  "audioFile": "26_106.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 505,
+      "durationMs": 505
+    },
+    {
+      "position": 2,
+      "startMs": 505,
+      "endMs": 1185,
+      "durationMs": 680
+    },
+    {
+      "position": 3,
+      "startMs": 1185,
+      "endMs": 1765,
+      "durationMs": 580
+    },
+    {
+      "position": 4,
+      "startMs": 1765,
+      "endMs": 2785,
+      "durationMs": 1020
+    },
+    {
+      "position": 5,
+      "startMs": 2785,
+      "endMs": 3525,
+      "durationMs": 740
+    },
+    {
+      "position": 6,
+      "startMs": 3525,
+      "endMs": 4285,
+      "durationMs": 760
+    },
+    {
+      "position": 7,
+      "startMs": 4285,
+      "endMs": 7400,
+      "durationMs": 3115
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.969Z"
+}

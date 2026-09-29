@@ -1,0 +1,75 @@
+{
+  "surah": 44,
+  "ayah": 41,
+  "verseKey": "44:41",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 414810,
+  "timestampToGlobalMs": 427370,
+  "durationMs": 12570,
+  "audioFile": "44_41.mp3",
+  "wordCount": 10,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 505,
+      "durationMs": 505
+    },
+    {
+      "position": 2,
+      "startMs": 505,
+      "endMs": 1075,
+      "durationMs": 570
+    },
+    {
+      "position": 3,
+      "startMs": 1075,
+      "endMs": 1915,
+      "durationMs": 840
+    },
+    {
+      "position": 4,
+      "startMs": 1915,
+      "endMs": 2695,
+      "durationMs": 780
+    },
+    {
+      "position": 5,
+      "startMs": 2695,
+      "endMs": 2985,
+      "durationMs": 290
+    },
+    {
+      "position": 6,
+      "startMs": 2985,
+      "endMs": 5355,
+      "durationMs": 2370
+    },
+    {
+      "position": 7,
+      "startMs": 5355,
+      "endMs": 6455,
+      "durationMs": 1100
+    },
+    {
+      "position": 8,
+      "startMs": 6455,
+      "endMs": 7585,
+      "durationMs": 1130
+    },
+    {
+      "position": 9,
+      "startMs": 7585,
+      "endMs": 8005,
+      "durationMs": 420
+    },
+    {
+      "position": 10,
+      "startMs": 8005,
+      "endMs": 12490,
+      "durationMs": 4485
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:17.148Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 171,
+  "verseKey": "26:171",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1491100,
+  "timestampToGlobalMs": 1497320,
+  "durationMs": 6220,
+  "audioFile": "26_171.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 915,
+      "durationMs": 915
+    },
+    {
+      "position": 2,
+      "startMs": 915,
+      "endMs": 2755,
+      "durationMs": 1840
+    },
+    {
+      "position": 3,
+      "startMs": 2755,
+      "endMs": 3085,
+      "durationMs": 330
+    },
+    {
+      "position": 4,
+      "startMs": 3085,
+      "endMs": 6170,
+      "durationMs": 3085
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.598Z"
+}

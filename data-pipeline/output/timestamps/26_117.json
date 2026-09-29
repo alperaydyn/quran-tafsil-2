@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 117,
+  "verseKey": "26:117",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1052220,
+  "timestampToGlobalMs": 1058700,
+  "durationMs": 6480,
+  "audioFile": "26_117.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 585,
+      "durationMs": 585
+    },
+    {
+      "position": 2,
+      "startMs": 585,
+      "endMs": 1085,
+      "durationMs": 500
+    },
+    {
+      "position": 3,
+      "startMs": 1085,
+      "endMs": 2455,
+      "durationMs": 1370
+    },
+    {
+      "position": 4,
+      "startMs": 2455,
+      "endMs": 3315,
+      "durationMs": 860
+    },
+    {
+      "position": 5,
+      "startMs": 3315,
+      "endMs": 6390,
+      "durationMs": 3075
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.223Z"
+}

@@ -1,0 +1,51 @@
+{
+  "surah": 40,
+  "ayah": 2,
+  "verseKey": "40:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 4700,
+  "timestampToGlobalMs": 12750,
+  "durationMs": 8050,
+  "audioFile": "40_2.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1825,
+      "durationMs": 1825
+    },
+    {
+      "position": 2,
+      "startMs": 1825,
+      "endMs": 2795,
+      "durationMs": 970
+    },
+    {
+      "position": 3,
+      "startMs": 2795,
+      "endMs": 3105,
+      "durationMs": 310
+    },
+    {
+      "position": 4,
+      "startMs": 3105,
+      "endMs": 3975,
+      "durationMs": 870
+    },
+    {
+      "position": 5,
+      "startMs": 3975,
+      "endMs": 5015,
+      "durationMs": 1040
+    },
+    {
+      "position": 6,
+      "startMs": 5015,
+      "endMs": 7950,
+      "durationMs": 2935
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:02.375Z"
+}

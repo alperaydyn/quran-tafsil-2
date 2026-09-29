@@ -1,0 +1,117 @@
+{
+  "surah": 29,
+  "ayah": 68,
+  "verseKey": "29:68",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1320400,
+  "timestampToGlobalMs": 1340620,
+  "durationMs": 20220,
+  "audioFile": "29_68.mp3",
+  "wordCount": 17,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 615,
+      "durationMs": 615
+    },
+    {
+      "position": 2,
+      "startMs": 615,
+      "endMs": 1455,
+      "durationMs": 840
+    },
+    {
+      "position": 3,
+      "startMs": 1455,
+      "endMs": 2885,
+      "durationMs": 1430
+    },
+    {
+      "position": 4,
+      "startMs": 2885,
+      "endMs": 3725,
+      "durationMs": 840
+    },
+    {
+      "position": 5,
+      "startMs": 3725,
+      "endMs": 4185,
+      "durationMs": 460
+    },
+    {
+      "position": 6,
+      "startMs": 4185,
+      "endMs": 4975,
+      "durationMs": 790
+    },
+    {
+      "position": 7,
+      "startMs": 4975,
+      "endMs": 5825,
+      "durationMs": 850
+    },
+    {
+      "position": 8,
+      "startMs": 5825,
+      "endMs": 6195,
+      "durationMs": 370
+    },
+    {
+      "position": 9,
+      "startMs": 6195,
+      "endMs": 7015,
+      "durationMs": 820
+    },
+    {
+      "position": 10,
+      "startMs": 7015,
+      "endMs": 8045,
+      "durationMs": 1030
+    },
+    {
+      "position": 11,
+      "startMs": 8045,
+      "endMs": 9405,
+      "durationMs": 1360
+    },
+    {
+      "position": 12,
+      "startMs": 9405,
+      "endMs": 12635,
+      "durationMs": 3230
+    },
+    {
+      "position": 13,
+      "startMs": 12635,
+      "endMs": 13405,
+      "durationMs": 770
+    },
+    {
+      "position": 14,
+      "startMs": 13405,
+      "endMs": 13785,
+      "durationMs": 380
+    },
+    {
+      "position": 15,
+      "startMs": 13785,
+      "endMs": 15745,
+      "durationMs": 1960
+    },
+    {
+      "position": 16,
+      "startMs": 15745,
+      "endMs": 16295,
+      "durationMs": 550
+    },
+    {
+      "position": 17,
+      "startMs": 16295,
+      "endMs": 20170,
+      "durationMs": 3875
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:25.149Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 170,
+  "verseKey": "37:170",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1361860,
+  "timestampToGlobalMs": 1368100,
+  "durationMs": 6240,
+  "audioFile": "37_170.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 995,
+      "durationMs": 995
+    },
+    {
+      "position": 2,
+      "startMs": 995,
+      "endMs": 1925,
+      "durationMs": 930
+    },
+    {
+      "position": 3,
+      "startMs": 1925,
+      "endMs": 2735,
+      "durationMs": 810
+    },
+    {
+      "position": 4,
+      "startMs": 2735,
+      "endMs": 6110,
+      "durationMs": 3375
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.848Z"
+}

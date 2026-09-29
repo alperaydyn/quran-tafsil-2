@@ -1,0 +1,51 @@
+{
+  "surah": 37,
+  "ayah": 64,
+  "verseKey": "37:64",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 534080,
+  "timestampToGlobalMs": 544060,
+  "durationMs": 9980,
+  "audioFile": "37_64.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1855,
+      "durationMs": 1855
+    },
+    {
+      "position": 2,
+      "startMs": 1855,
+      "endMs": 3375,
+      "durationMs": 1520
+    },
+    {
+      "position": 3,
+      "startMs": 3375,
+      "endMs": 4615,
+      "durationMs": 1240
+    },
+    {
+      "position": 4,
+      "startMs": 4615,
+      "endMs": 6234,
+      "durationMs": 1619
+    },
+    {
+      "position": 5,
+      "startMs": 6235,
+      "endMs": 6905,
+      "durationMs": 670
+    },
+    {
+      "position": 6,
+      "startMs": 6905,
+      "endMs": 9860,
+      "durationMs": 2955
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:48.552Z"
+}

@@ -1,0 +1,51 @@
+{
+  "surah": 53,
+  "ayah": 10,
+  "verseKey": "53:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 39260,
+  "timestampToGlobalMs": 46680,
+  "durationMs": 7420,
+  "audioFile": "53_10.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2045,
+      "durationMs": 2045
+    },
+    {
+      "position": 2,
+      "startMs": 2045,
+      "endMs": 2695,
+      "durationMs": 650
+    },
+    {
+      "position": 3,
+      "startMs": 2695,
+      "endMs": 3865,
+      "durationMs": 1170
+    },
+    {
+      "position": 4,
+      "startMs": 3865,
+      "endMs": 4045,
+      "durationMs": 180
+    },
+    {
+      "position": 5,
+      "startMs": 4045,
+      "endMs": 5495,
+      "durationMs": 1450
+    },
+    {
+      "position": 5,
+      "startMs": 5495,
+      "endMs": 6580,
+      "durationMs": 1085
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:32.933Z"
+}

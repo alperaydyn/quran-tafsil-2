@@ -1,0 +1,45 @@
+{
+  "surah": 36,
+  "ayah": 17,
+  "verseKey": "36:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 195930,
+  "timestampToGlobalMs": 203870,
+  "durationMs": 7940,
+  "audioFile": "36_17.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 725,
+      "durationMs": 725
+    },
+    {
+      "position": 2,
+      "startMs": 725,
+      "endMs": 2935,
+      "durationMs": 2210
+    },
+    {
+      "position": 3,
+      "startMs": 2935,
+      "endMs": 3545,
+      "durationMs": 610
+    },
+    {
+      "position": 4,
+      "startMs": 3545,
+      "endMs": 4565,
+      "durationMs": 1020
+    },
+    {
+      "position": 5,
+      "startMs": 4565,
+      "endMs": 7810,
+      "durationMs": 3245
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:44.878Z"
+}

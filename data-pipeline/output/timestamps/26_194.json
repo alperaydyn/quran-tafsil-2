@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 194,
+  "verseKey": "26:194",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1693500,
+  "timestampToGlobalMs": 1700500,
+  "durationMs": 7000,
+  "audioFile": "26_194.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 625,
+      "durationMs": 625
+    },
+    {
+      "position": 2,
+      "startMs": 625,
+      "endMs": 1495,
+      "durationMs": 870
+    },
+    {
+      "position": 3,
+      "startMs": 1495,
+      "endMs": 2575,
+      "durationMs": 1080
+    },
+    {
+      "position": 4,
+      "startMs": 2575,
+      "endMs": 2895,
+      "durationMs": 320
+    },
+    {
+      "position": 5,
+      "startMs": 2895,
+      "endMs": 6950,
+      "durationMs": 4055
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.254Z"
+}

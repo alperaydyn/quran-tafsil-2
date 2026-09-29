@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 195,
+  "verseKey": "26:195",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1700500,
+  "timestampToGlobalMs": 1706930,
+  "durationMs": 6430,
+  "audioFile": "26_195.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1285,
+      "durationMs": 1285
+    },
+    {
+      "position": 2,
+      "startMs": 1285,
+      "endMs": 2605,
+      "durationMs": 1320
+    },
+    {
+      "position": 3,
+      "startMs": 2605,
+      "endMs": 6360,
+      "durationMs": 3755
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.283Z"
+}

@@ -1,0 +1,69 @@
+{
+  "surah": 26,
+  "ayah": 213,
+  "verseKey": "26:213",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1836410,
+  "timestampToGlobalMs": 1845790,
+  "durationMs": 9380,
+  "audioFile": "26_213.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 595,
+      "durationMs": 595
+    },
+    {
+      "position": 2,
+      "startMs": 595,
+      "endMs": 1095,
+      "durationMs": 500
+    },
+    {
+      "position": 3,
+      "startMs": 1095,
+      "endMs": 1625,
+      "durationMs": 530
+    },
+    {
+      "position": 4,
+      "startMs": 1625,
+      "endMs": 2555,
+      "durationMs": 930
+    },
+    {
+      "position": 5,
+      "startMs": 2555,
+      "endMs": 3565,
+      "durationMs": 1010
+    },
+    {
+      "position": 6,
+      "startMs": 3565,
+      "endMs": 4355,
+      "durationMs": 790
+    },
+    {
+      "position": 7,
+      "startMs": 4355,
+      "endMs": 5435,
+      "durationMs": 1080
+    },
+    {
+      "position": 8,
+      "startMs": 5435,
+      "endMs": 5755,
+      "durationMs": 320
+    },
+    {
+      "position": 9,
+      "startMs": 5755,
+      "endMs": 9300,
+      "durationMs": 3545
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.829Z"
+}

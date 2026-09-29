@@ -1,0 +1,51 @@
+{
+  "surah": 43,
+  "ayah": 74,
+  "verseKey": "43:74",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1035000,
+  "timestampToGlobalMs": 1044330,
+  "durationMs": 9330,
+  "audioFile": "43_74.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 2785,
+      "durationMs": 1480
+    },
+    {
+      "position": 3,
+      "startMs": 2785,
+      "endMs": 3225,
+      "durationMs": 440
+    },
+    {
+      "position": 4,
+      "startMs": 3225,
+      "endMs": 4105,
+      "durationMs": 880
+    },
+    {
+      "position": 5,
+      "startMs": 4105,
+      "endMs": 6225,
+      "durationMs": 2120
+    },
+    {
+      "position": 6,
+      "startMs": 6225,
+      "endMs": 9240,
+      "durationMs": 3015
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:15.023Z"
+}

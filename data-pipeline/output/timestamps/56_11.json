@@ -1,0 +1,27 @@
+{
+  "surah": 56,
+  "ayah": 11,
+  "verseKey": "56:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 54040,
+  "timestampToGlobalMs": 60780,
+  "durationMs": 6740,
+  "audioFile": "56_11.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2475,
+      "durationMs": 2475
+    },
+    {
+      "position": 2,
+      "startMs": 2475,
+      "endMs": 6600,
+      "durationMs": 4125
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:39.239Z"
+}

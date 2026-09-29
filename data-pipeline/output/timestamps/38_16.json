@@ -1,0 +1,63 @@
+{
+  "surah": 38,
+  "ayah": 16,
+  "verseKey": "38:16",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 183000,
+  "timestampToGlobalMs": 192460,
+  "durationMs": 9460,
+  "audioFile": "38_16.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1155,
+      "durationMs": 1155
+    },
+    {
+      "position": 2,
+      "startMs": 1155,
+      "endMs": 2155,
+      "durationMs": 1000
+    },
+    {
+      "position": 3,
+      "startMs": 2155,
+      "endMs": 2955,
+      "durationMs": 800
+    },
+    {
+      "position": 4,
+      "startMs": 2955,
+      "endMs": 3625,
+      "durationMs": 670
+    },
+    {
+      "position": 5,
+      "startMs": 3625,
+      "endMs": 4675,
+      "durationMs": 1050
+    },
+    {
+      "position": 6,
+      "startMs": 4675,
+      "endMs": 5335,
+      "durationMs": 660
+    },
+    {
+      "position": 7,
+      "startMs": 5335,
+      "endMs": 5965,
+      "durationMs": 630
+    },
+    {
+      "position": 8,
+      "startMs": 5965,
+      "endMs": 9040,
+      "durationMs": 3075
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:53.582Z"
+}

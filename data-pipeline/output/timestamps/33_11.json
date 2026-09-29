@@ -1,0 +1,51 @@
+{
+  "surah": 33,
+  "ayah": 11,
+  "verseKey": "33:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 227660,
+  "timestampToGlobalMs": 235370,
+  "durationMs": 7710,
+  "audioFile": "33_11.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 955,
+      "durationMs": 955
+    },
+    {
+      "position": 2,
+      "startMs": 955,
+      "endMs": 1685,
+      "durationMs": 730
+    },
+    {
+      "position": 3,
+      "startMs": 1685,
+      "endMs": 3115,
+      "durationMs": 1430
+    },
+    {
+      "position": 4,
+      "startMs": 3115,
+      "endMs": 4225,
+      "durationMs": 1110
+    },
+    {
+      "position": 5,
+      "startMs": 4225,
+      "endMs": 6095,
+      "durationMs": 1870
+    },
+    {
+      "position": 6,
+      "startMs": 6095,
+      "endMs": 7590,
+      "durationMs": 1495
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:35.358Z"
+}

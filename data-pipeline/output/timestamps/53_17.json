@@ -1,0 +1,45 @@
+{
+  "surah": 53,
+  "ayah": 17,
+  "verseKey": "53:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 74740,
+  "timestampToGlobalMs": 79050,
+  "durationMs": 4310,
+  "audioFile": "53_17.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 155,
+      "durationMs": 155
+    },
+    {
+      "position": 2,
+      "startMs": 155,
+      "endMs": 875,
+      "durationMs": 720
+    },
+    {
+      "position": 3,
+      "startMs": 875,
+      "endMs": 1805,
+      "durationMs": 930
+    },
+    {
+      "position": 4,
+      "startMs": 1805,
+      "endMs": 2285,
+      "durationMs": 480
+    },
+    {
+      "position": 5,
+      "startMs": 2285,
+      "endMs": 3930,
+      "durationMs": 1645
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:33.037Z"
+}

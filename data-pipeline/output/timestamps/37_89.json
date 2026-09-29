@@ -1,0 +1,33 @@
+{
+  "surah": 37,
+  "ayah": 89,
+  "verseKey": "37:89",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 732990,
+  "timestampToGlobalMs": 738500,
+  "durationMs": 5510,
+  "audioFile": "37_89.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 755,
+      "durationMs": 755
+    },
+    {
+      "position": 2,
+      "startMs": 755,
+      "endMs": 2215,
+      "durationMs": 1460
+    },
+    {
+      "position": 3,
+      "startMs": 2215,
+      "endMs": 5390,
+      "durationMs": 3175
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.036Z"
+}

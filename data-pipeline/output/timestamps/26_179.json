@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 179,
+  "verseKey": "26:179",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1553000,
+  "timestampToGlobalMs": 1558380,
+  "durationMs": 5380,
+  "audioFile": "26_179.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 825,
+      "durationMs": 825
+    },
+    {
+      "position": 2,
+      "startMs": 825,
+      "endMs": 1755,
+      "durationMs": 930
+    },
+    {
+      "position": 3,
+      "startMs": 1755,
+      "endMs": 5300,
+      "durationMs": 3545
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.823Z"
+}

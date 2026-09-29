@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 144,
+  "verseKey": "26:144",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1260140,
+  "timestampToGlobalMs": 1265130,
+  "durationMs": 4990,
+  "audioFile": "26_144.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 735,
+      "durationMs": 735
+    },
+    {
+      "position": 2,
+      "startMs": 735,
+      "endMs": 1665,
+      "durationMs": 930
+    },
+    {
+      "position": 3,
+      "startMs": 1665,
+      "endMs": 4870,
+      "durationMs": 3205
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.884Z"
+}

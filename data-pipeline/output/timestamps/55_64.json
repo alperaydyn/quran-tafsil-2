@@ -1,0 +1,21 @@
+{
+  "surah": 55,
+  "ayah": 64,
+  "verseKey": "55:64",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 559080,
+  "timestampToGlobalMs": 566860,
+  "durationMs": 7790,
+  "audioFile": "55_64.mp3",
+  "wordCount": 1,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 7640,
+      "durationMs": 7640
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:37.678Z"
+}

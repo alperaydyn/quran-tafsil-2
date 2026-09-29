@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 135,
+  "verseKey": "26:135",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1185190,
+  "timestampToGlobalMs": 1194410,
+  "durationMs": 9220,
+  "audioFile": "26_135.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 3075,
+      "durationMs": 3075
+    },
+    {
+      "position": 2,
+      "startMs": 3075,
+      "endMs": 3905,
+      "durationMs": 830
+    },
+    {
+      "position": 3,
+      "startMs": 3905,
+      "endMs": 4925,
+      "durationMs": 1020
+    },
+    {
+      "position": 4,
+      "startMs": 4925,
+      "endMs": 5895,
+      "durationMs": 970
+    },
+    {
+      "position": 5,
+      "startMs": 5895,
+      "endMs": 6685,
+      "durationMs": 790
+    },
+    {
+      "position": 6,
+      "startMs": 6685,
+      "endMs": 9130,
+      "durationMs": 2445
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.658Z"
+}

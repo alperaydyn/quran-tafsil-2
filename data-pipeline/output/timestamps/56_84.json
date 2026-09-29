@@ -1,0 +1,33 @@
+{
+  "surah": 56,
+  "ayah": 84,
+  "verseKey": "56:84",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 615790,
+  "timestampToGlobalMs": 625170,
+  "durationMs": 9380,
+  "audioFile": "56_84.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2265,
+      "durationMs": 2265
+    },
+    {
+      "position": 2,
+      "startMs": 2265,
+      "endMs": 3855,
+      "durationMs": 1590
+    },
+    {
+      "position": 3,
+      "startMs": 3856,
+      "endMs": 9160,
+      "durationMs": 5304
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:40.572Z"
+}

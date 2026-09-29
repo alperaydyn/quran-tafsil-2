@@ -1,0 +1,33 @@
+{
+  "surah": 27,
+  "ayah": 2,
+  "verseKey": "27:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 12090,
+  "timestampToGlobalMs": 17760,
+  "durationMs": 5670,
+  "audioFile": "27_2.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1375,
+      "durationMs": 1375
+    },
+    {
+      "position": 2,
+      "startMs": 1375,
+      "endMs": 2395,
+      "durationMs": 1020
+    },
+    {
+      "position": 3,
+      "startMs": 2395,
+      "endMs": 5600,
+      "durationMs": 3205
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:13.447Z"
+}

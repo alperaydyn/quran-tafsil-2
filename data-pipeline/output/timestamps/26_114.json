@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 114,
+  "verseKey": "26:114",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1029250,
+  "timestampToGlobalMs": 1036020,
+  "durationMs": 6770,
+  "audioFile": "26_114.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2125,
+      "durationMs": 2125
+    },
+    {
+      "position": 2,
+      "startMs": 2125,
+      "endMs": 2575,
+      "durationMs": 450
+    },
+    {
+      "position": 3,
+      "startMs": 2575,
+      "endMs": 3665,
+      "durationMs": 1090
+    },
+    {
+      "position": 4,
+      "startMs": 3665,
+      "endMs": 6670,
+      "durationMs": 3005
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.153Z"
+}

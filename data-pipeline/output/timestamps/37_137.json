@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 137,
+  "verseKey": "37:137",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1112310,
+  "timestampToGlobalMs": 1120850,
+  "durationMs": 8540,
+  "audioFile": "37_137.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1715,
+      "durationMs": 1715
+    },
+    {
+      "position": 2,
+      "startMs": 1715,
+      "endMs": 3135,
+      "durationMs": 1420
+    },
+    {
+      "position": 3,
+      "startMs": 3135,
+      "endMs": 4475,
+      "durationMs": 1340
+    },
+    {
+      "position": 4,
+      "startMs": 4475,
+      "endMs": 8400,
+      "durationMs": 3925
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.056Z"
+}

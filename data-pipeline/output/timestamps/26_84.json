@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 84,
+  "verseKey": "26:84",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 806200,
+  "timestampToGlobalMs": 813620,
+  "durationMs": 7420,
+  "audioFile": "26_84.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 875,
+      "durationMs": 875
+    },
+    {
+      "position": 2,
+      "startMs": 875,
+      "endMs": 1315,
+      "durationMs": 440
+    },
+    {
+      "position": 3,
+      "startMs": 1315,
+      "endMs": 2145,
+      "durationMs": 830
+    },
+    {
+      "position": 4,
+      "startMs": 2145,
+      "endMs": 3785,
+      "durationMs": 1640
+    },
+    {
+      "position": 5,
+      "startMs": 3785,
+      "endMs": 4005,
+      "durationMs": 220
+    },
+    {
+      "position": 6,
+      "startMs": 4005,
+      "endMs": 7290,
+      "durationMs": 3285
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.476Z"
+}

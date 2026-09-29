@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 96,
+  "verseKey": "37:96",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 778430,
+  "timestampToGlobalMs": 784700,
+  "durationMs": 6270,
+  "audioFile": "37_96.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 995,
+      "durationMs": 995
+    },
+    {
+      "position": 2,
+      "startMs": 995,
+      "endMs": 2085,
+      "durationMs": 1090
+    },
+    {
+      "position": 3,
+      "startMs": 2085,
+      "endMs": 2675,
+      "durationMs": 590
+    },
+    {
+      "position": 4,
+      "startMs": 2675,
+      "endMs": 6160,
+      "durationMs": 3485
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.175Z"
+}

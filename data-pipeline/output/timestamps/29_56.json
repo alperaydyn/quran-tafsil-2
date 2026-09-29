@@ -1,0 +1,63 @@
+{
+  "surah": 29,
+  "ayah": 56,
+  "verseKey": "29:56",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1109040,
+  "timestampToGlobalMs": 1122340,
+  "durationMs": 13300,
+  "audioFile": "29_56.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1605,
+      "durationMs": 1605
+    },
+    {
+      "position": 2,
+      "startMs": 1605,
+      "endMs": 2605,
+      "durationMs": 1000
+    },
+    {
+      "position": 3,
+      "startMs": 2605,
+      "endMs": 4515,
+      "durationMs": 1910
+    },
+    {
+      "position": 4,
+      "startMs": 4515,
+      "endMs": 6135,
+      "durationMs": 1620
+    },
+    {
+      "position": 5,
+      "startMs": 6135,
+      "endMs": 6945,
+      "durationMs": 810
+    },
+    {
+      "position": 6,
+      "startMs": 6945,
+      "endMs": 8765,
+      "durationMs": 1820
+    },
+    {
+      "position": 7,
+      "startMs": 8765,
+      "endMs": 10105,
+      "durationMs": 1340
+    },
+    {
+      "position": 8,
+      "startMs": 10105,
+      "endMs": 13230,
+      "durationMs": 3125
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:24.832Z"
+}

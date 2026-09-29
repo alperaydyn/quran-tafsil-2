@@ -1,0 +1,57 @@
+{
+  "surah": 26,
+  "ayah": 201,
+  "verseKey": "26:201",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1748590,
+  "timestampToGlobalMs": 1756610,
+  "durationMs": 8020,
+  "audioFile": "26_201.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 435,
+      "durationMs": 435
+    },
+    {
+      "position": 2,
+      "startMs": 435,
+      "endMs": 1695,
+      "durationMs": 1260
+    },
+    {
+      "position": 3,
+      "startMs": 1695,
+      "endMs": 2295,
+      "durationMs": 600
+    },
+    {
+      "position": 4,
+      "startMs": 2295,
+      "endMs": 3205,
+      "durationMs": 910
+    },
+    {
+      "position": 5,
+      "startMs": 3205,
+      "endMs": 3845,
+      "durationMs": 640
+    },
+    {
+      "position": 6,
+      "startMs": 3845,
+      "endMs": 4845,
+      "durationMs": 1000
+    },
+    {
+      "position": 7,
+      "startMs": 4845,
+      "endMs": 7940,
+      "durationMs": 3095
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.463Z"
+}

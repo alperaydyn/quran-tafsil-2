@@ -1,0 +1,45 @@
+{
+  "surah": 37,
+  "ayah": 157,
+  "verseKey": "37:157",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1258370,
+  "timestampToGlobalMs": 1266570,
+  "durationMs": 8200,
+  "audioFile": "37_157.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 785,
+      "durationMs": 785
+    },
+    {
+      "position": 2,
+      "startMs": 785,
+      "endMs": 2245,
+      "durationMs": 1460
+    },
+    {
+      "position": 3,
+      "startMs": 2245,
+      "endMs": 2525,
+      "durationMs": 280
+    },
+    {
+      "position": 4,
+      "startMs": 2525,
+      "endMs": 4545,
+      "durationMs": 2020
+    },
+    {
+      "position": 5,
+      "startMs": 4545,
+      "endMs": 8060,
+      "durationMs": 3515
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.529Z"
+}

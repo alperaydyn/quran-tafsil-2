@@ -1,0 +1,21 @@
+{
+  "surah": 43,
+  "ayah": 1,
+  "verseKey": "43:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 5490,
+  "durationMs": 5490,
+  "audioFile": "43_1.mp3",
+  "wordCount": 1,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 5425,
+      "durationMs": 5425
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:13.602Z"
+}

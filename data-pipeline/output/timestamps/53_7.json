@@ -1,0 +1,33 @@
+{
+  "surah": 53,
+  "ayah": 7,
+  "verseKey": "53:7",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 26850,
+  "timestampToGlobalMs": 30560,
+  "durationMs": 3710,
+  "audioFile": "53_7.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 265,
+      "durationMs": 265
+    },
+    {
+      "position": 2,
+      "startMs": 265,
+      "endMs": 1455,
+      "durationMs": 1190
+    },
+    {
+      "position": 3,
+      "startMs": 1455,
+      "endMs": 2720,
+      "durationMs": 1265
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:32.887Z"
+}

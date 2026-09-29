@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 71,
+  "verseKey": "26:71",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 706860,
+  "timestampToGlobalMs": 715110,
+  "durationMs": 8260,
+  "audioFile": "26_71.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 685,
+      "durationMs": 685
+    },
+    {
+      "position": 2,
+      "startMs": 685,
+      "endMs": 1615,
+      "durationMs": 930
+    },
+    {
+      "position": 3,
+      "startMs": 1615,
+      "endMs": 3685,
+      "durationMs": 2070
+    },
+    {
+      "position": 4,
+      "startMs": 3685,
+      "endMs": 4765,
+      "durationMs": 1080
+    },
+    {
+      "position": 5,
+      "startMs": 4765,
+      "endMs": 5415,
+      "durationMs": 650
+    },
+    {
+      "position": 6,
+      "startMs": 5415,
+      "endMs": 8130,
+      "durationMs": 2715
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.204Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 209,
+  "verseKey": "26:209",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1811230,
+  "timestampToGlobalMs": 1817370,
+  "durationMs": 6140,
+  "audioFile": "26_209.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 895,
+      "durationMs": 895
+    },
+    {
+      "position": 2,
+      "startMs": 895,
+      "endMs": 1505,
+      "durationMs": 610
+    },
+    {
+      "position": 3,
+      "startMs": 1505,
+      "endMs": 3025,
+      "durationMs": 1520
+    },
+    {
+      "position": 4,
+      "startMs": 3025,
+      "endMs": 6060,
+      "durationMs": 3035
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.707Z"
+}

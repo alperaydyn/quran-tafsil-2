@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 122,
+  "verseKey": "26:122",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1095530,
+  "timestampToGlobalMs": 1104390,
+  "durationMs": 8860,
+  "audioFile": "26_122.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1605,
+      "durationMs": 1605
+    },
+    {
+      "position": 2,
+      "startMs": 1605,
+      "endMs": 2515,
+      "durationMs": 910
+    },
+    {
+      "position": 3,
+      "startMs": 2515,
+      "endMs": 3215,
+      "durationMs": 700
+    },
+    {
+      "position": 4,
+      "startMs": 3215,
+      "endMs": 4685,
+      "durationMs": 1470
+    },
+    {
+      "position": 5,
+      "startMs": 4685,
+      "endMs": 8780,
+      "durationMs": 4095
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.342Z"
+}

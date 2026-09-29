@@ -1,0 +1,51 @@
+{
+  "surah": 51,
+  "ayah": 39,
+  "verseKey": "51:39",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 312300,
+  "timestampToGlobalMs": 320220,
+  "durationMs": 7920,
+  "audioFile": "51_39.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 2645,
+      "durationMs": 1340
+    },
+    {
+      "position": 3,
+      "startMs": 2645,
+      "endMs": 3565,
+      "durationMs": 920
+    },
+    {
+      "position": 4,
+      "startMs": 3565,
+      "endMs": 4605,
+      "durationMs": 1040
+    },
+    {
+      "position": 5,
+      "startMs": 4605,
+      "endMs": 5155,
+      "durationMs": 550
+    },
+    {
+      "position": 6,
+      "startMs": 5155,
+      "endMs": 7780,
+      "durationMs": 2625
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:29.942Z"
+}

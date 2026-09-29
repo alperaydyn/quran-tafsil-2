@@ -1,0 +1,27 @@
+{
+  "surah": 56,
+  "ayah": 22,
+  "verseKey": "56:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 135300,
+  "timestampToGlobalMs": 139690,
+  "durationMs": 4390,
+  "audioFile": "56_22.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1065,
+      "durationMs": 1065
+    },
+    {
+      "position": 2,
+      "startMs": 1065,
+      "endMs": 4160,
+      "durationMs": 3095
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:39.424Z"
+}

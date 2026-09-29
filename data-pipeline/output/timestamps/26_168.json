@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 168,
+  "verseKey": "26:168",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1468320,
+  "timestampToGlobalMs": 1476030,
+  "durationMs": 7710,
+  "audioFile": "26_168.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 595,
+      "durationMs": 595
+    },
+    {
+      "position": 2,
+      "startMs": 595,
+      "endMs": 2204,
+      "durationMs": 1609
+    },
+    {
+      "position": 3,
+      "startMs": 2205,
+      "endMs": 3565,
+      "durationMs": 1360
+    },
+    {
+      "position": 4,
+      "startMs": 3565,
+      "endMs": 4425,
+      "durationMs": 860
+    },
+    {
+      "position": 5,
+      "startMs": 4425,
+      "endMs": 7590,
+      "durationMs": 3165
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.516Z"
+}

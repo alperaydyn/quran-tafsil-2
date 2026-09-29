@@ -1,0 +1,33 @@
+{
+  "surah": 37,
+  "ayah": 138,
+  "verseKey": "37:138",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1120850,
+  "timestampToGlobalMs": 1128870,
+  "durationMs": 8020,
+  "audioFile": "37_138.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 3445,
+      "durationMs": 3445
+    },
+    {
+      "position": 2,
+      "startMs": 3445,
+      "endMs": 4325,
+      "durationMs": 880
+    },
+    {
+      "position": 3,
+      "startMs": 4325,
+      "endMs": 7890,
+      "durationMs": 3565
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.078Z"
+}

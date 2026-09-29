@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 138,
+  "verseKey": "26:138",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1213850,
+  "timestampToGlobalMs": 1218500,
+  "durationMs": 4650,
+  "audioFile": "26_138.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 705,
+      "durationMs": 705
+    },
+    {
+      "position": 2,
+      "startMs": 705,
+      "endMs": 1315,
+      "durationMs": 610
+    },
+    {
+      "position": 3,
+      "startMs": 1315,
+      "endMs": 4570,
+      "durationMs": 3255
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.733Z"
+}

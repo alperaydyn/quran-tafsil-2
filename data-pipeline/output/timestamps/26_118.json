@@ -1,0 +1,69 @@
+{
+  "surah": 26,
+  "ayah": 118,
+  "verseKey": "26:118",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1058700,
+  "timestampToGlobalMs": 1069590,
+  "durationMs": 10890,
+  "audioFile": "26_118.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 835,
+      "durationMs": 835
+    },
+    {
+      "position": 2,
+      "startMs": 835,
+      "endMs": 1605,
+      "durationMs": 770
+    },
+    {
+      "position": 3,
+      "startMs": 1605,
+      "endMs": 2865,
+      "durationMs": 1260
+    },
+    {
+      "position": 4,
+      "startMs": 2865,
+      "endMs": 4315,
+      "durationMs": 1450
+    },
+    {
+      "position": 5,
+      "startMs": 4315,
+      "endMs": 5495,
+      "durationMs": 1180
+    },
+    {
+      "position": 6,
+      "startMs": 5495,
+      "endMs": 6095,
+      "durationMs": 600
+    },
+    {
+      "position": 7,
+      "startMs": 6095,
+      "endMs": 7335,
+      "durationMs": 1240
+    },
+    {
+      "position": 8,
+      "startMs": 7335,
+      "endMs": 7645,
+      "durationMs": 310
+    },
+    {
+      "position": 9,
+      "startMs": 7645,
+      "endMs": 10820,
+      "durationMs": 3175
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.246Z"
+}

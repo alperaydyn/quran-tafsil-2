@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 147,
+  "verseKey": "26:147",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1284560,
+  "timestampToGlobalMs": 1290570,
+  "durationMs": 6010,
+  "audioFile": "26_147.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 385,
+      "durationMs": 385
+    },
+    {
+      "position": 2,
+      "startMs": 385,
+      "endMs": 3045,
+      "durationMs": 2660
+    },
+    {
+      "position": 3,
+      "startMs": 3045,
+      "endMs": 5910,
+      "durationMs": 2865
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.960Z"
+}

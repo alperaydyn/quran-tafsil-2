@@ -1,0 +1,69 @@
+{
+  "surah": 47,
+  "ayah": 7,
+  "verseKey": "47:7",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 107550,
+  "timestampToGlobalMs": 123300,
+  "durationMs": 15750,
+  "audioFile": "47_7.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2995,
+      "durationMs": 2995
+    },
+    {
+      "position": 2,
+      "startMs": 2995,
+      "endMs": 4005,
+      "durationMs": 1010
+    },
+    {
+      "position": 3,
+      "startMs": 4005,
+      "endMs": 6715,
+      "durationMs": 2710
+    },
+    {
+      "position": 4,
+      "startMs": 6715,
+      "endMs": 7795,
+      "durationMs": 1080
+    },
+    {
+      "position": 5,
+      "startMs": 7795,
+      "endMs": 9395,
+      "durationMs": 1600
+    },
+    {
+      "position": 6,
+      "startMs": 9395,
+      "endMs": 10245,
+      "durationMs": 850
+    },
+    {
+      "position": 7,
+      "startMs": 10245,
+      "endMs": 12375,
+      "durationMs": 2130
+    },
+    {
+      "position": 8,
+      "startMs": 12375,
+      "endMs": 13615,
+      "durationMs": 1240
+    },
+    {
+      "position": 9,
+      "startMs": 13615,
+      "endMs": 15640,
+      "durationMs": 2025
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:23.174Z"
+}

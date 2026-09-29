@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 133,
+  "verseKey": "26:133",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1172760,
+  "timestampToGlobalMs": 1179600,
+  "durationMs": 6850,
+  "audioFile": "26_133.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1875,
+      "durationMs": 1875
+    },
+    {
+      "position": 2,
+      "startMs": 1875,
+      "endMs": 3285,
+      "durationMs": 1410
+    },
+    {
+      "position": 3,
+      "startMs": 3285,
+      "endMs": 6740,
+      "durationMs": 3455
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.609Z"
+}

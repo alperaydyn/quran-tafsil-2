@@ -1,0 +1,45 @@
+{
+  "surah": 56,
+  "ayah": 91,
+  "verseKey": "56:91",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 683590,
+  "timestampToGlobalMs": 690460,
+  "durationMs": 6870,
+  "audioFile": "56_91.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1035,
+      "durationMs": 1035
+    },
+    {
+      "position": 2,
+      "startMs": 1035,
+      "endMs": 1775,
+      "durationMs": 740
+    },
+    {
+      "position": 3,
+      "startMs": 1775,
+      "endMs": 2185,
+      "durationMs": 410
+    },
+    {
+      "position": 4,
+      "startMs": 2185,
+      "endMs": 3255,
+      "durationMs": 1070
+    },
+    {
+      "position": 5,
+      "startMs": 3255,
+      "endMs": 6750,
+      "durationMs": 3495
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:40.715Z"
+}

@@ -1,0 +1,51 @@
+{
+  "surah": 37,
+  "ayah": 168,
+  "verseKey": "37:168",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1346260,
+  "timestampToGlobalMs": 1354780,
+  "durationMs": 8520,
+  "audioFile": "37_168.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 405,
+      "durationMs": 405
+    },
+    {
+      "position": 2,
+      "startMs": 405,
+      "endMs": 1635,
+      "durationMs": 1230
+    },
+    {
+      "position": 3,
+      "startMs": 1635,
+      "endMs": 3165,
+      "durationMs": 1530
+    },
+    {
+      "position": 4,
+      "startMs": 3165,
+      "endMs": 3765,
+      "durationMs": 600
+    },
+    {
+      "position": 5,
+      "startMs": 3765,
+      "endMs": 4995,
+      "durationMs": 1230
+    },
+    {
+      "position": 6,
+      "startMs": 4995,
+      "endMs": 8380,
+      "durationMs": 3385
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.798Z"
+}

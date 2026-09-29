@@ -1,0 +1,63 @@
+{
+  "surah": 36,
+  "ayah": 83,
+  "verseKey": "36:83",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1043830,
+  "timestampToGlobalMs": 1056390,
+  "durationMs": 12570,
+  "audioFile": "36_83.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1125,
+      "durationMs": 1125
+    },
+    {
+      "position": 2,
+      "startMs": 1125,
+      "endMs": 2065,
+      "durationMs": 940
+    },
+    {
+      "position": 3,
+      "startMs": 2065,
+      "endMs": 3065,
+      "durationMs": 1000
+    },
+    {
+      "position": 4,
+      "startMs": 3065,
+      "endMs": 4165,
+      "durationMs": 1100
+    },
+    {
+      "position": 5,
+      "startMs": 4165,
+      "endMs": 4745,
+      "durationMs": 580
+    },
+    {
+      "position": 6,
+      "startMs": 4745,
+      "endMs": 5425,
+      "durationMs": 680
+    },
+    {
+      "position": 7,
+      "startMs": 5425,
+      "endMs": 7685,
+      "durationMs": 2260
+    },
+    {
+      "position": 8,
+      "startMs": 7685,
+      "endMs": 12390,
+      "durationMs": 4705
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:46.208Z"
+}

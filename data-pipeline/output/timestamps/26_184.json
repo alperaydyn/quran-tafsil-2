@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 184,
+  "verseKey": "26:184",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1595570,
+  "timestampToGlobalMs": 1603280,
+  "durationMs": 7710,
+  "audioFile": "26_184.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 845,
+      "durationMs": 845
+    },
+    {
+      "position": 2,
+      "startMs": 845,
+      "endMs": 1685,
+      "durationMs": 840
+    },
+    {
+      "position": 3,
+      "startMs": 1685,
+      "endMs": 2875,
+      "durationMs": 1190
+    },
+    {
+      "position": 4,
+      "startMs": 2875,
+      "endMs": 4375,
+      "durationMs": 1500
+    },
+    {
+      "position": 5,
+      "startMs": 4375,
+      "endMs": 7640,
+      "durationMs": 3265
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.964Z"
+}

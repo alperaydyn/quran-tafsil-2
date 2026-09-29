@@ -1,0 +1,39 @@
+{
+  "surah": 53,
+  "ayah": 22,
+  "verseKey": "53:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 99350,
+  "timestampToGlobalMs": 105310,
+  "durationMs": 5960,
+  "audioFile": "53_22.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 135,
+      "durationMs": 135
+    },
+    {
+      "position": 2,
+      "startMs": 135,
+      "endMs": 1655,
+      "durationMs": 1520
+    },
+    {
+      "position": 3,
+      "startMs": 1655,
+      "endMs": 3905,
+      "durationMs": 2250
+    },
+    {
+      "position": 4,
+      "startMs": 3905,
+      "endMs": 5040,
+      "durationMs": 1135
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:33.111Z"
+}

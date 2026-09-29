@@ -1,0 +1,63 @@
+{
+  "surah": 43,
+  "ayah": 77,
+  "verseKey": "43:77",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1060240,
+  "timestampToGlobalMs": 1072730,
+  "durationMs": 12490,
+  "audioFile": "43_77.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1135,
+      "durationMs": 1135
+    },
+    {
+      "position": 2,
+      "startMs": 1135,
+      "endMs": 2495,
+      "durationMs": 1360
+    },
+    {
+      "position": 3,
+      "startMs": 2495,
+      "endMs": 3325,
+      "durationMs": 830
+    },
+    {
+      "position": 4,
+      "startMs": 3325,
+      "endMs": 4265,
+      "durationMs": 940
+    },
+    {
+      "position": 5,
+      "startMs": 4265,
+      "endMs": 5815,
+      "durationMs": 1550
+    },
+    {
+      "position": 6,
+      "startMs": 5815,
+      "endMs": 6405,
+      "durationMs": 590
+    },
+    {
+      "position": 7,
+      "startMs": 6405,
+      "endMs": 8565,
+      "durationMs": 2160
+    },
+    {
+      "position": 8,
+      "startMs": 8565,
+      "endMs": 12400,
+      "durationMs": 3835
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:15.094Z"
+}

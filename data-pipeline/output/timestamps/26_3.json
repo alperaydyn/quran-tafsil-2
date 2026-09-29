@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 3,
+  "verseKey": "26:3",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 13970,
+  "timestampToGlobalMs": 22070,
+  "durationMs": 8100,
+  "audioFile": "26_3.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1115,
+      "durationMs": 1115
+    },
+    {
+      "position": 2,
+      "startMs": 1115,
+      "endMs": 2065,
+      "durationMs": 950
+    },
+    {
+      "position": 3,
+      "startMs": 2065,
+      "endMs": 3635,
+      "durationMs": 1570
+    },
+    {
+      "position": 4,
+      "startMs": 3635,
+      "endMs": 4395,
+      "durationMs": 760
+    },
+    {
+      "position": 5,
+      "startMs": 4395,
+      "endMs": 5525,
+      "durationMs": 1130
+    },
+    {
+      "position": 6,
+      "startMs": 5525,
+      "endMs": 8050,
+      "durationMs": 2525
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:04.990Z"
+}

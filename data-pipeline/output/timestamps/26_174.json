@@ -1,0 +1,63 @@
+{
+  "surah": 26,
+  "ayah": 174,
+  "verseKey": "26:174",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1514980,
+  "timestampToGlobalMs": 1525320,
+  "durationMs": 10350,
+  "audioFile": "26_174.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1535,
+      "durationMs": 1535
+    },
+    {
+      "position": 2,
+      "startMs": 1535,
+      "endMs": 2015,
+      "durationMs": 480
+    },
+    {
+      "position": 3,
+      "startMs": 2015,
+      "endMs": 2885,
+      "durationMs": 870
+    },
+    {
+      "position": 4,
+      "startMs": 2885,
+      "endMs": 4355,
+      "durationMs": 1470
+    },
+    {
+      "position": 5,
+      "startMs": 4355,
+      "endMs": 4975,
+      "durationMs": 620
+    },
+    {
+      "position": 6,
+      "startMs": 4975,
+      "endMs": 5635,
+      "durationMs": 660
+    },
+    {
+      "position": 7,
+      "startMs": 5635,
+      "endMs": 7395,
+      "durationMs": 1760
+    },
+    {
+      "position": 8,
+      "startMs": 7395,
+      "endMs": 10260,
+      "durationMs": 2865
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.683Z"
+}

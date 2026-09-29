@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 90,
+  "verseKey": "26:90",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 855250,
+  "timestampToGlobalMs": 862040,
+  "durationMs": 6790,
+  "audioFile": "26_90.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1275,
+      "durationMs": 1275
+    },
+    {
+      "position": 2,
+      "startMs": 1275,
+      "endMs": 3195,
+      "durationMs": 1920
+    },
+    {
+      "position": 3,
+      "startMs": 3195,
+      "endMs": 6680,
+      "durationMs": 3485
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.606Z"
+}

@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 92,
+  "verseKey": "26:92",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 868100,
+  "timestampToGlobalMs": 875620,
+  "durationMs": 7520,
+  "audioFile": "26_92.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 935,
+      "durationMs": 935
+    },
+    {
+      "position": 2,
+      "startMs": 935,
+      "endMs": 1445,
+      "durationMs": 510
+    },
+    {
+      "position": 3,
+      "startMs": 1445,
+      "endMs": 2055,
+      "durationMs": 610
+    },
+    {
+      "position": 4,
+      "startMs": 2055,
+      "endMs": 2495,
+      "durationMs": 440
+    },
+    {
+      "position": 5,
+      "startMs": 2495,
+      "endMs": 4235,
+      "durationMs": 1740
+    },
+    {
+      "position": 6,
+      "startMs": 4235,
+      "endMs": 7410,
+      "durationMs": 3175
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.650Z"
+}

@@ -1,0 +1,45 @@
+{
+  "surah": 54,
+  "ayah": 13,
+  "verseKey": "54:13",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 123230,
+  "timestampToGlobalMs": 129870,
+  "durationMs": 6640,
+  "audioFile": "54_13.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1535,
+      "durationMs": 1535
+    },
+    {
+      "position": 2,
+      "startMs": 1535,
+      "endMs": 2225,
+      "durationMs": 690
+    },
+    {
+      "position": 3,
+      "startMs": 2225,
+      "endMs": 3015,
+      "durationMs": 790
+    },
+    {
+      "position": 4,
+      "startMs": 3015,
+      "endMs": 5175,
+      "durationMs": 2160
+    },
+    {
+      "position": 5,
+      "startMs": 5175,
+      "endMs": 6520,
+      "durationMs": 1345
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:34.895Z"
+}

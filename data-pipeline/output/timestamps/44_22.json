@@ -1,0 +1,51 @@
+{
+  "surah": 44,
+  "ayah": 22,
+  "verseKey": "44:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 218180,
+  "timestampToGlobalMs": 233280,
+  "durationMs": 15100,
+  "audioFile": "44_22.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 875,
+      "durationMs": 875
+    },
+    {
+      "position": 2,
+      "startMs": 875,
+      "endMs": 3585,
+      "durationMs": 2710
+    },
+    {
+      "position": 3,
+      "startMs": 3585,
+      "endMs": 5125,
+      "durationMs": 1540
+    },
+    {
+      "position": 4,
+      "startMs": 5125,
+      "endMs": 10394,
+      "durationMs": 5269
+    },
+    {
+      "position": 5,
+      "startMs": 10395,
+      "endMs": 11155,
+      "durationMs": 760
+    },
+    {
+      "position": 6,
+      "startMs": 11155,
+      "endMs": 15050,
+      "durationMs": 3895
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:16.826Z"
+}

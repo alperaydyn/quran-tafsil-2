@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 205,
+  "verseKey": "26:205",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1776220,
+  "timestampToGlobalMs": 1782750,
+  "durationMs": 6530,
+  "audioFile": "26_205.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1265,
+      "durationMs": 1265
+    },
+    {
+      "position": 2,
+      "startMs": 1265,
+      "endMs": 1575,
+      "durationMs": 310
+    },
+    {
+      "position": 3,
+      "startMs": 1575,
+      "endMs": 3935,
+      "durationMs": 2360
+    },
+    {
+      "position": 4,
+      "startMs": 3935,
+      "endMs": 6400,
+      "durationMs": 2465
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.584Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 126,
+  "verseKey": "26:126",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1121660,
+  "timestampToGlobalMs": 1126620,
+  "durationMs": 4960,
+  "audioFile": "26_126.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 785,
+      "durationMs": 785
+    },
+    {
+      "position": 2,
+      "startMs": 785,
+      "endMs": 1635,
+      "durationMs": 850
+    },
+    {
+      "position": 3,
+      "startMs": 1635,
+      "endMs": 4860,
+      "durationMs": 3225
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.439Z"
+}

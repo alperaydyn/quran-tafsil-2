@@ -1,0 +1,39 @@
+{
+  "surah": 55,
+  "ayah": 77,
+  "verseKey": "55:77",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 671450,
+  "timestampToGlobalMs": 680360,
+  "durationMs": 8910,
+  "audioFile": "55_77.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1045,
+      "durationMs": 1045
+    },
+    {
+      "position": 2,
+      "startMs": 1045,
+      "endMs": 3725,
+      "durationMs": 2680
+    },
+    {
+      "position": 3,
+      "startMs": 3725,
+      "endMs": 4955,
+      "durationMs": 1230
+    },
+    {
+      "position": 4,
+      "startMs": 4955,
+      "endMs": 8820,
+      "durationMs": 3865
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:37.936Z"
+}

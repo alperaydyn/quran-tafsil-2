@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 211,
+  "verseKey": "26:211",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1822930,
+  "timestampToGlobalMs": 1830040,
+  "durationMs": 7110,
+  "audioFile": "26_211.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 565,
+      "durationMs": 565
+    },
+    {
+      "position": 2,
+      "startMs": 565,
+      "endMs": 2295,
+      "durationMs": 1730
+    },
+    {
+      "position": 3,
+      "startMs": 2295,
+      "endMs": 2935,
+      "durationMs": 640
+    },
+    {
+      "position": 4,
+      "startMs": 2935,
+      "endMs": 3575,
+      "durationMs": 640
+    },
+    {
+      "position": 5,
+      "startMs": 3575,
+      "endMs": 7010,
+      "durationMs": 3435
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.767Z"
+}

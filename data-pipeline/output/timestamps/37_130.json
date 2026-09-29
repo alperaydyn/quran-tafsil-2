@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 130,
+  "verseKey": "37:130",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1065480,
+  "timestampToGlobalMs": 1072140,
+  "durationMs": 6660,
+  "audioFile": "37_130.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1015,
+      "durationMs": 1015
+    },
+    {
+      "position": 2,
+      "startMs": 1015,
+      "endMs": 3045,
+      "durationMs": 2030
+    },
+    {
+      "position": 3,
+      "startMs": 3045,
+      "endMs": 3405,
+      "durationMs": 360
+    },
+    {
+      "position": 4,
+      "startMs": 3405,
+      "endMs": 6540,
+      "durationMs": 3135
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.900Z"
+}

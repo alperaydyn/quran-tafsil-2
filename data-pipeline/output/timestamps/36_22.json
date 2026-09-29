@@ -1,0 +1,63 @@
+{
+  "surah": 36,
+  "ayah": 22,
+  "verseKey": "36:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 263860,
+  "timestampToGlobalMs": 274340,
+  "durationMs": 10480,
+  "audioFile": "36_22.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 585,
+      "durationMs": 585
+    },
+    {
+      "position": 2,
+      "startMs": 585,
+      "endMs": 1075,
+      "durationMs": 490
+    },
+    {
+      "position": 3,
+      "startMs": 1075,
+      "endMs": 2595,
+      "durationMs": 1520
+    },
+    {
+      "position": 4,
+      "startMs": 2595,
+      "endMs": 3375,
+      "durationMs": 780
+    },
+    {
+      "position": 5,
+      "startMs": 3375,
+      "endMs": 4195,
+      "durationMs": 820
+    },
+    {
+      "position": 6,
+      "startMs": 4195,
+      "endMs": 5285,
+      "durationMs": 1090
+    },
+    {
+      "position": 7,
+      "startMs": 5285,
+      "endMs": 6345,
+      "durationMs": 1060
+    },
+    {
+      "position": 8,
+      "startMs": 6345,
+      "endMs": 10350,
+      "durationMs": 4005
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:44.960Z"
+}

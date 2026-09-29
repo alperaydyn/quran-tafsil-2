@@ -1,0 +1,51 @@
+{
+  "surah": 36,
+  "ayah": 57,
+  "verseKey": "36:57",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 717570,
+  "timestampToGlobalMs": 727840,
+  "durationMs": 10270,
+  "audioFile": "36_57.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 555,
+      "durationMs": 555
+    },
+    {
+      "position": 2,
+      "startMs": 555,
+      "endMs": 1495,
+      "durationMs": 940
+    },
+    {
+      "position": 3,
+      "startMs": 1495,
+      "endMs": 3945,
+      "durationMs": 2450
+    },
+    {
+      "position": 4,
+      "startMs": 3945,
+      "endMs": 4805,
+      "durationMs": 860
+    },
+    {
+      "position": 5,
+      "startMs": 4805,
+      "endMs": 6005,
+      "durationMs": 1200
+    },
+    {
+      "position": 6,
+      "startMs": 6005,
+      "endMs": 10120,
+      "durationMs": 4115
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:45.625Z"
+}

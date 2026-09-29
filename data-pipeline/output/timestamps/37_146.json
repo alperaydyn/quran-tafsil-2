@@ -1,0 +1,45 @@
+{
+  "surah": 37,
+  "ayah": 146,
+  "verseKey": "37:146",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1177360,
+  "timestampToGlobalMs": 1186530,
+  "durationMs": 9170,
+  "audioFile": "37_146.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2245,
+      "durationMs": 2245
+    },
+    {
+      "position": 2,
+      "startMs": 2245,
+      "endMs": 3025,
+      "durationMs": 780
+    },
+    {
+      "position": 3,
+      "startMs": 3025,
+      "endMs": 4185,
+      "durationMs": 1160
+    },
+    {
+      "position": 4,
+      "startMs": 4185,
+      "endMs": 5305,
+      "durationMs": 1120
+    },
+    {
+      "position": 5,
+      "startMs": 5305,
+      "endMs": 9020,
+      "durationMs": 3715
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.264Z"
+}

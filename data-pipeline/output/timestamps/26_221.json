@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 221,
+  "verseKey": "26:221",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1893380,
+  "timestampToGlobalMs": 1901820,
+  "durationMs": 8440,
+  "audioFile": "26_221.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 465,
+      "durationMs": 465
+    },
+    {
+      "position": 2,
+      "startMs": 465,
+      "endMs": 1885,
+      "durationMs": 1420
+    },
+    {
+      "position": 3,
+      "startMs": 1885,
+      "endMs": 2595,
+      "durationMs": 710
+    },
+    {
+      "position": 4,
+      "startMs": 2595,
+      "endMs": 3795,
+      "durationMs": 1200
+    },
+    {
+      "position": 5,
+      "startMs": 3795,
+      "endMs": 4845,
+      "durationMs": 1050
+    },
+    {
+      "position": 6,
+      "startMs": 4845,
+      "endMs": 8360,
+      "durationMs": 3515
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:10.077Z"
+}

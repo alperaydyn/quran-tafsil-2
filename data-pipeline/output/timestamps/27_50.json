@@ -1,0 +1,57 @@
+{
+  "surah": 27,
+  "ayah": 50,
+  "verseKey": "27:50",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 904840,
+  "timestampToGlobalMs": 914690,
+  "durationMs": 9850,
+  "audioFile": "27_50.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1055,
+      "durationMs": 1055
+    },
+    {
+      "position": 2,
+      "startMs": 1055,
+      "endMs": 2785,
+      "durationMs": 1730
+    },
+    {
+      "position": 3,
+      "startMs": 2785,
+      "endMs": 4035,
+      "durationMs": 1250
+    },
+    {
+      "position": 4,
+      "startMs": 4035,
+      "endMs": 5465,
+      "durationMs": 1430
+    },
+    {
+      "position": 5,
+      "startMs": 5465,
+      "endMs": 6065,
+      "durationMs": 600
+    },
+    {
+      "position": 6,
+      "startMs": 6065,
+      "endMs": 6625,
+      "durationMs": 560
+    },
+    {
+      "position": 7,
+      "startMs": 6625,
+      "endMs": 9780,
+      "durationMs": 3155
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:14.413Z"
+}

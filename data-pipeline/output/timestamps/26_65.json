@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 65,
+  "verseKey": "26:65",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 660140,
+  "timestampToGlobalMs": 669940,
+  "durationMs": 9800,
+  "audioFile": "26_65.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2185,
+      "durationMs": 2185
+    },
+    {
+      "position": 2,
+      "startMs": 2185,
+      "endMs": 3075,
+      "durationMs": 890
+    },
+    {
+      "position": 3,
+      "startMs": 3075,
+      "endMs": 3695,
+      "durationMs": 620
+    },
+    {
+      "position": 4,
+      "startMs": 3695,
+      "endMs": 6755,
+      "durationMs": 3060
+    },
+    {
+      "position": 5,
+      "startMs": 6755,
+      "endMs": 9690,
+      "durationMs": 2935
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.085Z"
+}

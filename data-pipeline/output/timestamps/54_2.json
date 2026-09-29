@@ -1,0 +1,57 @@
+{
+  "surah": 54,
+  "ayah": 2,
+  "verseKey": "54:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 5750,
+  "timestampToGlobalMs": 15420,
+  "durationMs": 9670,
+  "audioFile": "54_2.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1115,
+      "durationMs": 1115
+    },
+    {
+      "position": 2,
+      "startMs": 1115,
+      "endMs": 1755,
+      "durationMs": 640
+    },
+    {
+      "position": 3,
+      "startMs": 1755,
+      "endMs": 2715,
+      "durationMs": 960
+    },
+    {
+      "position": 4,
+      "startMs": 2715,
+      "endMs": 4645,
+      "durationMs": 1930
+    },
+    {
+      "position": 5,
+      "startMs": 4645,
+      "endMs": 5875,
+      "durationMs": 1230
+    },
+    {
+      "position": 6,
+      "startMs": 5875,
+      "endMs": 6645,
+      "durationMs": 770
+    },
+    {
+      "position": 7,
+      "startMs": 6645,
+      "endMs": 9530,
+      "durationMs": 2885
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:34.717Z"
+}

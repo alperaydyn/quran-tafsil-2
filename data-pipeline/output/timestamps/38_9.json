@@ -1,0 +1,57 @@
+{
+  "surah": 38,
+  "ayah": 9,
+  "verseKey": "38:9",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 104580,
+  "timestampToGlobalMs": 115680,
+  "durationMs": 11100,
+  "audioFile": "38_9.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 25,
+      "durationMs": 25
+    },
+    {
+      "position": 2,
+      "startMs": 25,
+      "endMs": 1715,
+      "durationMs": 1690
+    },
+    {
+      "position": 3,
+      "startMs": 1715,
+      "endMs": 4235,
+      "durationMs": 2520
+    },
+    {
+      "position": 4,
+      "startMs": 4235,
+      "endMs": 5005,
+      "durationMs": 770
+    },
+    {
+      "position": 5,
+      "startMs": 5005,
+      "endMs": 5835,
+      "durationMs": 830
+    },
+    {
+      "position": 6,
+      "startMs": 5835,
+      "endMs": 6945,
+      "durationMs": 1110
+    },
+    {
+      "position": 7,
+      "startMs": 6945,
+      "endMs": 10660,
+      "durationMs": 3715
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:53.471Z"
+}

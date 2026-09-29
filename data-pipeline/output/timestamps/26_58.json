@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 58,
+  "verseKey": "26:58",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 591570,
+  "timestampToGlobalMs": 598750,
+  "durationMs": 7180,
+  "audioFile": "26_58.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2305,
+      "durationMs": 2305
+    },
+    {
+      "position": 2,
+      "startMs": 2305,
+      "endMs": 4215,
+      "durationMs": 1910
+    },
+    {
+      "position": 3,
+      "startMs": 4215,
+      "endMs": 7110,
+      "durationMs": 2895
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:05.946Z"
+}

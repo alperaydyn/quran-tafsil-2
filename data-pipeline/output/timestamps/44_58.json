@@ -1,0 +1,45 @@
+{
+  "surah": 44,
+  "ayah": 58,
+  "verseKey": "44:58",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 555510,
+  "timestampToGlobalMs": 565230,
+  "durationMs": 9720,
+  "audioFile": "44_58.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1865,
+      "durationMs": 1865
+    },
+    {
+      "position": 2,
+      "startMs": 1865,
+      "endMs": 3415,
+      "durationMs": 1550
+    },
+    {
+      "position": 3,
+      "startMs": 3415,
+      "endMs": 4765,
+      "durationMs": 1350
+    },
+    {
+      "position": 4,
+      "startMs": 4765,
+      "endMs": 6025,
+      "durationMs": 1260
+    },
+    {
+      "position": 5,
+      "startMs": 6025,
+      "endMs": 9640,
+      "durationMs": 3615
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:17.463Z"
+}

@@ -1,0 +1,57 @@
+{
+  "surah": 26,
+  "ayah": 124,
+  "verseKey": "26:124",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1109070,
+  "timestampToGlobalMs": 1116230,
+  "durationMs": 7160,
+  "audioFile": "26_124.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 405,
+      "durationMs": 405
+    },
+    {
+      "position": 2,
+      "startMs": 405,
+      "endMs": 1025,
+      "durationMs": 620
+    },
+    {
+      "position": 3,
+      "startMs": 1025,
+      "endMs": 1605,
+      "durationMs": 580
+    },
+    {
+      "position": 4,
+      "startMs": 1605,
+      "endMs": 2605,
+      "durationMs": 1000
+    },
+    {
+      "position": 5,
+      "startMs": 2605,
+      "endMs": 3405,
+      "durationMs": 800
+    },
+    {
+      "position": 6,
+      "startMs": 3405,
+      "endMs": 4015,
+      "durationMs": 610
+    },
+    {
+      "position": 7,
+      "startMs": 4015,
+      "endMs": 7090,
+      "durationMs": 3075
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.391Z"
+}

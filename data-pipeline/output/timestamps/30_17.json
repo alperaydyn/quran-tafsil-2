@@ -1,0 +1,51 @@
+{
+  "surah": 30,
+  "ayah": 17,
+  "verseKey": "30:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 269410,
+  "timestampToGlobalMs": 277530,
+  "durationMs": 8130,
+  "audioFile": "30_17.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1395,
+      "durationMs": 1395
+    },
+    {
+      "position": 2,
+      "startMs": 1395,
+      "endMs": 2265,
+      "durationMs": 870
+    },
+    {
+      "position": 3,
+      "startMs": 2265,
+      "endMs": 2795,
+      "durationMs": 530
+    },
+    {
+      "position": 4,
+      "startMs": 2795,
+      "endMs": 3995,
+      "durationMs": 1200
+    },
+    {
+      "position": 5,
+      "startMs": 3995,
+      "endMs": 4795,
+      "durationMs": 800
+    },
+    {
+      "position": 6,
+      "startMs": 4795,
+      "endMs": 8050,
+      "durationMs": 3255
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:28.109Z"
+}

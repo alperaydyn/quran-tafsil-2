@@ -1,0 +1,69 @@
+{
+  "surah": 27,
+  "ayah": 69,
+  "verseKey": "27:69",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1277880,
+  "timestampToGlobalMs": 1288280,
+  "durationMs": 10400,
+  "audioFile": "27_69.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 405,
+      "durationMs": 405
+    },
+    {
+      "position": 2,
+      "startMs": 405,
+      "endMs": 1295,
+      "durationMs": 890
+    },
+    {
+      "position": 3,
+      "startMs": 1295,
+      "endMs": 1535,
+      "durationMs": 240
+    },
+    {
+      "position": 4,
+      "startMs": 1535,
+      "endMs": 2435,
+      "durationMs": 900
+    },
+    {
+      "position": 5,
+      "startMs": 2435,
+      "endMs": 4295,
+      "durationMs": 1860
+    },
+    {
+      "position": 6,
+      "startMs": 4295,
+      "endMs": 4955,
+      "durationMs": 660
+    },
+    {
+      "position": 7,
+      "startMs": 4955,
+      "endMs": 5565,
+      "durationMs": 610
+    },
+    {
+      "position": 8,
+      "startMs": 5565,
+      "endMs": 6725,
+      "durationMs": 1160
+    },
+    {
+      "position": 9,
+      "startMs": 6725,
+      "endMs": 10350,
+      "durationMs": 3625
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:14.886Z"
+}

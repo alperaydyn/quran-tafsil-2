@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 223,
+  "verseKey": "26:223",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1908190,
+  "timestampToGlobalMs": 1914980,
+  "durationMs": 6790,
+  "audioFile": "26_223.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 985,
+      "durationMs": 985
+    },
+    {
+      "position": 2,
+      "startMs": 985,
+      "endMs": 2005,
+      "durationMs": 1020
+    },
+    {
+      "position": 3,
+      "startMs": 2005,
+      "endMs": 3365,
+      "durationMs": 1360
+    },
+    {
+      "position": 4,
+      "startMs": 3365,
+      "endMs": 6720,
+      "durationMs": 3355
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:10.139Z"
+}

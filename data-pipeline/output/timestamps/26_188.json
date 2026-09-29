@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 188,
+  "verseKey": "26:188",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1640260,
+  "timestampToGlobalMs": 1648020,
+  "durationMs": 7760,
+  "audioFile": "26_188.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 575,
+      "durationMs": 575
+    },
+    {
+      "position": 2,
+      "startMs": 575,
+      "endMs": 2925,
+      "durationMs": 2350
+    },
+    {
+      "position": 3,
+      "startMs": 2925,
+      "endMs": 3775,
+      "durationMs": 850
+    },
+    {
+      "position": 4,
+      "startMs": 3775,
+      "endMs": 4445,
+      "durationMs": 670
+    },
+    {
+      "position": 5,
+      "startMs": 4445,
+      "endMs": 7660,
+      "durationMs": 3215
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.079Z"
+}

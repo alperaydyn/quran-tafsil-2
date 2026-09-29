@@ -1,0 +1,45 @@
+{
+  "surah": 56,
+  "ayah": 46,
+  "verseKey": "56:46",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 285990,
+  "timestampToGlobalMs": 294110,
+  "durationMs": 8130,
+  "audioFile": "56_46.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1045,
+      "durationMs": 1045
+    },
+    {
+      "position": 2,
+      "startMs": 1045,
+      "endMs": 2415,
+      "durationMs": 1370
+    },
+    {
+      "position": 3,
+      "startMs": 2415,
+      "endMs": 2965,
+      "durationMs": 550
+    },
+    {
+      "position": 4,
+      "startMs": 2965,
+      "endMs": 4735,
+      "durationMs": 1770
+    },
+    {
+      "position": 5,
+      "startMs": 4735,
+      "endMs": 7910,
+      "durationMs": 3175
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:39.859Z"
+}

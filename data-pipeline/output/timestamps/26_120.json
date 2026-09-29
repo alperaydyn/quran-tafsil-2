@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 120,
+  "verseKey": "26:120",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1078550,
+  "timestampToGlobalMs": 1084920,
+  "durationMs": 6370,
+  "audioFile": "26_120.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1325,
+      "durationMs": 1325
+    },
+    {
+      "position": 2,
+      "startMs": 1325,
+      "endMs": 2575,
+      "durationMs": 1250
+    },
+    {
+      "position": 3,
+      "startMs": 2575,
+      "endMs": 3175,
+      "durationMs": 600
+    },
+    {
+      "position": 4,
+      "startMs": 3175,
+      "endMs": 6270,
+      "durationMs": 3095
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.293Z"
+}

@@ -1,0 +1,105 @@
+{
+  "surah": 43,
+  "ayah": 20,
+  "verseKey": "43:20",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 230880,
+  "timestampToGlobalMs": 247310,
+  "durationMs": 16430,
+  "audioFile": "43_20.mp3",
+  "wordCount": 15,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1105,
+      "durationMs": 1105
+    },
+    {
+      "position": 2,
+      "startMs": 1105,
+      "endMs": 1435,
+      "durationMs": 330
+    },
+    {
+      "position": 3,
+      "startMs": 1435,
+      "endMs": 3664,
+      "durationMs": 2229
+    },
+    {
+      "position": 4,
+      "startMs": 3665,
+      "endMs": 4945,
+      "durationMs": 1280
+    },
+    {
+      "position": 5,
+      "startMs": 4945,
+      "endMs": 5355,
+      "durationMs": 410
+    },
+    {
+      "position": 6,
+      "startMs": 5355,
+      "endMs": 7295,
+      "durationMs": 1940
+    },
+    {
+      "position": 7,
+      "startMs": 7295,
+      "endMs": 7725,
+      "durationMs": 430
+    },
+    {
+      "position": 8,
+      "startMs": 7725,
+      "endMs": 8935,
+      "durationMs": 1210
+    },
+    {
+      "position": 9,
+      "startMs": 8935,
+      "endMs": 9935,
+      "durationMs": 1000
+    },
+    {
+      "position": 10,
+      "startMs": 9935,
+      "endMs": 10335,
+      "durationMs": 400
+    },
+    {
+      "position": 11,
+      "startMs": 10335,
+      "endMs": 11235,
+      "durationMs": 900
+    },
+    {
+      "position": 12,
+      "startMs": 11235,
+      "endMs": 11615,
+      "durationMs": 380
+    },
+    {
+      "position": 13,
+      "startMs": 11615,
+      "endMs": 12045,
+      "durationMs": 430
+    },
+    {
+      "position": 14,
+      "startMs": 12045,
+      "endMs": 12875,
+      "durationMs": 830
+    },
+    {
+      "position": 15,
+      "startMs": 12875,
+      "endMs": 16310,
+      "durationMs": 3435
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:13.904Z"
+}

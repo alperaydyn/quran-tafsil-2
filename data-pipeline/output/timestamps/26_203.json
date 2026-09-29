@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 203,
+  "verseKey": "26:203",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1764680,
+  "timestampToGlobalMs": 1771000,
+  "durationMs": 6320,
+  "audioFile": "26_203.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1275,
+      "durationMs": 1275
+    },
+    {
+      "position": 2,
+      "startMs": 1275,
+      "endMs": 1705,
+      "durationMs": 430
+    },
+    {
+      "position": 3,
+      "startMs": 1705,
+      "endMs": 2265,
+      "durationMs": 560
+    },
+    {
+      "position": 4,
+      "startMs": 2265,
+      "endMs": 6230,
+      "durationMs": 3965
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.524Z"
+}

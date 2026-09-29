@@ -1,0 +1,45 @@
+{
+  "surah": 56,
+  "ayah": 73,
+  "verseKey": "56:73",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 529350,
+  "timestampToGlobalMs": 539200,
+  "durationMs": 9850,
+  "audioFile": "56_73.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 605,
+      "durationMs": 605
+    },
+    {
+      "position": 2,
+      "startMs": 605,
+      "endMs": 2165,
+      "durationMs": 1560
+    },
+    {
+      "position": 3,
+      "startMs": 2165,
+      "endMs": 3915,
+      "durationMs": 1750
+    },
+    {
+      "position": 4,
+      "startMs": 3915,
+      "endMs": 5675,
+      "durationMs": 1760
+    },
+    {
+      "position": 5,
+      "startMs": 5675,
+      "endMs": 9680,
+      "durationMs": 4005
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:40.351Z"
+}

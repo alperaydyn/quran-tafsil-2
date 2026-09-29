@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 101,
+  "verseKey": "26:101",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 933510,
+  "timestampToGlobalMs": 938260,
+  "durationMs": 4760,
+  "audioFile": "26_101.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 525,
+      "durationMs": 525
+    },
+    {
+      "position": 2,
+      "startMs": 525,
+      "endMs": 1635,
+      "durationMs": 1110
+    },
+    {
+      "position": 3,
+      "startMs": 1635,
+      "endMs": 4670,
+      "durationMs": 3035
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:06.855Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 53,
+  "ayah": 15,
+  "verseKey": "53:15",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 65150,
+  "timestampToGlobalMs": 70560,
+  "durationMs": 5410,
+  "audioFile": "53_15.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1475,
+      "durationMs": 1475
+    },
+    {
+      "position": 2,
+      "startMs": 1475,
+      "endMs": 3215,
+      "durationMs": 1740
+    },
+    {
+      "position": 3,
+      "startMs": 3215,
+      "endMs": 4510,
+      "durationMs": 1295
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:33.008Z"
+}

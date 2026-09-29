@@ -1,0 +1,27 @@
+{
+  "surah": 56,
+  "ayah": 31,
+  "verseKey": "56:31",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 194470,
+  "timestampToGlobalMs": 201290,
+  "durationMs": 6820,
+  "audioFile": "56_31.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2425,
+      "durationMs": 2425
+    },
+    {
+      "position": 2,
+      "startMs": 2425,
+      "endMs": 6670,
+      "durationMs": 4245
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:39.591Z"
+}

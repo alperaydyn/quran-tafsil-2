@@ -1,0 +1,63 @@
+{
+  "surah": 40,
+  "ayah": 14,
+  "verseKey": "40:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 225040,
+  "timestampToGlobalMs": 233630,
+  "durationMs": 8600,
+  "audioFile": "40_14.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 585,
+      "durationMs": 585
+    },
+    {
+      "position": 2,
+      "startMs": 585,
+      "endMs": 1415,
+      "durationMs": 830
+    },
+    {
+      "position": 3,
+      "startMs": 1415,
+      "endMs": 2485,
+      "durationMs": 1070
+    },
+    {
+      "position": 4,
+      "startMs": 2485,
+      "endMs": 2975,
+      "durationMs": 490
+    },
+    {
+      "position": 5,
+      "startMs": 2975,
+      "endMs": 3835,
+      "durationMs": 860
+    },
+    {
+      "position": 6,
+      "startMs": 3835,
+      "endMs": 4345,
+      "durationMs": 510
+    },
+    {
+      "position": 7,
+      "startMs": 4345,
+      "endMs": 4915,
+      "durationMs": 570
+    },
+    {
+      "position": 8,
+      "startMs": 4915,
+      "endMs": 8500,
+      "durationMs": 3585
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:02.583Z"
+}

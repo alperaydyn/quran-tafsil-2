@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 148,
+  "verseKey": "26:148",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1290570,
+  "timestampToGlobalMs": 1298220,
+  "durationMs": 7650,
+  "audioFile": "26_148.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1995,
+      "durationMs": 1995
+    },
+    {
+      "position": 2,
+      "startMs": 1995,
+      "endMs": 3805,
+      "durationMs": 1810
+    },
+    {
+      "position": 3,
+      "startMs": 3805,
+      "endMs": 4835,
+      "durationMs": 1030
+    },
+    {
+      "position": 4,
+      "startMs": 4835,
+      "endMs": 7540,
+      "durationMs": 2705
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.986Z"
+}

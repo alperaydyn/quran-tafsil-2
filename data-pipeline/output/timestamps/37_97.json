@@ -1,0 +1,57 @@
+{
+  "surah": 37,
+  "ayah": 97,
+  "verseKey": "37:97",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 784700,
+  "timestampToGlobalMs": 793110,
+  "durationMs": 8410,
+  "audioFile": "37_97.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 655,
+      "durationMs": 655
+    },
+    {
+      "position": 2,
+      "startMs": 655,
+      "endMs": 1235,
+      "durationMs": 580
+    },
+    {
+      "position": 3,
+      "startMs": 1235,
+      "endMs": 1865,
+      "durationMs": 630
+    },
+    {
+      "position": 4,
+      "startMs": 1865,
+      "endMs": 3745,
+      "durationMs": 1880
+    },
+    {
+      "position": 5,
+      "startMs": 3745,
+      "endMs": 5045,
+      "durationMs": 1300
+    },
+    {
+      "position": 6,
+      "startMs": 5045,
+      "endMs": 5295,
+      "durationMs": 250
+    },
+    {
+      "position": 7,
+      "startMs": 5295,
+      "endMs": 8300,
+      "durationMs": 3005
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.195Z"
+}

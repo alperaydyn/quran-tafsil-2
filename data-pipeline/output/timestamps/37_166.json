@@ -1,0 +1,33 @@
+{
+  "surah": 37,
+  "ayah": 166,
+  "verseKey": "37:166",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1333780,
+  "timestampToGlobalMs": 1340150,
+  "durationMs": 6370,
+  "audioFile": "37_166.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1835,
+      "durationMs": 1835
+    },
+    {
+      "position": 2,
+      "startMs": 1835,
+      "endMs": 2575,
+      "durationMs": 740
+    },
+    {
+      "position": 3,
+      "startMs": 2575,
+      "endMs": 6240,
+      "durationMs": 3665
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.749Z"
+}

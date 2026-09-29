@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 111,
+  "verseKey": "26:111",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1007670,
+  "timestampToGlobalMs": 1015510,
+  "durationMs": 7840,
+  "audioFile": "26_111.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1815,
+      "durationMs": 1815
+    },
+    {
+      "position": 2,
+      "startMs": 1815,
+      "endMs": 2795,
+      "durationMs": 980
+    },
+    {
+      "position": 3,
+      "startMs": 2795,
+      "endMs": 3285,
+      "durationMs": 490
+    },
+    {
+      "position": 4,
+      "startMs": 3285,
+      "endMs": 4495,
+      "durationMs": 1210
+    },
+    {
+      "position": 5,
+      "startMs": 4495,
+      "endMs": 7720,
+      "durationMs": 3225
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.083Z"
+}

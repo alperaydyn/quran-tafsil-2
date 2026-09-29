@@ -1,0 +1,51 @@
+{
+  "surah": 37,
+  "ayah": 164,
+  "verseKey": "37:164",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1313300,
+  "timestampToGlobalMs": 1323930,
+  "durationMs": 10630,
+  "audioFile": "37_164.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 695,
+      "durationMs": 695
+    },
+    {
+      "position": 2,
+      "startMs": 695,
+      "endMs": 3715,
+      "durationMs": 3020
+    },
+    {
+      "position": 3,
+      "startMs": 3715,
+      "endMs": 4595,
+      "durationMs": 880
+    },
+    {
+      "position": 4,
+      "startMs": 4595,
+      "endMs": 5185,
+      "durationMs": 590
+    },
+    {
+      "position": 5,
+      "startMs": 5185,
+      "endMs": 6045,
+      "durationMs": 860
+    },
+    {
+      "position": 6,
+      "startMs": 6045,
+      "endMs": 10500,
+      "durationMs": 4455
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.700Z"
+}

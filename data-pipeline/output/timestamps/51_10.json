@@ -1,0 +1,27 @@
+{
+  "surah": 51,
+  "ayah": 10,
+  "verseKey": "51:10",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 36850,
+  "timestampToGlobalMs": 41920,
+  "durationMs": 5070,
+  "audioFile": "51_10.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 565,
+      "durationMs": 565
+    },
+    {
+      "position": 2,
+      "startMs": 565,
+      "endMs": 4940,
+      "durationMs": 4375
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:29.492Z"
+}

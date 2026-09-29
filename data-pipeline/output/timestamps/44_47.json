@@ -1,0 +1,45 @@
+{
+  "surah": 44,
+  "ayah": 47,
+  "verseKey": "44:47",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 460090,
+  "timestampToGlobalMs": 468950,
+  "durationMs": 8860,
+  "audioFile": "44_47.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 935,
+      "durationMs": 935
+    },
+    {
+      "position": 2,
+      "startMs": 935,
+      "endMs": 2295,
+      "durationMs": 1360
+    },
+    {
+      "position": 3,
+      "startMs": 2295,
+      "endMs": 2775,
+      "durationMs": 480
+    },
+    {
+      "position": 4,
+      "startMs": 2775,
+      "endMs": 5565,
+      "durationMs": 2790
+    },
+    {
+      "position": 5,
+      "startMs": 5565,
+      "endMs": 8760,
+      "durationMs": 3195
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:17.256Z"
+}

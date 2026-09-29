@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 182,
+  "verseKey": "26:182",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1577550,
+  "timestampToGlobalMs": 1583710,
+  "durationMs": 6170,
+  "audioFile": "26_182.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 915,
+      "durationMs": 915
+    },
+    {
+      "position": 2,
+      "startMs": 915,
+      "endMs": 2515,
+      "durationMs": 1600
+    },
+    {
+      "position": 3,
+      "startMs": 2515,
+      "endMs": 6070,
+      "durationMs": 3555
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.908Z"
+}

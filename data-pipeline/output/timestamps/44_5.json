@@ -1,0 +1,51 @@
+{
+  "surah": 44,
+  "ayah": 5,
+  "verseKey": "44:5",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 31970,
+  "timestampToGlobalMs": 42260,
+  "durationMs": 10290,
+  "audioFile": "44_5.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 645,
+      "durationMs": 645
+    },
+    {
+      "position": 2,
+      "startMs": 645,
+      "endMs": 1805,
+      "durationMs": 1160
+    },
+    {
+      "position": 3,
+      "startMs": 1805,
+      "endMs": 3835,
+      "durationMs": 2030
+    },
+    {
+      "position": 4,
+      "startMs": 3835,
+      "endMs": 5685,
+      "durationMs": 1850
+    },
+    {
+      "position": 5,
+      "startMs": 5685,
+      "endMs": 7305,
+      "durationMs": 1620
+    },
+    {
+      "position": 6,
+      "startMs": 7305,
+      "endMs": 10200,
+      "durationMs": 2895
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:16.564Z"
+}

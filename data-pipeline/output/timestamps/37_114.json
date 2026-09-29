@@ -1,0 +1,45 @@
+{
+  "surah": 37,
+  "ayah": 114,
+  "verseKey": "37:114",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 953250,
+  "timestampToGlobalMs": 960170,
+  "durationMs": 6920,
+  "audioFile": "37_114.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 855,
+      "durationMs": 855
+    },
+    {
+      "position": 2,
+      "startMs": 855,
+      "endMs": 2335,
+      "durationMs": 1480
+    },
+    {
+      "position": 3,
+      "startMs": 2335,
+      "endMs": 2945,
+      "durationMs": 610
+    },
+    {
+      "position": 4,
+      "startMs": 2945,
+      "endMs": 3795,
+      "durationMs": 850
+    },
+    {
+      "position": 5,
+      "startMs": 3795,
+      "endMs": 6760,
+      "durationMs": 2965
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.549Z"
+}

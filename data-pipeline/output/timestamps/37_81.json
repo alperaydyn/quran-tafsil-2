@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 81,
+  "verseKey": "37:81",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 673480,
+  "timestampToGlobalMs": 680060,
+  "durationMs": 6580,
+  "audioFile": "37_81.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1715,
+      "durationMs": 1715
+    },
+    {
+      "position": 2,
+      "startMs": 1715,
+      "endMs": 2065,
+      "durationMs": 350
+    },
+    {
+      "position": 3,
+      "startMs": 2065,
+      "endMs": 3125,
+      "durationMs": 1060
+    },
+    {
+      "position": 4,
+      "startMs": 3125,
+      "endMs": 6440,
+      "durationMs": 3315
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:48.879Z"
+}

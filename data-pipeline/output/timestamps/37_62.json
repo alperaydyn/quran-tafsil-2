@@ -1,0 +1,51 @@
+{
+  "surah": 37,
+  "ayah": 62,
+  "verseKey": "37:62",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 517650,
+  "timestampToGlobalMs": 526110,
+  "durationMs": 8460,
+  "audioFile": "37_62.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1075,
+      "durationMs": 1075
+    },
+    {
+      "position": 2,
+      "startMs": 1075,
+      "endMs": 1705,
+      "durationMs": 630
+    },
+    {
+      "position": 3,
+      "startMs": 1705,
+      "endMs": 3425,
+      "durationMs": 1720
+    },
+    {
+      "position": 4,
+      "startMs": 3425,
+      "endMs": 3795,
+      "durationMs": 370
+    },
+    {
+      "position": 5,
+      "startMs": 3795,
+      "endMs": 4675,
+      "durationMs": 880
+    },
+    {
+      "position": 6,
+      "startMs": 4675,
+      "endMs": 8340,
+      "durationMs": 3665
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:48.515Z"
+}

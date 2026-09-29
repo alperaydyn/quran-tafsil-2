@@ -1,0 +1,33 @@
+{
+  "surah": 37,
+  "ayah": 161,
+  "verseKey": "37:161",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1293890,
+  "timestampToGlobalMs": 1299740,
+  "durationMs": 5850,
+  "audioFile": "37_161.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1735,
+      "durationMs": 1735
+    },
+    {
+      "position": 2,
+      "startMs": 1735,
+      "endMs": 2315,
+      "durationMs": 580
+    },
+    {
+      "position": 3,
+      "startMs": 2315,
+      "endMs": 5710,
+      "durationMs": 3395
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.627Z"
+}

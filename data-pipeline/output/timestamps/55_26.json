@@ -1,0 +1,39 @@
+{
+  "surah": 55,
+  "ayah": 26,
+  "verseKey": "55:26",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 189470,
+  "timestampToGlobalMs": 194900,
+  "durationMs": 5430,
+  "audioFile": "55_26.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 555,
+      "durationMs": 555
+    },
+    {
+      "position": 2,
+      "startMs": 555,
+      "endMs": 905,
+      "durationMs": 350
+    },
+    {
+      "position": 3,
+      "startMs": 905,
+      "endMs": 2035,
+      "durationMs": 1130
+    },
+    {
+      "position": 4,
+      "startMs": 2035,
+      "endMs": 5320,
+      "durationMs": 3285
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:37.001Z"
+}

@@ -1,0 +1,33 @@
+{
+  "surah": 53,
+  "ayah": 6,
+  "verseKey": "53:6",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 22620,
+  "timestampToGlobalMs": 26850,
+  "durationMs": 4230,
+  "audioFile": "53_6.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 0,
+      "durationMs": 0
+    },
+    {
+      "position": 2,
+      "startMs": 0,
+      "endMs": 1315,
+      "durationMs": 1315
+    },
+    {
+      "position": 3,
+      "startMs": 1315,
+      "endMs": 3200,
+      "durationMs": 1885
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:32.873Z"
+}

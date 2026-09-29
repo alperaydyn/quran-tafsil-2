@@ -1,0 +1,51 @@
+{
+  "surah": 38,
+  "ayah": 20,
+  "verseKey": "38:20",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 225930,
+  "timestampToGlobalMs": 235260,
+  "durationMs": 9330,
+  "audioFile": "38_20.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1155,
+      "durationMs": 1155
+    },
+    {
+      "position": 2,
+      "startMs": 1155,
+      "endMs": 2245,
+      "durationMs": 1090
+    },
+    {
+      "position": 3,
+      "startMs": 2245,
+      "endMs": 3815,
+      "durationMs": 1570
+    },
+    {
+      "position": 4,
+      "startMs": 3815,
+      "endMs": 4925,
+      "durationMs": 1110
+    },
+    {
+      "position": 5,
+      "startMs": 4925,
+      "endMs": 5755,
+      "durationMs": 830
+    },
+    {
+      "position": 6,
+      "startMs": 5755,
+      "endMs": 8860,
+      "durationMs": 3105
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:53.649Z"
+}

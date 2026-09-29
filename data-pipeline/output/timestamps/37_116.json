@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 116,
+  "verseKey": "37:116",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 968320,
+  "timestampToGlobalMs": 974770,
+  "durationMs": 6450,
+  "audioFile": "37_116.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1575,
+      "durationMs": 1575
+    },
+    {
+      "position": 2,
+      "startMs": 1575,
+      "endMs": 2695,
+      "durationMs": 1120
+    },
+    {
+      "position": 3,
+      "startMs": 2695,
+      "endMs": 3065,
+      "durationMs": 370
+    },
+    {
+      "position": 4,
+      "startMs": 3065,
+      "endMs": 6330,
+      "durationMs": 3265
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.592Z"
+}

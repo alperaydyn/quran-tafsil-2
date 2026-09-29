@@ -1,0 +1,57 @@
+{
+  "surah": 28,
+  "ayah": 66,
+  "verseKey": "28:66",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1519690,
+  "timestampToGlobalMs": 1533950,
+  "durationMs": 14260,
+  "audioFile": "28_66.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1065,
+      "durationMs": 1065
+    },
+    {
+      "position": 2,
+      "startMs": 1065,
+      "endMs": 2075,
+      "durationMs": 1010
+    },
+    {
+      "position": 3,
+      "startMs": 2075,
+      "endMs": 6165,
+      "durationMs": 4090
+    },
+    {
+      "position": 4,
+      "startMs": 6165,
+      "endMs": 7725,
+      "durationMs": 1560
+    },
+    {
+      "position": 5,
+      "startMs": 7725,
+      "endMs": 8585,
+      "durationMs": 860
+    },
+    {
+      "position": 6,
+      "startMs": 8585,
+      "endMs": 9145,
+      "durationMs": 560
+    },
+    {
+      "position": 7,
+      "startMs": 9145,
+      "endMs": 14180,
+      "durationMs": 5035
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:20.567Z"
+}

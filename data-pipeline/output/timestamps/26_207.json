@@ -1,0 +1,51 @@
+{
+  "surah": 26,
+  "ayah": 207,
+  "verseKey": "26:207",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1791400,
+  "timestampToGlobalMs": 1800780,
+  "durationMs": 9380,
+  "audioFile": "26_207.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2335,
+      "durationMs": 2335
+    },
+    {
+      "position": 2,
+      "startMs": 2335,
+      "endMs": 3095,
+      "durationMs": 760
+    },
+    {
+      "position": 3,
+      "startMs": 3095,
+      "endMs": 3875,
+      "durationMs": 780
+    },
+    {
+      "position": 4,
+      "startMs": 3875,
+      "endMs": 5025,
+      "durationMs": 1150
+    },
+    {
+      "position": 5,
+      "startMs": 5025,
+      "endMs": 5965,
+      "durationMs": 940
+    },
+    {
+      "position": 6,
+      "startMs": 5965,
+      "endMs": 9280,
+      "durationMs": 3315
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.646Z"
+}

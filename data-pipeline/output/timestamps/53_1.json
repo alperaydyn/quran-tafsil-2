@@ -1,0 +1,33 @@
+{
+  "surah": 53,
+  "ayah": 1,
+  "verseKey": "53:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 4410,
+  "durationMs": 4420,
+  "audioFile": "53_1.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2350,
+      "durationMs": 2350
+    },
+    {
+      "position": 2,
+      "startMs": 2350,
+      "endMs": 2980,
+      "durationMs": 630
+    },
+    {
+      "position": 3,
+      "startMs": 2980,
+      "endMs": 3855,
+      "durationMs": 875
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:32.774Z"
+}

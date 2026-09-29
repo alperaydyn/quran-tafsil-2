@@ -1,0 +1,45 @@
+{
+  "surah": 30,
+  "ayah": 14,
+  "verseKey": "30:14",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 228710,
+  "timestampToGlobalMs": 238220,
+  "durationMs": 9510,
+  "audioFile": "30_14.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 985,
+      "durationMs": 985
+    },
+    {
+      "position": 2,
+      "startMs": 985,
+      "endMs": 1865,
+      "durationMs": 880
+    },
+    {
+      "position": 3,
+      "startMs": 1865,
+      "endMs": 2955,
+      "durationMs": 1090
+    },
+    {
+      "position": 4,
+      "startMs": 2955,
+      "endMs": 5215,
+      "durationMs": 2260
+    },
+    {
+      "position": 5,
+      "startMs": 5215,
+      "endMs": 9410,
+      "durationMs": 4195
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:28.058Z"
+}

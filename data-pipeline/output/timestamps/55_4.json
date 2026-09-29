@@ -1,0 +1,27 @@
+{
+  "surah": 55,
+  "ayah": 4,
+  "verseKey": "55:4",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 14970,
+  "timestampToGlobalMs": 19910,
+  "durationMs": 4940,
+  "audioFile": "55_4.mp3",
+  "wordCount": 2,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1015,
+      "durationMs": 1015
+    },
+    {
+      "position": 2,
+      "startMs": 1015,
+      "endMs": 4810,
+      "durationMs": 3795
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:36.671Z"
+}

@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 131,
+  "verseKey": "37:131",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1072140,
+  "timestampToGlobalMs": 1078640,
+  "durationMs": 6510,
+  "audioFile": "37_131.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1555,
+      "durationMs": 1555
+    },
+    {
+      "position": 2,
+      "startMs": 1555,
+      "endMs": 2635,
+      "durationMs": 1080
+    },
+    {
+      "position": 3,
+      "startMs": 2635,
+      "endMs": 3235,
+      "durationMs": 600
+    },
+    {
+      "position": 4,
+      "startMs": 3235,
+      "endMs": 6380,
+      "durationMs": 3145
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.922Z"
+}

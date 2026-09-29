@@ -1,0 +1,69 @@
+{
+  "surah": 42,
+  "ayah": 19,
+  "verseKey": "42:19",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 437960,
+  "timestampToGlobalMs": 452560,
+  "durationMs": 14600,
+  "audioFile": "42_19.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1115,
+      "durationMs": 1115
+    },
+    {
+      "position": 2,
+      "startMs": 1115,
+      "endMs": 2965,
+      "durationMs": 1850
+    },
+    {
+      "position": 3,
+      "startMs": 2965,
+      "endMs": 4515,
+      "durationMs": 1550
+    },
+    {
+      "position": 4,
+      "startMs": 4515,
+      "endMs": 5405,
+      "durationMs": 890
+    },
+    {
+      "position": 5,
+      "startMs": 5405,
+      "endMs": 5605,
+      "durationMs": 200
+    },
+    {
+      "position": 6,
+      "startMs": 5605,
+      "endMs": 9675,
+      "durationMs": 4070
+    },
+    {
+      "position": 7,
+      "startMs": 9675,
+      "endMs": 10245,
+      "durationMs": 570
+    },
+    {
+      "position": 8,
+      "startMs": 10245,
+      "endMs": 11325,
+      "durationMs": 1080
+    },
+    {
+      "position": 9,
+      "startMs": 11325,
+      "endMs": 14520,
+      "durationMs": 3195
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:10.875Z"
+}

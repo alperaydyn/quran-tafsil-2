@@ -1,0 +1,39 @@
+{
+  "surah": 53,
+  "ayah": 48,
+  "verseKey": "53:48",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 383840,
+  "timestampToGlobalMs": 388860,
+  "durationMs": 5020,
+  "audioFile": "53_48.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2125,
+      "durationMs": 2125
+    },
+    {
+      "position": 2,
+      "startMs": 2125,
+      "endMs": 2485,
+      "durationMs": 360
+    },
+    {
+      "position": 3,
+      "startMs": 2485,
+      "endMs": 3465,
+      "durationMs": 980
+    },
+    {
+      "position": 4,
+      "startMs": 3465,
+      "endMs": 4640,
+      "durationMs": 1175
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:33.553Z"
+}

@@ -1,0 +1,21 @@
+{
+  "surah": 52,
+  "ayah": 1,
+  "verseKey": "52:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 3400,
+  "durationMs": 3400,
+  "audioFile": "52_1.mp3",
+  "wordCount": 1,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2995,
+      "durationMs": 2995
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:31.219Z"
+}

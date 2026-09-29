@@ -1,0 +1,33 @@
+{
+  "surah": 26,
+  "ayah": 214,
+  "verseKey": "26:214",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1845790,
+  "timestampToGlobalMs": 1852710,
+  "durationMs": 6920,
+  "audioFile": "26_214.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1845,
+      "durationMs": 1845
+    },
+    {
+      "position": 2,
+      "startMs": 1845,
+      "endMs": 3065,
+      "durationMs": 1220
+    },
+    {
+      "position": 3,
+      "startMs": 3065,
+      "endMs": 6840,
+      "durationMs": 3775
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.860Z"
+}

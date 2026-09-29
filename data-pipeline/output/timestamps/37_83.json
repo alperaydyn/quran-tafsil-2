@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 83,
+  "verseKey": "37:83",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 686620,
+  "timestampToGlobalMs": 694120,
+  "durationMs": 7500,
+  "audioFile": "37_83.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1415,
+      "durationMs": 1415
+    },
+    {
+      "position": 2,
+      "startMs": 1415,
+      "endMs": 1785,
+      "durationMs": 370
+    },
+    {
+      "position": 3,
+      "startMs": 1785,
+      "endMs": 3735,
+      "durationMs": 1950
+    },
+    {
+      "position": 4,
+      "startMs": 3735,
+      "endMs": 7380,
+      "durationMs": 3645
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:48.918Z"
+}

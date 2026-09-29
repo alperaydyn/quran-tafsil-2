@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 210,
+  "verseKey": "26:210",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1817370,
+  "timestampToGlobalMs": 1822930,
+  "durationMs": 5570,
+  "audioFile": "26_210.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 585,
+      "durationMs": 585
+    },
+    {
+      "position": 2,
+      "startMs": 585,
+      "endMs": 1865,
+      "durationMs": 1280
+    },
+    {
+      "position": 3,
+      "startMs": 1865,
+      "endMs": 2275,
+      "durationMs": 410
+    },
+    {
+      "position": 4,
+      "startMs": 2275,
+      "endMs": 5470,
+      "durationMs": 3195
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.737Z"
+}

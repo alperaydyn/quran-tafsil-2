@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 132,
+  "verseKey": "26:132",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1164370,
+  "timestampToGlobalMs": 1172760,
+  "durationMs": 8390,
+  "audioFile": "26_132.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 795,
+      "durationMs": 795
+    },
+    {
+      "position": 2,
+      "startMs": 795,
+      "endMs": 2755,
+      "durationMs": 1960
+    },
+    {
+      "position": 3,
+      "startMs": 2755,
+      "endMs": 4735,
+      "durationMs": 1980
+    },
+    {
+      "position": 4,
+      "startMs": 4735,
+      "endMs": 5265,
+      "durationMs": 530
+    },
+    {
+      "position": 5,
+      "startMs": 5265,
+      "endMs": 8300,
+      "durationMs": 3035
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:07.584Z"
+}

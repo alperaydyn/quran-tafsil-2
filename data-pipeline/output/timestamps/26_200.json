@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 200,
+  "verseKey": "26:200",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1741800,
+  "timestampToGlobalMs": 1748590,
+  "durationMs": 6790,
+  "audioFile": "26_200.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1035,
+      "durationMs": 1035
+    },
+    {
+      "position": 2,
+      "startMs": 1035,
+      "endMs": 2325,
+      "durationMs": 1290
+    },
+    {
+      "position": 3,
+      "startMs": 2325,
+      "endMs": 2715,
+      "durationMs": 390
+    },
+    {
+      "position": 4,
+      "startMs": 2715,
+      "endMs": 3585,
+      "durationMs": 870
+    },
+    {
+      "position": 5,
+      "startMs": 3585,
+      "endMs": 6680,
+      "durationMs": 3095
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.433Z"
+}

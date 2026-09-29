@@ -1,0 +1,21 @@
+{
+  "surah": 45,
+  "ayah": 1,
+  "verseKey": "45:1",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 0,
+  "timestampToGlobalMs": 4360,
+  "durationMs": 4360,
+  "audioFile": "45_1.mp3",
+  "wordCount": 1,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 4335,
+      "durationMs": 4335
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:18.659Z"
+}

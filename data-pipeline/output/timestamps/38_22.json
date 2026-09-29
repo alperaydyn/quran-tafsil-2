@@ -1,0 +1,153 @@
+{
+  "surah": 38,
+  "ayah": 22,
+  "verseKey": "38:22",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 242970,
+  "timestampToGlobalMs": 268100,
+  "durationMs": 25130,
+  "audioFile": "38_22.mp3",
+  "wordCount": 23,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 345,
+      "durationMs": 345
+    },
+    {
+      "position": 2,
+      "startMs": 345,
+      "endMs": 1195,
+      "durationMs": 850
+    },
+    {
+      "position": 3,
+      "startMs": 1195,
+      "endMs": 1825,
+      "durationMs": 630
+    },
+    {
+      "position": 4,
+      "startMs": 1825,
+      "endMs": 2785,
+      "durationMs": 960
+    },
+    {
+      "position": 5,
+      "startMs": 2785,
+      "endMs": 3635,
+      "durationMs": 850
+    },
+    {
+      "position": 6,
+      "startMs": 3635,
+      "endMs": 4965,
+      "durationMs": 1330
+    },
+    {
+      "position": 7,
+      "startMs": 4965,
+      "endMs": 5745,
+      "durationMs": 780
+    },
+    {
+      "position": 8,
+      "startMs": 5745,
+      "endMs": 6145,
+      "durationMs": 400
+    },
+    {
+      "position": 9,
+      "startMs": 6145,
+      "endMs": 7265,
+      "durationMs": 1120
+    },
+    {
+      "position": 10,
+      "startMs": 7265,
+      "endMs": 8335,
+      "durationMs": 1070
+    },
+    {
+      "position": 11,
+      "startMs": 8335,
+      "endMs": 8925,
+      "durationMs": 590
+    },
+    {
+      "position": 12,
+      "startMs": 8925,
+      "endMs": 9955,
+      "durationMs": 1030
+    },
+    {
+      "position": 13,
+      "startMs": 9955,
+      "endMs": 10545,
+      "durationMs": 590
+    },
+    {
+      "position": 14,
+      "startMs": 10545,
+      "endMs": 11425,
+      "durationMs": 880
+    },
+    {
+      "position": 15,
+      "startMs": 11425,
+      "endMs": 13715,
+      "durationMs": 2290
+    },
+    {
+      "position": 16,
+      "startMs": 13715,
+      "endMs": 14655,
+      "durationMs": 940
+    },
+    {
+      "position": 17,
+      "startMs": 14655,
+      "endMs": 15675,
+      "durationMs": 1020
+    },
+    {
+      "position": 18,
+      "startMs": 15675,
+      "endMs": 16195,
+      "durationMs": 520
+    },
+    {
+      "position": 19,
+      "startMs": 16195,
+      "endMs": 17165,
+      "durationMs": 970
+    },
+    {
+      "position": 20,
+      "startMs": 17165,
+      "endMs": 19325,
+      "durationMs": 2160
+    },
+    {
+      "position": 21,
+      "startMs": 19325,
+      "endMs": 19895,
+      "durationMs": 570
+    },
+    {
+      "position": 22,
+      "startMs": 19895,
+      "endMs": 22085,
+      "durationMs": 2190
+    },
+    {
+      "position": 23,
+      "startMs": 22085,
+      "endMs": 24649,
+      "durationMs": 2564
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:53.681Z"
+}

@@ -1,0 +1,231 @@
+{
+  "surah": 39,
+  "ayah": 23,
+  "verseKey": "39:23",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 544040,
+  "timestampToGlobalMs": 582570,
+  "durationMs": 38530,
+  "audioFile": "39_23.mp3",
+  "wordCount": 36,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1015,
+      "durationMs": 1015
+    },
+    {
+      "position": 2,
+      "startMs": 1015,
+      "endMs": 1825,
+      "durationMs": 810
+    },
+    {
+      "position": 3,
+      "startMs": 1825,
+      "endMs": 2525,
+      "durationMs": 700
+    },
+    {
+      "position": 4,
+      "startMs": 2525,
+      "endMs": 3615,
+      "durationMs": 1090
+    },
+    {
+      "position": 5,
+      "startMs": 3615,
+      "endMs": 4485,
+      "durationMs": 870
+    },
+    {
+      "position": 6,
+      "startMs": 4485,
+      "endMs": 6565,
+      "durationMs": 2080
+    },
+    {
+      "position": 7,
+      "startMs": 6565,
+      "endMs": 8385,
+      "durationMs": 1820
+    },
+    {
+      "position": 8,
+      "startMs": 8385,
+      "endMs": 9675,
+      "durationMs": 1290
+    },
+    {
+      "position": 9,
+      "startMs": 9675,
+      "endMs": 10275,
+      "durationMs": 600
+    },
+    {
+      "position": 10,
+      "startMs": 10275,
+      "endMs": 11075,
+      "durationMs": 800
+    },
+    {
+      "position": 11,
+      "startMs": 11075,
+      "endMs": 12055,
+      "durationMs": 980
+    },
+    {
+      "position": 12,
+      "startMs": 12055,
+      "endMs": 13095,
+      "durationMs": 1040
+    },
+    {
+      "position": 13,
+      "startMs": 13095,
+      "endMs": 14155,
+      "durationMs": 1060
+    },
+    {
+      "position": 14,
+      "startMs": 14155,
+      "endMs": 15595,
+      "durationMs": 1440
+    },
+    {
+      "position": 15,
+      "startMs": 15595,
+      "endMs": 16355,
+      "durationMs": 760
+    },
+    {
+      "position": 16,
+      "startMs": 16355,
+      "endMs": 17595,
+      "durationMs": 1240
+    },
+    {
+      "position": 17,
+      "startMs": 17595,
+      "endMs": 19095,
+      "durationMs": 1500
+    },
+    {
+      "position": 18,
+      "startMs": 19095,
+      "endMs": 19675,
+      "durationMs": 580
+    },
+    {
+      "position": 19,
+      "startMs": 19675,
+      "endMs": 20315,
+      "durationMs": 640
+    },
+    {
+      "position": 20,
+      "startMs": 20315,
+      "endMs": 22495,
+      "durationMs": 2180
+    },
+    {
+      "position": 21,
+      "startMs": 22495,
+      "endMs": 23985,
+      "durationMs": 1490
+    },
+    {
+      "position": 22,
+      "startMs": 23985,
+      "endMs": 24415,
+      "durationMs": 430
+    },
+    {
+      "position": 23,
+      "startMs": 24415,
+      "endMs": 25275,
+      "durationMs": 860
+    },
+    {
+      "position": 24,
+      "startMs": 25275,
+      "endMs": 26035,
+      "durationMs": 760
+    },
+    {
+      "position": 25,
+      "startMs": 26035,
+      "endMs": 26645,
+      "durationMs": 610
+    },
+    {
+      "position": 26,
+      "startMs": 26645,
+      "endMs": 26785,
+      "durationMs": 140
+    },
+    {
+      "position": 33,
+      "startMs": 26785,
+      "endMs": 28065,
+      "durationMs": 1280
+    },
+    {
+      "position": 27,
+      "startMs": 28065,
+      "endMs": 31235,
+      "durationMs": 3170
+    },
+    {
+      "position": 28,
+      "startMs": 31235,
+      "endMs": 31675,
+      "durationMs": 440
+    },
+    {
+      "position": 25,
+      "startMs": 31675,
+      "endMs": 32625,
+      "durationMs": 950
+    },
+    {
+      "position": 29,
+      "startMs": 32625,
+      "endMs": 33525,
+      "durationMs": 900
+    },
+    {
+      "position": 30,
+      "startMs": 33525,
+      "endMs": 34165,
+      "durationMs": 640
+    },
+    {
+      "position": 31,
+      "startMs": 34165,
+      "endMs": 34875,
+      "durationMs": 710
+    },
+    {
+      "position": 32,
+      "startMs": 34875,
+      "endMs": 35465,
+      "durationMs": 590
+    },
+    {
+      "position": 33,
+      "startMs": 35465,
+      "endMs": 35975,
+      "durationMs": 510
+    },
+    {
+      "position": 34,
+      "startMs": 35975,
+      "endMs": 38100,
+      "durationMs": 2125
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:58.210Z"
+}

@@ -1,0 +1,45 @@
+{
+  "surah": 37,
+  "ayah": 125,
+  "verseKey": "37:125",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1029430,
+  "timestampToGlobalMs": 1037610,
+  "durationMs": 8180,
+  "audioFile": "37_125.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1165,
+      "durationMs": 1165
+    },
+    {
+      "position": 2,
+      "startMs": 1165,
+      "endMs": 2705,
+      "durationMs": 1540
+    },
+    {
+      "position": 3,
+      "startMs": 2705,
+      "endMs": 3835,
+      "durationMs": 1130
+    },
+    {
+      "position": 4,
+      "startMs": 3835,
+      "endMs": 4635,
+      "durationMs": 800
+    },
+    {
+      "position": 5,
+      "startMs": 4635,
+      "endMs": 8030,
+      "durationMs": 3395
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.788Z"
+}

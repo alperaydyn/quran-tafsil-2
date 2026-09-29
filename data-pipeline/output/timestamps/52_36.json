@@ -1,0 +1,57 @@
+{
+  "surah": 52,
+  "ayah": 36,
+  "verseKey": "52:36",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 333190,
+  "timestampToGlobalMs": 341730,
+  "durationMs": 8540,
+  "audioFile": "52_36.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 385,
+      "durationMs": 385
+    },
+    {
+      "position": 2,
+      "startMs": 385,
+      "endMs": 1075,
+      "durationMs": 690
+    },
+    {
+      "position": 3,
+      "startMs": 1075,
+      "endMs": 2695,
+      "durationMs": 1620
+    },
+    {
+      "position": 4,
+      "startMs": 2695,
+      "endMs": 4185,
+      "durationMs": 1490
+    },
+    {
+      "position": 5,
+      "startMs": 4185,
+      "endMs": 4455,
+      "durationMs": 270
+    },
+    {
+      "position": 6,
+      "startMs": 4455,
+      "endMs": 5115,
+      "durationMs": 660
+    },
+    {
+      "position": 7,
+      "startMs": 5115,
+      "endMs": 8420,
+      "durationMs": 3305
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:31.804Z"
+}

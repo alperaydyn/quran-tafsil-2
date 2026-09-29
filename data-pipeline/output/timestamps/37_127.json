@@ -1,0 +1,33 @@
+{
+  "surah": 37,
+  "ayah": 127,
+  "verseKey": "37:127",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1047090,
+  "timestampToGlobalMs": 1054460,
+  "durationMs": 7370,
+  "audioFile": "37_127.mp3",
+  "wordCount": 3,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1445,
+      "durationMs": 1445
+    },
+    {
+      "position": 2,
+      "startMs": 1445,
+      "endMs": 3335,
+      "durationMs": 1890
+    },
+    {
+      "position": 3,
+      "startMs": 3335,
+      "endMs": 7240,
+      "durationMs": 3905
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:49.832Z"
+}

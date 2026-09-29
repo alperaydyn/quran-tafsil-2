@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 160,
+  "verseKey": "26:160",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1401290,
+  "timestampToGlobalMs": 1407530,
+  "durationMs": 6240,
+  "audioFile": "26_160.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1085,
+      "durationMs": 1085
+    },
+    {
+      "position": 2,
+      "startMs": 1085,
+      "endMs": 1745,
+      "durationMs": 660
+    },
+    {
+      "position": 3,
+      "startMs": 1745,
+      "endMs": 2465,
+      "durationMs": 720
+    },
+    {
+      "position": 4,
+      "startMs": 2465,
+      "endMs": 6170,
+      "durationMs": 3705
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:08.298Z"
+}

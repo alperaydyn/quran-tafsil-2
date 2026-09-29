@@ -1,0 +1,45 @@
+{
+  "surah": 44,
+  "ayah": 11,
+  "verseKey": "44:11",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 97530,
+  "timestampToGlobalMs": 107220,
+  "durationMs": 9690,
+  "audioFile": "44_11.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 685,
+      "durationMs": 685
+    },
+    {
+      "position": 2,
+      "startMs": 685,
+      "endMs": 4875,
+      "durationMs": 4190
+    },
+    {
+      "position": 3,
+      "startMs": 4875,
+      "endMs": 5695,
+      "durationMs": 820
+    },
+    {
+      "position": 4,
+      "startMs": 5695,
+      "endMs": 6755,
+      "durationMs": 1060
+    },
+    {
+      "position": 5,
+      "startMs": 6755,
+      "endMs": 9620,
+      "durationMs": 2865
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:16.655Z"
+}

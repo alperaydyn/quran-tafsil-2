@@ -1,0 +1,63 @@
+{
+  "surah": 36,
+  "ayah": 41,
+  "verseKey": "36:41",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 509570,
+  "timestampToGlobalMs": 520200,
+  "durationMs": 10630,
+  "audioFile": "36_41.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1285,
+      "durationMs": 1285
+    },
+    {
+      "position": 2,
+      "startMs": 1285,
+      "endMs": 1865,
+      "durationMs": 580
+    },
+    {
+      "position": 3,
+      "startMs": 1865,
+      "endMs": 3255,
+      "durationMs": 1390
+    },
+    {
+      "position": 4,
+      "startMs": 3255,
+      "endMs": 4345,
+      "durationMs": 1090
+    },
+    {
+      "position": 5,
+      "startMs": 4345,
+      "endMs": 5885,
+      "durationMs": 1540
+    },
+    {
+      "position": 6,
+      "startMs": 5885,
+      "endMs": 6135,
+      "durationMs": 250
+    },
+    {
+      "position": 7,
+      "startMs": 6135,
+      "endMs": 6995,
+      "durationMs": 860
+    },
+    {
+      "position": 8,
+      "startMs": 6995,
+      "endMs": 10510,
+      "durationMs": 3515
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:45.303Z"
+}

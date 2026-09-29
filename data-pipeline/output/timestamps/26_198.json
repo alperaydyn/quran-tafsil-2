@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 198,
+  "verseKey": "26:198",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1727120,
+  "timestampToGlobalMs": 1733910,
+  "durationMs": 6790,
+  "audioFile": "26_198.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 505,
+      "durationMs": 505
+    },
+    {
+      "position": 2,
+      "startMs": 505,
+      "endMs": 2055,
+      "durationMs": 1550
+    },
+    {
+      "position": 3,
+      "startMs": 2055,
+      "endMs": 2665,
+      "durationMs": 610
+    },
+    {
+      "position": 4,
+      "startMs": 2665,
+      "endMs": 3295,
+      "durationMs": 630
+    },
+    {
+      "position": 5,
+      "startMs": 3295,
+      "endMs": 6660,
+      "durationMs": 3365
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.373Z"
+}

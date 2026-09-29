@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 148,
+  "verseKey": "37:148",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1194110,
+  "timestampToGlobalMs": 1201760,
+  "durationMs": 7650,
+  "audioFile": "37_148.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1285,
+      "durationMs": 1285
+    },
+    {
+      "position": 2,
+      "startMs": 1285,
+      "endMs": 3395,
+      "durationMs": 2110
+    },
+    {
+      "position": 3,
+      "startMs": 3395,
+      "endMs": 3955,
+      "durationMs": 560
+    },
+    {
+      "position": 4,
+      "startMs": 3955,
+      "endMs": 7520,
+      "durationMs": 3565
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.314Z"
+}

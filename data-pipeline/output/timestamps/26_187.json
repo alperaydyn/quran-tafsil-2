@@ -1,0 +1,69 @@
+{
+  "surah": 26,
+  "ayah": 187,
+  "verseKey": "26:187",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1627490,
+  "timestampToGlobalMs": 1640260,
+  "durationMs": 12770,
+  "audioFile": "26_187.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 905,
+      "durationMs": 905
+    },
+    {
+      "position": 2,
+      "startMs": 905,
+      "endMs": 2075,
+      "durationMs": 1170
+    },
+    {
+      "position": 3,
+      "startMs": 2075,
+      "endMs": 2815,
+      "durationMs": 740
+    },
+    {
+      "position": 4,
+      "startMs": 2815,
+      "endMs": 3855,
+      "durationMs": 1040
+    },
+    {
+      "position": 5,
+      "startMs": 3855,
+      "endMs": 6655,
+      "durationMs": 2800
+    },
+    {
+      "position": 6,
+      "startMs": 6655,
+      "endMs": 7795,
+      "durationMs": 1140
+    },
+    {
+      "position": 7,
+      "startMs": 7795,
+      "endMs": 8895,
+      "durationMs": 1100
+    },
+    {
+      "position": 8,
+      "startMs": 8895,
+      "endMs": 9275,
+      "durationMs": 380
+    },
+    {
+      "position": 9,
+      "startMs": 9275,
+      "endMs": 12700,
+      "durationMs": 3425
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.051Z"
+}

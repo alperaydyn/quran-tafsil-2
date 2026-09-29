@@ -1,0 +1,57 @@
+{
+  "surah": 37,
+  "ayah": 19,
+  "verseKey": "37:19",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 135490,
+  "timestampToGlobalMs": 147320,
+  "durationMs": 11830,
+  "audioFile": "37_19.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 2045,
+      "durationMs": 2045
+    },
+    {
+      "position": 2,
+      "startMs": 2045,
+      "endMs": 2465,
+      "durationMs": 420
+    },
+    {
+      "position": 3,
+      "startMs": 2465,
+      "endMs": 4165,
+      "durationMs": 1700
+    },
+    {
+      "position": 4,
+      "startMs": 4165,
+      "endMs": 5655,
+      "durationMs": 1490
+    },
+    {
+      "position": 5,
+      "startMs": 5656,
+      "endMs": 6965,
+      "durationMs": 1309
+    },
+    {
+      "position": 6,
+      "startMs": 6965,
+      "endMs": 7425,
+      "durationMs": 460
+    },
+    {
+      "position": 7,
+      "startMs": 7425,
+      "endMs": 11690,
+      "durationMs": 4265
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:47.738Z"
+}

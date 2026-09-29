@@ -1,0 +1,39 @@
+{
+  "surah": 37,
+  "ayah": 154,
+  "verseKey": "37:154",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1241990,
+  "timestampToGlobalMs": 1247240,
+  "durationMs": 5250,
+  "audioFile": "37_154.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 505,
+      "durationMs": 505
+    },
+    {
+      "position": 2,
+      "startMs": 505,
+      "endMs": 1105,
+      "durationMs": 600
+    },
+    {
+      "position": 3,
+      "startMs": 1105,
+      "endMs": 1755,
+      "durationMs": 650
+    },
+    {
+      "position": 4,
+      "startMs": 1755,
+      "endMs": 5170,
+      "durationMs": 3415
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:50.458Z"
+}

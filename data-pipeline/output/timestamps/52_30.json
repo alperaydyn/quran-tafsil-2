@@ -1,0 +1,57 @@
+{
+  "surah": 52,
+  "ayah": 30,
+  "verseKey": "52:30",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 275870,
+  "timestampToGlobalMs": 284930,
+  "durationMs": 9070,
+  "audioFile": "52_30.mp3",
+  "wordCount": 7,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 415,
+      "durationMs": 415
+    },
+    {
+      "position": 2,
+      "startMs": 415,
+      "endMs": 1705,
+      "durationMs": 1290
+    },
+    {
+      "position": 3,
+      "startMs": 1705,
+      "endMs": 2795,
+      "durationMs": 1090
+    },
+    {
+      "position": 4,
+      "startMs": 2795,
+      "endMs": 4805,
+      "durationMs": 2010
+    },
+    {
+      "position": 5,
+      "startMs": 4805,
+      "endMs": 5415,
+      "durationMs": 610
+    },
+    {
+      "position": 6,
+      "startMs": 5415,
+      "endMs": 6045,
+      "durationMs": 630
+    },
+    {
+      "position": 7,
+      "startMs": 6045,
+      "endMs": 8930,
+      "durationMs": 2885
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:31.701Z"
+}

@@ -1,0 +1,63 @@
+{
+  "surah": 32,
+  "ayah": 2,
+  "verseKey": "32:2",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 8050,
+  "timestampToGlobalMs": 15760,
+  "durationMs": 7710,
+  "audioFile": "32_2.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1575,
+      "durationMs": 1575
+    },
+    {
+      "position": 2,
+      "startMs": 1575,
+      "endMs": 2455,
+      "durationMs": 880
+    },
+    {
+      "position": 3,
+      "startMs": 2455,
+      "endMs": 2825,
+      "durationMs": 370
+    },
+    {
+      "position": 4,
+      "startMs": 2825,
+      "endMs": 3365,
+      "durationMs": 540
+    },
+    {
+      "position": 5,
+      "startMs": 3365,
+      "endMs": 3965,
+      "durationMs": 600
+    },
+    {
+      "position": 6,
+      "startMs": 3965,
+      "endMs": 4145,
+      "durationMs": 180
+    },
+    {
+      "position": 7,
+      "startMs": 4145,
+      "endMs": 4895,
+      "durationMs": 750
+    },
+    {
+      "position": 8,
+      "startMs": 4895,
+      "endMs": 7620,
+      "durationMs": 2725
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:31.912Z"
+}

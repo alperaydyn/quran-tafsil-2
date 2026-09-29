@@ -1,0 +1,63 @@
+{
+  "surah": 26,
+  "ayah": 190,
+  "verseKey": "26:190",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1661030,
+  "timestampToGlobalMs": 1672160,
+  "durationMs": 11130,
+  "audioFile": "26_190.mp3",
+  "wordCount": 8,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1305,
+      "durationMs": 1305
+    },
+    {
+      "position": 2,
+      "startMs": 1305,
+      "endMs": 1785,
+      "durationMs": 480
+    },
+    {
+      "position": 3,
+      "startMs": 1785,
+      "endMs": 2615,
+      "durationMs": 830
+    },
+    {
+      "position": 4,
+      "startMs": 2615,
+      "endMs": 4265,
+      "durationMs": 1650
+    },
+    {
+      "position": 5,
+      "startMs": 4265,
+      "endMs": 4865,
+      "durationMs": 600
+    },
+    {
+      "position": 6,
+      "startMs": 4865,
+      "endMs": 5495,
+      "durationMs": 630
+    },
+    {
+      "position": 7,
+      "startMs": 5495,
+      "endMs": 7305,
+      "durationMs": 1810
+    },
+    {
+      "position": 8,
+      "startMs": 7305,
+      "endMs": 11060,
+      "durationMs": 3755
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.137Z"
+}

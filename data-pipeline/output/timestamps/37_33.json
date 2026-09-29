@@ -1,0 +1,45 @@
+{
+  "surah": 37,
+  "ayah": 33,
+  "verseKey": "37:33",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 270260,
+  "timestampToGlobalMs": 279400,
+  "durationMs": 9140,
+  "audioFile": "37_33.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 1765,
+      "durationMs": 1765
+    },
+    {
+      "position": 2,
+      "startMs": 1765,
+      "endMs": 2995,
+      "durationMs": 1230
+    },
+    {
+      "position": 3,
+      "startMs": 2995,
+      "endMs": 4035,
+      "durationMs": 1040
+    },
+    {
+      "position": 4,
+      "startMs": 4035,
+      "endMs": 5105,
+      "durationMs": 1070
+    },
+    {
+      "position": 5,
+      "startMs": 5105,
+      "endMs": 9000,
+      "durationMs": 3895
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:47.965Z"
+}

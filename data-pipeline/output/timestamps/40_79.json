@@ -1,0 +1,69 @@
+{
+  "surah": 40,
+  "ayah": 79,
+  "verseKey": "40:79",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1441870,
+  "timestampToGlobalMs": 1451950,
+  "durationMs": 10080,
+  "audioFile": "40_79.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 985,
+      "durationMs": 985
+    },
+    {
+      "position": 2,
+      "startMs": 985,
+      "endMs": 1815,
+      "durationMs": 830
+    },
+    {
+      "position": 3,
+      "startMs": 1815,
+      "endMs": 2465,
+      "durationMs": 650
+    },
+    {
+      "position": 4,
+      "startMs": 2465,
+      "endMs": 2945,
+      "durationMs": 480
+    },
+    {
+      "position": 5,
+      "startMs": 2945,
+      "endMs": 4155,
+      "durationMs": 1210
+    },
+    {
+      "position": 6,
+      "startMs": 4155,
+      "endMs": 5405,
+      "durationMs": 1250
+    },
+    {
+      "position": 7,
+      "startMs": 5405,
+      "endMs": 6185,
+      "durationMs": 780
+    },
+    {
+      "position": 8,
+      "startMs": 6185,
+      "endMs": 7155,
+      "durationMs": 970
+    },
+    {
+      "position": 9,
+      "startMs": 7155,
+      "endMs": 9990,
+      "durationMs": 2835
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:04.099Z"
+}

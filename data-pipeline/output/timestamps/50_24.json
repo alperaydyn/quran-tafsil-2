@@ -1,0 +1,51 @@
+{
+  "surah": 50,
+  "ayah": 24,
+  "verseKey": "50:24",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 291300,
+  "timestampToGlobalMs": 300440,
+  "durationMs": 9140,
+  "audioFile": "50_24.mp3",
+  "wordCount": 6,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 865,
+      "durationMs": 865
+    },
+    {
+      "position": 2,
+      "startMs": 865,
+      "endMs": 1695,
+      "durationMs": 830
+    },
+    {
+      "position": 3,
+      "startMs": 1695,
+      "endMs": 3645,
+      "durationMs": 1950
+    },
+    {
+      "position": 4,
+      "startMs": 3645,
+      "endMs": 4455,
+      "durationMs": 810
+    },
+    {
+      "position": 5,
+      "startMs": 4455,
+      "endMs": 5745,
+      "durationMs": 1290
+    },
+    {
+      "position": 6,
+      "startMs": 5745,
+      "endMs": 9040,
+      "durationMs": 3295
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:27.975Z"
+}

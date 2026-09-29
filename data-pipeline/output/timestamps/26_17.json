@@ -1,0 +1,45 @@
+{
+  "surah": 26,
+  "ayah": 17,
+  "verseKey": "26:17",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 161540,
+  "timestampToGlobalMs": 171860,
+  "durationMs": 10320,
+  "audioFile": "26_17.mp3",
+  "wordCount": 5,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 365,
+      "durationMs": 365
+    },
+    {
+      "position": 2,
+      "startMs": 365,
+      "endMs": 1215,
+      "durationMs": 850
+    },
+    {
+      "position": 3,
+      "startMs": 1215,
+      "endMs": 2065,
+      "durationMs": 850
+    },
+    {
+      "position": 4,
+      "startMs": 2065,
+      "endMs": 4585,
+      "durationMs": 2520
+    },
+    {
+      "position": 5,
+      "startMs": 4585,
+      "endMs": 10220,
+      "durationMs": 5635
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:05.210Z"
+}

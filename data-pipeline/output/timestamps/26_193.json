@@ -1,0 +1,39 @@
+{
+  "surah": 26,
+  "ayah": 193,
+  "verseKey": "26:193",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 1688120,
+  "timestampToGlobalMs": 1693500,
+  "durationMs": 5380,
+  "audioFile": "26_193.mp3",
+  "wordCount": 4,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 695,
+      "durationMs": 695
+    },
+    {
+      "position": 2,
+      "startMs": 695,
+      "endMs": 1025,
+      "durationMs": 330
+    },
+    {
+      "position": 3,
+      "startMs": 1025,
+      "endMs": 1965,
+      "durationMs": 940
+    },
+    {
+      "position": 4,
+      "startMs": 1965,
+      "endMs": 5300,
+      "durationMs": 3335
+    }
+  ],
+  "processedAt": "2026-09-29T22:28:09.225Z"
+}

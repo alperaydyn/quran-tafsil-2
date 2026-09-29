@@ -1,0 +1,69 @@
+{
+  "surah": 46,
+  "ayah": 6,
+  "verseKey": "46:6",
+  "reciterId": 7,
+  "reciterName": "Mishari Rashid al-`Afasy",
+  "timestampFromGlobalMs": 93970,
+  "timestampToGlobalMs": 108440,
+  "durationMs": 14470,
+  "audioFile": "46_6.mp3",
+  "wordCount": 9,
+  "words": [
+    {
+      "position": 1,
+      "startMs": 0,
+      "endMs": 945,
+      "durationMs": 945
+    },
+    {
+      "position": 2,
+      "startMs": 945,
+      "endMs": 1605,
+      "durationMs": 660
+    },
+    {
+      "position": 3,
+      "startMs": 1605,
+      "endMs": 3215,
+      "durationMs": 1610
+    },
+    {
+      "position": 4,
+      "startMs": 3215,
+      "endMs": 4135,
+      "durationMs": 920
+    },
+    {
+      "position": 5,
+      "startMs": 4135,
+      "endMs": 4835,
+      "durationMs": 700
+    },
+    {
+      "position": 6,
+      "startMs": 4835,
+      "endMs": 8194,
+      "durationMs": 3359
+    },
+    {
+      "position": 7,
+      "startMs": 8195,
+      "endMs": 9245,
+      "durationMs": 1050
+    },
+    {
+      "position": 8,
+      "startMs": 9245,
+      "endMs": 11025,
+      "durationMs": 1780
+    },
+    {
+      "position": 9,
+      "startMs": 11025,
+      "endMs": 14360,
+      "durationMs": 3335
+    }
+  ],
+  "processedAt": "2026-09-29T22:29:21.033Z"
+}
