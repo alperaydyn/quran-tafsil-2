@@ -204,7 +204,7 @@ function BahcenCard() {
       {/* Alt Açıklama: Veritabanından çekilen gerçek okuma sayacı sağa hizalı */}
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 5 }}>
         <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
-          {todayAyahCount > 0 ? `${t('home.todayRead')} · ${t('common.verseCount', { count: todayAyahCount })}` : `${t('home.todayRead')} · 12 ayet, 3 kavram`}
+          {todayAyahCount > 0 ? `${t('home.todayRead')} · ${t('common.verseCount', { count: todayAyahCount })}` : `${t('home.todayRead')} · 0 ayet`}
         </StyledText>
       </View>
     </Pressable>

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   RefreshControl,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -40,12 +41,33 @@ export function ReadingHistoryScreen() {
       const res = await OfflineSyncService.getReadingTimeline();
       setData(res);
     } catch {
-      setData(OfflineSyncService.getSampleTimeline());
+      setData({
+        days: [],
+        summary: { total_days: 0, total_verses: 0, total_concepts: 0, total_memorizations: 0 },
+      });
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
   }, []);
+
+  const handleClearHistory = () => {
+    Alert.alert(
+      'Geçmişi Sıfırla',
+      'Tüm yerel okuma geçmişinizi silmek istediğinize emin misiniz? Bu işlem geri alınamaz.',
+      [
+        { text: 'İptal', style: 'cancel' },
+        {
+          text: 'Sıfırla',
+          style: 'destructive',
+          onPress: async () => {
+            await OfflineSyncService.clearHistory();
+            loadData();
+          },
+        },
+      ]
+    );
+  };
 
   useEffect(() => {
     loadData();
@@ -103,15 +125,28 @@ export function ReadingHistoryScreen() {
             </StyledText>
           </View>
 
-          <Pressable
-            onPress={() => navigation.navigate('ProgressMatrix')}
-            hitSlop={10}
-            style={[styles.matrixButton, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
-          >
-            <StyledText variant="caption" style={{ color: theme.colors.acc, fontSize: 11, fontWeight: '600' }}>
-              Harita ⤢
-            </StyledText>
-          </Pressable>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            {data?.days && data.days.length > 0 && (
+              <Pressable
+                onPress={handleClearHistory}
+                hitSlop={8}
+                style={[styles.matrixButton, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
+              >
+                <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
+                  Sıfırla
+                </StyledText>
+              </Pressable>
+            )}
+            <Pressable
+              onPress={() => navigation.navigate('ProgressMatrix')}
+              hitSlop={8}
+              style={[styles.matrixButton, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
+            >
+              <StyledText variant="caption" style={{ color: theme.colors.acc, fontSize: 11, fontWeight: '600' }}>
+                Harita ⤢
+              </StyledText>
+            </Pressable>
+          </View>
         </View>
 
         {loading ? (
@@ -141,7 +176,7 @@ export function ReadingHistoryScreen() {
                 ]}
               >
                 <View style={styles.metricItem}>
-                  <StyledText variant="caption" color="mut" style={styles.metricLabel}>
+                  <StyledText variant="caption" color="mut" numberOfLines={1} style={styles.metricLabel}>
                     Aktif Gün
                   </StyledText>
                   <StyledText variant="title" style={[styles.metricValue, { color: theme.colors.ink }]}>
@@ -152,8 +187,8 @@ export function ReadingHistoryScreen() {
                 <View style={[styles.dividerVertical, { backgroundColor: theme.colors.line }]} />
 
                 <View style={styles.metricItem}>
-                  <StyledText variant="caption" color="mut" style={styles.metricLabel}>
-                    Okunan Ayet
+                  <StyledText variant="caption" color="mut" numberOfLines={1} style={styles.metricLabel}>
+                    Ayet
                   </StyledText>
                   <StyledText variant="title" style={[styles.metricValue, { color: theme.colors.acc }]}>
                     {data.summary.total_verses}
@@ -163,7 +198,7 @@ export function ReadingHistoryScreen() {
                 <View style={[styles.dividerVertical, { backgroundColor: theme.colors.line }]} />
 
                 <View style={styles.metricItem}>
-                  <StyledText variant="caption" color="mut" style={styles.metricLabel}>
+                  <StyledText variant="caption" color="mut" numberOfLines={1} style={styles.metricLabel}>
                     Kavram
                   </StyledText>
                   <StyledText variant="title" style={[styles.metricValue, { color: '#B08836' }]}>
@@ -174,7 +209,7 @@ export function ReadingHistoryScreen() {
                 <View style={[styles.dividerVertical, { backgroundColor: theme.colors.line }]} />
 
                 <View style={styles.metricItem}>
-                  <StyledText variant="caption" color="mut" style={styles.metricLabel}>
+                  <StyledText variant="caption" color="mut" numberOfLines={1} style={styles.metricLabel}>
                     Ezber
                   </StyledText>
                   <StyledText variant="title" style={[styles.metricValue, { color: '#4A8256' }]}>
@@ -291,7 +326,7 @@ export function ReadingHistoryScreen() {
                                 {surahItem.etiket}
                               </StyledText>
                               <StyledText variant="caption" color="mut" style={{ fontSize: 11, marginTop: 2 }}>
-                                {`${surahItem.toplam_ayet} ayet okundu`}
+                                {`Okunan: ${surahItem.ayet_araliklari} (${surahItem.toplam_ayet} ayet)`}
                                 {surahItem.toplam_sure_sn > 0
                                   ? ` · ~${Math.max(1, Math.round(surahItem.toplam_sure_sn / 60))} dk`
                                   : ''}
@@ -464,17 +499,21 @@ const styles = StyleSheet.create({
   metricItem: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 2,
   },
   metricLabel: {
     fontSize: 10,
-    fontWeight: '600',
-    letterSpacing: 0.5,
+    fontWeight: '700',
+    letterSpacing: 0.4,
     marginBottom: 4,
     textTransform: 'uppercase',
+    textAlign: 'center',
   },
   metricValue: {
     fontSize: 18,
     fontWeight: '800',
+    textAlign: 'center',
   },
   dividerVertical: {
     width: 1,

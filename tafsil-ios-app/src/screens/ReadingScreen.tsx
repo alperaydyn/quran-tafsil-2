@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ScrollView, View, Pressable, type LayoutChangeEvent } from 'react-native';
+import { ScrollView, View, Pressable, Dimensions, type LayoutChangeEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
@@ -10,6 +10,7 @@ import { ConceptContextCard } from '../components/reading/ConceptContextCard';
 import { OfflineSyncService } from '../services/offlineSyncService';
 import { useTheme } from '../theme';
 import { getVerses } from '../api/client';
+import { mockSurahs } from '../api/mock/surahs.mock';
 import type { Verse, Word } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
 import { useReadingMode } from '../hooks/useReadingMode';
@@ -54,6 +55,7 @@ function VerseCard({
   onSelectRelatedConcept,
   onCloseConcept,
   onOpenDag,
+  onCardPress,
 }: {
   verse: Verse;
   isVerseActive: boolean;
@@ -67,6 +69,7 @@ function VerseCard({
   onSelectRelatedConcept: (slug: string, depth: number) => void;
   onCloseConcept: (depth: number) => void;
   onOpenDag?: (slug: string) => void;
+  onCardPress?: () => void;
 }) {
   const theme = useTheme();
   const mode = useReadingMode();
@@ -88,9 +91,10 @@ function VerseCard({
   const segments = segsOf(verse.mealTr || 'Bu ayet için meal çevirisi hazırlanıyor.');
 
   return (
-    <View
+    <Pressable
       onLayout={onLayout}
-      style={{
+      onPress={onCardPress}
+      style={({ pressed }) => ({
         backgroundColor: isVerseActive ? activeTint : theme.colors.surf,
         borderWidth: 1.5,
         borderColor: isVerseActive ? theme.colors.acc : theme.colors.line,
@@ -98,7 +102,8 @@ function VerseCard({
         padding: 16,
         marginBottom: 14,
         gap: 12,
-      }}
+        opacity: pressed ? 0.96 : 1,
+      })}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -249,7 +254,7 @@ function VerseCard({
           })}
         </View>
       )}
-    </View>
+    </Pressable>
   );
 }
 
@@ -277,6 +282,8 @@ export function ReadingScreen({ route, navigation }: Props) {
   const scrollViewRef = useRef<ScrollView>(null);
   const verseLayouts = useRef<{ [ayahNo: number]: { y: number; height: number } }>({});
   const hasScrolledToInitialRef = useRef(false);
+  const isUserScrollingRef = useRef(false);
+  const scrollSettleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (initialAyahNo) {
@@ -317,29 +324,132 @@ export function ReadingScreen({ route, navigation }: Props) {
 
     return () => {
       mounted = false;
+      if (scrollSettleTimerRef.current) {
+        clearTimeout(scrollSettleTimerRef.current);
+      }
     };
   }, [surahId]);
 
+  // Ayet aktif olduğunda veya odaklandığında okuma kaydını oluştur
   useEffect(() => {
-    if (verses.length > 0) {
+    if (activeAyah && verses.length > 0) {
       const today = new Date().toISOString().slice(0, 10);
-      const last = verses[verses.length - 1];
-      setLastRead(surahId, last.ayahNo, new Date().toISOString());
-      verses.forEach((v) => {
-        markVerseRead(surahId, v.ayahNo, today);
-        OfflineSyncService.recordReading(surahId, v.ayahNo, 20);
-      });
+      setLastRead(surahId, activeAyah, new Date().toISOString());
+      markVerseRead(surahId, activeAyah, today);
+      OfflineSyncService.recordReading(surahId, activeAyah, 20);
     }
-  }, [verses, surahId, markVerseRead, setLastRead]);
+  }, [activeAyah, surahId, verses.length, markVerseRead, setLastRead]);
 
   // Aktif okunan ayet değiştiğinde otomatik scroll (ekran odağı)
+  // Sadece ses çalarken veya elle kaydırma modunda değilken scrollTo yapılır
   useEffect(() => {
-    const layout = verseLayouts.current[activeAyah];
-    if (layout && scrollViewRef.current) {
-      const targetY = Math.max(0, layout.y - 70);
-      scrollViewRef.current.scrollTo({ y: targetY, animated: true });
+    if (isPlaying && !isUserScrollingRef.current) {
+      const layout = verseLayouts.current[activeAyah];
+      if (layout && scrollViewRef.current) {
+        const targetY = Math.max(0, layout.y - 70);
+        scrollViewRef.current.scrollTo({ y: targetY, animated: true });
+      }
     }
-  }, [activeAyah]);
+  }, [activeAyah, isPlaying]);
+
+  const nextSurah = mockSurahs.find((s) => s.id === surahId + 1);
+  const currentSurah = mockSurahs.find((s) => s.id === surahId);
+  const totalVerses = currentSurah?.verseCount || verses.length;
+
+  // Header'da surenin ismini ve toplam ayet sayısını göster
+  useEffect(() => {
+    const surahTitle = currentSurah ? currentSurah.nameTr : `Sure ${surahId}`;
+    const verseCountText = totalVerses > 0 ? `${totalVerses} Ayet` : '';
+
+    navigation.setOptions({
+      headerTitle: () => (
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <StyledText variant="subhead" color="ink" style={{ fontWeight: '700', fontSize: 16 }}>
+            {surahTitle}
+          </StyledText>
+          {verseCountText ? (
+            <StyledText variant="caption" color="mut" style={{ fontSize: 11, marginTop: 1 }}>
+              {verseCountText}
+              {currentSurah?.nameAr ? ` · ${currentSurah.nameAr}` : ''}
+            </StyledText>
+          ) : null}
+        </View>
+      ),
+      headerTitleAlign: 'center',
+    });
+  }, [navigation, currentSurah, totalVerses, surahId]);
+
+  // Ayet seçimi/tıklanması veya odaklanmasında state güncellemesi ve sayaca ekleme
+  const handleAyahSelect = (ayahNo: number) => {
+    setActiveAyah(ayahNo);
+    setSelectedAyahNo(ayahNo);
+    const today = new Date().toISOString().slice(0, 10);
+    setLastRead(surahId, ayahNo, new Date().toISOString());
+    markVerseRead(surahId, ayahNo, today);
+    OfflineSyncService.recordReading(surahId, ayahNo, 20);
+  };
+
+  const handleNextStep = () => {
+    if (activeAyah < verses.length) {
+      const nextAyah = activeAyah + 1;
+      isUserScrollingRef.current = false;
+      handleAyahSelect(nextAyah);
+      const layout = verseLayouts.current[nextAyah];
+      if (layout && scrollViewRef.current) {
+        scrollViewRef.current.scrollTo({ y: Math.max(0, layout.y - 70), animated: true });
+      }
+    } else if (surahId < 114) {
+      navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1 });
+    }
+  };
+
+  // Elle scroll yapıldığında sayfada belirli süre durulan ayeti tespit etme ve odaklama (auto-focus)
+  const handleScrollPosition = (scrollY: number) => {
+    if (isPlaying) return; // Ses çalarken karaoke odağı geçerlidir
+
+    if (scrollSettleTimerRef.current) {
+      clearTimeout(scrollSettleTimerRef.current);
+    }
+
+    // Scroll durduktan 400ms sonra kullanıcının göz hizasındaki ayeti odakla
+    scrollSettleTimerRef.current = setTimeout(() => {
+      const focusTargetY = scrollY + 110;
+      let closestAyah = activeAyah;
+      let minDistance = Infinity;
+
+      const lastVerse = verses[verses.length - 1];
+      const lastAyahNo = lastVerse?.ayahNo;
+      const lastLayout = lastAyahNo ? verseLayouts.current[lastAyahNo] : undefined;
+
+      // Eğer son ayetin hizasına gelinmişse veya geçilmişse doğrudan son ayeti odakla
+      if (lastLayout && focusTargetY >= lastLayout.y - 50) {
+        closestAyah = lastAyahNo;
+      } else {
+        const entries = Object.entries(verseLayouts.current);
+        for (const [ayahStr, layout] of entries) {
+          const ayahNo = Number(ayahStr);
+          if (focusTargetY >= layout.y && focusTargetY <= layout.y + layout.height) {
+            closestAyah = ayahNo;
+            break;
+          }
+          const dist = Math.abs(layout.y - focusTargetY);
+          if (dist < minDistance) {
+            minDistance = dist;
+            closestAyah = ayahNo;
+          }
+        }
+      }
+
+      if (closestAyah && closestAyah !== activeAyah) {
+        isUserScrollingRef.current = true;
+        handleAyahSelect(closestAyah);
+      }
+
+      setTimeout(() => {
+        isUserScrollingRef.current = false;
+      }, 300);
+    }, 400);
+  };
 
   // Simulated word-by-word karaoke sync timer when playing
   useEffect(() => {
@@ -391,12 +501,14 @@ export function ReadingScreen({ route, navigation }: Props) {
   };
 
   const handleWordPress = (word: Word, verse: Verse) => {
+    handleAyahSelect(verse.ayahNo);
     setSelectedWord(word);
     setSelectedVerse(verse);
     setBottomSheetVisible(true);
   };
 
   const handleConceptPress = (ayahNo: number, slug: string) => {
+    handleAyahSelect(ayahNo);
     if (chainAyah === ayahNo && activeChain[0] === slug) {
       setActiveChain([]);
       setChainAyah(null);
@@ -453,13 +565,32 @@ export function ReadingScreen({ route, navigation }: Props) {
               paddingHorizontal: theme.spacing.lg,
             }}
             showsVerticalScrollIndicator={false}
+            scrollEventThrottle={32}
+            onScrollBeginDrag={() => {
+              isUserScrollingRef.current = true;
+              if (scrollSettleTimerRef.current) {
+                clearTimeout(scrollSettleTimerRef.current);
+              }
+            }}
+            onScroll={(e) => {
+              handleScrollPosition(e.nativeEvent.contentOffset.y);
+            }}
+            onScrollEndDrag={(e) => {
+              handleScrollPosition(e.nativeEvent.contentOffset.y);
+            }}
+            onMomentumScrollEnd={(e) => {
+              handleScrollPosition(e.nativeEvent.contentOffset.y);
+            }}
           >
             {verses.map((v) => (
               <VerseCard
                 key={v.id}
                 verse={v}
-                isVerseActive={(isPlaying && activeAyah === v.ayahNo) || selectedAyahNo === v.ayahNo}
+                isVerseActive={activeAyah === v.ayahNo || selectedAyahNo === v.ayahNo}
                 activeWordIndex={isPlaying && activeAyah === v.ayahNo ? activeWordIndex : null}
+                onCardPress={() => {
+                  handleAyahSelect(v.ayahNo);
+                }}
                 onWordPress={handleWordPress}
                 onBookmarkToggle={() => toggleBookmark(v.ayahNo)}
                 isBookmarked={bookmarkedSet.has(v.ayahNo)}
@@ -486,6 +617,87 @@ export function ReadingScreen({ route, navigation }: Props) {
                 onOpenDag={handleOpenDag}
               />
             ))}
+
+            {/* Alt Boşluk ve Sonraki Ayete/Sureye Geç Butonu */}
+            <View
+              style={{
+                marginTop: theme.spacing.xl,
+                marginBottom: Math.max(380, Dimensions.get('window').height * 0.55),
+                paddingHorizontal: theme.spacing.xs,
+                alignItems: 'stretch',
+                gap: 10,
+              }}
+            >
+              <Pressable
+                onPress={handleNextStep}
+                style={({ pressed }) => ({
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingVertical: 14,
+                  paddingHorizontal: 18,
+                  borderRadius: 14,
+                  backgroundColor: theme.colors.surf,
+                  borderWidth: 1.5,
+                  borderColor: pressed ? theme.colors.acc : theme.colors.line,
+                  opacity: pressed ? 0.85 : 1,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.05,
+                  shadowRadius: 6,
+                  elevation: 2,
+                })}
+              >
+                <View style={{ flex: 1, marginRight: 12 }}>
+                  <StyledText variant="body" color="ink" style={{ fontWeight: '600', fontSize: 15 }}>
+                    {activeAyah < verses.length
+                      ? 'Sonraki Ayete Geç'
+                      : nextSurah
+                      ? 'Sıradaki Sureye Geç'
+                      : 'Sureyi Tamamladınız'}
+                  </StyledText>
+                  <StyledText variant="caption" color="faint" style={{ fontSize: 12, marginTop: 2 }}>
+                    {activeAyah < verses.length
+                      ? `${activeAyah + 1}. Ayete odaklan (${activeAyah + 1} / ${verses.length})`
+                      : nextSurah
+                      ? `${nextSurah.nameTr} (${nextSurah.nameAr} · ${nextSurah.verseCount} Ayet)`
+                      : 'Kur\'an-ı Kerim Hatmi'}
+                  </StyledText>
+                </View>
+
+                <View
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 18,
+                    backgroundColor: theme.colors.accSoft,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <StyledText variant="body" color="acc" style={{ fontSize: 16, fontWeight: '700' }}>
+                    {activeAyah < verses.length ? '↓' : '→'}
+                  </StyledText>
+                </View>
+              </Pressable>
+
+              {activeAyah < verses.length && nextSurah && (
+                <Pressable
+                  onPress={() => navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1 })}
+                  style={({ pressed }) => ({
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 8,
+                    opacity: pressed ? 0.6 : 0.85,
+                  })}
+                >
+                  <StyledText variant="caption" color="mut" style={{ fontSize: 12 }}>
+                    Sıradaki Sureye Atla: {nextSurah.nameTr} →
+                  </StyledText>
+                </Pressable>
+              )}
+            </View>
           </ScrollView>
 
           {/* Floating Audio Playback Dock */}

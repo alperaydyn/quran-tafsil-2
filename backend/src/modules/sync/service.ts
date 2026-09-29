@@ -376,12 +376,17 @@ export class SyncService {
       };
     });
 
+    const totalVersesInDays = timeline.reduce(
+      (acc, day) => acc + day.surah_readings.reduce((sAcc, s) => sAcc + s.toplam_ayet, 0),
+      0
+    );
+
     return {
       user_id: userId,
       days: timeline,
       summary: {
         total_days: sortedDays.length,
-        total_verses: historyRes.rows.length,
+        total_verses: totalVersesInDays,
         total_concepts: conceptRes.rows.length,
         total_memorizations: memorizationRes.rows.length
       }

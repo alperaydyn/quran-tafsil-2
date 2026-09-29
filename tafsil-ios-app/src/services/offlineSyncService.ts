@@ -291,9 +291,17 @@ export class OfflineSyncService {
       const rawMemorization = await mmkvStorage.getItem(MEMORIZATION_HISTORY_KEY);
       const memorizationList: OfflineMemorizationItem[] = rawMemorization ? JSON.parse(rawMemorization) : [];
 
-      // Eğer cihazda henüz hiç okuma yoksa zengin örnek veri hazırla
+      // Eğer cihazda henüz hiç okuma yoksa boş timeline dön (asla sahte/örnek veri gösterme)
       if (historyList.length === 0 && conceptList.length === 0 && memorizationList.length === 0) {
-        return this.getSampleTimeline();
+        return {
+          days: [],
+          summary: {
+            total_days: 0,
+            total_verses: 0,
+            total_concepts: 0,
+            total_memorizations: 0,
+          },
+        };
       }
 
       // Tarih gruplaması
@@ -389,7 +397,7 @@ export class OfflineSyncService {
             sure_adi: s.sure_adi,
             ayet_araliklari: rangeText,
             etiket: `${s.sure_adi} (${rangeText})`,
-            toplam_ayet: s.ayahs.length,
+            toplam_ayet: Array.from(new Set(s.ayahs)).length,
             toplam_sure_sn: s.duration,
           };
         });
@@ -424,152 +432,42 @@ export class OfflineSyncService {
         };
       });
 
+      const totalVersesInDays = timeline.reduce(
+        (acc, day) => acc + day.surah_readings.reduce((sAcc, s) => sAcc + s.toplam_ayet, 0),
+        0
+      );
+
       return {
         days: timeline,
         summary: {
           total_days: sortedDays.length,
-          total_verses: historyList.length,
+          total_verses: totalVersesInDays,
           total_concepts: conceptList.length,
           total_memorizations: memorizationList.length,
         },
       };
     } catch {
-      return this.getSampleTimeline();
+      return {
+        days: [],
+        summary: {
+          total_days: 0,
+          total_verses: 0,
+          total_concepts: 0,
+          total_memorizations: 0,
+        },
+      };
     }
   }
 
-  /**
-   * Kullanıcının talebindeki tam örneği yansıtan editoryal tohum veri
-   */
-  static getSampleTimeline(): ReadingTimelineResult {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const yesterdayDate = new Date(Date.now() - 86400000);
-    const yesterdayStr = yesterdayDate.toISOString().slice(0, 10);
-    const twoDaysAgoDate = new Date(Date.now() - 2 * 86400000);
-    const twoDaysAgoStr = twoDaysAgoDate.toISOString().slice(0, 10);
-
-    return {
-      days: [
-        {
-          date: todayStr,
-          title: 'Bugün',
-          total_items: 4,
-          surah_readings: [
-            {
-              type: 'surah_reading',
-              sure_id: 1,
-              sure_adi: 'Fâtiha',
-              ayet_araliklari: '1-7',
-              etiket: 'Fâtiha (1-7)',
-              toplam_ayet: 7,
-              toplam_sure_sn: 180,
-            },
-            {
-              type: 'surah_reading',
-              sure_id: 2,
-              sure_adi: 'Bakara',
-              ayet_araliklari: '12-25, 45-67',
-              etiket: 'Bakara (12-25, 45-67)',
-              toplam_ayet: 37,
-              toplam_sure_sn: 520,
-            },
-          ],
-          concepts: [
-            {
-              type: 'concept',
-              kavram_slug: 'rabb',
-              kavram_adi: 'Rab',
-              etiket: 'Kavram: Rab',
-              toplam_sure_sn: 120,
-              time: '14:20',
-            },
-          ],
-          memorizations: [
-            {
-              type: 'memorization',
-              oturum_id: 'm-1',
-              oturum_adi: 'Fâtiha (1-7) Ezber Oturumu',
-              etiket: 'Ezber: Fâtiha (1-7) Ezber Oturumu',
-              sure_adi: 'Fâtiha',
-              aralik: '1-7',
-              durum: 'pekistirildi',
-              time: '11:45',
-            },
-          ],
-        },
-        {
-          date: yesterdayStr,
-          title: 'Dün',
-          total_items: 3,
-          surah_readings: [
-            {
-              type: 'surah_reading',
-              sure_id: 96,
-              sure_adi: 'Alak',
-              ayet_araliklari: '1-5',
-              etiket: 'Alak (1-5)',
-              toplam_ayet: 5,
-              toplam_sure_sn: 120,
-            },
-          ],
-          concepts: [
-            {
-              type: 'concept',
-              kavram_slug: 'hamd',
-              kavram_adi: 'Hamd',
-              etiket: 'Kavram: Hamd',
-              toplam_sure_sn: 90,
-              time: '16:10',
-            },
-          ],
-          memorizations: [
-            {
-              type: 'memorization',
-              oturum_id: 'm-2',
-              oturum_adi: 'İlk Vahiy (Alak 1-5) Ezber Oturumu',
-              etiket: 'Ezber: İlk Vahiy (Alak 1-5) Ezber Oturumu',
-              sure_adi: 'Alak',
-              aralik: '1-5',
-              durum: 'ogreniliyor',
-              time: '10:30',
-            },
-          ],
-        },
-        {
-          date: twoDaysAgoStr,
-          title: twoDaysAgoDate.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', weekday: 'long' }),
-          total_items: 2,
-          surah_readings: [
-            {
-              type: 'surah_reading',
-              sure_id: 2,
-              sure_adi: 'Bakara',
-              ayet_araliklari: '255',
-              etiket: 'Bakara (255)',
-              toplam_ayet: 1,
-              toplam_sure_sn: 85,
-            },
-          ],
-          concepts: [
-            {
-              type: 'concept',
-              kavram_slug: 'rahmet',
-              kavram_adi: 'Rahmet',
-              etiket: 'Kavram: Rahmet',
-              toplam_sure_sn: 140,
-              time: '18:50',
-            },
-          ],
-          memorizations: [],
-        },
-      ],
-      summary: {
-        total_days: 3,
-        total_verses: 50,
-        total_concepts: 3,
-        total_memorizations: 2,
-      },
-    };
+  static async clearHistory(): Promise<void> {
+    try {
+      await mmkvStorage.removeItem(HISTORY_KEY);
+      await mmkvStorage.removeItem(CONCEPT_HISTORY_KEY);
+      await mmkvStorage.removeItem(MEMORIZATION_HISTORY_KEY);
+      await mmkvStorage.removeItem(DAILY_COUNTS_KEY);
+    } catch {
+      // ignore
+    }
   }
 
   static async syncWithServer(apiBaseUrl: string = 'http://localhost:4000/api/v1'): Promise<boolean> {
