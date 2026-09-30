@@ -10,7 +10,12 @@
     "studio": "node elevenlabs/server.js",
     "batch": "node elevenlabs/batch.js",
     "sync:recitations": "node scripts/sync-quran-recitations.js",
-    "sync:all": "node scripts/sync-quran-recitations.js --all"
+    "sync:all": "node scripts/sync-quran-recitations.js --all",
+    "upload:r2": "node scripts/upload-to-r2.js"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1143.0",
+    "dotenv": "^18.0.5"
+  }
 }

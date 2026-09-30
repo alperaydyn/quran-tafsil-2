@@ -62,6 +62,8 @@ temp/
 coverage/
 .turbo/
 
-# Data Pipeline temporary cache
+# Data Pipeline temporary cache and large media (hosted on Cloudflare R2)
 data-pipeline/cache/
 data-pipeline/elevenlabs/output/
+data-pipeline/output/audio/
+data-pipeline/output/timestamps/
