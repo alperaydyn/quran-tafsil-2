@@ -25,6 +25,7 @@ class AudioPlayerService {
   private hasFinishedVerse: boolean = false;
   private stallCounter: number = 0;
   private lastPositionMs: number = -1;
+  private isUserPlaying: boolean = false;
 
   private onStateChange: PlaybackStateListener | null = null;
   private onVerseFinish: VerseFinishListener | null = null;
@@ -73,12 +74,13 @@ class AudioPlayerService {
     this.lastPositionMs = -1;
   }
 
-  private startTracking(loadId: number) {
+  private startTracking() {
     this.stopTracking();
     this.hasFinishedVerse = false;
+    const trackedPlayer = this.player;
 
     this.trackingInterval = setInterval(() => {
-      if (loadId !== this.loadId || !this.player) {
+      if (!this.isUserPlaying || !this.player || this.player !== trackedPlayer) {
         this.stopTracking();
         return;
       }
@@ -89,7 +91,7 @@ class AudioPlayerService {
         const isBuffering = Boolean(this.player.isBuffering);
         const isPlaying = Boolean(this.player.playing);
 
-        this.processPlaybackTick(curTime, dur, isPlaying, isBuffering, loadId);
+        this.processPlaybackTick(curTime, dur, isPlaying, isBuffering);
       } catch (e) {
         // Ticker error guard
       }
@@ -100,18 +102,18 @@ class AudioPlayerService {
     curTimeSec: number,
     durSec: number,
     isNativePlaying: boolean,
-    isBuffering: boolean,
-    loadId: number
+    isBuffering: boolean
   ) {
-    if (loadId !== this.loadId) return;
+    if (!this.isUserPlaying) {
+      this.stopTracking();
+      return;
+    }
 
     const positionMs = Math.round(curTimeSec * 1000);
     const durationMs = Math.round(durSec * 1000);
 
     // Watchdog / Stall Recovery:
-    // Eğer kullanıcı oynatıyor modundaysa (this.state.isPlaying === true)
-    // ancak player oynamıyorsa ve buffer'da takılı kalmışsa otomatik toparla
-    if (this.state.isPlaying && !this.hasFinishedVerse) {
+    if (this.isUserPlaying && !this.hasFinishedVerse) {
       if (!isNativePlaying && !isBuffering && durationMs > 0 && positionMs < durationMs - 300) {
         this.stallCounter++;
         // 3 tick (~240ms) boyunca asılı kaldıysa resume sinyali gönder
@@ -151,15 +153,14 @@ class AudioPlayerService {
     }
 
     this.notify({
-      isPlaying: isNativePlaying || this.state.isPlaying,
+      isPlaying: this.isUserPlaying,
       isBuffering,
       durationMs,
       positionMs,
       activeWordIndex,
     });
 
-    // Ayet bitiş tespiti:
-    // Sadece ses dosyasının gerçekten sonuna gelindiğinde tetikle
+    // Ayet bitiş tespiti
     if (
       !this.hasFinishedVerse &&
       durationMs > 1000 &&
@@ -169,10 +170,35 @@ class AudioPlayerService {
       this.hasFinishedVerse = true;
       this.stopTracking();
       this.notify({ activeWordIndex: null });
-      this.onVerseFinish?.();
+      if (this.isUserPlaying) {
+        this.onVerseFinish?.();
+      }
     }
 
     this.lastPositionMs = positionMs;
+  }
+
+  private async unloadCurrentPlayer() {
+    this.stopTracking();
+    if (this.subscription) {
+      try {
+        this.subscription.remove();
+      } catch (e) {
+        // Guard
+      }
+      this.subscription = null;
+    }
+    if (this.player) {
+      try {
+        const playerToRelease = this.player;
+        this.player = null;
+        playerToRelease.pause();
+        playerToRelease.release();
+      } catch (e) {
+        console.warn('[AudioPlayerService] unloadCurrentPlayer error:', e);
+      }
+    }
+    this.currentUrl = null;
   }
 
   /**
@@ -184,25 +210,29 @@ class AudioPlayerService {
     const currentLoadId = ++this.loadId;
     this.words = words;
     this.hasFinishedVerse = false;
+    this.isUserPlaying = shouldPlay;
 
     // Eğer aynı URL zaten yüklüyse tekrar createAudioPlayer yapma
     if (this.player && this.currentUrl === url) {
       if (shouldPlay) {
         try {
           this.player.play();
-          this.startTracking(currentLoadId);
-          this.notify({ isPlaying: true });
+          this.startTracking();
+          this.notify({ isPlaying: true, isBuffering: false });
         } catch (e) {
           console.warn('[AudioPlayerService] resume error:', e);
         }
+      } else {
+        this.pause();
       }
       return;
     }
 
-    // Önceki sesi ve izleme döngüsünü temizle
-    await this.stopAndUnload();
+    // Önceki player nesnesini temizle (loadId'yi bozmadan)
+    await this.unloadCurrentPlayer();
 
-    if (currentLoadId !== this.loadId) return;
+    // Bu süreçte başka bir oynatma isteği geldiyse veya kullanıcı pause'a bastıysa dur
+    if (currentLoadId !== this.loadId || !this.isUserPlaying) return;
 
     this.currentUrl = url;
     this.notify({
@@ -220,10 +250,16 @@ class AudioPlayerService {
       }
 
       this.subscription = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
-        if (currentLoadId !== this.loadId) return;
+        // Player değiştiyse veya kullanıcı durdurduysa işlem yapma
+        if (this.player !== player || !this.isUserPlaying) return;
 
-        // Ağdan ses hazır olduğunda ve çalması gerekiyorsa oynamayı garanti et
-        if (status.isLoaded && shouldPlay && !status.playing && !status.didJustFinish && !this.hasFinishedVerse) {
+        // Ağdan ses yüklendiğinde ve kullanıcı çalmak istiyorsa başlat
+        if (
+          status.isLoaded &&
+          !status.playing &&
+          !status.didJustFinish &&
+          !this.hasFinishedVerse
+        ) {
           try {
             player.play();
           } catch (e) {
@@ -235,20 +271,23 @@ class AudioPlayerService {
           this.hasFinishedVerse = true;
           this.stopTracking();
           this.notify({ activeWordIndex: null });
-          this.onVerseFinish?.();
+          if (this.isUserPlaying) {
+            this.onVerseFinish?.();
+          }
         }
       });
 
       this.player = player;
 
-      if (shouldPlay) {
+      if (this.isUserPlaying) {
         player.play();
-        this.startTracking(currentLoadId);
+        this.startTracking();
       }
     } catch (err: any) {
       console.warn('[AudioPlayerService] Play error:', err);
       if (currentLoadId === this.loadId) {
         this.stopTracking();
+        this.isUserPlaying = false;
         this.notify({
           isPlaying: false,
           isBuffering: false,
@@ -259,22 +298,25 @@ class AudioPlayerService {
   }
 
   pause() {
+    this.loadId++; // Asenkron bekleyen playAyah isteklerini geçersiz kıl
+    this.isUserPlaying = false;
     this.stopTracking();
     if (this.player) {
       try {
         this.player.pause();
-        this.notify({ isPlaying: false });
       } catch (e) {
         console.warn('[AudioPlayerService] pause error:', e);
       }
     }
+    this.notify({ isPlaying: false, activeWordIndex: null });
   }
 
   resume() {
     if (this.player) {
       try {
+        this.isUserPlaying = true;
         this.player.play();
-        this.startTracking(this.loadId);
+        this.startTracking();
         this.notify({ isPlaying: true });
       } catch (e) {
         console.warn('[AudioPlayerService] resume error:', e);
@@ -294,22 +336,10 @@ class AudioPlayerService {
   }
 
   async stopAndUnload() {
-    this.stopTracking();
-    if (this.subscription) {
-      this.subscription.remove();
-      this.subscription = null;
-    }
-    if (this.player) {
-      try {
-        const playerToRelease = this.player;
-        this.player = null;
-        playerToRelease.pause();
-        playerToRelease.release();
-      } catch (e) {
-        console.warn('[AudioPlayerService] stopAndUnload error:', e);
-      }
-    }
-    this.currentUrl = null;
+    this.loadId++;
+    this.isUserPlaying = false;
+    await this.unloadCurrentPlayer();
+    this.notify({ isPlaying: false, activeWordIndex: null });
   }
 }
 

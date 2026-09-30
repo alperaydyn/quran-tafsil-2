@@ -523,6 +523,9 @@ export function ReadingScreen({ route, navigation }: Props) {
         }
       },
       () => {
+        // Kullanıcı duraklatmışsa ayet geçişi yapma
+        if (!isPlayingRef.current) return;
+
         // Ayet tilaveti tamamlandığında: sonraki ayete veya sureye geç
         const currentAyahVal = activeAyahRef.current;
         const versesVal = versesRef.current;
@@ -548,6 +551,7 @@ export function ReadingScreen({ route, navigation }: Props) {
   useEffect(() => {
     if (!isPlaying) {
       audioPlayerService.pause();
+      setActiveWordIndex(null);
       return;
     }
 
@@ -829,7 +833,14 @@ export function ReadingScreen({ route, navigation }: Props) {
               audioPlayerService.setRate(rate);
             }}
             onTogglePlay={() => {
-              setIsPlaying((prev) => !prev);
+              setIsPlaying((prev) => {
+                const next = !prev;
+                if (!next) {
+                  audioPlayerService.pause();
+                  setActiveWordIndex(null);
+                }
+                return next;
+              });
             }}
             onNextVerse={() => {
               if (activeAyah < verses.length) {
