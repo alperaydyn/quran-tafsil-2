@@ -24,10 +24,24 @@ export const USE_MOCK = {
   verses: false,
 };
 
+export const CLOUDFLARE_R2_BASE_URL =
+  Constants.expoConfig?.extra?.audioBaseUrl ??
+  process.env.EXPO_PUBLIC_AUDIO_BASE_URL ??
+  'https://pub-1e751d4548754d5eb3de46964f0f8d9d.r2.dev';
+
 export function getAyahAudioUrl(surahId: number, ayahNo: number): string {
-  const s = String(surahId).padStart(3, '0');
-  const a = String(ayahNo).padStart(3, '0');
-  return `https://everyayah.com/data/Alafasy_128kbps/${s}${a}.mp3`;
+  // Cloudflare R2: audio/{surah}_{ayah}.mp3
+  return `${CLOUDFLARE_R2_BASE_URL}/audio/${surahId}_${ayahNo}.mp3`;
+}
+
+export function getAyahTimestampUrl(surahId: number, ayahNo: number): string {
+  // Cloudflare R2: timestamps/{surah}_{ayah}.json
+  return `${CLOUDFLARE_R2_BASE_URL}/timestamps/${surahId}_${ayahNo}.json`;
+}
+
+export function getSurahTimestampUrl(surahId: number): string {
+  // Cloudflare R2: timestamps/surahs/{surah}.json
+  return `${CLOUDFLARE_R2_BASE_URL}/timestamps/surahs/${surahId}.json`;
 }
 
 function getVersesFromSnapshot(surahId: number): Verse[] {

@@ -508,6 +508,11 @@ export function ReadingScreen({ route, navigation }: Props) {
     handleScrollPosition(contentOffset.y);
   };
 
+  // Sure açıldığında Cloudflare R2'den taze zaman damgalarını arka planda önbelleğe al
+  useEffect(() => {
+    TimestampService.fetchSurahTimestampsFromR2(surahId);
+  }, [surahId]);
+
   // Audio player listener ve unmount temizliği
   useEffect(() => {
     audioPlayerService.setListeners(

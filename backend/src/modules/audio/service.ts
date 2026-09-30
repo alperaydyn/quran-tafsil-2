@@ -104,8 +104,9 @@ export class AudioService {
 
     for (let ayetNo = 1; ayetNo <= totalAyah; ayetNo++) {
       const audioInfo = audioMap.get(ayetNo);
-      // Fallback canonical audio url if not in DB
-      const sesUrl = audioInfo?.ses_url || `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${sureId}_${ayetNo}.mp3`;
+      // Fallback canonical audio url from Cloudflare R2 if not in DB
+      const r2Base = process.env.AUDIO_BASE_URL || "https://pub-1e751d4548754d5eb3de46964f0f8d9d.r2.dev";
+      const sesUrl = audioInfo?.ses_url || `${r2Base}/audio/${sureId}_${ayetNo}.mp3`;
       const format = audioInfo?.format || "audio/mp3";
       const words = wordsByAyah.get(ayetNo) || [];
 
