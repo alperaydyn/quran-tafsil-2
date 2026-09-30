@@ -27,7 +27,7 @@ export const USE_MOCK = {
 export const CLOUDFLARE_R2_BASE_URL =
   Constants.expoConfig?.extra?.audioBaseUrl ??
   process.env.EXPO_PUBLIC_AUDIO_BASE_URL ??
-  'https://pub-1e751d4548754d5eb3de46964f0f8d9d.r2.dev';
+  'https://audio.tafsil.net';
 
 export function getAyahAudioUrl(surahId: number, ayahNo: number): string {
   // Cloudflare R2: audio/{surah}_{ayah}.mp3

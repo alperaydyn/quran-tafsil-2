@@ -48,7 +48,7 @@
       "expo-asset"
     ],
     "extra": {
-      "audioBaseUrl": "https://pub-1e751d4548754d5eb3de46964f0f8d9d.r2.dev",
+      "audioBaseUrl": "https://audio.tafsil.net",
       "eas": {
         "projectId": "REPLACE_WITH_EAS_PROJECT_ID"
       }
