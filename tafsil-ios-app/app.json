@@ -50,6 +50,7 @@
     "extra": {
       "audioBaseUrl": "https://audio.tafsil.net",
       "eas": {
+        // TODO(pre-release): Replace with EAS Project ID once project is registered on expo.dev
         "projectId": "REPLACE_WITH_EAS_PROJECT_ID"
       }
     }

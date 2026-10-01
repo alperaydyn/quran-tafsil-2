@@ -18,3 +18,4 @@ Key Constraints:
 - Maintain premium editorial aesthetics; never use cliché ornate decorations.
 - Maintain offline-first parity for core mobile reading and spaced repetition flows.
 - Keep all direct LLM operations strictly in the backend orchestrated via OpenRouter.
+- PRD, Decisions & Anti-Drift: Consult DEVELOPMENT_LOG.md and README.md before making changes to prevent conflicting with past decisions. Log new architectural decisions, rationale, affected files, and commit messages to DEVELOPMENT_LOG.md.

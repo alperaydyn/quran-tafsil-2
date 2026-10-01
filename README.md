@@ -505,38 +505,43 @@ Platformun büyüme, kullanım ve gelir performansını izlemek için analitik a
 
 ## Yol Haritası (Roadmap)
 
-Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Her faz bir öncekinin tamamlanmasına bağlı değildir; paralel çalışma yapılabilir.
+Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Statü göstergeleri:
+- 🟢 **Tamamlandı**: Geliştirildi, test edildi veya yayına hazır.
+- 🟡 **Devam Ediyor**: Aktif olarak üzerinde çalışılıyor veya kısmen entegre edildi.
+- ⏳ **Planlandı**: Tasarım/şartname hazır, geliştirme sırasını bekliyor.
+
+---
 
 ### Faz 1 — Temel Okuma Deneyimi (MVP)
-* Kur'an okuma ekranı (mushaf sırası, ayet blokları, meal, transliterasyon)
-* Kelime senkron sesli okuma (Arapça tilavet + Türkçe meal)
-* Kapsamlı kelime sözlüğü (hızlı özet + detay sayfası)
-* Kullanıcı kayıt (Apple/Google Sign-In)
-* Mod seçimi ile onboarding
-* Offline okuma altyapısı (yerel SQLite senkronizasyonu)
-* 114 sure ilerleme matrisi (Okuduklarım)
+* 🟢 **Kur'an okuma ekranı:** Mushaf sırası, ayet blokları, varsayılan meal, fonetik transliterasyon ve akıcı okuma düzeni.
+* 🟡 **Kelime senkron sesli okuma:** Arapça tilavet + Türkçe meal stüdyo seslendirmesi (Cloudflare R2, `audio.tafsil.net`, ElevenLabs stüdyosu ve zaman damgası senkronu).
+* 🟢 **Kapsamlı kelime sözlüğü:** Hızlı alt özet çekmecesi, kelime detay sayfası, morfolojik kök ve lemma eşlemeleri.
+* 🟡 **Kullanıcı kayıt ve kimlik doğrulama:** Apple Sign-In & Google Sign-In istemci katmanı ve backend JWT entegrasyonu.
+* 🟡 **Mod seçimi ile onboarding:** Keşif, Öğrenme ve Odak modları (tasarım hazır, onboarding akış entegrasyonu).
+* ⏳ **Offline okuma altyapısı:** Yerel SQLite / WatermelonDB çevrimdışı senkronizasyonu.
+* 🟡 **114 sure ilerleme matrisi:** Okuma durumu takibi ve sure listesi matrisi (Okuduklarım).
 
 ### Faz 2 — Ezberleme ve Kişiselleştirme
-* Ezber oturumları yönetim sayfası ve ezber stüdyosu (3 kademeli tur)
-* Aralıklı tekrar algoritması (SM-2 / Leitner)
-* Cihaz üzerinde STT (SFSpeechRecognizer) ile sesli ezber
-* Ezber ilerleme matrisi (Ezberlediklerim)
-* Dinamik ana ekran (günün kartları, akıllı devam kısayolları)
-* Push notification ile ezber hatırlatmaları
+* ⏳ **Ezber oturumları ve ezber stüdyosu:** 3 kademeli akordeon turu (Dinle/Takip Et, Gizle/Hatırla, Serbest Oku).
+* ⏳ **Aralıklı tekrar algoritması:** SM-2 / Leitner algoritmasıyla unutma eğrisi bazlı dinamik planlama.
+* ⏳ **Cihaz üzerinde STT ile sesli ezber:** `SFSpeechRecognizer` ile konuşurken açılan kelimeler (reveal-on-recite) ve akıllı fısıltı desteği.
+* ⏳ **Ezber ilerleme matrisi:** 114 sure üzerinde ezber derinliği görselleştirmesi (Ezberlediklerim).
+* ⏳ **Dinamik ana ekran dashboard'u:** Günün kartları (ayet/dua/namaz), akıllı okumaya devam et kısayolları.
+* ⏳ **Push notification:** Aralıklı tekrar zamanı gelen ayetler için akıllı hatırlatmalar.
 
-### Faz 3 — Derin Analiz ve Yapay Zeka
-* Kavram ağı ve interaktif DAG Explorer
-* Morfolojik kök analiz motoru
-* Kronolojik kavram evrimi (nüzul dönem analizi)
-* Anlama çalışmaları (Agentic RAG oturumları) — *Pro*
-* Detay oturumları (sistem tarafından hazırlanan) — *Free: statik, Pro: etkileşimli*
-* Premium abonelik altyapısı (RevenueCat / StoreKit)
+### Faz 3 — Derin Analiz ve Yapay Zeka (AI / RAG)
+* ⏳ **Kavram ağı ve interaktif DAG Explorer:** Canvas/SVG tabanlı yönlü çevrimsiz graf görselleştiricisi (zoom/pan, lazy expansion).
+* 🟡 **Morfolojik kök analiz motoru:** Kök tablosu, türev frekans matrisi ve kök arama motoru (veri katmanı tamamlandı, UI/analiz motoru entegre ediliyor).
+* ⏳ **Kronolojik kavram evrimi:** Nüzul dönemleri (Erken Mekke, Orta Mekke, Geç Mekke, Medine) bazlı anlam genişlemesi analizi.
+* ⏳ **Anlama çalışmaları (Agentic RAG):** Kullanıcı odaklı çok adımlı anlamsal araştırma, dinamik okuma rotası ve session branching — *Pro*.
+* ⏳ **Proaktif detay oturumları:** Kullanıcı ilgi izlerine göre arka planda derlenen kişiselleştirilmiş analiz paketleri (*Free: statik, Pro: etkileşimli*).
+* ⏳ **Premium abonelik altyapısı:** RevenueCat / Apple StoreKit entegrasyonu ve paywall akışları.
 
-### Faz 4 — Topluluk, Sosyal ve Büyüme
-* Topluluk kavram havuzu (paylaşım, beğenme, çatallama)
-* Dinamik önizleme kartları (Open Graph, Story Generator)
-* Derin bağlantılar (Deep Linking)
-* Makale yayınlama ve Kur'an referans doğrulama
-* Admin paneli ve içerik yönetimi
-* Platform analitiği ve A/B test altyapısı
-* Çoklu dil desteği genişletme (yeni çeviriler, TTS pipeline)
+### Faz 4 — Topluluk, Web ve Sosyal Büyüme
+* ⏳ **Topluluk kavram havuzu:** Kullanıcıların kavram ağlarını ve tefekkür notlarını paylaşması, beğenmesi, kendi profiline çatallaması (fork).
+* ⏳ **Dinamik önizleme ve paylaşım kartları:** Open Graph sosyal paylaşım kartları ve Story Generator.
+* ⏳ **Derin bağlantılar (Deep Linking):** Sure, ayet ve kavram bağlantılarının web ve mobil arasında kesintisiz açılması.
+* ⏳ **Makale yayınlama ve referans doğrulama:** Editoryal içerikler ve Kur'an referans doğrulama algoritması.
+* ⏳ **Admin paneli ve içerik yönetimi:** Cümle segmentasyonu, kavram moderasyonu ve sistem izleme paneli.
+* ⏳ **Platform analitiği ve A/B test altyapısı:** Kullanıcı dönüşüm ve okuma metrikleri.
+* ⏳ **Çoklu dil desteği genişletme:** Yeni meal ve çeviriler, global TTS pipeline'ı.

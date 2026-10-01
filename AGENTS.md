@@ -86,6 +86,12 @@ Her ajan aşağıdaki değişmez ilkeleri gözetmekle yükümlüdür:
    - LLM çağrıları istemciden değil, Fastify backend üzerinden OpenRouter ile modele göre optimize edilerek (hızlı işler için Flash/Llama, akıl yürütme için Sonnet) çalıştırılmalıdır.
 5. **DAG (Yönlü Çevrimsiz Graf) Mantığı:**
    - Kavram ilişkileri PostgreSQL'de `adjacency list` ve recursive CTE ile çözülür. Mobil ve web tarafında ise lazy expansion (seçilen + 5 komşu) uygulanır.
+6. **PRD ve Doküman Uyumluluğu (README Alignment & Anti-Drift):**
+   - Her geliştirme adımında ve mimari kararda, yapılan işin `README.md` (PRD) belgesindeki fonksiyonel gereksinimlerle ve vizyonla tam uyumlu olduğu doğrulanmalıdır.
+   - Yapılan geliştirme bir roadmap maddesini tamamladıysa, kapsamını genişlettiyse ya da PRD'deki herhangi bir prensiple çelişiyorsa; ajan bu durumu her adım sonunda otomatik olarak kontrol etmeli, kullanıcıya bildirmeli ve gerekiyorsa `README.md` yol haritası statüsünü güncellemelidir.
+7. **Geliştirme ve Mimari Karar Günlüğü (`DEVELOPMENT_LOG.md`):**
+   - Her yeni geliştirme öncesinde `DEVELOPMENT_LOG.md` okunarak yeni yapılacak işin önceki mimari kararlarla (ör. ses saklama stratejisi, R2 kullanımı, veritabanı kuralları) çelişip çelişmediği denetlenmelidir.
+   - Geliştirme sonunda neyin neden yapıldığı, etkilenen bileşenler ve commit mesajı özeti `DEVELOPMENT_LOG.md` dosyasına yeni bir oturum başlığı olarak işlenmelidir.
 
 ---
 
@@ -94,6 +100,7 @@ Her ajan aşağıdaki değişmez ilkeleri gözetmekle yükümlüdür:
 ```
 kuran-tafsil-net/
 ├── README.md                      # Kapsamlı PRD dokümanı
+├── DEVELOPMENT_LOG.md             # Geliştirme, mimari kararlar ve oturum günlüğü
 ├── AGENTS.md                      # Bu dosya: Tüm ajanlar için ana anayasa
 ├── CLAUDE.md                      # Claude uyumlu ajan talimat köprüsü
 ├── .cursorrules                   # Cursor uyumlu ajan kural köprüsü
@@ -159,7 +166,12 @@ kuran-tafsil-net/
 ## 5. Ajanlar İçin Adım Adım İş Akışı
 
 Bir ajan çalışmaya başladığında şu adımları izlemelidir:
-1. **İlgili Tarif Dosyasını Oku:** Kendi alanına ait `docs/agents/XX-*.md` tarifini baştan sona oku.
+1. **İlgili Şartnameyi ve Geçmiş Kararları Oku:** Kendi alanına ait `docs/agents/XX-*.md` tarifini, `README.md`'yi ve `DEVELOPMENT_LOG.md` dosyasındaki son mimari kararları incele; çelişki oluşturmayacak şekilde planla.
 2. **Sözleşmeyi Doğrula:** Değişiklik yapacağın bileşenin diğer ajanların alanını (veri şeması, API sözleşmesi, dizin yapısı) bozmadığından emin ol.
 3. **Tasarım Referansını Kontrol Et:** UI bileşeni üretiyorsan `tafsil-ios-app/design/project/Tafsil.dc.html` dosyasındaki stillerle eşleştir.
 4. **Doğrula ve Test Et:** Kod sentaksını, tipleri ve olası yan etkileri kontrol et.
+5. **README & PRD Uyumluluğunu Otomatik Denetle:**
+   - Yapılan değişikliğin `README.md` (PRD) dokümanındaki prensip ve fonksiyonel tanımlarla çelişip çelişmediğini kontrol et.
+   - İlgili roadmap maddesi tamamlandıysa veya kapsamı değiştiyse `README.md` Yol Haritası statüsünü güncelle ve kullanıcıya raporla.
+6. **Geliştirme Günlüğünü Güncelle (`DEVELOPMENT_LOG.md`):**
+   - Oturumda nelerin neden yapıldığını, etkilenen bileşenleri ve commit mesajı önerisini günlüğe ekle.

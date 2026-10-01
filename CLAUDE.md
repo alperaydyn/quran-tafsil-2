@@ -13,3 +13,4 @@ See [AGENTS.md](file:///Users/alperaydin/Projects/kuran-tafsil-net/AGENTS.md) fo
   - `04-WEB-APP-AGENT.md`: Next.js / Web reader & OG share cards
   - `05-CONTENT-EDITORIAL-AGENT.md`: Editorial research, tafsir verification
 - **Design Source of Truth:** `tafsil-ios-app/design/project/Tafsil.dc.html`
+- **PRD, Decisions & Roadmap Alignment:** Consult `DEVELOPMENT_LOG.md` and `README.md` to prevent architectural drift; keep decisions and roadmap statuses documented and up-to-date.
