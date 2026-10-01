@@ -7,6 +7,28 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-01] Canlı Faz Backlog'u ve Pre-Release Gatekeeper Protokolü
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Canlı Faz Backlog Sistemi (`docs/roadmap/PHASE-1-MVP-BACKLOG.md`):**
+  * *Karar:* Faz 1'deki her üst başlık atomik PBI (Product Backlog Item) maddelerine ve kontrol kutucuklarına (`[x]`, `[ ]`) ayrıldı. Ajanların "Faz 1'e devam et" komutu aldığında doğrudan bu dosyayı okuyup sıradaki işi belirlemesi protokol haline getirildi.
+  * *Gerekçe:* Her oturumda PRD'yi ve tüm kod tabanını baştan tarama maliyetini (token/zaman) ortadan kaldırmak ve detayların unutulmasını engellemek.
+* **Pre-Release Kontrol PBI'ları ve Deferral Protokolü:**
+  * *Karar:* Her faz backlog'unun sonuna zorunlu bir "Pre-Release Gatekeeper" bölümü eklendi (Mock/dummy veri temizliği, localhost ve geçici URL denetimi, EAS Project ID / bundle config arındırması, kırık buton kontrolü).
+  * *Gerekçe:* Kodun her faz sonunda gerçekten release edilebilir hijyene kavuşması; ertelenen işlerin ise sonraki fazın backlog'una aktarılmadan fazın tamamlandı sayılamaması.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: Faz 1 canlı kontrol listesi ve Pre-Release PBI'ları oluşturuldu.
+* `AGENTS.md`: Madde 3.8 (Pre-Release Kapısı) ve Madde 5.1 & 5.5 (Backlog İcra İş Akışı) eklendi.
+* `DEVELOPMENT_LOG.md`: Bu karar oturumu işlendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+docs(process): establish live phase backlog and pre-release gatekeeper protocol
+```
+
+---
+
 ## [2026-10-01] Sesli Okuma Yol Haritası Düzeltmesi ve Meal Seslendirmesi Ayrımı
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

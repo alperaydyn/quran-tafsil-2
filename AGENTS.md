@@ -92,6 +92,10 @@ Her ajan aşağıdaki değişmez ilkeleri gözetmekle yükümlüdür:
 7. **Geliştirme ve Mimari Karar Günlüğü (`DEVELOPMENT_LOG.md`):**
    - Her yeni geliştirme öncesinde `DEVELOPMENT_LOG.md` okunarak yeni yapılacak işin önceki mimari kararlarla (ör. ses saklama stratejisi, R2 kullanımı, veritabanı kuralları) çelişip çelişmediği denetlenmelidir.
    - Geliştirme sonunda neyin neden yapıldığı, etkilenen bileşenler ve commit mesajı özeti `DEVELOPMENT_LOG.md` dosyasına yeni bir oturum başlığı olarak işlenmelidir.
+8. **Canlı Faz Backlog'u ve Pre-Release Kapısı (Backlog & Release Gatekeeper):**
+   - Her faz için atomik iş takibi `docs/roadmap/PHASE-X-*.md` dosyaları üzerinden yürütülür.
+   - Her fazın sonunda kodun mağazaya/kullanıcıya çıkacak olgunlukta olması için **Pre-Release Kontrol PBI'ları** (mock/dummy temizliği, localhost ve geçici URL arındırması, eksik EAS/Bundle ID konfigürasyonları) mutlaka denetlenir.
+   - İlgili fazda kalması zorunlu olan veya bilinçli olarak ertelenen unsurlar, bir sonraki fazın backlog dosyasına (`PHASE-(X+1)-BACKLOG.md`) yeni bir PBI olarak aktarılmadan faz kapatılamaz.
 
 ---
 
@@ -107,6 +111,8 @@ kuran-tafsil-net/
 ├── .gitignore                     # Git yoksayma kuralları
 │
 ├── docs/
+│   ├── roadmap/                   # Canlı faz backlog'ları ve pre-release kontrol listeleri
+│   │   └── PHASE-1-MVP-BACKLOG.md
 │   ├── agents/                    # Her uzmanlık ajanı için müstakil tarifler
 │   │   ├── 00-MASTER-BLUEPRINT.md
 │   │   ├── 01-DATA-PIPELINE-AGENT.md
@@ -166,12 +172,15 @@ kuran-tafsil-net/
 ## 5. Ajanlar İçin Adım Adım İş Akışı
 
 Bir ajan çalışmaya başladığında şu adımları izlemelidir:
-1. **İlgili Şartnameyi ve Geçmiş Kararları Oku:** Kendi alanına ait `docs/agents/XX-*.md` tarifini, `README.md`'yi ve `DEVELOPMENT_LOG.md` dosyasındaki son mimari kararları incele; çelişki oluşturmayacak şekilde planla.
+1. **İlgili Şartnameyi, Backlog'u ve Geçmiş Kararları Oku:**
+   - Kendi alanına ait `docs/agents/XX-*.md` tarifini ve `DEVELOPMENT_LOG.md` dosyasını incele.
+   - Kullanıcı *"Faz X'e devam et"*, *"Sıradaki işi yap"* vb. talimat verdiğinde doğrudan `docs/roadmap/PHASE-X-*.md` canlı backlog dosyasını açarak sıradaki tamamlanmamış `[ ]` görevi belirle. Kullanıcıya bildir ve başla.
 2. **Sözleşmeyi Doğrula:** Değişiklik yapacağın bileşenin diğer ajanların alanını (veri şeması, API sözleşmesi, dizin yapısı) bozmadığından emin ol.
 3. **Tasarım Referansını Kontrol Et:** UI bileşeni üretiyorsan `tafsil-ios-app/design/project/Tafsil.dc.html` dosyasındaki stillerle eşleştir.
 4. **Doğrula ve Test Et:** Kod sentaksını, tipleri ve olası yan etkileri kontrol et.
-5. **README & PRD Uyumluluğunu Otomatik Denetle:**
-   - Yapılan değişikliğin `README.md` (PRD) dokümanındaki prensip ve fonksiyonel tanımlarla çelişip çelişmediğini kontrol et.
-   - İlgili roadmap maddesi tamamlandıysa veya kapsamı değiştiyse `README.md` Yol Haritası statüsünü güncelle ve kullanıcıya raporla.
+5. **Backlog ve README Uyumluluğunu Otomatik Denetle:**
+   - Tamamlanan PBI için `docs/roadmap/PHASE-X-*.md` dosyasındaki ilgili checkbox'ı `[x]` yap.
+   - PRD veya Roadmap maddesi etkilendiyse `README.md` statülerini güncelle.
+   - Faz sonuna gelindiyse **Pre-Release Kontrol PBI'larını** (mock/dummy temizliği, config, sonraki faza aktarım) çalıştır.
 6. **Geliştirme Günlüğünü Güncelle (`DEVELOPMENT_LOG.md`):**
    - Oturumda nelerin neden yapıldığını, etkilenen bileşenleri ve commit mesajı önerisini günlüğe ekle.
