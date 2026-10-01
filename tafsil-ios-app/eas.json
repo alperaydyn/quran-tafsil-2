@@ -4,7 +4,6 @@
     "appVersionSource": "remote"
   },
   "build": {
-    // TODO(pre-release): API_URL localhost 
     "development": {
       "developmentClient": true,
       "distribution": "internal",

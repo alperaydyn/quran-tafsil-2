@@ -514,7 +514,7 @@ Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Statü göstergeleri:
 
 ### Faz 1 — Temel Okuma Deneyimi (MVP)
 * 🟢 **Kur'an okuma ekranı:** Mushaf sırası, ayet blokları, varsayılan meal, fonetik transliterasyon ve akıcı okuma düzeni.
-* 🟡 **Kelime senkron sesli okuma:** Arapça tilavet + Türkçe meal stüdyo seslendirmesi (Cloudflare R2, `audio.tafsil.net`, ElevenLabs stüdyosu ve zaman damgası senkronu).
+* 🟡 **Kelime senkron sesli okuma (Orijinal Tilavet):** Arapça tilavet için kelime seviyesinde zaman damgası senkronu ve akıcı oynatma (Cloudflare R2, `audio.tafsil.net`, Mişari Raşid el-Afasi kayıtları).
 * 🟢 **Kapsamlı kelime sözlüğü:** Hızlı alt özet çekmecesi, kelime detay sayfası, morfolojik kök ve lemma eşlemeleri.
 * 🟡 **Kullanıcı kayıt ve kimlik doğrulama:** Apple Sign-In & Google Sign-In istemci katmanı ve backend JWT entegrasyonu.
 * 🟡 **Mod seçimi ile onboarding:** Keşif, Öğrenme ve Odak modları (tasarım hazır, onboarding akış entegrasyonu).
@@ -544,4 +544,5 @@ Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Statü göstergeleri:
 * ⏳ **Makale yayınlama ve referans doğrulama:** Editoryal içerikler ve Kur'an referans doğrulama algoritması.
 * ⏳ **Admin paneli ve içerik yönetimi:** Cümle segmentasyonu, kavram moderasyonu ve sistem izleme paneli.
 * ⏳ **Platform analitiği ve A/B test altyapısı:** Kullanıcı dönüşüm ve okuma metrikleri.
+* ⏳ **Türkçe ve çoklu dilde stüdyo meal seslendirmesi:** Türkçe meal ve diğer dillerdeki çevirilerin stüdyo kalitesinde TTS (ElevenLabs vb.) ile üretilmesi, kelime zaman damgalarının çıkarılması ve çift dilli senkron okuma entegrasyonu.
 * ⏳ **Çoklu dil desteği genişletme:** Yeni meal ve çeviriler, global TTS pipeline'ı.
