@@ -7,6 +7,53 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Çoklu Cihaz İstatistik Senkronizasyonu & Tutarsızlıklarının Kökten Çözümü (PBI-6.5)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Kök Neden 1 — `useMemorizationStore` İçindeki Sahte Başlangıç Verileri (`INITIAL_SESSIONS`):**
+  * *Sorun:* Mobil uygulamada `INITIAL_SESSIONS` dizisinde Alak (1-5), Mülk (1-5) ve Fatiha (1-7) olmak üzere 17 ayetlik mock/örnek veri hardcoded olarak mevcuttu. Yeni açılan veya farklı bir cihazda uygulama başlatıldığında kullanıcı hiçbir şey yapmasa dahi profilde "17 Ezber Ayeti" görünüyordu. Diğer cihazdaki gerçek ezber oturumlarıyla birleşince ezber sayıları tutarsızlaşıyordu.
+  * *Çözüm:* `INITIAL_SESSIONS` boş dizi (`[]`) yapıldı. Sahte veri enjeksiyonu kaldırıldı. `addSession` içine RFC4122 v4 uyumlu `generateUUID()` eklendi. `resetSessions` aksiyonu tanımlandı.
+* **Kök Neden 2 — Backend Sync Zod Şeması Hataları (`dto.ts` & `service.ts`):**
+  * *Sorun:* `SyncPushSchema` içinde `user_id` ve `memorization_sessions.id` alanlarında `z.string().uuid()` zorunlu tutuluyordu. Mobil uygulamanın fallback ID'leri veya istemci tarafındaki oturum kimlikleri UUID değilse Zod `400 Bad Request` fırlatıyor ve tüm senkronizasyon (okuma geçmişi, yer imleri) sessizce düşüyordu.
+  * *Çözüm:* `dto.ts` içindeki `id` ve `user_id` alanları `z.string().optional()` yapılarak esnetildi. `service.ts` içinde `m.id` UUID değilse veritabanına `gen_random_uuid()` veya `sure_id + baslangic_ayet` çakışma yönetimiyle hata almadan güvenle kaydedilmesi sağlandı.
+* **Kök Neden 3 — Okuma Serisi (`streak`) Cihazlar Arasında Senkronize Edilmiyordu:**
+  * *Sorun:* Sunucudan `reading_history` çekildiğinde sadece `readVersesBySurah` güncelleniyor; `streak` (current, longest, lastActiveDate) yeniden hesaplanmıyordu. 1. cihazda 5 gün seri varken 2. cihazda 0 gün görünüyordu.
+  * *Çözüm:* `calculateStreakFromDates(dateStrings)` algoritması geliştirildi. `bulkMergeReadingHistory` fonksiyonunda okuma geçmişindeki tüm `okundu_tarihi` damgaları toplanarak ardışık gün serisi deterministik olarak hesaplandı; 2. cihazda da 1. cihazla birebir aynı streak değeri elde edildi.
+* **Kök Neden 4 — `completedSurahs` ve `dailyCounts` Senkronizasyon Eksikliği:**
+  * *Sorun:* 2. cihazda okunan ayetler çekilse bile sure tamamlanma bayrakları (`completedSurahs`) ve günlük okuma sayaçları (`DAILY_COUNTS_KEY`) güncellenmiyordu; haftalık okuma karnesi boş kalıyordu.
+  * *Çözüm:* `bulkMergeReadingHistory` surenin tüm ayetleri okunduysa `completedSurahs`'ı otomatik işaretler hale getirildi. `syncWithServer` çekilen geçmişten `DAILY_COUNTS_KEY`'i anında yeniden inşa etti.
+* **Kök Neden 5 — Eski Zaman Damgası (`LAST_SYNC_KEY`) ve Tam Senkronizasyon (`forceFullSync`):**
+  * *Sorun:* Cihazda önceden kalmış bir `LAST_SYNC_KEY` varsa, backend `WHERE okundu_tarihi >= $2` filtrelemesiyle eski okumaları 2. cihaza göndermiyordu.
+  * *Çözüm:* `syncWithServer(..., { forceFullSync: true })` desteği eklendi. `signInWithGoogle`, `signInWithApple`, `linkAccount` ve `ProfileScreen` üzerindeki manuel senkronizasyon butonunda `forceFullSync = true` tetiklenerek kullanıcının sunucudaki tüm okuma geçmişi ve ezberlerinin eksiksiz çekilmesi sağlandı.
+* **Kök Neden 6 — Çıkış Yapıldığında (`signOut`) Önceki Kullanıcı Verilerinin Cihazda Asılı Kalması:**
+  * *Sorun:* Kullanıcı çıkış yaptığında sadece `user` state'i misafire dönüştürülüyor; yerel okunan ayetler, ezberler ve yer imleri silinmiyordu. Yeni hesap açıldığında eski veriler yeni hesaba karışıyordu.
+  * *Çözüm:* `OfflineSyncService.clearAllLocalUserData()` metodu eklendi. `signOut()` çağrıldığında tüm yerel MMKV verileri ve Zustand mağazaları (`resetProgress`, `resetSessions`) sıfırlanır.
+
+* **Kök Neden 7 — Mobil Expo Go Fiziksel Cihazında `localhost` Ağ İzolasyonu:**
+  * *Sorun:* `tafsil-ios-app/src/api/config.ts` dosyasında `defaultHost = 'localhost'` olarak tanımlıydı. Masaüstü simülatör Mac'in kendi `localhost`'una erişebilirken, kullanıcının elindeki fiziksel telefonda çalışan **Expo Go** `http://localhost:4000` adresine istek attığında telefon kendi içine bağlanmaya çalışıyor, `Network request failed` fırlatıyor ve ne giriş yapabiliyor ne de sunucudan tek bir ayet çekebiliyordu (0 ayet kalıyordu).
+  * *Çözüm:* `config.ts` içine dinamik `resolveApiHost()` eklendi. `Constants.expoConfig?.hostUri` (Metro Bundler'ın çalıştığı Mac'in yerel Wi-Fi IP'si: `192.168.1.120`) otomatik çözümlenerek hem masaüstü hem de fiziksel telefonun aynı Fastify API'ye bağlanması sağlandı. `offlineSyncService.ts` içindeki hardcoded `http://localhost:4000/api/v1` kaldırıldı.
+* **Kök Neden 8 — Veritabanında `system-curator` Kullanıcısına Hatalı Fallback:**
+  * *Sorun:* Backend `SyncService.getEffectiveUserId` içinde `ORDER BY created_at ASC LIMIT 1` sorgusu nedeniyle eşleşemeyen istekler `00000000-0000-0000-0000-000000000001` ID'li sisteme ait ilk kullanıcıya bağlanmış ve kullanıcının okuduğu 45 ayet o kullanıcıda birikmişti.
+  * *Çözüm:* 45 ayet ve 4 yer imi kullanıcının gerçek hesabı olan `7036de69-c43c-48a2-ae43-3cd2240f476a` (`alperaydyn@gmail.com`) kullanıcısına aktarıldı. `service.ts` içinde `auth_provider NOT IN ('system', 'admin')` şartı getirilerek sistem kayıtlarına fallback tamamen engellendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/modules/sync/dto.ts`: `id` ve `user_id` şema esnetmesi (400 hatası önleme).
+* `backend/src/modules/sync/routes.ts`: `extractUserId` ile JWT token'dan kullanıcı kimliği doğrulama.
+* `backend/src/modules/sync/service.ts`: E-posta eşleştirmeli `getEffectiveUserId`, güvenli UUID insert, sistem kullanıcısı fallback engeli.
+* `tafsil-ios-app/src/api/config.ts`: `resolveApiHost()` ile Expo Go fiziksel cihaz ve Metro host IP dinamik çözümü.
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: Hardcoded localhost temizliği, `forceFullSync`, `dailyMap` inşası, `clearAllLocalUserData()`.
+* `tafsil-ios-app/src/store/useMemorizationStore.ts`: `INITIAL_SESSIONS` sahte verisinin temizlenmesi, `generateUUID()`, `resetSessions`.
+* `tafsil-ios-app/src/store/useReadingProgressStore.ts`: `calculateStreakFromDates`, `completedSurahs` otomatik tespiti, `resetProgress`.
+* `tafsil-ios-app/src/store/useAuthStore.ts`: Login sonrası `forceFullSync`, `signOut` sırasında `clearAllLocalUserData()`.
+* `tafsil-ios-app/src/screens/ProfileScreen.tsx`: `handleSync(true)` ile sunucu odaklı tam senkronizasyon.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(sync): resolve Expo Go physical device network access, migrate system reading records, and ensure cross-device consistency
+```
+
+---
+
 ## [2026-10-02] Büyük Güvenlik, Veritabanı Şeması & Kimlik Sertleştirmesi (PBI-4.6)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

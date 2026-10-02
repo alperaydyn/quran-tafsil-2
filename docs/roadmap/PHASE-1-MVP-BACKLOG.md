@@ -77,6 +77,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-6.2:** Son okunan sure/ayet konumunun yerel cihazda saklanması ve kaldığı yerden devam etme kısayolu.
 - [x] **PBI-6.3:** Okuma geçmişi sayfası (`HistoryScreen.tsx`).
 - [x] **PBI-6.4 (Okuma Tamamlama Mantığı):** Sure son ayetine ulaşıldığında surenin "Okundu" olarak işaretlenmesi ve yüzde hesaplaması (`useReadingProgressStore.ts`, `ReadingScreen.tsx`, `SurahGridMatrix.tsx`, `SurahListScreen.tsx`).
+- [x] **PBI-6.5 (Çoklu Cihaz İstatistik Senkronizasyonu & Tutarlılığı):** Farklı cihazlardan aynı hesapla girişte `streak` deterministik hesaplaması, `forceFullSync` mimarisi, sahte `INITIAL_SESSIONS` arındırması ve `clearAllLocalUserData()` ile profil metriklerinin eşitlenmesi (`useReadingProgressStore.ts`, `useMemorizationStore.ts`, `offlineSyncService.ts`, `useAuthStore.ts`, Fastify sync rotaları).
 
 ---
 

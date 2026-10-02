@@ -5,6 +5,18 @@ import { SyncPushSchema, SyncPullSchema } from "./dto.js";
 export const syncRoutes: FastifyPluginAsync = async (fastify) => {
   const syncService = new SyncService();
 
+  const extractUserId = async (request: any, fallbackUserId?: string): Promise<string | undefined> => {
+    if (request.headers.authorization) {
+      try {
+        const decoded = (await request.jwtVerify()) as { sub: string; authProvider?: string } | undefined;
+        if (decoded?.sub) return decoded.sub;
+      } catch {
+        // Token çözülemezse fallback'e devam et
+      }
+    }
+    return fallbackUserId;
+  };
+
   fastify.post("/api/v1/sync/push", async (request, reply) => {
     const parseResult = SyncPushSchema.safeParse(request.body);
     if (!parseResult.success) {
@@ -18,7 +30,10 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
       });
     }
 
-    const result = await syncService.pushSyncData(parseResult.data);
+    const data = parseResult.data;
+    data.user_id = await extractUserId(request, data.user_id);
+
+    const result = await syncService.pushSyncData(data);
     return reply.send({
       success: true,
       data: result
@@ -38,7 +53,10 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
       });
     }
 
-    const result = await syncService.pullSyncData(parseResult.data);
+    const data = parseResult.data;
+    data.user_id = await extractUserId(request, data.user_id);
+
+    const result = await syncService.pullSyncData(data);
     return reply.send({
       success: true,
       data: result.data,
@@ -51,7 +69,8 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
 
   fastify.get("/api/v1/sync/status", async (request, reply) => {
     const query = request.query as { user_id?: string };
-    const status = await syncService.getSyncStatus(query?.user_id);
+    const effectiveUserId = await extractUserId(request, query?.user_id);
+    const status = await syncService.getSyncStatus(effectiveUserId);
     return reply.send({
       success: true,
       data: status

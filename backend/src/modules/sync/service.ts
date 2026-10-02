@@ -12,14 +12,26 @@ export class SyncService {
     }
 
     if (userId) {
-      // Eğer userId UUID değilse, kullanicilar tablosunda auth_provider_id veya benzeri ile ara
+      // 1. auth_provider_id ile ara
       const byAuth = await query("SELECT id FROM kullanicilar WHERE auth_provider_id = $1", [userId]);
       if (byAuth.rows.length > 0) {
         return byAuth.rows[0].id;
       }
+
+      // 2. Eğer email veya dev formatı içeriyorsa (ör: google-dev-alperaydyn@gmail.com)
+      const emailMatch = userId.match(/[\w.-]+@[\w.-]+\.\w+/);
+      if (emailMatch) {
+        const byEmail = await query("SELECT id FROM kullanicilar WHERE email = $1", [emailMatch[0]]);
+        if (byEmail.rows.length > 0) {
+          return byEmail.rows[0].id;
+        }
+      }
     }
 
-    const res = await query("SELECT id FROM kullanicilar ORDER BY created_at ASC LIMIT 1");
+    // Güvenlik: Asla 'system' veya 'admin' rolündeki şablon kullanıcıları fallback olarak eşleştirme!
+    const res = await query(
+      "SELECT id FROM kullanicilar WHERE auth_provider NOT IN ('system', 'admin') ORDER BY created_at DESC LIMIT 1"
+    );
     if (res.rows.length > 0) {
       return res.rows[0].id;
     }
@@ -75,7 +87,8 @@ export class SyncService {
 
     // 4. Process Memorization Sessions
     for (const m of data.memorization_sessions) {
-      if (m.id) {
+      const isUuid = Boolean(m.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(m.id));
+      if (isUuid) {
         await query(
           `INSERT INTO ezber_oturumlari (id, kullanici_id, sure_id, baslangic_ayet, bitis_ayet, durum, baslik, repetition_number, interval_days, ease_factor, next_review_at)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, COALESCE($11::timestamptz, NOW()))
@@ -90,11 +103,30 @@ export class SyncService {
           [m.id, userId, m.sure_id, m.baslangic_ayet, m.bitis_ayet, m.durum, m.baslik || null, m.repetition_number, m.interval_days, m.ease_factor, m.next_review_at || null]
         );
       } else {
-        await query(
-          `INSERT INTO ezber_oturumlari (kullanici_id, sure_id, baslangic_ayet, bitis_ayet, durum, baslik, repetition_number, interval_days, ease_factor, next_review_at)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, COALESCE($10::timestamptz, NOW()))`,
-          [userId, m.sure_id, m.baslangic_ayet, m.bitis_ayet, m.durum, m.baslik || null, m.repetition_number, m.interval_days, m.ease_factor, m.next_review_at || null]
+        // UUID değilse mevcut oturumu sure_id ve baslangic/bitis_ayet ile kontrol et
+        const existing = await query(
+          `SELECT id FROM ezber_oturumlari WHERE kullanici_id = $1 AND sure_id = $2 AND baslangic_ayet = $3 AND bitis_ayet = $4 LIMIT 1`,
+          [userId, m.sure_id, m.baslangic_ayet, m.bitis_ayet]
         );
+        if (existing.rows.length > 0) {
+          await query(
+            `UPDATE ezber_oturumlari SET
+               durum = $1,
+               baslik = COALESCE($2, baslik),
+               repetition_number = $3,
+               interval_days = $4,
+               ease_factor = $5,
+               next_review_at = COALESCE($6::timestamptz, NOW())
+             WHERE id = $7`,
+            [m.durum, m.baslik || null, m.repetition_number, m.interval_days, m.ease_factor, m.next_review_at || null, existing.rows[0].id]
+          );
+        } else {
+          await query(
+            `INSERT INTO ezber_oturumlari (kullanici_id, sure_id, baslangic_ayet, bitis_ayet, durum, baslik, repetition_number, interval_days, ease_factor, next_review_at)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, COALESCE($10::timestamptz, NOW()))`,
+            [userId, m.sure_id, m.baslangic_ayet, m.bitis_ayet, m.durum, m.baslik || null, m.repetition_number, m.interval_days, m.ease_factor, m.next_review_at || null]
+          );
+        }
       }
       memorizationProcessed++;
     }
@@ -170,7 +202,12 @@ export class SyncService {
     );
 
     const historyCount = await query(
-      "SELECT COUNT(*)::int as count, MAX(okundu_tarihi) as last_read FROM okuma_gecmisi WHERE kullanici_id = $1",
+      `SELECT 
+         COUNT(*)::int as count, 
+         COUNT(DISTINCT (sure_id, ayet_no))::int as distinct_verses,
+         MAX(okundu_tarihi) as last_read 
+       FROM okuma_gecmisi 
+       WHERE kullanici_id = $1`,
       [userId]
     );
 
@@ -180,7 +217,12 @@ export class SyncService {
     );
 
     const memorizationCount = await query(
-      "SELECT COUNT(*)::int as count, MAX(created_at) as last_created FROM ezber_oturumlari WHERE kullanici_id = $1",
+      `SELECT 
+         COUNT(*)::int as count, 
+         COALESCE(SUM(bitis_ayet - baslangic_ayet + 1), 0)::int as memorized_verses,
+         MAX(created_at) as last_created 
+       FROM ezber_oturumlari 
+       WHERE kullanici_id = $1`,
       [userId]
     );
 
@@ -193,6 +235,7 @@ export class SyncService {
       },
       reading_history: {
         count: historyCount.rows[0].count,
+        distinct_verses: historyCount.rows[0].distinct_verses,
         last_read: historyCount.rows[0].last_read
       },
       concept_history: {
@@ -201,6 +244,7 @@ export class SyncService {
       },
       memorization: {
         count: memorizationCount.rows[0].count,
+        memorized_verses: memorizationCount.rows[0].memorized_verses,
         last_created: memorizationCount.rows[0].last_created
       }
     };

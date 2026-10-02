@@ -28,6 +28,71 @@ export interface OverallReadingStats {
   overallPercentage: number;
 }
 
+export function calculateStreakFromDates(dateStrings: (string | undefined | null)[]): StreakInfo {
+  const validDates = dateStrings
+    .filter((d): d is string => Boolean(d))
+    .map((d) => {
+      try {
+        return new Date(d).toISOString().slice(0, 10);
+      } catch {
+        return null;
+      }
+    })
+    .filter((d): d is string => Boolean(d));
+
+  const uniqueDays = Array.from(new Set(validDates)).sort();
+
+  if (uniqueDays.length === 0) {
+    return { current: 0, longest: 0, lastActiveDate: null };
+  }
+
+  let maxStreak = 1;
+  let runningStreak = 1;
+
+  for (let i = 1; i < uniqueDays.length; i++) {
+    const prev = new Date(uniqueDays[i - 1]);
+    const curr = new Date(uniqueDays[i]);
+    const diffDays = Math.round((curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      runningStreak++;
+      if (runningStreak > maxStreak) {
+        maxStreak = runningStreak;
+      }
+    } else if (diffDays > 1) {
+      runningStreak = 1;
+    }
+  }
+
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10);
+  const yesterdayDate = new Date(now.getTime() - 86400000);
+  const yesterday = yesterdayDate.toISOString().slice(0, 10);
+  const lastActiveDate = uniqueDays[uniqueDays.length - 1];
+
+  let currentStreak = 0;
+  if (lastActiveDate === today || lastActiveDate === yesterday) {
+    currentStreak = 1;
+    let expectedDate = new Date(lastActiveDate);
+
+    for (let i = uniqueDays.length - 2; i >= 0; i--) {
+      expectedDate.setDate(expectedDate.getDate() - 1);
+      const expectedStr = expectedDate.toISOString().slice(0, 10);
+      if (uniqueDays[i] === expectedStr) {
+        currentStreak++;
+      } else {
+        break;
+      }
+    }
+  }
+
+  return {
+    current: currentStreak,
+    longest: Math.max(maxStreak, currentStreak),
+    lastActiveDate,
+  };
+}
+
 interface ReadingProgressState {
   lastRead: LastReadPosition | null;
   /** sureId -> okunan ayet numaralarının seti (114 sure ısı haritası matrisi için). */
@@ -46,6 +111,7 @@ interface ReadingProgressState {
   getSurahReadVerseCount: (surahId: number, totalAyahs?: number) => number;
   getOverallStats: (allSurahs?: { id: number; verseCount: number }[]) => OverallReadingStats;
   bulkMergeReadingHistory: (historyItems: Array<{ sure_id: number; ayet_no: number; okundu_tarihi?: string }>) => void;
+  resetProgress: () => void;
 }
 
 export const useReadingProgressStore = create<ReadingProgressState>()(
@@ -56,12 +122,25 @@ export const useReadingProgressStore = create<ReadingProgressState>()(
       completedSurahs: {},
       streak: { current: 0, longest: 0, lastActiveDate: null },
 
+      resetProgress: () =>
+        set({
+          lastRead: null,
+          readVersesBySurah: {},
+          completedSurahs: {},
+          streak: { current: 0, longest: 0, lastActiveDate: null },
+        }),
+
       bulkMergeReadingHistory: (historyItems) =>
         set((state) => {
           if (!historyItems || historyItems.length === 0) return state;
 
           const updatedReadVerses: Record<number, number[]> = { ...state.readVersesBySurah };
           let latestItem: { surahId: number; ayahNo: number; date: string } | null = null;
+          const allDates: string[] = [];
+
+          if (state.streak.lastActiveDate) {
+            allDates.push(state.streak.lastActiveDate);
+          }
 
           for (const item of historyItems) {
             const sid = Number(item.sure_id);
@@ -74,6 +153,7 @@ export const useReadingProgressStore = create<ReadingProgressState>()(
             }
 
             if (item.okundu_tarihi) {
+              allDates.push(item.okundu_tarihi);
               if (!latestItem || new Date(item.okundu_tarihi) > new Date(latestItem.date)) {
                 latestItem = { surahId: sid, ayahNo: aid, date: item.okundu_tarihi };
               }
@@ -91,9 +171,29 @@ export const useReadingProgressStore = create<ReadingProgressState>()(
             }
           }
 
+          const calculatedStreak = calculateStreakFromDates(allDates);
+          const finalStreak: StreakInfo = {
+            current: Math.max(state.streak.current, calculatedStreak.current),
+            longest: Math.max(state.streak.longest, calculatedStreak.longest),
+            lastActiveDate: calculatedStreak.lastActiveDate || state.streak.lastActiveDate,
+          };
+
+          const updatedCompletedSurahs = { ...state.completedSurahs };
+          for (const surah of mockSurahs) {
+            const readCount = updatedReadVerses[surah.id]?.length ?? 0;
+            if (readCount >= surah.verseCount && !updatedCompletedSurahs[surah.id]) {
+              updatedCompletedSurahs[surah.id] = {
+                completedAt: latestItem?.date || new Date().toISOString(),
+                timesCompleted: 1,
+              };
+            }
+          }
+
           return {
             readVersesBySurah: updatedReadVerses,
+            completedSurahs: updatedCompletedSurahs,
             lastRead,
+            streak: finalStreak,
           };
         }),
 

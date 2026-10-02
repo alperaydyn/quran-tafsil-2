@@ -103,8 +103,8 @@ export const useAuthStore = create<AuthState>()(
                 error: null,
               });
 
-              // Yerel çevrimdışı verileri backend'e senkronize et
-              OfflineSyncService.syncWithServer().catch(() => {});
+              // Yerel çevrimdışı verileri backend'e senkronize et (Tam senkronizasyon)
+              OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
               return true;
             }
           }
@@ -128,7 +128,7 @@ export const useAuthStore = create<AuthState>()(
               error: null,
             });
 
-            OfflineSyncService.syncWithServer().catch(() => {});
+            OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
             return true;
           } else {
             set({ isLoading: false, error: res.error?.message ?? 'Giriş başarısız oldu.' });
@@ -180,7 +180,7 @@ export const useAuthStore = create<AuthState>()(
                 error: null,
               });
 
-              OfflineSyncService.syncWithServer().catch(() => {});
+              OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
               return true;
             }
           }
@@ -201,7 +201,7 @@ export const useAuthStore = create<AuthState>()(
               error: null,
             });
 
-            OfflineSyncService.syncWithServer().catch(() => {});
+            OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
             return true;
           } else {
             set({ isLoading: false, error: res.error?.message ?? 'Giriş başarısız oldu.' });
@@ -267,6 +267,9 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signOut: () => {
+        // Çıkış yapıldığında cihazdaki eski kullanıcı verilerini sıfırla
+        OfflineSyncService.clearAllLocalUserData().catch(() => {});
+
         const guestId = `guest-${Date.now()}`;
         set({
           user: {

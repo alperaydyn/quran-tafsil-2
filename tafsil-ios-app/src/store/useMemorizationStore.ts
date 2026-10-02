@@ -40,56 +40,19 @@ interface MemorizationState {
   getSessionsForSurah: (surahId: number) => LocalMemorizationSession[];
   getMemorizedSurahProgress: (surahId: number, totalAyahs: number) => number;
   bulkMergeSessions: (serverSessions: any[]) => void;
+  resetSessions: () => void;
 }
 
-// Tafsil.dc.html ekran #3a için başlangıç örnek oturumları
-const INITIAL_SESSIONS: LocalMemorizationSession[] = [
-  {
-    id: 'alak-1-5',
-    surahId: 96,
-    surahNameTr: 'Alak',
-    startAyah: 1,
-    endAyah: 5,
-    theme: 'İlk vahiy',
-    status: 'tekrar_bekliyor',
-    repetitionNumber: 3,
-    intervalDays: 7,
-    easeFactor: 2.6,
-    nextReviewAt: new Date(Date.now() - 3600 * 1000).toISOString(), // Vadesi gelmiş / bugün
-    createdAt: new Date(Date.now() - 12 * 86400 * 1000).toISOString(),
-    totalToursCompleted: 11,
-  },
-  {
-    id: 'mulk-1-5',
-    surahId: 67,
-    surahNameTr: 'Mülk',
-    startAyah: 1,
-    endAyah: 5,
-    theme: 'Hükümranlık',
-    status: 'tekrar_bekliyor',
-    repetitionNumber: 2,
-    intervalDays: 3,
-    easeFactor: 2.5,
-    nextReviewAt: new Date(Date.now() - 1800 * 1000).toISOString(), // Vadesi gelmiş / bugün
-    createdAt: new Date(Date.now() - 5 * 86400 * 1000).toISOString(),
-    totalToursCompleted: 8,
-  },
-  {
-    id: 'fatiha-1-7',
-    surahId: 1,
-    surahNameTr: 'Fâtiha',
-    startAyah: 1,
-    endAyah: 7,
-    theme: 'Hamd ve dua',
-    status: 'pekistirildi',
-    repetitionNumber: 5,
-    intervalDays: 30,
-    easeFactor: 2.7,
-    nextReviewAt: new Date(Date.now() + 18 * 86400 * 1000).toISOString(), // 18 gün sonra
-    createdAt: new Date(Date.now() - 46 * 86400 * 1000).toISOString(),
-    totalToursCompleted: 24,
-  },
-];
+function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+// Sahte/örnek veri olmadan temiz başlangıç (PRD ve Release kuralları uyarınca)
+const INITIAL_SESSIONS: LocalMemorizationSession[] = [];
 
 export const useMemorizationStore = create<MemorizationState>()(
   persist(
@@ -97,9 +60,11 @@ export const useMemorizationStore = create<MemorizationState>()(
       sessions: INITIAL_SESSIONS,
       activeSessionId: null,
 
+      resetSessions: () => set({ sessions: [], activeSessionId: null }),
+
       addSession: (input) => {
         const newSession: LocalMemorizationSession = {
-          id: `session-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          id: generateUUID(),
           surahId: input.surahId,
           surahNameTr: input.surahNameTr,
           startAyah: input.startAyah,

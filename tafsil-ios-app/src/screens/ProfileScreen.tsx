@@ -138,10 +138,10 @@ export function ProfileScreen() {
 
   const [isSyncing, setIsSyncing] = React.useState(false);
 
-  const handleSync = React.useCallback(async () => {
+  const handleSync = React.useCallback(async (forceFullSync: boolean = false) => {
     setIsSyncing(true);
     try {
-      await OfflineSyncService.syncWithServer();
+      await OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync });
     } finally {
       setIsSyncing(false);
     }
@@ -149,7 +149,7 @@ export function ProfileScreen() {
 
   useFocusEffect(
     React.useCallback(() => {
-      handleSync();
+      handleSync(true); // Profil ekranına gelindiğinde sunucudan güncel verileri çek
     }, [handleSync])
   );
 
@@ -189,7 +189,7 @@ export function ProfileScreen() {
           {/* Senkronizasyon ve Ayarlar Kısayolları */}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Pressable
-              onPress={handleSync}
+              onPress={() => handleSync(true)}
               hitSlop={12}
               style={[styles.settingsBtn, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
             >

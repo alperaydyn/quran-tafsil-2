@@ -1,7 +1,30 @@
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
-const defaultHost = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
+function resolveApiHost(): string {
+  // 1. Expo Go veya Expo development client üzerinde çalışırken hostUri bilgisayarın yerel IP'sini içerir (örn: 192.168.1.120:8081)
+  const hostUri =
+    Constants.expoConfig?.hostUri ||
+    (Constants as any).manifest2?.extra?.expoGo?.debuggerHost ||
+    (Constants as any).manifest?.debuggerHost;
+
+  if (hostUri && typeof hostUri === 'string') {
+    const ip = hostUri.split(':')[0];
+    if (ip && ip !== 'localhost' && ip !== '127.0.0.1') {
+      return ip;
+    }
+  }
+
+  // 2. Android Studio Emülatörü
+  if (Platform.OS === 'android') {
+    return '10.0.2.2';
+  }
+
+  // 3. iOS Simülatör veya Web
+  return 'localhost';
+}
+
+const defaultHost = resolveApiHost();
 
 export const API_BASE =
   Constants.expoConfig?.extra?.apiUrl ??

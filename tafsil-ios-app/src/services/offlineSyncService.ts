@@ -283,7 +283,7 @@ export class OfflineSyncService {
    * gün gün gruplanmış kusursuz okuma geçmişi döner.
    */
   static async getReadingTimeline(
-    apiBaseUrl: string = 'http://localhost:4000/api/v1',
+    apiBaseUrl: string = API_BASE,
     token?: string,
     userId?: string
   ): Promise<ReadingTimelineResult> {
@@ -514,10 +514,40 @@ export class OfflineSyncService {
     }
   }
 
+  /**
+   * Kullanıcı çıkış yaptığında veya oturum değiştiğinde tüm yerel kullanıcı verilerini ve
+   * mağazalarını temizler.
+   */
+  static async clearAllLocalUserData(): Promise<void> {
+    try {
+      await mmkvStorage.removeItem(BOOKMARKS_KEY);
+      await mmkvStorage.removeItem(HISTORY_KEY);
+      await mmkvStorage.removeItem(CONCEPT_HISTORY_KEY);
+      await mmkvStorage.removeItem(MEMORIZATION_HISTORY_KEY);
+      await mmkvStorage.removeItem(DAILY_COUNTS_KEY);
+      await mmkvStorage.removeItem(LAST_SYNC_KEY);
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { useReadingProgressStore } = require('../store/useReadingProgressStore');
+        useReadingProgressStore.getState().resetProgress?.();
+      } catch {}
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { useMemorizationStore } = require('../store/useMemorizationStore');
+        useMemorizationStore.getState().resetSessions?.();
+      } catch {}
+    } catch {
+      // ignore
+    }
+  }
+
   static async syncWithServer(
     apiBaseUrl: string = API_BASE,
     token?: string,
-    userId?: string
+    userId?: string,
+    options?: { forceFullSync?: boolean }
   ): Promise<boolean> {
     let effectiveToken = token;
     let effectiveUserId = userId;
@@ -561,7 +591,7 @@ export class OfflineSyncService {
       }
 
       // 2. Sunucudaki güncel kullanıcı verilerini PULL et
-      const lastSync = await mmkvStorage.getItem(LAST_SYNC_KEY);
+      const lastSync = options?.forceFullSync ? null : await mmkvStorage.getItem(LAST_SYNC_KEY);
       const pullRes = await fetch(`${apiBaseUrl}/sync/pull`, {
         method: 'POST',
         headers,
@@ -590,6 +620,16 @@ export class OfflineSyncService {
           data.reading_history.forEach((h: any) => historyMap.set(`${h.sure_id}:${h.ayet_no}`, h));
           const mergedHistory = Array.from(historyMap.values());
           await mmkvStorage.setItem(HISTORY_KEY, JSON.stringify(mergedHistory.slice(-500)));
+
+          // Günlük sayaç haritasını (DAILY_COUNTS_KEY) güncel geçmişe göre yeniden oluştur
+          const dailyMap: Record<string, number> = {};
+          mergedHistory.forEach((item) => {
+            if (item.okundu_tarihi) {
+              const d = item.okundu_tarihi.slice(0, 10);
+              dailyMap[d] = (dailyMap[d] ?? 0) + 1;
+            }
+          });
+          await mmkvStorage.setItem(DAILY_COUNTS_KEY, JSON.stringify(dailyMap));
 
           // useReadingProgressStore içine aktar (Diğer emülatörde okunan ayetleri ve istatistikleri senkronize et)
           try {

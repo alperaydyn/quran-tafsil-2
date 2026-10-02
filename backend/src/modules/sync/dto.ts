@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const BookmarkSyncItemSchema = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().optional(),
   sure_id: z.number().int().min(1).max(114),
   ayet_no: z.number().int().min(1),
   etiket: z.string().max(64).default("Genel"),
@@ -17,7 +17,7 @@ export const ReadingHistorySyncItemSchema = z.object({
 });
 
 export const ConceptHistorySyncItemSchema = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().optional(),
   kavram_slug: z.string().min(1).max(64),
   kavram_adi: z.string().min(1).max(128),
   incelenme_suresi_sn: z.number().int().min(0).default(0),
@@ -25,7 +25,7 @@ export const ConceptHistorySyncItemSchema = z.object({
 });
 
 export const MemorizationSessionSyncItemSchema = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().optional(),
   sure_id: z.number().int().min(1).max(114),
   baslangic_ayet: z.number().int().min(1),
   bitis_ayet: z.number().int().min(1),
@@ -38,7 +38,7 @@ export const MemorizationSessionSyncItemSchema = z.object({
 });
 
 export const SyncPushSchema = z.object({
-  user_id: z.string().uuid().optional(),
+  user_id: z.string().min(1).optional(),
   client_timestamp: z.string().optional(),
   bookmarks: z.array(BookmarkSyncItemSchema).default([]),
   reading_history: z.array(ReadingHistorySyncItemSchema).default([]),
@@ -47,7 +47,7 @@ export const SyncPushSchema = z.object({
 });
 
 export const SyncPullSchema = z.object({
-  user_id: z.string().uuid().optional(),
+  user_id: z.string().min(1).optional(),
   last_synced_at: z.string().optional()
 });
 
