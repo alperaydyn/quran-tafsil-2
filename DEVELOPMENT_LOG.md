@@ -7,6 +7,44 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] İlk Açılış Onboarding Akışı & Niyet Seçimi (PBI-5.3)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **3-Adımlı Editoryal Onboarding Mimarisi (PBI-5.3):**
+  * *Tasarım Referansı (`Tafsil.dc.html` 1a):* `OnboardingScreen.tsx`, projenin tasarım rehberindeki editoryal tipografi (Newsreader serif + Instrument Sans), niyet kartları ve dinamik aksiyonlarla baştan aşağı uyarlandı.
+  * *Adım 1 (Kavramsal Bağlam & Morfoloji):* Kur'an'ın kendi iç bağlamı, kök matematiği (`ع-ل-م` kökünün fiil/kavram/özne/kavranan hâlleri) interaktif vitrin kartıyla sunuldu.
+  * *Adım 2 (Akıcı Okuma & Ezber Stüdyosu):* Kitap gibi akıcı okuma ile cihaz içi yapay zekayla çalışan `Reveal-on-Recite` sesli okuma ve kelime belirme simülasyonu sergilendi.
+  * *Adım 3 (Niyet & Mod Seçimi):* "Kur'an'a hangi niyetle geliyorsun?" sorusu altında 3 editoryal niyet kartı bağlandı:
+    * **Araştırmacı (Keşif):** Metni sade ve akıcı okuma, felsefi bağlam ve mistik morfoloji. Seçildiğinde anlık `mor` vurgu temasına geçiş.
+    * **Öğrenen (Öğrenme):** Adım adım ilerleme, orijinal Arapça, meal ve kökler bir arada. Seçildiğinde `ceviz` sıcak kağıt temasına geçiş.
+    * **Tilavet (Odak):** Kesintisiz ve dikkat dağıtıcısız Uthmani büyük hatla tilavet. Seçildiğinde `lacivert` derin gece temasına geçiş.
+* **Canlı Vurgu ve Dil Değiştirici (Dynamic Accent & Language Switcher):**
+  * *Taktil Geri Bildirim:* Kullanıcı kartlara dokunduğunda `handleSelectMode(mode)` ile anında `setAccentVariant(MODE_TO_ACCENT[mode])` tetiklenir; böylece kart sınırları, radyo butonları ve "Okumaya Başla" butonu seçilen modun rengine anında bürünür.
+  * *Hızlı Dil Seçimi:* `Tafsil.dc.html` 1a tasarımındaki gibi butonun hemen yanında 52x52 dairesel dil butonu yer alır; tek dokunuşla `TR` / `EN` / `AR` arasında geçiş yapılarak tüm onboarding metinleri reaktif olarak çevrilir.
+* **Mağaza ve İlk Kurulum Dayanıklılığı (`useUserSettingsStore` & `RootNavigator`):**
+  * `onboardingCompleted` varsayılan değeri `false` olarak ayarlandı (yeni yükleyen her kullanıcı bu deneyimi görür).
+  * `RootNavigator.tsx` içinde `Onboarding` ekranı navigasyon yığınına koşulsuz olarak kaydedildi; böylece `SettingsScreen.tsx` üzerinden "Önizleme > Tanıtım & Niyet Seçimi" tıklandığında hem test edilebilir hem de kullanıcı istediğinde tanıtımı tekrar açabilir.
+  * Onboarding tamamlandığında ilk açılışsa `navigation.reset({ index: 0, routes: [{ name: 'Main' }] })`, ayarlardan gelinmişse `navigation.goBack()` çalıştırılarak pürüzsüz geçiş sağlandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/screens/OnboardingScreen.tsx`: 3 adımlı editoryal akış, niyet kartları, morfoloji ve reveal-on-recite vitrinleri, dinamik tema uyarlaması ve dil değiştirici.
+* `tafsil-ios-app/src/store/useUserSettingsStore.ts`: Varsayılan `onboardingCompleted: false` yapıldı.
+* `tafsil-ios-app/src/navigation/RootNavigator.tsx`: `Onboarding` ekranı navigasyon yığınında kalıcılaştırıldı.
+* `tafsil-ios-app/src/screens/SettingsScreen.tsx`: Ayarlar > Önizleme alanına "Tanıtım & Niyet Seçimi (Onboarding)" seçeneği eklendi.
+* `tafsil-ios-app/src/i18n/types.ts`: Onboarding şeması 3 adım ve niyet kartları detaylarıyla genişletildi.
+* `tafsil-ios-app/src/i18n/tr.ts`: Türkçe editoryal metinler ve niyet kartı açıklamaları.
+* `tafsil-ios-app/src/i18n/en.ts`: İngilizce tam çeviriler.
+* `tafsil-ios-app/src/i18n/ar.ts`: Arapça tam çeviriler.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-5.3` tamamlandı (`[x]`). Bölüm 5 %100 tamamlandı.
+* `DEVELOPMENT_LOG.md`: Oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(onboarding): implement 3-step editorial onboarding and intention mode selection (PBI-5.3)
+```
+
+---
+
 ## [2026-10-02] Backend JWT Entegrasyonu & Misafir Modu / Account Linking (PBI-4.4 & PBI-4.5)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

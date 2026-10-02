@@ -53,7 +53,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 ## 5. Onboarding ve Mod Seçimi (Keşif / Öğrenme / Odak)
 - [x] **PBI-5.1:** Mod seçim tasarımı ve arayüz kartları (`Tafsil.dc.html` referansı).
 - [x] **PBI-5.2:** `useReadingMode` hook'u ile mod dinamiklerinin tanımlanması.
-- [ ] **PBI-5.3 (İlk Açılış Onboarding Akışı):** Uygulama ilk kez yüklendiğinde kullanıcının niyetine göre mod seçtiren 3 adımlı onboarding ekranlarının bağlanması.
+- [x] **PBI-5.3 (İlk Açılış Onboarding Akışı):** Uygulama ilk kez yüklendiğinde kullanıcının niyetine göre mod seçtiren 3 adımlı onboarding ekranlarının bağlanması (`OnboardingScreen.tsx`, `useUserSettingsStore.ts`, `RootNavigator.tsx`, `SettingsScreen.tsx`).
 - [x] **PBI-5.4 (Profil/Ayarlardan Mod Değiştirme):** Kullanıcının dilediği zaman ayarlar sayfasından modu değiştirebilmesi ve arayüzün anlık uyarlanması (`SettingsScreen.tsx`).
 - [x] **PBI-5.5 (Açılış ve Yükleme Ekranı — Splash / Loading):** `tafsil.` editoryal logosu, nokta matrisi (dot matrix) zemin, "لِقَوْمٍ يَعْلَمُونَ" hat metni, katmanlı kök anlamları ("BİLEN BİR TOPLULUK İÇİN...", "TANIYAN", "KAVRAYAN") ve 3'lü kare durum indikatörüyle 1a (Açık) ve 1b (Koyu) açılış deneyimi (`LoadingScreen.tsx`).
 

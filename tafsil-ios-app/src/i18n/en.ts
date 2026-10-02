@@ -136,17 +136,36 @@ export const en: TranslationSchema = {
   onboarding: {
     skip: 'Skip Intro',
     next: 'Next',
+    back: 'Back',
     getStarted: 'Get Started',
-    selectModeEyebrow: 'INITIAL MODE',
-    selectModeTitle: 'How would you like to read?',
-    selectModeSubtitle: 'You can change your reading mode anytime from Settings.',
+    startReading: 'Start reading',
+    selectModeEyebrow: '03 · INTENTION & READING MODE',
+    selectModeTitle: 'With what intention do you approach the Quran?',
+    selectModeSubtitle: 'Tailor the interface to your needs. You can change this anytime in Settings.',
+    modes: {
+      kesif: {
+        title: 'Researcher',
+        modeLabel: 'Discovery',
+        description: 'Read smoothly with minimal clutter. Context and linguistic notes appear subtly alongside verses.',
+      },
+      ogrenme: {
+        title: 'Learner',
+        modeLabel: 'Guided Study',
+        description: 'Step-by-step guidance. View original Arabic, transliteration, and concept links side by side.',
+      },
+      odak: {
+        title: 'Recitation',
+        modeLabel: 'Focus',
+        description: 'Pure, uninterrupted recitation. Large Uthmani script takes center stage without distractions.',
+      },
+    },
     slides: {
+      slide1Eyebrow: '01 · CONTEXT & ROOTS',
       slide1Title: 'Understand the Quran in its own context',
       slide1Body: 'Discover concepts beyond conventional commentaries; through semantic ayah networks and Arabic root mathematics.',
-      slide2Title: 'Read like a book, dive deep when curious',
-      slide2Body: 'Surface reading is seamless and fluid. When a concept sparks interest, branch out as deep as you wish.',
-      slide3Title: 'A memorization studio that listens to your voice',
-      slide3Body: 'On-device speech recognition reveals words as you recite aloud — Reveal-on-Recite.',
+      slide2Eyebrow: '02 · FLUID READING & MEMORIZATION',
+      slide2Title: 'Read like a book, practice with voice-assisted studio',
+      slide2Body: 'Surface reading is seamless and fluid. Dive deeper when curious; practice memorization with on-device Reveal-on-Recite.',
     },
   },
   auth: {

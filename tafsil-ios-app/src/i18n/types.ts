@@ -168,17 +168,36 @@ export interface TranslationSchema {
   onboarding: {
     skip: string;
     next: string;
+    back: string;
     getStarted: string;
+    startReading: string;
     selectModeEyebrow: string;
     selectModeTitle: string;
     selectModeSubtitle: string;
+    modes: {
+      kesif: {
+        title: string;
+        modeLabel: string;
+        description: string;
+      };
+      ogrenme: {
+        title: string;
+        modeLabel: string;
+        description: string;
+      };
+      odak: {
+        title: string;
+        modeLabel: string;
+        description: string;
+      };
+    };
     slides: {
+      slide1Eyebrow: string;
       slide1Title: string;
       slide1Body: string;
+      slide2Eyebrow: string;
       slide2Title: string;
       slide2Body: string;
-      slide3Title: string;
-      slide3Body: string;
     };
   };
   auth: {

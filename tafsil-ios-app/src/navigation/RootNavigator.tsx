@@ -84,7 +84,7 @@ export function RootNavigator() {
   return (
     <NavigationContainer theme={navTheme} linking={linking}>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
-        {!onboardingCompleted && <Stack.Screen name="Onboarding" component={OnboardingScreen} />}
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Main" component={BottomTabNavigator} />
         <Stack.Screen
           name="Search"

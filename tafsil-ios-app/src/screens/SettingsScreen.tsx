@@ -250,6 +250,12 @@ export function SettingsScreen() {
 
         <SectionLabel>ÖNİZLEME</SectionLabel>
         <OptionRow
+          label="Tanıtım & Niyet Seçimi (Onboarding)"
+          description="İlk açılış deneyimini ve niyet seçimini önizle"
+          selected={false}
+          onPress={() => navigation.navigate('Onboarding')}
+        />
+        <OptionRow
           label="Açılış Ekranı (Loading)"
           description="Başlangıç animasyonunu ve ayet tefekkürünü önizle"
           selected={false}
