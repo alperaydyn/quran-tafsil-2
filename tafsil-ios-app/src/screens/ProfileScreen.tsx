@@ -15,9 +15,10 @@ import { PrecisionSettingsIcon } from '../components/common/PrecisionSettingsIco
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
-const PROVIDER_LABEL: Record<'apple' | 'google', string> = {
+const PROVIDER_LABEL: Record<'apple' | 'google' | 'guest', string> = {
   apple: 'Apple',
   google: 'Google',
+  guest: 'Misafir',
 };
 
 function ProfileStatCard({
@@ -222,21 +223,21 @@ export function ProfileScreen() {
                     width: 6,
                     height: 6,
                     borderRadius: 3,
-                    backgroundColor: isAuthenticated ? '#22C55E' : theme.colors.acc,
+                    backgroundColor: isAuthenticated && !user?.isGuest ? '#22C55E' : theme.colors.acc,
                   }}
                 />
                 <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
-                  {isAuthenticated && user
+                  {isAuthenticated && user && !user.isGuest
                     ? `${PROVIDER_LABEL[user.provider]} ile bağlandı`
-                    : 'Yerel cihaz modu (Senkronize değil)'}
+                    : 'Misafir modu (Yerel cihaz · Senkronize değil)'}
                 </StyledText>
               </View>
             </View>
           </View>
 
           {/* Giriş Yap / Çıkış Yap Aksiyonu */}
-          <View style={{ marginTop: 14 }}>
-            {isAuthenticated && user ? (
+          <View style={{ marginTop: 14, gap: 8 }}>
+            {isAuthenticated && user && !user.isGuest ? (
               <Button
                 label={t('settings.signOut')}
                 variant="secondary"
@@ -244,12 +245,22 @@ export function ProfileScreen() {
                 style={{ height: 40 }}
               />
             ) : (
-              <Button
-                label="Hesabı Apple / Google ile Bağla"
-                variant="primary"
-                onPress={() => navigation.navigate('Auth')}
-                style={{ height: 42 }}
-              />
+              <>
+                <Button
+                  label="Hesabı Apple ile Bağla"
+                  variant="primary"
+                  onPress={() => navigation.navigate('Auth')}
+                  style={{ height: 42 }}
+                />
+                {user?.isGuest && (
+                  <Button
+                    label="Misafir Oturumunu Sıfırla"
+                    variant="ghost"
+                    onPress={signOut}
+                    style={{ height: 36 }}
+                  />
+                )}
+              </>
             )}
           </View>
         </View>

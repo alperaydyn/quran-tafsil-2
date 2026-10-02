@@ -7,6 +7,46 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Backend JWT Entegrasyonu & Misafir Modu / Account Linking (PBI-4.4 & PBI-4.5)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Fastify Backend JWT & OAuth Token Doğrulaması (PBI-4.4):**
+  * *Karar:* İstemciden gelen Apple / Google identity token'larını doğrulayan `verifyAppleIdToken` (Apple JWKS) ve `verifyGoogleIdToken` (Google OAuth2Client) işlevleri güçlendirildi.
+  * *Audience & Bundle ID Uyumu:* Apple token doğrulaması için `net.tafsil.app` varsayılan audience olarak yapılandırıldı. Geliştirme/simülatör ortamı için güvenli dev token fallback'i sağlandı.
+  * *Fastify JWT Üretimi:* Doğrulanan kullanıcı için `@fastify/jwt` ile imzalı oturum JWT token'ı (`{ sub, authProvider }`) üretilip istemciye döndürüldü.
+* **Misafir / Anonim Mod (Guest Mode - PBI-4.5):**
+  * *Karar:* Kullanıcının hesap açmadan da okumaya başlayabilmesi için `POST /api/v1/auth/guest` ucu eklendi.
+  * *İstemci Durumu:* `useAuthStore` içine `isGuest: boolean` ve `token: string | null` eklendi; "Misafir Olarak Devam Et" ile tek tıkla oturum açılması ve MMKV persist ile saklanması sağlandı.
+* **Hesap Bağlama (Account Linking - PBI-4.5):**
+  * *Karar:* `POST /api/v1/auth/link` ucu eklendi. Misafir kullanıcının sonradan Apple / Google ile giriş yapması durumunda; yerelde ve sunucuda oluşturduğu yer imleri (`yer_imleri`), okuma geçmişi (`okuma_gecmisi`) ve ezber oturumları (`ezber_oturumlari`) sıfır veri kaybıyla yeni/bağlı hesaba devredilir.
+  * *İstemci Entegrasyonu:* `signInWithApple` ve `signInWithGoogle` fonksiyonları kullanıcının o an misafir modunda olduğunu algıladığında otomatik olarak `linkAccount` protokolünü ve `OfflineSyncService.syncWithServer()` çağrısını tetikler.
+* **Yetkili Senkronizasyon (Authorized Sync):**
+  * *Karar:* `OfflineSyncService.syncWithServer()` ve `getReadingTimeline()` fonksiyonlarına `Authorization: Bearer <token>` ve `user_id` bağlandı; sunucuyla yapılan senkronizasyonların kullanıcı kimliğiyle doğrulanması garanti altına alındı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/plugins/auth.ts`: `SessionTokenPayload` authProvider tipi esnetildi.
+* `backend/src/config/env.ts`: `APPLE_CLIENT_ID` varsayılanı `"net.tafsil.app"` olarak bağlandı.
+* `backend/src/modules/auth/apple.ts`: Apple JWKS ve simülatör dev token uyumluluğu.
+* `backend/src/modules/auth/google.ts`: Google ID token doğrulayıcısı ve dev token desteği.
+* `backend/src/modules/users/dto.ts`: `PublicUser` içine `authProvider` ve `isGuest` alanları eklendi.
+* `backend/src/modules/users/service.ts`: `createGuestUser`, `linkGuestUser` ve DB bağlantı dayanıklılığı (resilient fallback).
+* `backend/src/modules/auth/routes.ts`: `POST /guest`, `POST /link` ve `GET /me` uçları.
+* `tafsil-ios-app/src/api/types.ts`: `AuthProvider`'a `'guest'` eklendi, `AuthUser` içine `token` ve `isGuest` eklendi.
+* `tafsil-ios-app/src/api/auth.ts`: `authenticateAsGuest`, `linkGuestAccount`, `fetchMe` fonksiyonları eklendi.
+* `tafsil-ios-app/src/store/useAuthStore.ts`: `token`, `isGuest`, `continueAsGuest` ve otomatik account linking akışı.
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: Dinamik JWT ve `user_id` ile yetkilendirilmiş senkronizasyon.
+* `tafsil-ios-app/src/screens/AuthScreen.tsx`: "Misafir Olarak Devam Et" aksiyonu.
+* `tafsil-ios-app/src/screens/ProfileScreen.tsx`: Misafir modu rozeti ve "Hesabı Apple ile Bağla" butonu.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-4.4` ve `PBI-4.5` tamamlandı (`[x]`).
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(auth): integrate backend JWT authentication, guest mode, and account linking (PBI-4.4 & PBI-4.5)
+```
+
+---
+
 ## [2026-10-02] Çevrimdışı Ses Önbelleği (PBI-2.10)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

@@ -76,13 +76,15 @@ export interface Verse {
   words?: Word[];
 }
 
-export type AuthProvider = 'apple' | 'google';
+export type AuthProvider = 'apple' | 'google' | 'guest';
 
 export interface AuthUser {
   id: string;
   name: string | null;
   email: string | null;
   provider: AuthProvider;
+  token?: string;
+  isGuest?: boolean;
 }
 
 /** docs/agents/00-MASTER-BLUEPRINT.md §4 — ortak API yanıt sarmalayıcısı. */

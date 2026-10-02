@@ -6,7 +6,7 @@ import { fail } from "../utils/response.js";
 
 export interface SessionTokenPayload {
   sub: string; // kullanici id (UUID)
-  authProvider: "apple" | "google";
+  authProvider: string;
 }
 
 declare module "@fastify/jwt" {

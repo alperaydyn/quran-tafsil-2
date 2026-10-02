@@ -29,6 +29,8 @@ export function AuthScreen() {
   const authStepCompleted = useAuthStore((s) => s.authStepCompleted);
   const signInWithApple = useAuthStore((s) => s.signInWithApple);
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
+  const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
+  const isGuest = useAuthStore((s) => s.isGuest);
   const [appleAvailable, setAppleAvailable] = React.useState<boolean>(false);
 
   useEffect(() => {
@@ -97,14 +99,27 @@ export function AuthScreen() {
             onPress={signInWithGoogle}
           />
 
-          <Button
-            label={t('common.cancel')}
-            variant="ghost"
-            disabled={isLoading}
-            onPress={() => {
-              if (navigation.canGoBack()) navigation.goBack();
-            }}
-          />
+          {!isGuest && (
+            <Button
+              label="Misafir Olarak Devam Et"
+              variant="ghost"
+              disabled={isLoading}
+              onPress={async () => {
+                await continueAsGuest();
+              }}
+            />
+          )}
+
+          {navigation.canGoBack() && (
+            <Button
+              label={t('common.cancel')}
+              variant="ghost"
+              disabled={isLoading}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          )}
         </View>
       </View>
     </Screen>

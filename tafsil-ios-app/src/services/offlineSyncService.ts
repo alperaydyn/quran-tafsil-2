@@ -260,13 +260,35 @@ export class OfflineSyncService {
    * Hem çevrimiçi backend hem de çevrimdışı yerel MMKV verilerini harmanlayarak
    * gün gün gruplanmış kusursuz okuma geçmişi döner.
    */
-  static async getReadingTimeline(apiBaseUrl: string = 'http://localhost:4000/api/v1'): Promise<ReadingTimelineResult> {
+  static async getReadingTimeline(
+    apiBaseUrl: string = 'http://localhost:4000/api/v1',
+    token?: string,
+    userId?: string
+  ): Promise<ReadingTimelineResult> {
+    let effectiveToken = token;
+    let effectiveUserId = userId;
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { useAuthStore } = require('../store/useAuthStore');
+      const auth = useAuthStore.getState();
+      effectiveToken = effectiveToken || auth.token;
+      effectiveUserId = effectiveUserId || auth.user?.id;
+    } catch {}
+
     // 1. Backend'den çekmeyi dene
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 1500);
-      const res = await fetch(`${apiBaseUrl}/sync/reading-history`, {
+      const url = effectiveUserId
+        ? `${apiBaseUrl}/sync/reading-history?user_id=${encodeURIComponent(effectiveUserId)}`
+        : `${apiBaseUrl}/sync/reading-history`;
+      const headers: Record<string, string> = {};
+      if (effectiveToken) {
+        headers['Authorization'] = `Bearer ${effectiveToken}`;
+      }
+      const res = await fetch(url, {
         signal: controller.signal,
+        headers,
       });
       clearTimeout(timeoutId);
 
@@ -470,7 +492,21 @@ export class OfflineSyncService {
     }
   }
 
-  static async syncWithServer(apiBaseUrl: string = 'http://localhost:4000/api/v1'): Promise<boolean> {
+  static async syncWithServer(
+    apiBaseUrl: string = 'http://localhost:4000/api/v1',
+    token?: string,
+    userId?: string
+  ): Promise<boolean> {
+    let effectiveToken = token;
+    let effectiveUserId = userId;
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { useAuthStore } = require('../store/useAuthStore');
+      const auth = useAuthStore.getState();
+      effectiveToken = effectiveToken || auth.token;
+      effectiveUserId = effectiveUserId || auth.user?.id;
+    } catch {}
+
     try {
       const bookmarks = await this.getBookmarks();
       const rawHistory = await mmkvStorage.getItem(HISTORY_KEY);
@@ -482,11 +518,17 @@ export class OfflineSyncService {
       const rawMemorization = await mmkvStorage.getItem(MEMORIZATION_HISTORY_KEY);
       const memorization = rawMemorization ? JSON.parse(rawMemorization) : [];
 
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (effectiveToken) {
+        headers['Authorization'] = `Bearer ${effectiveToken}`;
+      }
+
       if (bookmarks.length > 0 || history.length > 0 || concepts.length > 0 || memorization.length > 0) {
         await fetch(`${apiBaseUrl}/sync/push`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({
+            user_id: effectiveUserId || undefined,
             bookmarks,
             reading_history: history,
             concept_history: concepts,
@@ -498,8 +540,11 @@ export class OfflineSyncService {
       const lastSync = await mmkvStorage.getItem(LAST_SYNC_KEY);
       const pullRes = await fetch(`${apiBaseUrl}/sync/pull`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ last_synced_at: lastSync || undefined }),
+        headers,
+        body: JSON.stringify({
+          user_id: effectiveUserId || undefined,
+          last_synced_at: lastSync || undefined,
+        }),
       });
 
       if (pullRes.ok) {

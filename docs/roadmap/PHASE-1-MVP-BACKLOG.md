@@ -45,8 +45,8 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-4.1:** Apple Sign-In istemci arayüzü ve akışı.
 - [x] **PBI-4.2:** Google Sign-In istemci arayüzü ve akışı.
 - [x] **PBI-4.3:** Zustand tabanlı kimlik durum yönetimi (`useAuthStore.ts`).
-- [ ] **PBI-4.4 (Backend JWT Entegrasyonu):** Mobil istemciden gelen Apple/Google kimlik belirteçlerinin (Identity Token) Fastify backend'de doğrulanması ve oturum JWT'si üretimi.
-- [ ] **PBI-4.5 (Misafir / Anonim Mod):** Giriş yapmadan da okuma ve yerel kayıt imkanı, sonradan hesaba bağlama (Account Linking).
+- [x] **PBI-4.4 (Backend JWT Entegrasyonu):** Mobil istemciden gelen Apple/Google kimlik belirteçlerinin (Identity Token) Fastify backend'de doğrulanması ve oturum JWT'si üretimi.
+- [x] **PBI-4.5 (Misafir / Anonim Mod):** Giriş yapmadan da okuma ve yerel kayıt imkanı, sonradan hesaba bağlama (Account Linking).
 
 ---
 

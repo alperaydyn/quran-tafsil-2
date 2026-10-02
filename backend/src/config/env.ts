@@ -34,7 +34,7 @@ export const config = {
 
   auth: {
     apple: {
-      clientId: process.env.APPLE_CLIENT_ID || "",
+      clientId: process.env.APPLE_CLIENT_ID || "net.tafsil.app",
     },
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID || "",
