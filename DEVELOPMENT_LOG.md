@@ -7,6 +7,32 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Odak Modu Tilaveti ve Sadece Dinleme Sahnesi (PBI-2.9)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Odak Modu Görsel Saflaştırması (`VerseCard` & `MOB-007`):**
+  * *Karar:* Kullanıcı Odak Modu'na geçtiğinde `VerseCard` içindeki latin okunuş (transliteration) ve interaktif kavram alt çizgileri (`[<kavram>]`) tamamen devre dışı bırakıldı. Kart kenarlıkları (borders) nötr şeffaflığa çekildi; alt dipnot kümesi (`surah:ayah · Cüz · Sayfa`) ve yer imi yıldızı kaldırıldı.
+  * *Arapça Hat Büyüklüğü (Hero Emphasis):* Odak modunda Arapça Mushaf metni bir kademe daha büyük ölçekle (`effectiveArabicScale`) heybetli ve okunaklı hale getirildi.
+  * *Gerekçe:* Odak Modu'nun varlık sebebi dikkat dağıtıcısız, huşu içinde saf tilavet ve okuma deneyimi sunmaktır.
+* **Audio-Only Tilavet Sahnesi (Dedicated Recitation Stage):**
+  * *Karar:* `AudioPlaybackBar` üzerine bir "Odak" / "Metin" geçiş butonu (`isAudioOnly`) eklendi. Ayrıca Odak Modu'nda tilavet başlatıldığında doğrudan Audio-Only sahnesi açılır.
+  * *Görsel Sahne Mimarisi:* Ekrandaki uzun ayet listesi (`ScrollView`) yerine ekranda sadece o an okunan ayetin dev Uthmani/Amiri hattıyla kelimeleri (34px), gerçek zamanlı karaoke kelime vurgulaması (`activeWordIndex`) ve arka planda dikkat dağıtmayan zarif tek satır/kısa meal yer alır.
+  * *Sıfır Gecikmeli Kelimeye Atlama (Seek-on-Word-Click):* Audio-Only sahnesindeki dev kelimelere dokunulduğunda doğrudan o kelimenin `startMs` süresine atlama özelliği (PBI-2.7) korunmuştur.
+  * *Kesintisiz Geçiş:* Alt ses çubuğu (`AudioPlaybackBar`) her iki ekranda da sabit kaldığı için kullanıcı "Metne Dön" butonuna veya alt bardaki "Metin/Odak" butonuna bastığında ses kesinlikle kesilmeden liste görünümüne geri dönebilir.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/components/reading/AudioPlaybackBar.tsx`: `isAudioOnly`, `onToggleAudioOnly` prop'ları ve toggle butonu eklendi.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: `VerseCard` görsel saflaştırması, `effectiveArabicScale`, Audio-Only sahnesi render bloğu ve subheader "🎧 Odak Sahnesi" kısayolu eklendi.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-2.9` tamamlandı (`[x]`).
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): add focus mode audio-only recitation scene (PBI-2.9)
+```
+
+---
+
 ## [2026-10-02] iOS Arka Plan & Kilit Ekranı Kumandası (PBI-2.8)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

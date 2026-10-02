@@ -105,6 +105,8 @@ interface AudioPlaybackBarProps {
   isPlaying: boolean;
   isBuffering?: boolean;
   playbackRate?: number;
+  isAudioOnly?: boolean;
+  onToggleAudioOnly?: () => void;
   onRateChange?: (rate: number) => void;
   onTogglePlay: () => void;
   onNextVerse: () => void;
@@ -119,6 +121,8 @@ export function AudioPlaybackBar({
   isPlaying,
   isBuffering = false,
   playbackRate = 1.0,
+  isAudioOnly = false,
+  onToggleAudioOnly,
   onRateChange,
   onTogglePlay,
   onNextVerse,
@@ -244,8 +248,37 @@ export function AudioPlaybackBar({
             </Pressable>
           </View>
 
-          {/* Sağ: Hız seçici ve Kapatma butonu */}
+          {/* Sağ: Odak/Metin toggle, Hız seçici ve Kapatma butonu */}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            {onToggleAudioOnly && (
+              <Pressable
+                onPress={onToggleAudioOnly}
+                hitSlop={6}
+                accessibilityLabel={isAudioOnly ? 'Metin Akışına Dön' : 'Odak Tilavet Sahnesi'}
+                accessibilityRole="button"
+                style={({ pressed }) => [
+                  styles.focusToggleBtn,
+                  {
+                    backgroundColor: isAudioOnly ? theme.colors.acc : controlSurface,
+                    opacity: pressed ? 0.7 : 1,
+                  },
+                ]}
+              >
+                <StyledText
+                  style={[
+                    styles.speedText,
+                    {
+                      color: isAudioOnly ? '#FFFFFF' : textPrimary,
+                      fontSize: 10.5,
+                      fontWeight: isAudioOnly ? '700' : '500',
+                    },
+                  ]}
+                >
+                  {isAudioOnly ? 'Metin' : 'Odak'}
+                </StyledText>
+              </Pressable>
+            )}
+
             <Pressable
               onPress={cycleSpeed}
               hitSlop={6}
@@ -364,6 +397,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 0.2,
     textAlign: 'center',
+  },
+  focusToggleBtn: {
+    width: 44,
+    height: 30,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   closeBtn: {
     width: 28,

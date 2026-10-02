@@ -24,6 +24,7 @@ import {
   getArabicMetrics,
   getMealMetrics,
   getTransliterationMetrics,
+  type ArabicFontSizeScale,
   LINE_SPACING_SCALES,
 } from '../store/useReadingPreferencesStore';
 import { getConceptDetails } from '../data/concepts.seed';
@@ -88,21 +89,35 @@ const VerseCard = React.memo(function VerseCard({
 }: VerseCardProps) {
   const theme = useTheme();
   const mode = useReadingMode();
+  const isOdakMode = mode.mode === 'odak';
+  const isKesifMode = mode.mode === 'kesif';
+
   const {
     arabicFontSize,
     mealFontSize,
     transliterationFontSize,
     transliterationStyle,
     lineSpacing,
-    showArabic,
-    showMeal,
-    showTransliteration,
-    showConceptHighlights,
+    showArabic: userShowArabic,
+    showMeal: userShowMeal,
+    showTransliteration: userShowTransliteration,
+    showConceptHighlights: userShowConceptHighlights,
   } = useReadingPreferencesStore();
 
+  // Modlara göre akıllı görünürlük kuralları (PBI-2.9 & MOB-007)
+  const showArabic = isKesifMode ? false : userShowArabic;
+  const showTransliteration = isOdakMode ? false : userShowTransliteration;
+  const showConceptHighlights = isOdakMode ? false : userShowConceptHighlights;
+  const showMeal = userShowMeal;
+
+  // Odak modunda Arapça hat heybetli ve büyüktür (Hero emphasis)
+  const effectiveArabicScale: ArabicFontSizeScale = isOdakMode
+    ? (arabicFontSize === 'small' ? 'medium' : arabicFontSize === 'medium' ? 'large' : 'huge')
+    : arabicFontSize;
+
   const arabicMetrics = useMemo(
-    () => getArabicMetrics(arabicFontSize, lineSpacing),
-    [arabicFontSize, lineSpacing]
+    () => getArabicMetrics(effectiveArabicScale, lineSpacing),
+    [effectiveArabicScale, lineSpacing]
   );
   const mealMetrics = useMemo(
     () => getMealMetrics(mealFontSize, lineSpacing),
@@ -140,11 +155,11 @@ const VerseCard = React.memo(function VerseCard({
       onPress={onCardPress}
       style={({ pressed }) => ({
         backgroundColor: isVerseActive ? activeTint : theme.colors.surf,
-        borderWidth: 1.5,
-        borderColor: isVerseActive ? theme.colors.acc : theme.colors.line,
+        borderWidth: isOdakMode ? (isVerseActive ? 1.5 : 0.5) : 1.5,
+        borderColor: isVerseActive ? theme.colors.acc : isOdakMode ? 'transparent' : theme.colors.line,
         borderRadius: theme.radius.xxl,
-        padding: 16,
-        marginBottom: 14,
+        padding: isOdakMode ? 18 : 16,
+        marginBottom: isOdakMode ? 16 : 14,
         gap: 12,
         opacity: pressed ? 0.96 : 1,
       })}
@@ -171,16 +186,20 @@ const VerseCard = React.memo(function VerseCard({
               {verse.ayahNo}
             </StyledText>
           </View>
-          <StyledText variant="footnote" color="faint">
-            {verse.surahId}:{verse.ayahNo} · Cüz {verse.juzNo} · Sayfa {verse.pageNo}
-          </StyledText>
+          {!isOdakMode && (
+            <StyledText variant="footnote" color="faint">
+              {verse.surahId}:{verse.ayahNo} · Cüz {verse.juzNo} · Sayfa {verse.pageNo}
+            </StyledText>
+          )}
         </View>
 
-        <Pressable onPress={onBookmarkToggle} hitSlop={8}>
-          <StyledText style={{ fontSize: 16, color: isBookmarked ? theme.colors.acc : theme.colors.mut }}>
-            {isBookmarked ? '★' : '☆'}
-          </StyledText>
-        </Pressable>
+        {!isOdakMode && (
+          <Pressable onPress={onBookmarkToggle} hitSlop={8}>
+            <StyledText style={{ fontSize: 16, color: isBookmarked ? theme.colors.acc : theme.colors.mut }}>
+              {isBookmarked ? '★' : '☆'}
+            </StyledText>
+          </Pressable>
+        )}
       </View>
 
       {/* Arapça Mushaf Metni */}
@@ -371,13 +390,37 @@ export function ReadingScreen({ route, navigation }: Props) {
   const { showMeal } = useReadingPreferencesStore();
 
   // Audio state
+  const mode = useReadingMode();
+  const isOdakMode = mode.mode === 'odak';
   const [isPlaying, setIsPlaying] = useState(Boolean(autoPlay));
   const [isAudioSessionActive, setIsAudioSessionActive] = useState(Boolean(autoPlay));
+  const [isAudioOnly, setIsAudioOnly] = useState(Boolean(autoPlay && isOdakMode));
   const [isBuffering, setIsBuffering] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1.0);
   const [activeAyah, setActiveAyah] = useState(initialAyahNo ?? 1);
   const [selectedAyahNo, setSelectedAyahNo] = useState<number | null>(initialAyahNo ?? null);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
+
+  // PBI-2.9: Audio-Only Odak Tilaveti için aktif ayet ve kelime verileri
+  const currentVerse = useMemo(() => {
+    return verses.find((v) => v.ayahNo === activeAyah);
+  }, [verses, activeAyah]);
+
+  const currentVerseWords: Word[] = useMemo(() => {
+    if (!currentVerse) return [];
+    const list: Word[] = currentVerse.words && currentVerse.words.length > 0
+      ? currentVerse.words
+      : currentVerse.textAr.split(' ').map((w, idx) => ({
+          id: idx + 1,
+          position: idx + 1,
+          textAr: w,
+          textTr: '',
+          rootId: null,
+          startMs: 0,
+          endMs: 0,
+        }));
+    return TimestampService.enrichWordsWithTimestamps(surahId, activeAyah, list);
+  }, [currentVerse, surahId, activeAyah]);
 
   const seekTargetMsRef = useRef<number | null>(null);
   const isTransitioningSurahRef = useRef(false);
@@ -836,34 +879,189 @@ export function ReadingScreen({ route, navigation }: Props) {
         </View>
       ) : (
         <>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: theme.spacing.lg, paddingBottom: 6 }}>
-            <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
-              {visibleCount < verses.length
-                ? `${visibleCount} / ${verses.length} Ayet Hazır · Kademeli Yükleme`
-                : `${verses.length} Ayet · Çevrimdışı Hazır`}
-            </StyledText>
-
-            {!showMeal && (
-              <Pressable
-                onPress={() => setAppearanceSheetVisible(true)}
-                hitSlop={6}
-                style={({ pressed }) => ({
+          {isAudioOnly && isAudioSessionActive ? (
+            <View style={{ flex: 1 }}>
+              {/* Odak Modu: Audio-Only Tilavet Sahnesi Başlığı */}
+              <View
+                style={{
                   flexDirection: 'row',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  gap: 4,
-                  paddingHorizontal: 8,
-                  paddingVertical: 3,
-                  borderRadius: 6,
-                  backgroundColor: theme.colors.accSoft,
-                  opacity: pressed ? 0.75 : 1,
-                })}
+                  paddingHorizontal: theme.spacing.lg,
+                  paddingTop: theme.spacing.xs,
+                  paddingBottom: theme.spacing.md,
+                }}
               >
-                <StyledText variant="caption" color="acc" style={{ fontWeight: '600', fontSize: 10 }}>
-                  Tilavet Modu · Meal Gizli ⚙
+                <View>
+                  <StyledText variant="subhead" color="ink" style={{ fontWeight: '700' }}>
+                    {currentSurah ? currentSurah.nameTr : `Sure ${surahId}`}
+                  </StyledText>
+                  <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
+                    {activeAyah}. Ayet / {verses.length} Ayet · Odak Tilaveti
+                  </StyledText>
+                </View>
+                <Pressable
+                  onPress={() => setIsAudioOnly(false)}
+                  hitSlop={8}
+                  style={({ pressed }) => ({
+                    paddingHorizontal: 12,
+                    paddingVertical: 6,
+                    borderRadius: 14,
+                    backgroundColor: theme.colors.surf,
+                    borderWidth: 1,
+                    borderColor: theme.colors.line,
+                    opacity: pressed ? 0.7 : 1,
+                  })}
+                >
+                  <StyledText variant="caption" color="ink" style={{ fontWeight: '600', fontSize: 11 }}>
+                    Metne Dön ✕
+                  </StyledText>
+                </Pressable>
+              </View>
+
+              {/* Sadeleştirilmiş Hero Tilavet Sahnesi */}
+              <ScrollView
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingHorizontal: theme.spacing.xl,
+                  paddingBottom: (insets.bottom || 14) + 95,
+                }}
+                showsVerticalScrollIndicator={false}
+              >
+                <View
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 18,
+                    backgroundColor: theme.colors.accSoft,
+                    borderWidth: 1,
+                    borderColor: theme.colors.acc,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: 24,
+                  }}
+                >
+                  <StyledText variant="caption" color="acc" style={{ fontWeight: '700', fontSize: 13 }}>
+                    {activeAyah}
+                  </StyledText>
+                </View>
+
+                {/* Büyük Uthmani / Amiri Hat ile Kelime Kelime Tilavet */}
+                <View
+                  style={{
+                    flexDirection: 'row-reverse',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 8,
+                    maxWidth: 360,
+                  }}
+                >
+                  {currentVerseWords.map((word, idx) => {
+                    const isWordActive = activeWordIndex === idx;
+                    return (
+                      <Pressable
+                        key={word.id || idx}
+                        onPress={() => currentVerse && handleSeekToWord(word, currentVerse, idx)}
+                        style={({ pressed }) => ({
+                          backgroundColor: isWordActive ? theme.colors.accSoft : 'transparent',
+                          borderRadius: 8,
+                          paddingHorizontal: 6,
+                          paddingVertical: 4,
+                          borderBottomWidth: isWordActive ? 2 : 0,
+                          borderBottomColor: theme.colors.acc,
+                          opacity: pressed ? 0.7 : 1,
+                        })}
+                      >
+                        <StyledText
+                          style={{
+                            fontFamily: fontFamily.arabic,
+                            fontSize: 34,
+                            lineHeight: 58,
+                            color: isWordActive ? theme.colors.acc : theme.colors.ink,
+                            textAlign: 'center',
+                          }}
+                        >
+                          {word.textAr}
+                        </StyledText>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+
+                {/* Arka planda dikkat dağıtmayan zarif tek satır/kısa meal */}
+                {currentVerse?.mealTr ? (
+                  <View style={{ marginTop: 32, maxWidth: 330, paddingHorizontal: 8 }}>
+                    <StyledText
+                      style={{
+                        fontFamily: fontFamily.serif,
+                        fontSize: 16,
+                        lineHeight: 27,
+                        color: theme.colors.mut,
+                        textAlign: 'center',
+                      }}
+                    >
+                      {currentVerse.mealTr.replace(/\[<[^>]+>\]/g, '')}
+                    </StyledText>
+                  </View>
+                ) : null}
+              </ScrollView>
+            </View>
+          ) : (
+            <>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: theme.spacing.lg, paddingBottom: 6 }}>
+                <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
+                  {visibleCount < verses.length
+                    ? `${visibleCount} / ${verses.length} Ayet Hazır · Kademeli Yükleme`
+                    : `${verses.length} Ayet · Çevrimdışı Hazır`}
                 </StyledText>
-              </Pressable>
-            )}
-          </View>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  {isOdakMode && isAudioSessionActive && !isAudioOnly && (
+                    <Pressable
+                      onPress={() => setIsAudioOnly(true)}
+                      hitSlop={6}
+                      style={({ pressed }) => ({
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 4,
+                        paddingHorizontal: 8,
+                        paddingVertical: 3,
+                        borderRadius: 6,
+                        backgroundColor: theme.colors.accSoft,
+                        opacity: pressed ? 0.75 : 1,
+                      })}
+                    >
+                      <StyledText variant="caption" color="acc" style={{ fontWeight: '600', fontSize: 10 }}>
+                        🎧 Odak Sahnesi
+                      </StyledText>
+                    </Pressable>
+                  )}
+
+                  {!showMeal && (
+                    <Pressable
+                      onPress={() => setAppearanceSheetVisible(true)}
+                      hitSlop={6}
+                      style={({ pressed }) => ({
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 4,
+                        paddingHorizontal: 8,
+                        paddingVertical: 3,
+                        borderRadius: 6,
+                        backgroundColor: theme.colors.accSoft,
+                        opacity: pressed ? 0.75 : 1,
+                      })}
+                    >
+                      <StyledText variant="caption" color="acc" style={{ fontWeight: '600', fontSize: 10 }}>
+                        Tilavet Modu · Meal Gizli ⚙
+                      </StyledText>
+                    </Pressable>
+                  )}
+                </View>
+              </View>
 
           <ScrollView
             ref={scrollViewRef}
@@ -1055,6 +1253,8 @@ export function ReadingScreen({ route, navigation }: Props) {
               )}
             </View>
           </ScrollView>
+        </>
+      )}
 
           {/* Floating Audio Playback Dock & Mini Mode Switch */}
           {isAudioSessionActive ? (
@@ -1066,6 +1266,8 @@ export function ReadingScreen({ route, navigation }: Props) {
               isPlaying={isPlaying}
               isBuffering={isBuffering}
               playbackRate={playbackRate}
+              isAudioOnly={isAudioOnly}
+              onToggleAudioOnly={() => setIsAudioOnly((prev) => !prev)}
               onRateChange={(rate) => {
                 setPlaybackRate(rate);
                 audioPlayerService.setRate(rate);
@@ -1102,6 +1304,7 @@ export function ReadingScreen({ route, navigation }: Props) {
                 audioPlayerService.stopAndUnload();
                 setIsPlaying(false);
                 setIsAudioSessionActive(false);
+                setIsAudioOnly(false);
                 setActiveWordIndex(null);
               }}
             />
@@ -1110,6 +1313,9 @@ export function ReadingScreen({ route, navigation }: Props) {
               onPress={() => {
                 setIsAudioSessionActive(true);
                 setIsPlaying(true);
+                if (isOdakMode) {
+                  setIsAudioOnly(true);
+                }
               }}
               style={({ pressed }) => ({
                 position: 'absolute',
@@ -1157,7 +1363,7 @@ export function ReadingScreen({ route, navigation }: Props) {
                 />
               </View>
               <StyledText style={{ color: '#F4F1EA', fontSize: 12.5, fontWeight: '600', letterSpacing: 0.4 }}>
-                Tilaveti Başlat · {activeAyah}. Ayet
+                {isOdakMode ? 'Odak Tilavetini Başlat' : `Tilaveti Başlat · ${activeAyah}. Ayet`}
               </StyledText>
             </Pressable>
           )}
