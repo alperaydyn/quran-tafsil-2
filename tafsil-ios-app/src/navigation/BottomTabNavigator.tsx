@@ -1,67 +1,51 @@
 import React from 'react';
+import { Easing } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyledText } from '../components/common/StyledText';
-import { useTheme } from '../theme';
-import { useTranslation } from '../i18n';
 import type { MainTabParamList } from './types';
 import { HomeScreen } from '../screens/HomeScreen';
 import { SurahListScreen } from '../screens/SurahListScreen';
 import { MemorizationListScreen } from '../screens/MemorizationListScreen';
 import { DagExplorerScreen } from '../screens/DagExplorerScreen';
-import { SettingsScreen } from '../screens/SettingsScreen';
+import { FloatingTabBar } from './FloatingTabBar';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const TAB_ICON: Record<keyof MainTabParamList, string> = {
-  Home: '⌂',
-  SurahList: '☰',
-  Memorization: '◈',
-  DagExplorer: '◎',
-  Settings: '⚙',
-};
-
 export function BottomTabNavigator() {
-  const theme = useTheme();
-  const { t } = useTranslation();
-
-  const tabLabels: Record<keyof MainTabParamList, string> = {
-    Home: t('tabs.home'),
-    SurahList: t('tabs.surahs'),
-    Memorization: t('tabs.memorization'),
-    DagExplorer: t('tabs.concepts'),
-    Settings: t('tabs.settings'),
-  };
-
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      tabBar={(props) => <FloatingTabBar {...props} />}
+      screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.colors.acc,
-        tabBarInactiveTintColor: theme.colors.faint,
-        tabBarStyle: {
-          backgroundColor: theme.colors.surf,
-          borderTopColor: theme.colors.line,
+        animation: 'shift',
+        transitionSpec: {
+          animation: 'timing',
+          config: {
+            duration: 260,
+            easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+          },
         },
-        tabBarLabel: ({ color }) => (
-          <StyledText
-            variant="caption"
-            style={{ color, marginTop: -2 }}
-          >
-            {tabLabels[route.name as keyof MainTabParamList]}
-          </StyledText>
-        ),
-        tabBarIcon: ({ color }) => (
-          <StyledText style={{ color, fontSize: 18 }}>
-            {TAB_ICON[route.name as keyof MainTabParamList]}
-          </StyledText>
-        ),
-      })}
+        sceneStyleInterpolator: ({ current }) => ({
+          sceneStyle: {
+            opacity: current.progress.interpolate({
+              inputRange: [-1, 0, 1],
+              outputRange: [0, 1, 0],
+            }),
+            transform: [
+              {
+                translateX: current.progress.interpolate({
+                  inputRange: [-1, 0, 1],
+                  outputRange: [-36, 0, 36],
+                }),
+              },
+            ],
+          },
+        }),
+      }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="SurahList" component={SurahListScreen} />
       <Tab.Screen name="Memorization" component={MemorizationListScreen} />
       <Tab.Screen name="DagExplorer" component={DagExplorerScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
 }

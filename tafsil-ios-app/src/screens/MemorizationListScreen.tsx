@@ -43,7 +43,19 @@ export function MemorizationListScreen() {
           <StyledText variant="headline" style={{ color: theme.colors.ink, fontSize: 17 }}>
             Ezber Oturumları
           </StyledText>
-          <StyledText variant="body" color="mut">⋯</StyledText>
+          <Pressable
+            onPress={() => setModalVisible(true)}
+            style={{
+              backgroundColor: theme.colors.accSoft,
+              paddingHorizontal: 10,
+              paddingVertical: 4,
+              borderRadius: theme.radius.sm,
+            }}
+          >
+            <StyledText variant="caption" color="acc" style={{ fontWeight: '600' }}>
+              + Yeni
+            </StyledText>
+          </Pressable>
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
@@ -185,20 +197,18 @@ export function MemorizationListScreen() {
                 </Pressable>
               );
             })}
+
+            {/* Yeni Oturum Butonu */}
+            <Pressable
+              onPress={() => setModalVisible(true)}
+              style={[styles.createBtn, { backgroundColor: theme.colors.ink, marginTop: 16 }]}
+            >
+              <StyledText variant="callout" style={{ color: theme.colors.surf, fontWeight: '600' }}>
+                + Yeni ezber oturumu başlat
+              </StyledText>
+            </Pressable>
           </View>
         </ScrollView>
-
-        {/* Alt Çubuk: Yeni Oturum */}
-        <View style={[styles.bottomBar, { backgroundColor: theme.colors.surf, borderTopColor: theme.colors.line }]}>
-          <Pressable
-            onPress={() => setModalVisible(true)}
-            style={[styles.createBtn, { backgroundColor: theme.colors.ink }]}
-          >
-            <StyledText variant="callout" style={{ color: theme.colors.surf, fontWeight: '600' }}>
-              Yeni ezber oturumu
-            </StyledText>
-          </Pressable>
-        </View>
 
         {/* Yeni Oturum Kurulum Modalı */}
         <NewSessionModal

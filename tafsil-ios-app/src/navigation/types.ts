@@ -5,13 +5,15 @@ export type MainTabParamList = {
   SurahList: undefined;
   Memorization: undefined;
   DagExplorer: { conceptSlug?: string; root?: string } | undefined;
-  Settings: undefined;
 };
 
 export type RootStackParamList = {
+  Loading: undefined;
   Onboarding: undefined;
   Auth: undefined;
   Main: NavigatorScreenParams<MainTabParamList>;
+  Profile: undefined;
+  Settings: undefined;
   Search: { initialQuery?: string } | undefined;
   Reading: { surahId: number; ayahNo?: number; autoPlay?: boolean };
   MemorizationStudio: { sessionId?: string; surahId?: number; startAyah?: number; endAyah?: number };

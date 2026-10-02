@@ -7,6 +7,85 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Editoryal User Bar ve Yüzen Alt Menü (Floating Tab Bar) Mimarisi
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Anasayfa Editoryal Kullanıcı Karşılama Barı (`UserHeaderBar`):**
+  * *Karar:* `HomeScreen` üst kısmına arama çubuğunun hemen üzerine transparan zeminli, editoryal zaman hitaplı (*"Sabah oldu, Alper"*, *"Vakit ikindi, Alper"* vb. - `Newsreader_600SemiBold`), sol tarafında yuvarlak kare profil monogramı, sağ tarafında ise zarif ayarlar/profil kısayolu içeren bir başlık çubuğu yerleştirildi.
+* **Hassas Mekanik Ayarlar İkonu (`PrecisionSettingsIcon`):**
+  * *Karar:* Jenerik, kalitesiz platform emojisi veya unicode `⚙` karakteri tamamen kaldırıldı; yerine saf React Native vektörel geometrisiyle mikron hassasiyetinde üretilmiş 6 dişli, oyuk mil merkezli İsviçre saatçiliği çark motifi (`PrecisionSettingsIcon.tsx`) yerleştirildi. Sağ üst köşesine ise aktif okuma modunu gösteren mücevher/LED stili minik çerçeveli gösterge entegre edildi.
+  * *Gerekçe:* `AudioPlaybackBar`'da uygulanan *"Emoji yerine saf RN View'lardan üretilmiş geometrik ikon"* ilkesini uygulayarak arayüzün elit, editoryal ve lüks hardware kimliğini korumak.
+* **Yüzen Alt Menü (Floating Dock / Island Tab Bar - `FloatingTabBar`):**
+  * *Karar:* Alt menü ekran altına yapışan klasik tab bar yerine, kenarlardan içe çekilmiş, yuvarlak köşeli (pill capsule) ve buzlu cam dokulu (glassmorphic) yüzen ada (`FloatingTabBar.tsx`) haline getirildi.
+  * *Gerekçe:* Yeni eklenen arka plan nokta matrisiyle (dot matrix) modern bir derinlik hissi yaratmak; elit, ferah ve akıcı iOS navigasyonu sunmak.
+* **Ayarlar Sekmesinin Alt Menüden Çıkarılması (4 Sekme Dengesi):**
+  * *Karar:* Ayarlar (`Settings`) alt menüdeki 5 sekmeden biri olmaktan çıkarılıp `RootStackParamList` seviyesine taşındı; ana sayfadaki User Bar'ın sağındaki şık çark/profil butonu üzerinden erişilebilir kılındı. Alt menüde 4 sekme (*Ana Sayfa, Sureler, Ezber, Kavramlar*) bırakıldı.
+  * *Gerekçe:* Yüzen kapsül içindeki sıkışıklığı önlemek; sekmelerin dokunma alanlarını (hit area) geniş ve ferah tutmak; aktif sekmede genişleyen kontrastlı hap (pill) efektine alan açmak.
+* **Sayfa Altı Boşlukları (Content Padding):**
+  * *Karar:* `HomeScreen`, `SurahListScreen`, `MemorizationListScreen` ve `DagExplorerScreen` alt iç boşlukları yüzen dock yüksekliğine (yaklaşık 96-110px) göre uyarlandı; `MemorizationListScreen`'deki sabit alt çubuk akış içine ve üst bara taşınarak çakışmalar giderildi.
+  * *Gerekçe:* Kullanıcı listeleri kaydırırken en alttaki ayet veya butonların yüzen dock arkasında kalmasını engellemek.
+* **Yumuşak Sayfa ve Menü Geçiş Animasyonları (`shift` & `LayoutAnimation`):**
+  * *Karar:* Tab geçişlerindeki anlık/sert kesme (hard-cut) kaldırıldı; `BottomTabNavigator` içine 260ms'lik `Easing.bezier(0.25, 0.1, 0.25, 1)` eğrisiyle çalışan yatay kayma ve saydamlık geçişi (`sceneStyleInterpolator` ile `translateX: [-36, 0, 36]`, `opacity: [0, 1, 0]`) eklendi. Ayrıca `FloatingTabBar` içinde sekmeye basıldığında aktif hapın akıcı morflanması için `LayoutAnimation.Presets.easeInEaseOut` devreye alındı.
+  * *Gerekçe:* Sure ve Ayarlar ekranlarındaki akıcı native iOS geçiş konforunu menü sekmelerine de yansıtarak görsel süreklilik sağlamak.
+
+* **Profil ve Ayarlar Sayfalarının Ayrılması (Seçenek A Mimarisi):**
+  * *Karar:* Avatar ve mekanik çark ikonunun aynı sayfaya gitmesi ikiliği giderildi; `ProfileScreen` müstakil bir ekran olarak inşa edildi. Sol üstteki Avatar `ProfileScreen`'e (Kullanıcı kimliği, Apple/Google bulut senkronizasyonu, manevi okuma karnesi, seri/ayet/ezber sayaçları ve derin okuma arşivleri), sağ üstteki mekanik İsviçre çarkı ise doğrudan `SettingsScreen`'e (Okuma Modu seçimi — Keşif/Öğrenme/Odak, Görünüm/Tema, Renk paleti, Tipografi ve Dil ayarları) bağlandı.
+  * *HomeScreen Bütünlüğünün Korunması:* Ana sayfadaki hiçbir bileşen (özellikle 16 haftalık `BahcenCard` ısı haritası, `ResumeCard`, `MemorizationResumeCard`, `UnderstandingResumeCard` ve Günün İlham Kartları) ana sayfadan kaldırılmadı. Ana sayfa, kullanıcının doğrudan okuma ve ritüel vitrini; Profil sayfası ise manevi arşivi ve derinlik merkezi olarak çift katmanlı kurgulandı.
+  * *Gerekçe:* Ana sayfanın boşalmasını önlemek, her iki ekranın tekil sorumluluk (Single Responsibility) prensibine sadık kalmasını sağlamak ve elit editoryal hiyerarşiyi korumak.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/screens/ProfileScreen.tsx`: Yeni müstakil profil, kimlik ve manevi yolculuk ekranı.
+* `tafsil-ios-app/src/screens/SettingsScreen.tsx`: Salt okuma modu, tema, dil ve teknik tercihlere odaklanma; profil ekranına köprü kartı ve `‹` geri butonu.
+* `tafsil-ios-app/src/navigation/FloatingTabBar.tsx`: Yeni yüzen alt menü bileşeni ve akıcı pill morflanması (`LayoutAnimation`).
+* `tafsil-ios-app/src/navigation/BottomTabNavigator.tsx`: FloatingTabBar entegrasyonu, 4 sekmeye sadeleştirme ve yumuşak kayma geçişleri (`shift`).
+* `tafsil-ios-app/src/navigation/types.ts`: `MainTabParamList` (4 sekme) ve `RootStackParamList` (`Profile` ve `Settings` rotaları).
+* `tafsil-ios-app/src/navigation/RootNavigator.tsx`: `ProfileScreen` ve `SettingsScreen` bağımsız Stack rotaları ve linking tanımları.
+* `tafsil-ios-app/src/components/common/PrecisionSettingsIcon.tsx`: Saf RN View geometrisiyle mikron hassasiyetinde mekanik saatçilik çark ikonu ve mod LED'i.
+* `tafsil-ios-app/src/screens/HomeScreen.tsx`: `UserHeaderBar` (Avatar -> Profile, Gear -> Settings) entegrasyonu; Bahçen ve tüm devam kartları eksiksiz korundu.
+* `tafsil-ios-app/src/screens/SurahListScreen.tsx`, `MemorizationListScreen.tsx`, `DagExplorerScreen.tsx`: Yüzen menü alt boşluk (padding) düzenlemeleri.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-5.4` ve `PBI-5.5` tamamlandı olarak güncellendi.
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı oluşturuldu ve güncellendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): add profile screen, precision settings icon, and smooth floating tab bar navigation
+```
+
+---
+
+## [2026-10-02] Açılış ve Yükleme Ekranı (Loading Screen) Geliştirmesi (1a / 1b)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Açılış / Yükleme Ekranının (LoadingScreen) Geliştirilmesi:**
+  * *Karar:* Kullanıcının sağladığı görsel tasarıma ("1a · Açık" ve "1b · Koyu") tam sadık kalınarak `LoadingScreen` ve imza arka plan motifi `DotMatrixBackground` bileşenleri geliştirildi.
+  * *Gerekçe:* Uygulama ilk açıldığında yerel fontlar, önbellek ve ayarlar hazırlanırken kullanıcının anlamsal bir Kur'an ayeti ("لِقَوْمٍ يَعْلَمُونَ") ve kök katmanlarıyla ("BİLEN BİR TOPLULUK İÇİN...", "TANIYAN", "KAVRAYAN") tefekkür odaklı, editoryal ve prestijli bir açılış deneyimi yaşaması.
+* **Nokta Matrisi (Dot Matrix) Arka Plan Mimarisi:**
+  * *Karar:* Cihaz piksel yoğunluğundan bağımsız, retina çözünürlükte keskin kare noktalar sunan ve sıfır gecikmeli çalışan dinamik `DotMatrixBackground` bileşeni ile `dot-pattern-light.png` / `dot-pattern-dark.png` dokuları üretildi.
+  * *Gerekçe:* Ekran boyutlarına göre tam ortalanan ve Açık/Koyu mod renkleriyle kusursuz kontrast sağlayan görsel tutarlılık.
+* **Akıcı Başlangıç Geçişi (App Startup Transition):**
+  * *Karar:* `App.tsx` içinde `LoadingScreen` başlangıçta tam ekran katman olarak gösterildi; 2.2 saniyelik minimum süre ve kaynak yüklemesi tamamlandıktan sonra yumuşak bir saydamlık (opacity) geçişiyle `RootNavigator`'a devredildi.
+  * *Gerekçe:* İlk açılışta beyaz/boş ekran veya ani arayüz sıçramasını (flicker) önlemek, `expo-splash-screen` native splash gizlendikten sonra akıcı bir köprü kurmak.
+* **Önizleme ve Rota Entegrasyonu:**
+  * *Karar:* `RootNavigator` stack listesine `Loading` rotası eklendi ve `SettingsScreen` içine "Açılış Ekranı (Loading)" önizleme seçeneği yerleştirildi.
+  * *Gerekçe:* Geliştiricilerin ve kullanıcıların ekranı istedikleri zaman hem açık hem koyu modda doğrudan test edebilmesi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/components/common/DotMatrixBackground.tsx`: Yeni nokta matrisi zemin bileşeni.
+* `tafsil-ios-app/src/screens/LoadingScreen.tsx`: Yeni açılış ve yükleme ekranı bileşeni.
+* `tafsil-ios-app/App.tsx`: Açılışta LoadingScreen gösterimi ve akıcı geçiş mimarisi.
+* `tafsil-ios-app/src/navigation/types.ts` & `RootNavigator.tsx`: `Loading` rotası ve linking konfigürasyonu.
+* `tafsil-ios-app/src/screens/SettingsScreen.tsx`: Açılış ekranını önizleme butonu.
+* `tafsil-ios-app/assets/dot-pattern-light.png` & `dot-pattern-dark.png`: Nokta matrisi doku varlıkları.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: PBI-5.5 olarak backlog'a işlendi ve tamamlandı olarak işaretlendi.
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı oluşturuldu.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): add animated loading splash screen with dot matrix and semantic layers (1a/1b)
+```
+
+---
+
 ## [2026-10-01] Canlı Faz Backlog'u ve Pre-Release Gatekeeper Protokolü
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

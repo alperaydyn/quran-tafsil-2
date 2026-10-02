@@ -120,34 +120,81 @@ export function SettingsScreen() {
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <StyledText variant="title" style={{ marginTop: 12 }}>
-          {t('settings.title')}
-        </StyledText>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 12, marginBottom: 4 }}>
+          {navigation.canGoBack() && (
+            <Pressable
+              onPress={() => navigation.goBack()}
+              hitSlop={12}
+              style={{
+                marginRight: 12,
+                width: 36,
+                height: 36,
+                borderRadius: 18,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: theme.colors.band,
+              }}
+            >
+              <StyledText variant="title" color="ink" style={{ fontSize: 22, marginTop: -2 }}>
+                ‹
+              </StyledText>
+            </Pressable>
+          )}
+          <StyledText variant="title">
+            {t('settings.title')}
+          </StyledText>
+        </View>
 
-        <SectionLabel>{t('settings.account')}</SectionLabel>
-        {isAuthenticated && user ? (
+        {/* Profil ve Okuma Karnesi Kısayolu */}
+        <Pressable
+          onPress={() => navigation.navigate('Profile')}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: 13,
+            borderRadius: theme.radius.xxl,
+            backgroundColor: pressed ? theme.colors.band : theme.colors.surf,
+            borderWidth: 1,
+            borderColor: theme.colors.line,
+            marginTop: 10,
+            marginBottom: 6,
+            gap: 12,
+          })}
+        >
           <View
             style={{
-              padding: 13,
-              borderRadius: theme.radius.xxl,
-              backgroundColor: theme.colors.surf,
+              width: 40,
+              height: 40,
+              borderRadius: 13,
+              backgroundColor: theme.colors.accSoft,
               borderWidth: 1,
               borderColor: theme.colors.line,
-              marginBottom: 8,
-              gap: 10,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <View>
-              <StyledText variant="callout">{user.name ?? user.email ?? t('settings.myAccount')}</StyledText>
-              <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
-                {t('settings.connectedWith', { provider: PROVIDER_LABEL[user.provider] })}
-              </StyledText>
-            </View>
-            <Button label={t('settings.signOut')} variant="secondary" onPress={signOut} />
+            <StyledText
+              style={{
+                fontFamily: theme.font.serifSemiBold,
+                fontSize: 18,
+                color: theme.colors.acc,
+              }}
+            >
+              {user?.name ? user.name.charAt(0).toUpperCase() : 'A'}
+            </StyledText>
           </View>
-        ) : (
-          <Button label={t('settings.signIn')} variant="secondary" onPress={() => navigation.navigate('Auth')} />
-        )}
+          <View style={{ flex: 1 }}>
+            <StyledText variant="callout" color="ink" style={{ fontWeight: '600' }}>
+              {user?.name ?? 'Alper'}
+            </StyledText>
+            <StyledText variant="caption" color="mut" style={{ marginTop: 2 }}>
+              Profil, manevi karne ve hesap yönetimi
+            </StyledText>
+          </View>
+          <StyledText variant="title" color="faint" style={{ fontSize: 18 }}>
+            ›
+          </StyledText>
+        </Pressable>
 
         <SectionLabel>{t('settings.readingMode')}</SectionLabel>
         {MODES.map((mode) => (
@@ -190,6 +237,14 @@ export function SettingsScreen() {
             onPress={() => setLanguage(langOpt.code)}
           />
         ))}
+
+        <SectionLabel>ÖNİZLEME</SectionLabel>
+        <OptionRow
+          label="Açılış Ekranı (Loading)"
+          description="Başlangıç animasyonunu ve ayet tefekkürünü önizle"
+          selected={false}
+          onPress={() => navigation.navigate('Loading')}
+        />
 
         <View style={{ height: theme.spacing.xxxl }} />
       </ScrollView>

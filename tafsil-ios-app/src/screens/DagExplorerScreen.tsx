@@ -435,8 +435,8 @@ export function DagExplorerScreen() {
             <View
               style={{
                 position: 'absolute',
-                bottom: 12,
-                backgroundColor: 'rgba(255,255,255,0.92)',
+                bottom: 84,
+                backgroundColor: theme.scheme === 'dark' ? 'rgba(28, 26, 21, 0.94)' : 'rgba(255, 255, 255, 0.94)',
                 borderRadius: theme.radius.md,
                 paddingHorizontal: 14,
                 paddingVertical: 6,
@@ -455,7 +455,7 @@ export function DagExplorerScreen() {
             contentContainerStyle={{
               paddingHorizontal: theme.spacing.xl,
               paddingTop: theme.spacing.sm,
-              paddingBottom: 24,
+              paddingBottom: 96,
             }}
             showsVerticalScrollIndicator={false}
           >

@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider, useAppFonts, useTheme } from './src/theme';
 import { RootNavigator } from './src/navigation/RootNavigator';
+import { LoadingScreen } from './src/screens/LoadingScreen';
 
 SplashScreen.preventAutoHideAsync().catch(() => {
   /* zaten gizliyse yut */
@@ -13,10 +14,20 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 
 function AppShell() {
   const theme = useTheme();
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.bg }}>
       <StatusBar style={theme.scheme === 'dark' ? 'light' : 'dark'} />
       <RootNavigator />
+      {showSplash && (
+        <View style={StyleSheet.absoluteFill}>
+          <LoadingScreen
+            minDurationMs={2200}
+            onFinish={() => setShowSplash(false)}
+          />
+        </View>
+      )}
     </View>
   );
 }

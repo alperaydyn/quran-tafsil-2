@@ -322,7 +322,7 @@ export function SurahListScreen() {
         <FlatList
           data={filteredSurahs}
           keyExtractor={(item) => String(item.id)}
-          contentContainerStyle={{ paddingHorizontal: theme.spacing.lg, paddingBottom: 28 }}
+          contentContainerStyle={{ paddingHorizontal: theme.spacing.lg, paddingBottom: 96 }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <SurahRow

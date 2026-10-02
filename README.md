@@ -526,7 +526,7 @@ Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Statü göstergeleri:
 * ⏳ **Aralıklı tekrar algoritması:** SM-2 / Leitner algoritmasıyla unutma eğrisi bazlı dinamik planlama.
 * ⏳ **Cihaz üzerinde STT ile sesli ezber:** `SFSpeechRecognizer` ile konuşurken açılan kelimeler (reveal-on-recite) ve akıllı fısıltı desteği.
 * ⏳ **Ezber ilerleme matrisi:** 114 sure üzerinde ezber derinliği görselleştirmesi (Ezberlediklerim).
-* ⏳ **Dinamik ana ekran dashboard'u:** Günün kartları (ayet/dua/namaz), akıllı okumaya devam et kısayolları.
+* 🟢 **Dinamik ana ekran dashboard'u:** Bahçen 16 haftalık okuma ısı haritası, günün ilham kartları (ayet/dua), akıllı okumaya devam et kısayolları, editoryal kullanıcı karşılama barı ve yüzen ada menü (Floating Tab Bar).
 * ⏳ **Push notification:** Aralıklı tekrar zamanı gelen ayetler için akıllı hatırlatmalar.
 
 ### Faz 3 — Derin Analiz ve Yapay Zeka (AI / RAG)

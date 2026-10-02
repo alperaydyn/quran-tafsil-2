@@ -8,9 +8,12 @@ import { useTheme } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 import { useReadingProgressStore } from '../store/useReadingProgressStore';
 import { useMemorizationStore } from '../store/useMemorizationStore';
+import { useAuthStore } from '../store/useAuthStore';
+import { useUserSettingsStore } from '../store/useUserSettingsStore';
 import { useTranslation } from '../i18n';
 import { mockSurahs } from '../api/mock/surahs.mock';
 import { OfflineSyncService } from '../services/offlineSyncService';
+import { PrecisionSettingsIcon } from '../components/common/PrecisionSettingsIcon';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -334,6 +337,148 @@ function UnderstandingResumeCard() {
   );
 }
 
+function getTimeGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 11) return 'Sabah oldu,';
+  if (hour >= 11 && hour < 15) return 'Vakit öğle,';
+  if (hour >= 15 && hour < 18) return 'Vakit ikindi,';
+  if (hour >= 18 && hour < 22) return 'Akşam oldu,';
+  return 'Geceye erdik,';
+}
+
+function UserHeaderBar() {
+  const theme = useTheme();
+  const navigation = useNavigation<Nav>();
+  const user = useAuthStore((s) => s.user);
+
+  const greeting = getTimeGreeting();
+  const displayName = user?.name ? user.name.split(' ')[0] : 'Alper';
+  const initialLetter = displayName.charAt(0).toUpperCase();
+  const modeColor = theme.colors.acc;
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 4,
+        paddingHorizontal: 2,
+        marginBottom: 2,
+      }}
+    >
+      {/* Sol: Avatar + Editoryal Hitap -> Profil & Manevi Yolculuğum */}
+      <Pressable
+        onPress={() => navigation.navigate('Profile')}
+        style={({ pressed }) => ({
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          opacity: pressed ? 0.75 : 1,
+        })}
+      >
+        <View
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: 14,
+            backgroundColor: theme.colors.surf,
+            borderWidth: 1,
+            borderColor: theme.colors.line,
+            alignItems: 'center',
+            justifyContent: 'center',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: theme.scheme === 'dark' ? 0.2 : 0.05,
+            shadowRadius: 6,
+            elevation: 2,
+          }}
+        >
+          <StyledText
+            style={{
+              fontFamily: theme.font.serifSemiBold,
+              fontSize: 21,
+              color: theme.colors.acc,
+            }}
+          >
+            {initialLetter}
+          </StyledText>
+        </View>
+
+        <View>
+          <StyledText
+            variant="caption"
+            color="mut"
+            style={{
+              fontSize: 12,
+              letterSpacing: 0.1,
+            }}
+          >
+            {greeting}
+          </StyledText>
+          <StyledText
+            variant="title"
+            color="ink"
+            style={{
+              fontFamily: theme.font.serifSemiBold,
+              fontSize: 23,
+              lineHeight: 27,
+              marginTop: 1,
+            }}
+          >
+            {displayName}
+          </StyledText>
+        </View>
+      </Pressable>
+
+      {/* Sağ: Elit Mekanik Ayarlar / Profil Butonu */}
+      <Pressable
+        onPress={() => navigation.navigate('Settings')}
+        accessibilityRole="button"
+        accessibilityLabel="Ayarlar"
+        style={({ pressed }) => ({
+          width: 44,
+          height: 44,
+          borderRadius: 14,
+          backgroundColor: theme.colors.surf,
+          borderWidth: 1,
+          borderColor: theme.colors.line,
+          alignItems: 'center',
+          justifyContent: 'center',
+          opacity: pressed ? 0.75 : 1,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: theme.scheme === 'dark' ? 0.2 : 0.04,
+          shadowRadius: 6,
+          elevation: 2,
+          position: 'relative',
+        })}
+      >
+        <PrecisionSettingsIcon
+          size={19}
+          color={theme.scheme === 'dark' ? '#D6D3CB' : '#3E3A33'}
+          bgColor={theme.colors.surf}
+        />
+
+        {/* Aktif mod minik mücevher/LED göstergesi */}
+        <View
+          style={{
+            position: 'absolute',
+            top: 5,
+            right: 5,
+            width: 7,
+            height: 7,
+            borderRadius: 3.5,
+            backgroundColor: modeColor,
+            borderWidth: 1.5,
+            borderColor: theme.colors.surf,
+          }}
+        />
+      </Pressable>
+    </View>
+  );
+}
+
 function QuickSearchBar() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
@@ -397,8 +542,11 @@ export function HomeScreen() {
 
   return (
     <Screen>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 36, paddingTop: 10 }}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 110, paddingTop: 4 }}>
         <View style={{ gap: theme.spacing.md }}>
+          {/* KULLANICI EDİTORYAL KARŞILAMA VE AYARLAR BARI */}
+          <UserHeaderBar />
+
           {/* HIZLI ARAMA ÇUBUĞU */}
           <QuickSearchBar />
 

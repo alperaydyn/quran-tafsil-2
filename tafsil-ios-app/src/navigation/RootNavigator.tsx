@@ -17,8 +17,20 @@ import { ReadingHistoryScreen } from '../screens/ReadingHistoryScreen';
 import { UnderstandingListScreen } from '../screens/UnderstandingListScreen';
 import { UnderstandingStudioScreen } from '../screens/UnderstandingStudioScreen';
 import { SearchScreen } from '../screens/SearchScreen';
+import { LoadingScreen } from '../screens/LoadingScreen';
+import { SettingsScreen } from '../screens/SettingsScreen';
+import { ProfileScreen } from '../screens/ProfileScreen';
+import { Pressable } from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function LoadingPreviewScreen({ navigation }: any) {
+  return (
+    <Pressable style={{ flex: 1 }} onPress={() => navigation.goBack()}>
+      <LoadingScreen onFinish={() => navigation.goBack()} minDurationMs={3500} />
+    </Pressable>
+  );
+}
 
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: ['tafsil://', 'https://tafsil.net', 'https://new.tafsil.net'],
@@ -30,9 +42,10 @@ const linking: LinkingOptions<RootStackParamList> = {
           SurahList: 'sureler',
           Memorization: 'ezber',
           DagExplorer: 'kavram',
-          Settings: 'ayarlar',
         },
       },
+      Profile: 'profil',
+      Settings: 'ayarlar',
       Search: 'arama',
       Reading: 'ayet/:surahId/:ayahNo',
       UnderstandingStudio: 'oturum/:id',
@@ -42,6 +55,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Onboarding: 'onboarding',
       Auth: 'auth',
       MemorizationStudio: 'ezber-studyo',
+      Loading: 'loading',
     },
   },
 };
@@ -111,6 +125,21 @@ export function RootNavigator() {
           name="UnderstandingStudio"
           component={UnderstandingStudioScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Loading"
+          component={LoadingPreviewScreen}
+          options={{ headerShown: false, animation: 'fade' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
