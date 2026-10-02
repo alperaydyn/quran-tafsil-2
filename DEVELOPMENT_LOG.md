@@ -7,6 +7,41 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] iOS Arka Plan & Kilit Ekranı Kumandası (PBI-2.8)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **iOS MPNowPlayingInfoCenter & Kilit Ekranı Bilgi Entegrasyonu:**
+  * *Karar:* Cihaz kilitlendiğinde veya Denetim Merkezi (Control Center) açıldığında çalan sure adı (örn. `Fâtiha Suresi · 1. Ayet`), kâri/sanatçı bilgisi (`Mişari Raşid el-Afasi`) ve albüm bilgisi (`tafsil.net`) `expo-audio`'nun yerel `setActiveForLockScreen` ve `updateLockScreenMetadata` altyapısı üzerinden dinamik olarak bağlandı.
+  * *Gerekçe:* Kullanıcının ekran kapalıyken de hangi sure ve ayeti dinlediğini görebilmesi; elit ve yerel bir müzik çalar deneyimi elde edilmesi.
+* **MPRemoteCommandCenter Kumandaları (Play, Pause, Scrub, +/-10s Skip):**
+  * *Karar:* Kilit ekranındaki oynat/duraklat, parça zaman çubuğu üzerinden sarma (scrubbing) ve 10 saniye ileri/geri sarma (`showSeekForward: true`, `showSeekBackward: true`) kontrolleri etkinleştirildi.
+  * *Gerekçe:* Ekranı açmaya gerek kalmadan veya kulaklık / Apple Watch üzerinden tilavetin kontrol edilebilmesi.
+* **AudioMode ve Ses Oturumu Yapılandırması (`interruptionMode: 'doNotMix'` & `keepAudioSessionActive: true`):**
+  * *Karar:* `setAudioModeAsync` içinde `interruptionMode: 'doNotMix'` yapılandırıldı (iOS'ta kilit ekranı kumandalarının AVPlayer ile eşleşmesi için zorunlu şart).
+  * *Karar:* `createAudioPlayer` seçeneklerine `keepAudioSessionActive: true` eklendi.
+  * *Gerekçe:* Ayetler ve sureler arası geçişte önceki ses dosyası boşaltılırken iOS ses oturumunun deaktive olup işletim sistemi tarafından arka plan sürecinin askıya alınmasını (suspension) önlemek.
+* **Yerel ve Uygulama İçi Durum Senkronizasyonu (Two-Way Remote Sync):**
+  * *Karar:* Kullanıcı kilit ekranından, AirPods üzerinden veya Apple Watch'tan Play/Pause bastığında; `playbackStatusUpdate` ve oynatıcı takip döngüsü bu durumu anında algılayarak uygulamanın `isPlaying` durumunu günceller.
+  * *Watchdog Koruması:* Takılma kurtarıcısı (stall recovery), oynatıcının `paused` durumunda (kullanıcı bilinçli olarak kilit ekranından durdurduğunda) sesin zorla tekrar başlamasını engelleyecek şekilde güvenli hale getirildi.
+
+* **Expo Go ve Simülatör Kısıtları (Platform Farkındalığı):**
+  * *Simülatör:* iOS Simülatörü kilit ekranında (Lock Screen) medya oynatıcı kartını doğrudan çizmez; `MPNowPlayingInfoCenter` sinyallerini macOS'un kendi "Denetim Merkezi / Şimdi Çalınan" menüsüne yönlendirir.
+  * *Expo Go:* Expo Go genel bir sandbox uygulaması olduğundan, cihaz kilitlendiğinde Metro bundler bağlantısını koparır ve misafir uygulamalara özel arka plan haklarını (UIBackgroundModes) çalıştırmaz. Arka plan sesinin gerçek cihazda çalışması için `app.json` içindeki `expo-audio` eklentisine `enableBackgroundPlayback: true` tanımlandı; tam testin Development Build veya TestFlight/Production dağıtımında yapılması kararlaştırıldı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/app.json`: `expo-audio` eklentisine `{ enableBackgroundPlayback: true }` yapılandırması eklendi.
+* `tafsil-ios-app/src/services/audioPlayerService.ts`: `interruptionMode: 'doNotMix'`, `keepAudioSessionActive: true`, `setActiveForLockScreen`, `updateMetadata`, `clearLockScreenControls`, kilit ekranı play/pause senkronizasyonu ve watchdog ayrımı.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: Ayet tilavetine dinamik `metadata` (`title`, `artist`, `albumTitle`) beslenmesi ve harici kumanda play/pause dinleyicisinin reaktif senkronizasyonu.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-2.8` tamamlandı (`[x]`).
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): configure lock screen controls and background now playing metadata (PBI-2.8)
+```
+
+---
+
 ## [2026-10-02] Sure Geçişinde Kesintisiz Tilavet (AutoPlay Fix)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

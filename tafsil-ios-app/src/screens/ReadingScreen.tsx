@@ -9,7 +9,7 @@ import { AudioPlaybackBar } from '../components/reading/AudioPlaybackBar';
 import { ConceptContextCard } from '../components/reading/ConceptContextCard';
 import { ReadingAppearanceSheet } from '../components/reading/ReadingAppearanceSheet';
 import { OfflineSyncService } from '../services/offlineSyncService';
-import { audioPlayerService } from '../services/audioPlayerService';
+import { audioPlayerService, type AudioMetadata } from '../services/audioPlayerService';
 import { TimestampService } from '../services/timestampService';
 import { useTheme } from '../theme';
 import { fontFamily } from '../theme/typography';
@@ -660,6 +660,9 @@ export function ReadingScreen({ route, navigation }: Props) {
         if (state.activeWordIndex !== undefined) {
           setActiveWordIndex(state.activeWordIndex);
         }
+        if (state.isPlaying !== undefined && state.isPlaying !== isPlayingRef.current) {
+          setIsPlaying(state.isPlaying);
+        }
       },
       () => {
         // Kullanıcı duraklatmışsa ayet geçişi yapma
@@ -706,8 +709,15 @@ export function ReadingScreen({ route, navigation }: Props) {
     const initialSeek = seekTargetMsRef.current ?? 0;
     seekTargetMsRef.current = null;
 
-    audioPlayerService.playAyah(audioUrl, wordsWithTimestamps, true, initialSeek);
-  }, [isPlaying, activeAyah, surahId, verses]);
+    const surahName = currentSurah ? `${currentSurah.nameTr} Suresi` : `Sure ${surahId}`;
+    const metadata: AudioMetadata = {
+      title: `${surahName} · ${activeAyah}. Ayet`,
+      artist: 'Mişari Raşid el-Afasi',
+      albumTitle: 'tafsil.net',
+    };
+
+    audioPlayerService.playAyah(audioUrl, wordsWithTimestamps, true, initialSeek, metadata);
+  }, [isPlaying, activeAyah, surahId, verses, currentSurah]);
 
   const toggleBookmark = (ayahNo: number) => {
     const next = new Set(bookmarkedSet);

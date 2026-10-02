@@ -1,5 +1,14 @@
-import { createAudioPlayer, setAudioModeAsync, AudioPlayer, AudioStatus } from 'expo-audio';
+import {
+  createAudioPlayer,
+  setAudioModeAsync,
+  AudioPlayer,
+  AudioStatus,
+  AudioMetadata,
+  AudioLockScreenOptions,
+} from 'expo-audio';
 import type { Word } from '../api/types';
+
+export type { AudioMetadata };
 
 export interface AudioPlaybackState {
   isPlaying: boolean;
@@ -16,6 +25,12 @@ export type VerseFinishListener = () => void;
 class AudioPlayerService {
   private player: AudioPlayer | null = null;
   private currentUrl: string | null = null;
+  private currentMetadata: AudioMetadata | null = null;
+  private readonly lockScreenOptions: AudioLockScreenOptions = {
+    showSeekForward: true,
+    showSeekBackward: true,
+    isLiveStream: false,
+  };
   private words: Word[] = [];
   private playbackRate: number = 1.0;
   private loadId: number = 0;
@@ -42,7 +57,11 @@ class AudioPlayerService {
   };
 
   /**
-   * iOS ve Android için arka planda ve sessiz modda dahi ses çalabilmesi için AudioMode ayarlarını yapar.
+   * iOS ve Android için kilit ekranı kumandası (MPNowPlayingInfoCenter / MPRemoteCommandCenter)
+   * ve arka planda kesintisiz ses çalabilmesi için AudioMode ayarlarını yapar.
+   *
+   * Not: Kilit ekranı kumandalarının işletim sistemi tarafından tanınması için
+   * 'interruptionMode: doNotMix' ve 'shouldPlayInBackground: true' zorunludur.
    */
   async configureAudioMode() {
     if (this.isConfigured) return;
@@ -50,6 +69,7 @@ class AudioPlayerService {
       await setAudioModeAsync({
         playsInSilentMode: true,
         shouldPlayInBackground: true,
+        interruptionMode: 'doNotMix',
       });
       this.isConfigured = true;
     } catch (e) {
@@ -115,8 +135,16 @@ class AudioPlayerService {
     const durationMs = Math.round(durSec * 1000);
 
     // Watchdog / Stall Recovery:
+    // Sadece gerçekten takılma (waiting/buffering) durumunda tetiklenmeli, kilit ekranından durdurulduğunda değil
     if (this.isUserPlaying && !this.hasFinishedVerse) {
-      if (!isNativePlaying && !isBuffering && durationMs > 0 && positionMs < durationMs - 300) {
+      const isActuallyPaused = this.player?.paused ?? false;
+      if (
+        !isNativePlaying &&
+        !isBuffering &&
+        !isActuallyPaused &&
+        durationMs > 0 &&
+        positionMs < durationMs - 300
+      ) {
         this.stallCounter++;
         // 3 tick (~240ms) boyunca asılı kaldıysa resume sinyali gönder
         if (this.stallCounter >= 3) {
@@ -194,6 +222,11 @@ class AudioPlayerService {
       try {
         const playerToRelease = this.player;
         this.player = null;
+        try {
+          playerToRelease.clearLockScreenControls();
+        } catch (e) {
+          // Guard
+        }
         playerToRelease.pause();
         playerToRelease.release();
       } catch (e) {
@@ -204,14 +237,30 @@ class AudioPlayerService {
   }
 
   /**
+   * Kilit ekranında (MPNowPlayingInfoCenter) gösterilen sure/ayet ve sanatçı bilgilerini günceller.
+   */
+  updateMetadata(metadata: AudioMetadata) {
+    this.currentMetadata = metadata;
+    if (this.player) {
+      try {
+        this.player.updateLockScreenMetadata(metadata);
+      } catch (e) {
+        console.warn('[AudioPlayerService] updateLockScreenMetadata error:', e);
+      }
+    }
+  }
+
+  /**
    * Belirtilen URL'den ayet sesini yükler ve çalar.
    * @param initialPositionMs Oynatmaya başlanacak veya sarılacak ilk konum (ms)
+   * @param metadata Kilit ekranında gösterilecek başlık, sanatçı ve albüm bilgisi (PBI-2.8)
    */
   async playAyah(
     url: string,
     words: Word[] = [],
     shouldPlay: boolean = true,
-    initialPositionMs: number = 0
+    initialPositionMs: number = 0,
+    metadata?: AudioMetadata
   ) {
     this.isTransitioningSurah = false;
     await this.configureAudioMode();
@@ -221,13 +270,22 @@ class AudioPlayerService {
     this.hasFinishedVerse = false;
     this.isUserPlaying = shouldPlay;
 
+    if (metadata) {
+      this.currentMetadata = metadata;
+    }
+
     // Eğer aynı URL zaten yüklüyse tekrar createAudioPlayer yapma
     if (this.player && this.currentUrl === url) {
+      if (metadata) {
+        this.updateMetadata(metadata);
+      }
       if (initialPositionMs > 0) {
         await this.seekToMs(initialPositionMs, shouldPlay);
       } else if (shouldPlay) {
         try {
-          this.player.play();
+          if (!this.player.playing) {
+            this.player.play();
+          }
           this.startTracking();
           this.notify({ isPlaying: true, isBuffering: false });
         } catch (e) {
@@ -268,19 +326,52 @@ class AudioPlayerService {
     });
 
     try {
-      const player = createAudioPlayer(url, { updateInterval: 100 });
+      const player = createAudioPlayer(url, {
+        updateInterval: 100,
+        keepAudioSessionActive: true,
+      });
       if (this.playbackRate !== 1.0) {
         player.setPlaybackRate(this.playbackRate);
+      }
+
+      // PBI-2.8: Kilit ekranı (MPNowPlayingInfoCenter / MPRemoteCommandCenter) aktivasyonu
+      try {
+        player.setActiveForLockScreen(
+          true,
+          this.currentMetadata ?? undefined,
+          this.lockScreenOptions
+        );
+      } catch (lockErr) {
+        console.warn('[AudioPlayerService] setActiveForLockScreen warning:', lockErr);
       }
 
       let hasSeekedInitial = false;
 
       this.subscription = player.addListener('playbackStatusUpdate', async (status: AudioStatus) => {
-        // Player değiştiyse veya kullanıcı durdurduysa işlem yapma
-        if (this.player !== player || !this.isUserPlaying) return;
+        // Player değiştiyse işlem yapma
+        if (this.player !== player) return;
+
+        // Kilit ekranı / harici kulaklık kumandası senkronizasyonu
+        if (status.isLoaded) {
+          if (this.currentMetadata) {
+            try {
+              player.updateLockScreenMetadata(this.currentMetadata);
+            } catch (e) {
+              // Guard
+            }
+          }
+          if (status.playing && !this.isUserPlaying) {
+            this.isUserPlaying = true;
+            this.startTracking();
+            this.notify({ isPlaying: true });
+          } else if (!status.playing && this.isUserPlaying && status.timeControlStatus === 'paused') {
+            this.isUserPlaying = false;
+            this.notify({ isPlaying: false, activeWordIndex: null });
+          }
+        }
 
         // Ağdan ses yüklendiğinde ve kullanıcı çalmak istiyorsa başlat
-        if (status.isLoaded) {
+        if (status.isLoaded && this.isUserPlaying) {
           if (!hasSeekedInitial && this.pendingSeekMs > 0) {
             hasSeekedInitial = true;
             const seekSec = this.pendingSeekMs / 1000;
@@ -296,7 +387,7 @@ class AudioPlayerService {
             !status.playing &&
             !status.didJustFinish &&
             !this.hasFinishedVerse &&
-            this.isUserPlaying
+            status.timeControlStatus !== 'paused'
           ) {
             try {
               player.play();
