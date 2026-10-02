@@ -2,7 +2,12 @@ import { query } from "../../db/client.js";
 import type { SyncPushDto, SyncPullDto } from "./dto.js";
 
 export class SyncService {
-  private async getEffectiveUserId(userId?: string): Promise<string> {
+  /**
+   * Verilen userId'den (UUID, auth_provider_id veya e-posta) gerçek kullanıcı ID'sini çözer.
+   * Kullanıcı bulunamazsa null döner — çağıran route 401 atar.
+   * ASLA yeni kullanıcı oluşturulmaz; bu DB'de ghost/anonymous kayıt birikmesini önler.
+   */
+  private async getEffectiveUserId(userId?: string): Promise<string | null> {
     const isUuid = Boolean(userId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId));
     if (isUuid) {
       const exists = await query("SELECT id FROM kullanicilar WHERE id = $1", [userId]);
@@ -18,7 +23,7 @@ export class SyncService {
         return byAuth.rows[0].id;
       }
 
-      // 2. Eğer email veya dev formatı içeriyorsa (ör: google-dev-alperaydyn@gmail.com)
+      // 2. Email formatı içeriyorsa e-posta ile ara (ör: google-dev-alperaydyn@gmail.com)
       const emailMatch = userId.match(/[\w.-]+@[\w.-]+\.\w+/);
       if (emailMatch) {
         const byEmail = await query("SELECT id FROM kullanicilar WHERE email = $1", [emailMatch[0]]);
@@ -28,16 +33,15 @@ export class SyncService {
       }
     }
 
-    // Güvenlik ve İzolasyon: Eğer kullanıcı belirlenemiyorsa ASLA başka bir kullanıcının hesabına (ORDER BY created_at DESC) fallback yapma!
-    // Her bilinmeyen/unauthenticated istek izole yeni bir kullanıcıya bağlanır.
-    const createRes = await query(
-      "INSERT INTO kullanicilar (auth_provider, auth_provider_id, tercih_modu) VALUES ('anonymous', gen_random_uuid()::text, 'kesif') RETURNING id"
-    );
-    return createRes.rows[0].id;
+    // Kullanıcı tespit edilemedi → null. Çağıran 401 atar.
+    // NOT: Önceki ORDER BY created_at DESC LIMIT 1 fallback (account hijacking riski) kaldırıldı.
+    // NOT: Önceki INSERT anonymous fallback (ghost kullanıcı birikimi riski) kaldırıldı.
+    return null;
   }
 
-  async pushSyncData(data: SyncPushDto) {
+  async pushSyncData(data: SyncPushDto): Promise<{ error?: string; success?: boolean; synced_at?: string; user_id?: string; counts?: { bookmarks: number; reading_history: number; concept_history: number; memorization_sessions: number } }> {
     const userId = await this.getEffectiveUserId(data.user_id);
+    if (!userId) return { error: 'UNAUTHENTICATED' };
     let bookmarksProcessed = 0;
     let historyProcessed = 0;
     let memorizationProcessed = 0;
@@ -147,6 +151,7 @@ export class SyncService {
 
   async pullSyncData(data: SyncPullDto) {
     const userId = await this.getEffectiveUserId(data.user_id);
+    if (!userId) return null;
     const since = data.last_synced_at ? new Date(data.last_synced_at) : new Date(0);
 
     const bookmarksRes = await query(
@@ -196,6 +201,7 @@ export class SyncService {
 
   async getSyncStatus(userIdInput?: string) {
     const userId = await this.getEffectiveUserId(userIdInput);
+    if (!userId) return null;
 
     const bookmarkCount = await query(
       "SELECT COUNT(*)::int as count, MAX(updated_at) as last_updated FROM yer_imleri WHERE kullanici_id = $1",

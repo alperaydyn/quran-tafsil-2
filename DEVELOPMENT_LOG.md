@@ -7,6 +7,32 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-03] Anonymous Kullanıcı Birikmesi Sorunu — Kök Neden Tespiti ve Düzeltme
+
+### 1. Sorun
+Önceki oturumda yapılan "hesap izolasyonu" fix'i sırasında `SyncService.getEffectiveUserId` fallback'i **her kimliksiz sync isteğinde yeni bir `anonymous` kullanıcı** oluşturuyordu. 103 saniye içinde 12 anonymous kayıt oluştu. Bunların 3'ünde yer imi, 1'inde okuma geçmişi verisi vardı (test kaynaklı).
+
+### 2. Kök Neden
+`getEffectiveUserId` metodunun son adımında `INSERT INTO kullanicilar (auth_provider='anonymous', ...)` çalışıyordu. Kimliği çözülemeyen her istek (token olmayan, bilinmeyen ID) bu INSERT'i tetikliyordu.
+
+### 3. Alınan Mimari Karar
+- `getEffectiveUserId` artık `null` döndürür — hiçbir koşulda yeni kullanıcı oluşturmaz.
+- Sync routes (`/push`, `/pull`, `/status`) `null` sonuç aldığında **HTTP 401 UNAUTHENTICATED** döndürür.
+- Bu sayede: Eski fallback (account hijacking riski) yok, yeni fallback (ghost user birikme riski) yok.
+
+### 4. Temizlik
+- 12 anonymous kullanıcı ve tüm bağlı verileri (yer imleri, okuma geçmişi) silindi.
+- DB durumu: 3 google + 1 admin + 1 system kullanıcı kaldı.
+
+### 5. Etkilenen Dosyalar
+- `backend/src/modules/sync/service.ts` — `getEffectiveUserId` null döndürür, `pushSyncData`/`pullSyncData`/`getSyncStatus` null guard eklendi
+- `backend/src/modules/sync/routes.ts` — null sonuç için 401 yanıtı
+
+### 6. Commit Önerisi
+`fix(sync): prevent ghost anonymous user creation in getEffectiveUserId, return 401 for unresolvable identity`
+
+---
+
 ## [2026-10-03] Çoklu Hesap / Hesap Değişimi Oturum İzolasyonu & Senkronizasyon Veri Sızıntısının Kökten Çözümü (PBI-4.7)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

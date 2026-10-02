@@ -34,6 +34,9 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
     data.user_id = await extractUserId(request, data.user_id);
 
     const result = await syncService.pushSyncData(data);
+    if (result.error === 'UNAUTHENTICATED') {
+      return reply.code(401).send({ success: false, error: { code: 'UNAUTHENTICATED', message: 'Senkronizasyon için kimlik doğrulama gereklidir.' } });
+    }
     return reply.send({
       success: true,
       data: result
@@ -57,6 +60,9 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
     data.user_id = await extractUserId(request, data.user_id);
 
     const result = await syncService.pullSyncData(data);
+    if (!result) {
+      return reply.code(401).send({ success: false, error: { code: 'UNAUTHENTICATED', message: 'Senkronizasyon için kimlik doğrulama gereklidir.' } });
+    }
     return reply.send({
       success: true,
       data: result.data,
@@ -68,9 +74,12 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
   });
 
   fastify.get("/api/v1/sync/status", async (request, reply) => {
-    const query = request.query as { user_id?: string };
-    const effectiveUserId = await extractUserId(request, query?.user_id);
+    const queryParams = request.query as { user_id?: string };
+    const effectiveUserId = await extractUserId(request, queryParams?.user_id);
     const status = await syncService.getSyncStatus(effectiveUserId);
+    if (!status) {
+      return reply.code(401).send({ success: false, error: { code: 'UNAUTHENTICATED', message: 'Senkronizasyon için kimlik doğrulama gereklidir.' } });
+    }
     return reply.send({
       success: true,
       data: status
