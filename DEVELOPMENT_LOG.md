@@ -24,6 +24,8 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
   * Fastify API canlı olarak Hostinger DB'ye bağlandı ve `GET /health` (`postgres: true, redis: true`) ile doğrulandı.
 * **Mimari Standartların ve VPS Dayanıklılık Kılavuzunun Güncellenmesi:**
   * `docs/deployment/00-INFRASTRUCTURE.md` dosyasına Cloudflare R2 ses/timestamp stratejisi, salt-okunur Cloudflare cache + ETag, PgBouncer transaction pooling, WAL-G / pgBackRest ile R2'ye sürekli WAL arşivleme (PITR) ve PostgreSQL bellek ayarları (`shared_buffers=2GB`, `effective_cache_size=6GB`, `log_min_duration_statement=500ms`) işlendi.
+* **PBI-4.6 (Büyük Güvenlik, DB Şeması & Kimlik Sertleştirmesi) Canlı Backlog'a Eklendi:**
+  * Sabit UUID (`ffffffff-...` ve `00000000-...`) yetki bypass açıklarının giderilmesi, `HomeScreen` üzerindeki hardcoded `'Alper'` isminin dinamikleştirilmesi, `kullanicilar` tablosuna `name` ve `email` sütunlarının eklenmesi, `is_premium` mantığının ilişkisel `abonelikler` tablosuna ayrılması ve şifre sıfırlama/kurtarma sözleşmelerini içeren kapsamlı PBI `docs/roadmap/PHASE-1-MVP-BACKLOG.md` içine açıldı.
 
 ### 2. Etkilenen Bileşenler ve Dosyalar
 * `tafsil-ios-app/src/store/mmkvStorage.ts`: MMKV yokken `expo-sqlite` senkron kalıcı KV tablosu fallback'i.

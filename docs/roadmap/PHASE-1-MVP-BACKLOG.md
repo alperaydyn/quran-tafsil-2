@@ -47,6 +47,19 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-4.3:** Zustand tabanlı kimlik durum yönetimi (`useAuthStore.ts`).
 - [x] **PBI-4.4 (Backend JWT Entegrasyonu):** Mobil istemciden gelen Apple/Google kimlik belirteçlerinin (Identity Token) Fastify backend'de doğrulanması ve oturum JWT'si üretimi.
 - [x] **PBI-4.5 (Misafir / Anonim Mod):** Giriş yapmadan da okuma ve yerel kayıt imkanı, sonradan hesaba bağlama (Account Linking).
+- [ ] **PBI-4.6 (Büyük Güvenlik, DB Şeması & Kimlik Sertleştirmesi — Major Security & Architecture Hardening):**
+  - **PBI-4.6.1 (Sabit UUID & Yetki Açığı Temizliği):**
+    - `backend/src/modules/admin/routes.ts` içindeki `DEFAULT_ADMIN_ID` (`ffffffff-...`) fallback'inin kaldırılması, tüm admin rotalarına Fastify JWT doğrulaması ve `role === 'admin'` RBAC denetiminin zorunlu kılınması.
+    - `community` ve `understanding` servislerindeki `00000000-0000-0000-0000-000000000001` sabit ID'sinin kaldırılması; anonim işlemlerin dinamik misafir UUID'leriyle izole edilmesi.
+  - **PBI-4.6.2 (Kullanıcı Tablosu & Profil Alanları — `name` & `email`):**
+    - `kullanicilar` tablosuna `name VARCHAR(128)` ve `email VARCHAR(255)` sütunlarını ekleyen `008_user_profile_extensions.sql` migration'ının hazırlanması ve Hostinger canlı DB'ye uygulanması.
+    - Apple ve Google Sign-In başarılı olduğunda token/payload'dan gelen gerçek kullanıcı adı ve e-posta adresinin DB'ye kaydedilmesi.
+    - Mobil arayüzde (özellikle `HomeScreen`, `ProfileScreen`, `SettingsScreen`) isim gösteriminin tam dinamikleştirilmesi ve editoryal fallback'lere bağlanması (hardcoded isim kalıntılarının temizlenmesi).
+  - **PBI-4.6.3 (Abonelik & Premium Mimarisi Ayrımı):**
+    - `kullanicilar.is_premium` sütununun doğrudan kontrolsüz güncellenmesi yerine, App Store (StoreKit 2) ve Google Play aboneliklerini takip eden `abonelikler` (`subscriptions`) tablosunun (`store`, `original_transaction_id`, `product_id`, `status`, `current_period_end`) modellenmesi.
+    - `is_premium` değerinin yalnızca aktif abonelik doğrulaması üzerinden türetilen bir önbellek bayrağı (read cache) haline getirilmesi.
+  - **PBI-4.6.4 (Şifre Sıfırlama & E-posta Yaşam Döngüsü Sözleşmesi):**
+    - İleride e-posta + şifre girişi açılması durumunda güvenli şifre sıfırlama (`sifre_sifirlama_talepleri` tablosu, kriptografik token, 15 dk TTL) ve hesap kurtarma/birleştirme (Account Linking) protokolünün standartlaştırılması.
 
 ---
 
