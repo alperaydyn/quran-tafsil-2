@@ -57,7 +57,8 @@ interface VerseCardProps {
   verse: Verse;
   isVerseActive: boolean;
   activeWordIndex: number | null;
-  onWordPress: (word: Word, verse: Verse) => void;
+  onWordPress: (word: Word, verse: Verse, wordIndex: number) => void;
+  onWordLongPress?: (word: Word, verse: Verse, wordIndex: number) => void;
   onBookmarkToggle: () => void;
   isBookmarked: boolean;
   onLayout?: (e: LayoutChangeEvent) => void;
@@ -74,6 +75,7 @@ const VerseCard = React.memo(function VerseCard({
   isVerseActive,
   activeWordIndex,
   onWordPress,
+  onWordLongPress,
   onBookmarkToggle,
   isBookmarked,
   onLayout,
@@ -197,7 +199,9 @@ const VerseCard = React.memo(function VerseCard({
             return (
               <Pressable
                 key={`${verse.id}-word-${idx}`}
-                onPress={() => onWordPress(word, verse)}
+                onPress={() => onWordPress(word, verse, idx)}
+                onLongPress={() => onWordLongPress?.(word, verse, idx)}
+                delayLongPress={350}
                 style={({ pressed }) => ({
                   backgroundColor: isWordActive
                     ? theme.colors.accSoft
@@ -368,11 +372,15 @@ export function ReadingScreen({ route, navigation }: Props) {
 
   // Audio state
   const [isPlaying, setIsPlaying] = useState(Boolean(autoPlay));
+  const [isAudioSessionActive, setIsAudioSessionActive] = useState(Boolean(autoPlay));
   const [isBuffering, setIsBuffering] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1.0);
   const [activeAyah, setActiveAyah] = useState(initialAyahNo ?? 1);
   const [selectedAyahNo, setSelectedAyahNo] = useState<number | null>(initialAyahNo ?? null);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
+
+  const seekTargetMsRef = useRef<number | null>(null);
+  const isTransitioningSurahRef = useRef(false);
 
   const activeAyahRef = useRef(activeAyah);
   activeAyahRef.current = activeAyah;
@@ -423,6 +431,7 @@ export function ReadingScreen({ route, navigation }: Props) {
   // Yeni sureye autoPlay parametresiyle geçildiğinde oynatmayı başlat
   useEffect(() => {
     if (autoPlay) {
+      setIsAudioSessionActive(true);
       setIsPlaying(true);
       setActiveWordIndex(0);
     }
@@ -572,7 +581,9 @@ export function ReadingScreen({ route, navigation }: Props) {
         scrollViewRef.current.scrollTo({ y: Math.max(0, layout.y - 70), animated: true });
       }
     } else if (surahId < 114) {
-      navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1 });
+      isTransitioningSurahRef.current = isPlaying;
+      audioPlayerService.setTransitioningSurah(isPlaying);
+      navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: isPlaying });
     }
   };
 
@@ -640,6 +651,9 @@ export function ReadingScreen({ route, navigation }: Props) {
 
   // Audio player listener ve unmount temizliği
   useEffect(() => {
+    isTransitioningSurahRef.current = false;
+    audioPlayerService.setTransitioningSurah(false);
+
     audioPlayerService.setListeners(
       (state) => {
         setIsBuffering(state.isBuffering);
@@ -659,6 +673,8 @@ export function ReadingScreen({ route, navigation }: Props) {
           handleAyahSelect(nextAyah);
           setActiveWordIndex(0);
         } else if (surahId < 114) {
+          isTransitioningSurahRef.current = true;
+          audioPlayerService.setTransitioningSurah(true);
           navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: true });
         } else {
           setIsPlaying(false);
@@ -668,28 +684,30 @@ export function ReadingScreen({ route, navigation }: Props) {
     );
 
     return () => {
-      audioPlayerService.stopAndUnload();
+      if (!isTransitioningSurahRef.current) {
+        audioPlayerService.stopAndUnload();
+      }
     };
   }, [surahId, navigation]);
 
-  // isPlaying veya activeAyah değiştiğinde gerçek ses dosyasını çal/duraklat
+  // isPlaying, activeAyah, surahId veya verses değiştiğinde gerçek ses dosyasını çal/duraklat
   useEffect(() => {
     if (!isPlaying) {
       audioPlayerService.pause();
-      setActiveWordIndex(null);
       return;
     }
 
-    const currentVerses = versesRef.current;
-    if (currentVerses.length === 0) return;
-
-    const currentVerse = currentVerses.find((v) => v.ayahNo === activeAyah);
+    const currentVerse = verses.find((v) => v.ayahNo === activeAyah);
     const audioUrl = currentVerse?.audioUrl || getAyahAudioUrl(surahId, activeAyah);
     const wordsWithTimestamps = currentVerse
       ? TimestampService.enrichWordsWithTimestamps(surahId, activeAyah, currentVerse.words || [])
-      : [];
-    audioPlayerService.playAyah(audioUrl, wordsWithTimestamps, true);
-  }, [isPlaying, activeAyah, surahId]);
+      : TimestampService.enrichWordsWithTimestamps(surahId, activeAyah, []);
+
+    const initialSeek = seekTargetMsRef.current ?? 0;
+    seekTargetMsRef.current = null;
+
+    audioPlayerService.playAyah(audioUrl, wordsWithTimestamps, true, initialSeek);
+  }, [isPlaying, activeAyah, surahId, verses]);
 
   const toggleBookmark = (ayahNo: number) => {
     const next = new Set(bookmarkedSet);
@@ -703,7 +721,61 @@ export function ReadingScreen({ route, navigation }: Props) {
     setBookmarkedSet(next);
   };
 
-  const handleWordPress = (word: Word, verse: Verse) => {
+  /**
+   * PBI-2.7: Kelimeye Dokunarak Sarma (Seek-on-Word-Click)
+   * Metindeki bir kelimeye dokunulduğunda sesin doğrudan o kelimenin startMs süresine atlaması.
+   */
+  const handleSeekToWord = async (word: Word, verse: Verse, wordIndex: number) => {
+    const isDifferentAyah = verse.ayahNo !== activeAyah;
+
+    // Kelimenin başlangıç zaman damgası (startMs) tespiti
+    const wordsWithTimestamps = TimestampService.enrichWordsWithTimestamps(
+      surahId,
+      verse.ayahNo,
+      verse.words && verse.words.length > 0 ? verse.words : []
+    );
+
+    let targetMs = word.startMs ?? 0;
+    if (targetMs === 0 && wordsWithTimestamps.length > 0) {
+      const enriched = wordsWithTimestamps[wordIndex];
+      if (enriched && enriched.startMs > 0) {
+        targetMs = enriched.startMs;
+      }
+    }
+
+    setActiveWordIndex(wordIndex);
+    setIsAudioSessionActive(true);
+
+    if (isDifferentAyah) {
+      seekTargetMsRef.current = targetMs;
+      handleAyahSelect(verse.ayahNo);
+      setIsPlaying(true);
+    } else if (!isPlaying) {
+      // Aynı ayet ama duraklatılmışsa: sar ve oynatmayı başlat
+      seekTargetMsRef.current = targetMs;
+      setIsPlaying(true);
+    } else {
+      // Aynı ayet ve zaten çalıyor: doğrudan oynatıcı içinde sıfır gecikmeyle sar
+      await audioPlayerService.seekToMs(targetMs, true);
+    }
+  };
+
+  const handleWordPress = (word: Word, verse: Verse, wordIndex: number) => {
+    // Ses aktifken veya çalıyorken dokunma doğrudan ses sarma olarak çalışır (PBI-2.7)
+    if (isAudioSessionActive || isPlaying) {
+      handleSeekToWord(word, verse, wordIndex);
+      return;
+    }
+
+    // Ses kapalı/boşta iken dokunma kelime sözlük çekmecesini açar (PBI-3.1)
+    handleAyahSelect(verse.ayahNo);
+    setSelectedWord(word);
+    setSelectedVerse(verse);
+    setBottomSheetVisible(true);
+  };
+
+  const handleWordLongPress = (word: Word, verse: Verse, _wordIndex: number) => {
+    // Uzun basma her koşulda kelime sözlük ve morfoloji çekmecesini açar
     handleAyahSelect(verse.ayahNo);
     setSelectedWord(word);
     setSelectedVerse(verse);
@@ -807,11 +879,16 @@ export function ReadingScreen({ route, navigation }: Props) {
                 key={v.id}
                 verse={v}
                 isVerseActive={activeAyah === v.ayahNo || selectedAyahNo === v.ayahNo}
-                activeWordIndex={isPlaying && activeAyah === v.ayahNo ? activeWordIndex : null}
+                activeWordIndex={
+                  (isPlaying || isAudioSessionActive) && activeAyah === v.ayahNo
+                    ? activeWordIndex
+                    : null
+                }
                 onCardPress={() => {
                   handleAyahSelect(v.ayahNo);
                 }}
                 onWordPress={handleWordPress}
+                onWordLongPress={handleWordLongPress}
                 onBookmarkToggle={() => toggleBookmark(v.ayahNo)}
                 isBookmarked={bookmarkedSet.has(v.ayahNo)}
                 onLayout={(e) => {
@@ -948,7 +1025,11 @@ export function ReadingScreen({ route, navigation }: Props) {
 
               {activeAyah < verses.length && nextSurah && (
                 <Pressable
-                  onPress={() => navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1 })}
+                  onPress={() => {
+                    isTransitioningSurahRef.current = isPlaying;
+                    audioPlayerService.setTransitioningSurah(isPlaying);
+                    navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: isPlaying });
+                  }}
                   style={({ pressed }) => ({
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -965,47 +1046,111 @@ export function ReadingScreen({ route, navigation }: Props) {
             </View>
           </ScrollView>
 
-          {/* Floating Audio Playback Dock */}
-          <AudioPlaybackBar
-            surahId={surahId}
-            totalVerses={verses.length}
-            currentAyah={activeAyah}
-            activeWordIndex={activeWordIndex}
-            isPlaying={isPlaying}
-            isBuffering={isBuffering}
-            playbackRate={playbackRate}
-            onRateChange={(rate) => {
-              setPlaybackRate(rate);
-              audioPlayerService.setRate(rate);
-            }}
-            onTogglePlay={() => {
-              setIsPlaying((prev) => {
-                const next = !prev;
-                if (!next) {
-                  audioPlayerService.pause();
-                  setActiveWordIndex(null);
+          {/* Floating Audio Playback Dock & Mini Mode Switch */}
+          {isAudioSessionActive ? (
+            <AudioPlaybackBar
+              surahId={surahId}
+              totalVerses={verses.length}
+              currentAyah={activeAyah}
+              activeWordIndex={activeWordIndex}
+              isPlaying={isPlaying}
+              isBuffering={isBuffering}
+              playbackRate={playbackRate}
+              onRateChange={(rate) => {
+                setPlaybackRate(rate);
+                audioPlayerService.setRate(rate);
+              }}
+              onTogglePlay={() => {
+                setIsPlaying((prev) => {
+                  const next = !prev;
+                  if (!next) {
+                    audioPlayerService.pause();
+                  }
+                  return next;
+                });
+              }}
+              onNextVerse={() => {
+                if (activeAyah < verses.length) {
+                  const next = activeAyah + 1;
+                  handleAyahSelect(next);
+                  setActiveWordIndex(0);
+                } else if (surahId < 114) {
+                  // Sure bittiğinde sonraki butonuyla da sıradaki sureye geç ve çalmaya devam et
+                  isTransitioningSurahRef.current = isPlaying;
+                  audioPlayerService.setTransitioningSurah(isPlaying);
+                  navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: isPlaying });
                 }
-                return next;
-              });
-            }}
-            onNextVerse={() => {
-              if (activeAyah < verses.length) {
-                const next = activeAyah + 1;
-                handleAyahSelect(next);
-                setActiveWordIndex(0);
-              } else if (surahId < 114) {
-                // Sure bittiğinde sonraki butonuyla da sıradaki sureye geç ve çalmaya devam et
-                navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: isPlaying });
-              }
-            }}
-            onPrevVerse={() => {
-              if (activeAyah > 1) {
-                const prev = activeAyah - 1;
-                handleAyahSelect(prev);
-                setActiveWordIndex(0);
-              }
-            }}
-          />
+              }}
+              onPrevVerse={() => {
+                if (activeAyah > 1) {
+                  const prev = activeAyah - 1;
+                  handleAyahSelect(prev);
+                  setActiveWordIndex(0);
+                }
+              }}
+              onClose={() => {
+                audioPlayerService.stopAndUnload();
+                setIsPlaying(false);
+                setIsAudioSessionActive(false);
+                setActiveWordIndex(null);
+              }}
+            />
+          ) : (
+            <Pressable
+              onPress={() => {
+                setIsAudioSessionActive(true);
+                setIsPlaying(true);
+              }}
+              style={({ pressed }) => ({
+                position: 'absolute',
+                bottom: insets.bottom > 0 ? insets.bottom + 6 : 14,
+                alignSelf: 'center',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 8,
+                backgroundColor: theme.scheme === 'dark' ? '#1A1816' : '#171613',
+                borderColor: theme.scheme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.06)',
+                borderWidth: 1,
+                borderRadius: 22,
+                paddingHorizontal: 16,
+                paddingVertical: 10,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 6 },
+                shadowOpacity: 0.28,
+                shadowRadius: 14,
+                elevation: 8,
+                opacity: pressed ? 0.8 : 1,
+              })}
+            >
+              <View
+                style={{
+                  width: 18,
+                  height: 18,
+                  borderRadius: 9,
+                  backgroundColor: theme.colors.acc,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <View
+                  style={{
+                    width: 0,
+                    height: 0,
+                    marginLeft: 2,
+                    borderLeftWidth: 6,
+                    borderTopWidth: 3.5,
+                    borderBottomWidth: 3.5,
+                    borderLeftColor: theme.scheme === 'dark' ? '#14130F' : '#FFFFFF',
+                    borderTopColor: 'transparent',
+                    borderBottomColor: 'transparent',
+                  }}
+                />
+              </View>
+              <StyledText style={{ color: '#F4F1EA', fontSize: 12.5, fontWeight: '600', letterSpacing: 0.4 }}>
+                Tilaveti Başlat · {activeAyah}. Ayet
+              </StyledText>
+            </Pressable>
+          )}
         </>
       )}
 
@@ -1020,6 +1165,14 @@ export function ReadingScreen({ route, navigation }: Props) {
         visible={bottomSheetVisible}
         onClose={() => setBottomSheetVisible(false)}
         onOpenDag={() => navigation.navigate('Main', { screen: 'DagExplorer' })}
+        onPlayFromWord={(w, v) => {
+          const targetVerse = v || selectedVerse;
+          if (targetVerse) {
+            const list = targetVerse.words || [];
+            const idx = list.findIndex((item) => item.id === w.id);
+            handleSeekToWord(w, targetVerse, Math.max(0, idx));
+          }
+        }}
       />
     </Screen>
   );

@@ -109,6 +109,7 @@ interface AudioPlaybackBarProps {
   onTogglePlay: () => void;
   onNextVerse: () => void;
   onPrevVerse: () => void;
+  onClose?: () => void;
 }
 
 export function AudioPlaybackBar({
@@ -122,6 +123,7 @@ export function AudioPlaybackBar({
   onTogglePlay,
   onNextVerse,
   onPrevVerse,
+  onClose,
 }: AudioPlaybackBarProps) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -242,22 +244,44 @@ export function AudioPlaybackBar({
             </Pressable>
           </View>
 
-          {/* Sağ: Hız seçici */}
-          <Pressable
-            onPress={cycleSpeed}
-            hitSlop={6}
-            style={({ pressed }) => [
-              styles.speedBtn,
-              {
-                backgroundColor: controlSurface,
-                opacity: pressed ? 0.7 : 1,
-              },
-            ]}
-          >
-            <StyledText style={[styles.speedText, { color: textPrimary }]}>
-              {speed}
-            </StyledText>
-          </Pressable>
+          {/* Sağ: Hız seçici ve Kapatma butonu */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Pressable
+              onPress={cycleSpeed}
+              hitSlop={6}
+              style={({ pressed }) => [
+                styles.speedBtn,
+                {
+                  backgroundColor: controlSurface,
+                  opacity: pressed ? 0.7 : 1,
+                },
+              ]}
+            >
+              <StyledText style={[styles.speedText, { color: textPrimary }]}>
+                {speed}
+              </StyledText>
+            </Pressable>
+
+            {onClose && (
+              <Pressable
+                onPress={onClose}
+                hitSlop={8}
+                accessibilityLabel="Tilaveti Kapat"
+                accessibilityRole="button"
+                style={({ pressed }) => [
+                  styles.closeBtn,
+                  {
+                    backgroundColor: controlSurface,
+                    opacity: pressed ? 0.6 : 1,
+                  },
+                ]}
+              >
+                <StyledText style={{ color: textSecondary, fontSize: 13, fontWeight: '700' }}>
+                  ✕
+                </StyledText>
+              </Pressable>
+            )}
+          </View>
         </View>
       </View>
     </View>
@@ -340,5 +364,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 0.2,
     textAlign: 'center',
+  },
+  closeBtn: {
+    width: 28,
+    height: 30,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

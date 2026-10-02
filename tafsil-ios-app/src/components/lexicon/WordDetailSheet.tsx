@@ -14,9 +14,17 @@ export interface WordDetailSheetProps {
   visible: boolean;
   onClose: () => void;
   onOpenDag?: (slug?: string) => void;
+  onPlayFromWord?: (word: Word, verse?: Verse | null) => void;
 }
 
-export function WordDetailSheet({ word, verse, visible, onClose, onOpenDag }: WordDetailSheetProps) {
+export function WordDetailSheet({
+  word,
+  verse,
+  visible,
+  onClose,
+  onOpenDag,
+  onPlayFromWord,
+}: WordDetailSheetProps) {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState<'kelime' | 'kok'>('kelime');
   const [rootData, setRootData] = useState<RootDerivatives | null>(null);
@@ -351,6 +359,39 @@ export function WordDetailSheet({ word, verse, visible, onClose, onOpenDag }: Wo
                       {subtitle}
                     </StyledText>
                   ) : null}
+
+                  {onPlayFromWord && (
+                    <Pressable
+                      onPress={() => {
+                        onClose();
+                        onPlayFromWord(word, verse);
+                      }}
+                      style={({ pressed }) => ({
+                        marginTop: 10,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 6,
+                        backgroundColor: theme.scheme === 'dark' ? '#22201C' : '#EDE8DF',
+                        borderWidth: 1,
+                        borderColor: theme.scheme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
+                        paddingHorizontal: 12,
+                        paddingVertical: 6,
+                        borderRadius: theme.radius.pill,
+                        opacity: pressed ? 0.75 : 1,
+                      })}
+                    >
+                      <StyledText style={{ fontSize: 10, color: theme.colors.acc }}>▶</StyledText>
+                      <StyledText
+                        variant="caption"
+                        color="ink"
+                        style={{ fontWeight: '600', fontSize: 11.5 }}
+                      >
+                        {word.startMs && word.startMs > 0
+                          ? `${Math.floor(word.startMs / 60000)}:${String(Math.floor((word.startMs % 60000) / 1000)).padStart(2, '0')} · Bu Kelimeden Dinle`
+                          : 'Bu Kelimeden Dinle'}
+                      </StyledText>
+                    </Pressable>
+                  )}
 
                   {/* 3 Temel Rozet: kök ع-ل-ق · isim · nekre · 6 türev */}
                   <View

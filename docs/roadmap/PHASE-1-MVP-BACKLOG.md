@@ -26,7 +26,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-2.4:** Ses çalarken aktif kelimenin karaoke tarzı belirginleştirilmesi (Word Highlight).
 - [x] **PBI-2.5:** Oynatma hızı seçimi (1.0x, 1.25x, 1.5x) ve alt oynatıcı barı (`AudioPlaybackBar.tsx`).
 - [x] **PBI-2.6:** Ayetler ve sureler arası otomatik kesintisiz geçiş ve stall recovery mekanizması.
-- [ ] **PBI-2.7 (Kelimeye Dokunarak Sarma):** Ses çalarken veya duraklatılmışken metindeki bir kelimeye dokunulduğunda sesin doğrudan o kelimenin `startMs` süresine atlaması (Seek-on-Word-Click).
+- [x] **PBI-2.7 (Kelimeye Dokunarak Sarma):** Ses çalarken veya duraklatılmışken metindeki bir kelimeye dokunulduğunda sesin doğrudan o kelimenin `startMs` süresine atlaması (Seek-on-Word-Click).
 - [ ] **PBI-2.8 (iOS Arka Plan & Kilit Ekranı):** `MPNowPlayingInfoCenter` ve `MPRemoteCommandCenter` ile ekran kapalıyken kilit ekranında sure/ayet adının görünmesi, oynat/durdur/ileri/geri kontrollerinin çalışması.
 - [ ] **PBI-2.9 (Odak Modu Tilaveti):** Odak modunda görsel unsurların gizlenip sadece tilavet odaklı akışın sunulması (Audio-only deneyimi).
 - [ ] **PBI-2.10 (Çevrimdışı Ses Önbelleği):** Kullanıcının seçilen sureyi internetsiz dinlemek üzere tek tuşla cihaz belleğine indirebilmesi (`FileSystem` cache).

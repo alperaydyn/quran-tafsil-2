@@ -7,6 +7,66 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Sure Geçişinde Kesintisiz Tilavet (AutoPlay Fix)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Sure Geçişinde Sesin Kesilmesi Problemi (Kök Neden):**
+  * *Sorun:* Önceki sure bittiğinde veya kullanıcı sonraki sureye geçtiğinde sayfa `navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: true })` ile açılıyor, arayüzde play modu aktif görünmesine rağmen ses başlamıyordu.
+  * *Neden 1 (Unmount Temizliği Yarış Durumu):* `ReadingScreen` ekranından ayrılırken çalışan `useEffect` cleanup'ı (`audioPlayerService.stopAndUnload()`), sureler arası geçişte eski ekran yok edilirken yeni ekranın başlatacağı oynatıcıyı kapatıyor ve `this.isUserPlaying` durumunu sıfırlıyordu.
+  * *Neden 2 (Asenkron Ayet Yükleme ve Boş Dizi Engeli):* Yeni sure ilk yüklendiğinde `verses` state'i başlangıçta `[]` olduğundan, ses çalma `useEffect`'i `if (currentVerses.length === 0) return;` satırına takılıp çıkıyordu. Ayetler API/snapshot'tan gelip `setVerses` çalıştığında ise `verses` dependency array'de yer almadığı için oynatma fonksiyonu bir daha hiç tetiklenmiyordu.
+* **Uygulanan Çözüm Mimarisi:**
+  * *1. Çift Katmanlı Geçiş Koruyucusu (`isTransitioningSurah`):*
+    * `ReadingScreen` içine `isTransitioningSurahRef`, `AudioPlayerService` içine ise `isTransitioningSurah` bayrağı eklendi.
+    * Sure bittiğinde veya kullanıcı sonraki sure butonuna bastığında bu bayrak `true` yapılır; eski ekran unmount olurken `stopAndUnload()` çalıştırılmaz ve ses nesnesi korunur.
+    * Yeni ekran `playAyah` çağrısını başlattığında bayrak otomatik olarak sıfırlanır.
+  * *2. Reaktif Oynatma ve Ayet Bağımsız İlk Akış:*
+    * Ses çalma `useEffect`'inin bağımlılıklarına `verses` dahil edildi; ayet listesi yüklendiği anda reaktif olarak tetiklenmesi sağlandı.
+    * Ayrıca ayetler henüz asenkron yüklenirken dahi Cloudflare R2 ses URL'si deterministik olarak bilindiğinden (`getAyahAudioUrl(surahId, 1)`), 1. ayetin ses streaming'i sıfır gecikmeyle derhal başlatılır; ayet metinleri geldiğinde ise oynatma kesilmeden kelime eşleşmesi güncellenir.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/services/audioPlayerService.ts`: `isTransitioningSurah` durumu, `setTransitioningSurah(val)` metodu ve `stopAndUnload` koruması.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: `isTransitioningSurahRef`, unmount koruması, `onVerseFinish`, `onNextVerse`, `handleNextStep` ve sıradaki sureye geçiş köprüleri, reaktif `verses` oynatma etkisi.
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(mobile): ensure continuous audio playback and autoPlay on surah transitions
+```
+
+---
+
+## [2026-10-02] Kelimeye Dokunarak Sarma ve Tilavet Kontrolü (PBI-2.7)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Kelimeye Dokunarak Sarma (Seek-on-Word-Click):**
+  * *Karar:* Ses çalarken veya duraklatılmışken (`isAudioSessionActive || isPlaying`) Kur'an metnindeki herhangi bir Arapça kelimeye dokunulduğunda sesin doğrudan o kelimenin `startMs` zaman damgasına anında atlaması sağlandı.
+  * *Aynı Ayet İçi Sarma:* Oynatıcı mevcut ayette çalıyorsa player baştan oluşturulmadan doğrudan `audioPlayerService.seekToMs(startMs, true)` ile sıfır gecikmeli sarılır ve aktif kelime karaoke vurgusu anında dokunulan kelimeye geçer.
+  * *Farklı Ayete Atlama:* Kullanıcı başka bir ayetteki kelimeye dokunduğunda ekran o ayete odaklanır ve yeni ayetin sesi o kelimenin `startMs` süresinden başlatılarak kesintisiz tilavet sürdürülür.
+* **Ses Oynatıcı Servisi Geliştirmeleri (`audioPlayerService.ts`):**
+  * *Karar:* `expo-audio`'nun native `seekTo` metodunu saran `seekToMs(positionMs, resumeIfPaused)` ve `seekToWord(word, resumeIfPaused)` fonksiyonları eklendi.
+  * *İlk Konum Desteği:* `playAyah(url, words, shouldPlay, initialPositionMs)` fonksiyonuna `initialPositionMs` parametresi eklendi. Ses akışı ağdan yüklenirken status takibiyle ilk saniyeden değil istenen milisaniyeden başlatılması garanti altına alındı.
+* **Çift Amaçlı Dokunma (Sözlük & Sarma) Çakışma Yönetimi:**
+  * *Karar:* Kullanıcı okuma modundayken (tilavet henüz başlatılmamışken) kelimeye dokunulduğunda editoryal Sözlük & Morfoloji çekmecesi (`WordDetailSheet`) açılır. Tilavet oturumu aktifken ise tek dokunma doğrudan ses sarma (PBI-2.7) olarak çalışır.
+  * *Uzun Basma (Long-Press):* Tilavet oturumu açıkken de morfolojik sözlük ihtiyacını karşılamak için kelimelere uzun basıldığında (`onWordLongPress`, 350ms) her koşulda `WordDetailSheet` açılması sağlandı.
+  * *Sözlükten Dinleme:* `WordDetailSheet` başlığına "▶ [00:04] Bu Kelimeden Dinle" eylem hapı yerleştirildi; sözlükten de doğrudan o kelimeden tilavet başlatılabilir.
+* **Yüzen Tilavet Çubuğu Kapatma ve Mini Mod:**
+  * *Karar:* `AudioPlaybackBar` bileşenine zarif bir `✕` kapatma butonu eklendi. Tilavet kapatıldığında oynatıcı boşaltılır ve altta dikkat dağıtmayan şık bir *"▶ Tilaveti Başlat · X. Ayet"* hapı belirir.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/services/audioPlayerService.ts`: `seekToMs`, `seekToWord`, `initialPositionMs` ve getDurationMs/getPositionMs eklendi.
+* `tafsil-ios-app/src/components/reading/AudioPlaybackBar.tsx`: `onClose` desteği ve minimalist kapatma ikonu.
+* `tafsil-ios-app/src/components/lexicon/WordDetailSheet.tsx`: `onPlayFromWord` prop'u ve "Bu Kelimeden Dinle" butonu.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: `handleSeekToWord`, `handleWordPress`, `handleWordLongPress`, `seekTargetMsRef`, mini tilavet tetikleyici.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-2.7` tamamlandı (`[x]`).
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): implement seek-on-word-click (PBI-2.7) and playback dock close controls
+```
+
+---
+
 ## [2026-10-02] Okuma Ekranı Tipografi, Transkript ve Görsel Ayar Çekmecesi (PBI-1.5)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

@@ -26,6 +26,8 @@ class AudioPlayerService {
   private stallCounter: number = 0;
   private lastPositionMs: number = -1;
   private isUserPlaying: boolean = false;
+  private pendingSeekMs: number = 0;
+  private isTransitioningSurah: boolean = false;
 
   private onStateChange: PlaybackStateListener | null = null;
   private onVerseFinish: VerseFinishListener | null = null;
@@ -203,8 +205,15 @@ class AudioPlayerService {
 
   /**
    * Belirtilen URL'den ayet sesini yükler ve çalar.
+   * @param initialPositionMs Oynatmaya başlanacak veya sarılacak ilk konum (ms)
    */
-  async playAyah(url: string, words: Word[] = [], shouldPlay: boolean = true) {
+  async playAyah(
+    url: string,
+    words: Word[] = [],
+    shouldPlay: boolean = true,
+    initialPositionMs: number = 0
+  ) {
+    this.isTransitioningSurah = false;
     await this.configureAudioMode();
 
     const currentLoadId = ++this.loadId;
@@ -214,7 +223,9 @@ class AudioPlayerService {
 
     // Eğer aynı URL zaten yüklüyse tekrar createAudioPlayer yapma
     if (this.player && this.currentUrl === url) {
-      if (shouldPlay) {
+      if (initialPositionMs > 0) {
+        await this.seekToMs(initialPositionMs, shouldPlay);
+      } else if (shouldPlay) {
         try {
           this.player.play();
           this.startTracking();
@@ -235,11 +246,24 @@ class AudioPlayerService {
     if (currentLoadId !== this.loadId || !this.isUserPlaying) return;
 
     this.currentUrl = url;
+    this.pendingSeekMs = initialPositionMs;
+
+    let initialWordIdx = 0;
+    if (initialPositionMs > 0 && words.length > 0) {
+      const matchedIdx = words.findIndex(
+        (w) =>
+          w.startMs > 0 &&
+          initialPositionMs >= w.startMs &&
+          initialPositionMs <= (w.endMs || w.startMs + 500)
+      );
+      if (matchedIdx !== -1) initialWordIdx = matchedIdx;
+    }
+
     this.notify({
       isPlaying: shouldPlay,
       isBuffering: true,
-      positionMs: 0,
-      activeWordIndex: 0,
+      positionMs: initialPositionMs,
+      activeWordIndex: initialWordIdx,
       error: null,
     });
 
@@ -249,21 +273,36 @@ class AudioPlayerService {
         player.setPlaybackRate(this.playbackRate);
       }
 
-      this.subscription = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
+      let hasSeekedInitial = false;
+
+      this.subscription = player.addListener('playbackStatusUpdate', async (status: AudioStatus) => {
         // Player değiştiyse veya kullanıcı durdurduysa işlem yapma
         if (this.player !== player || !this.isUserPlaying) return;
 
         // Ağdan ses yüklendiğinde ve kullanıcı çalmak istiyorsa başlat
-        if (
-          status.isLoaded &&
-          !status.playing &&
-          !status.didJustFinish &&
-          !this.hasFinishedVerse
-        ) {
-          try {
-            player.play();
-          } catch (e) {
-            // Guard
+        if (status.isLoaded) {
+          if (!hasSeekedInitial && this.pendingSeekMs > 0) {
+            hasSeekedInitial = true;
+            const seekSec = this.pendingSeekMs / 1000;
+            this.pendingSeekMs = 0;
+            try {
+              await player.seekTo(seekSec);
+            } catch (e) {
+              console.warn('[AudioPlayerService] initial seek error:', e);
+            }
+          }
+
+          if (
+            !status.playing &&
+            !status.didJustFinish &&
+            !this.hasFinishedVerse &&
+            this.isUserPlaying
+          ) {
+            try {
+              player.play();
+            } catch (e) {
+              // Guard
+            }
           }
         }
 
@@ -295,6 +334,98 @@ class AudioPlayerService {
         });
       }
     }
+  }
+
+  /**
+   * Oynatıcıyı doğrudan belirtilen milisaniyeye (ms) sarar (PBI-2.7: Seek).
+   * @param positionMs Sarılacak hedef zaman (ms)
+   * @param resumeIfPaused Eğer duraklatılmışsa oynatmaya devam etsin mi?
+   */
+  async seekToMs(positionMs: number, resumeIfPaused: boolean = false): Promise<void> {
+    const validPos = Math.max(0, positionMs);
+    const seekSec = validPos / 1000;
+
+    let targetWordIndex: number | null = null;
+    if (this.words.length > 0) {
+      const matchedIdx = this.words.findIndex(
+        (w) =>
+          w.startMs > 0 &&
+          validPos >= w.startMs &&
+          validPos <= (w.endMs || w.startMs + 500)
+      );
+      if (matchedIdx !== -1) {
+        targetWordIndex = matchedIdx;
+      } else {
+        // En yakın kelime indeksini tespit et
+        let closestIdx = 0;
+        let minDiff = Infinity;
+        this.words.forEach((w, idx) => {
+          const diff = Math.abs((w.startMs || 0) - validPos);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIdx = idx;
+          }
+        });
+        targetWordIndex = closestIdx;
+      }
+    }
+
+    this.lastPositionMs = validPos;
+    this.stallCounter = 0;
+
+    if (this.player) {
+      try {
+        await this.player.seekTo(seekSec);
+      } catch (e) {
+        console.warn('[AudioPlayerService] seekToMs error:', e);
+      }
+
+      if (resumeIfPaused && !this.isUserPlaying) {
+        this.isUserPlaying = true;
+        try {
+          this.player.play();
+        } catch (e) {
+          console.warn('[AudioPlayerService] play after seek error:', e);
+        }
+        this.startTracking();
+        this.notify({
+          isPlaying: true,
+          positionMs: validPos,
+          activeWordIndex: targetWordIndex,
+          isBuffering: false,
+        });
+        return;
+      }
+    }
+
+    this.notify({
+      positionMs: validPos,
+      activeWordIndex: targetWordIndex,
+    });
+  }
+
+  /**
+   * Belirtilen kelimenin başlangıç zaman damgasına (startMs) doğrudan sarar (Seek-on-Word-Click).
+   */
+  async seekToWord(word: Word, resumeIfPaused: boolean = false): Promise<void> {
+    const startMs = word.startMs ?? 0;
+    await this.seekToMs(startMs, resumeIfPaused);
+  }
+
+  getDurationMs(): number {
+    return this.state.durationMs;
+  }
+
+  getPositionMs(): number {
+    return this.state.positionMs;
+  }
+
+  getIsPlaying(): boolean {
+    return this.isUserPlaying;
+  }
+
+  hasLoadedAudio(): boolean {
+    return this.player !== null;
   }
 
   pause() {
@@ -335,11 +466,19 @@ class AudioPlayerService {
     }
   }
 
+  setTransitioningSurah(val: boolean) {
+    this.isTransitioningSurah = val;
+  }
+
   async stopAndUnload() {
+    if (this.isTransitioningSurah) {
+      // Sureler arası kesintisiz geçiş sırasında arka plan temizliğinde oynatıcıyı kapatma
+      return;
+    }
     this.loadId++;
     this.isUserPlaying = false;
     await this.unloadCurrentPlayer();
-    this.notify({ isPlaying: false, activeWordIndex: null });
+    this.notify({ isPlaying: false, activeWordIndex: null, positionMs: 0 });
   }
 }
 
