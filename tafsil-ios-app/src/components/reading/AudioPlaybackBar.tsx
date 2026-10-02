@@ -106,6 +106,7 @@ interface AudioPlaybackBarProps {
   isBuffering?: boolean;
   playbackRate?: number;
   isAudioOnly?: boolean;
+  isOffline?: boolean;
   onToggleAudioOnly?: () => void;
   onRateChange?: (rate: number) => void;
   onTogglePlay: () => void;
@@ -122,6 +123,7 @@ export function AudioPlaybackBar({
   isBuffering = false,
   playbackRate = 1.0,
   isAudioOnly = false,
+  isOffline = false,
   onToggleAudioOnly,
   onRateChange,
   onTogglePlay,
@@ -186,9 +188,25 @@ export function AudioPlaybackBar({
         <View style={styles.contentRow}>
           {/* Sol: Etiket + Ayet sayacı */}
           <View style={styles.leftSection}>
-            <StyledText style={[styles.eyebrow, { color: textSecondary }]}>
-              TİLAVET
-            </StyledText>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              <StyledText style={[styles.eyebrow, { color: textSecondary }]}>
+                TİLAVET
+              </StyledText>
+              {isOffline && (
+                <View
+                  style={{
+                    paddingHorizontal: 4,
+                    paddingVertical: 1,
+                    borderRadius: 4,
+                    backgroundColor: 'rgba(34, 197, 94, 0.15)',
+                  }}
+                >
+                  <StyledText style={{ color: '#22C55E', fontSize: 8.5, fontWeight: '700' }}>
+                    ÇEVRİMDIŞI
+                  </StyledText>
+                </View>
+              )}
+            </View>
             <StyledText style={[styles.verseCounter, { color: textPrimary }]}>
               {currentAyah}
               <StyledText style={{ color: textSecondary, fontSize: 12, fontWeight: '400' }}>

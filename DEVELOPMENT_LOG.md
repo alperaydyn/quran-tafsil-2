@@ -7,6 +7,43 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Çevrimdışı Ses Önbelleği (PBI-2.10)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Çevrimdışı Yerel Ses Deposu (`expo-file-system/legacy` & `audioCacheService.ts`):**
+  * *Karar:* Kullanıcının seçilen sureye ait tüm ayet seslerini tek dokunuşla cihaz diskine indirebilmesi için `AudioCacheService` inşa edildi.
+  * *Dizin Hiyerarşisi:* Dosyalar `${FileSystem.documentDirectory}tafsil_audio/surah_${surahId}/${ayahNo}.mp3` kalıcı alanına kaydedilir. Böylece iOS, cihaz geçici disk temizliği yapsa dahi kullanıcının indirdiği sureleri silmez.
+  * *Hızlı İndirme Havuzu (Concurrency: 3):* Ayetler tek tek ardışık indirilmek yerine 3 eşzamanlı iş parçacığıyla indirilir; böylece uzun sureler bile saniyeler içinde indirilir. İndirme iptal edilebilir (`cancelDownload`).
+* **Zustand & MMKV ile Reaktif İndirme Durumu (`useAudioCacheStore.ts`):**
+  * *Karar:* İndirilen sure kimlikleri (`downloadedSurahIds`) MMKV üzerinden kalıcılaştırıldı. Anlık indirme yüzdeleri ve bayt boyutları reaktif olarak store'da yönetilir.
+  * *Gerekçe:* Uygulama yeniden başlatılsa bile hangi surelerin çevrimdışı hazır olduğu sıfır gecikmeyle bilinir.
+* **Şeffaf Çevrimdışı Oynatma Çözümlemesi (`audioPlayerService.playAyah`):**
+  * *Karar:* Oynatıcı ayet çalarken `audioCacheService.resolveAyahAudioUri(surahId, ayahNo, remoteUrl)` çağrısı yapar. Eğer ayet cihazda varsa doğrudan yerel `file://` URI'sini çalar; internet yokken dahi sıfır takılma ve sıfır gecikmeyle çalışır.
+  * *Gerekçe:* Ağ bağlantısı kesildiğinde veya uçak modundayken kullanıcının kesintisiz dinleme yapabilmesi.
+* **Arayüz Entegrasyonu (`AudioDownloadButton.tsx`, `ReadingScreen`, `AudioPlaybackBar` & `SearchScreen`):**
+  * *Header ve Subheader Düğmeleri:* `ReadingScreen` sağ üst köşesine ve alt bilgi çubuğuna tek tıkla indirme/silme/ilerleme gösteren `AudioDownloadButton` yerleştirildi.
+  * *Çevrimdışı Rozeti:* `AudioPlaybackBar` çalınan ayetin yerel diskten beslendiğini algıladığında `ÇEVRİMDIŞI` yeşil rozetini gösterir.
+  * *Arama ve Sure Kartları:* Sure listelerinde ve arama sonuçlarında indirilen surelerin yanında `✓ Çevrimdışı` ibaresi belirir.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/package.json` & `package-lock.json`: `expo-file-system` eklendi.
+* `tafsil-ios-app/src/services/audioCacheService.ts`: Yerel ses yönetimi, denetimi, eşzamanlı indirme ve silme servisi.
+* `tafsil-ios-app/src/store/useAudioCacheStore.ts`: MMKV kalıcılaştırılmış indirme durum store'u ve bayt biçimlendiricisi.
+* `tafsil-ios-app/src/components/reading/AudioDownloadButton.tsx`: Başlık ve alt başlık modlu interaktif indirme düğmesi.
+* `tafsil-ios-app/src/services/audioPlayerService.ts`: `playAyah` içinde yerel dosya öncelikli URL çözümlemesi ve `isOffline` durumu bildirimi.
+* `tafsil-ios-app/src/components/reading/AudioPlaybackBar.tsx`: `isOffline` prop'u ve yeşil "ÇEVRİMDIŞI" rozeti.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: `AudioDownloadButton` entegrasyonu, `isOfflineAudio` senkronizasyonu.
+* `tafsil-ios-app/src/screens/SearchScreen.tsx`: Sure listelerinde çevrimdışı hazır rozeti.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-2.10` tamamlandı (`[x]`).
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): add offline audio caching and download manager (PBI-2.10)
+```
+
+---
+
 ## [2026-10-02] Odak Modu Tilaveti ve Sadece Dinleme Sahnesi (PBI-2.9)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

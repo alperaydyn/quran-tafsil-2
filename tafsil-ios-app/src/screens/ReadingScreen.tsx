@@ -6,6 +6,7 @@ import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
 import { WordDetailSheet } from '../components/lexicon/WordDetailSheet';
 import { AudioPlaybackBar } from '../components/reading/AudioPlaybackBar';
+import { AudioDownloadButton } from '../components/reading/AudioDownloadButton';
 import { ConceptContextCard } from '../components/reading/ConceptContextCard';
 import { ReadingAppearanceSheet } from '../components/reading/ReadingAppearanceSheet';
 import { OfflineSyncService } from '../services/offlineSyncService';
@@ -400,6 +401,7 @@ export function ReadingScreen({ route, navigation }: Props) {
   const [activeAyah, setActiveAyah] = useState(initialAyahNo ?? 1);
   const [selectedAyahNo, setSelectedAyahNo] = useState<number | null>(initialAyahNo ?? null);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
+  const [isOfflineAudio, setIsOfflineAudio] = useState(false);
 
   // PBI-2.9: Audio-Only Odak Tilaveti için aktif ayet ve kelime verileri
   const currentVerse = useMemo(() => {
@@ -553,46 +555,54 @@ export function ReadingScreen({ route, navigation }: Props) {
       ),
       headerTitleAlign: 'center',
       headerRight: () => (
-        <Pressable
-          onPress={() => setAppearanceSheetVisible(true)}
-          hitSlop={10}
-          accessibilityLabel="Okuma ve Tipografi Ayarları"
-          accessibilityRole="button"
-          style={({ pressed }) => ({
-            paddingHorizontal: 10,
-            paddingVertical: 4,
-            borderRadius: 14,
-            backgroundColor: theme.colors.band,
-            borderWidth: 1,
-            borderColor: theme.colors.line,
-            flexDirection: 'row',
-            alignItems: 'baseline',
-            justifyContent: 'center',
-            gap: 2,
-            opacity: pressed ? 0.75 : 1,
-          })}
-        >
-          <StyledText
-            style={{
-              fontFamily: fontFamily.serifSemiBold,
-              fontSize: 14,
-              color: theme.colors.ink,
-              lineHeight: 16,
-            }}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <AudioDownloadButton
+            surahId={surahId}
+            surahName={surahTitle}
+            totalVerses={totalVerses}
+            variant="header"
+          />
+          <Pressable
+            onPress={() => setAppearanceSheetVisible(true)}
+            hitSlop={10}
+            accessibilityLabel="Okuma ve Tipografi Ayarları"
+            accessibilityRole="button"
+            style={({ pressed }) => ({
+              paddingHorizontal: 10,
+              paddingVertical: 4,
+              borderRadius: 14,
+              backgroundColor: theme.colors.band,
+              borderWidth: 1,
+              borderColor: theme.colors.line,
+              flexDirection: 'row',
+              alignItems: 'baseline',
+              justifyContent: 'center',
+              gap: 2,
+              opacity: pressed ? 0.75 : 1,
+            })}
           >
-            A
-          </StyledText>
-          <StyledText
-            style={{
-              fontFamily: fontFamily.serif,
-              fontSize: 11,
-              color: theme.colors.mut,
-              lineHeight: 14,
-            }}
-          >
-            a
-          </StyledText>
-        </Pressable>
+            <StyledText
+              style={{
+                fontFamily: fontFamily.serifSemiBold,
+                fontSize: 14,
+                color: theme.colors.ink,
+                lineHeight: 16,
+              }}
+            >
+              A
+            </StyledText>
+            <StyledText
+              style={{
+                fontFamily: fontFamily.serif,
+                fontSize: 11,
+                color: theme.colors.mut,
+                lineHeight: 14,
+              }}
+            >
+              a
+            </StyledText>
+          </Pressable>
+        </View>
       ),
     });
   }, [navigation, currentSurah, totalVerses, surahId, theme]);
@@ -700,6 +710,9 @@ export function ReadingScreen({ route, navigation }: Props) {
     audioPlayerService.setListeners(
       (state) => {
         setIsBuffering(state.isBuffering);
+        if (state.isOffline !== undefined) {
+          setIsOfflineAudio(state.isOffline);
+        }
         if (state.activeWordIndex !== undefined) {
           setActiveWordIndex(state.activeWordIndex);
         }
@@ -759,7 +772,15 @@ export function ReadingScreen({ route, navigation }: Props) {
       albumTitle: 'tafsil.net',
     };
 
-    audioPlayerService.playAyah(audioUrl, wordsWithTimestamps, true, initialSeek, metadata);
+    audioPlayerService.playAyah(
+      audioUrl,
+      wordsWithTimestamps,
+      true,
+      initialSeek,
+      metadata,
+      surahId,
+      activeAyah
+    );
   }, [isPlaying, activeAyah, surahId, verses, currentSurah]);
 
   const toggleBookmark = (ayahNo: number) => {
@@ -1019,6 +1040,13 @@ export function ReadingScreen({ route, navigation }: Props) {
                 </StyledText>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <AudioDownloadButton
+                    surahId={surahId}
+                    surahName={currentSurah ? currentSurah.nameTr : `Sure ${surahId}`}
+                    totalVerses={totalVerses}
+                    variant="subhead"
+                  />
+
                   {isOdakMode && isAudioSessionActive && !isAudioOnly && (
                     <Pressable
                       onPress={() => setIsAudioOnly(true)}
@@ -1267,6 +1295,7 @@ export function ReadingScreen({ route, navigation }: Props) {
               isBuffering={isBuffering}
               playbackRate={playbackRate}
               isAudioOnly={isAudioOnly}
+              isOffline={isOfflineAudio}
               onToggleAudioOnly={() => setIsAudioOnly((prev) => !prev)}
               onRateChange={(rate) => {
                 setPlaybackRate(rate);

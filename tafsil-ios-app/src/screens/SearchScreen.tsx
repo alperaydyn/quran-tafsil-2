@@ -22,6 +22,7 @@ import {
   type VerseSearchResult,
   type RootConceptSearchResult,
 } from '../services/searchService';
+import { useAudioCacheStore } from '../store/useAudioCacheStore';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 type SearchScreenRouteProp = RouteProp<RootStackParamList, 'Search'>;
@@ -164,6 +165,7 @@ export function SearchScreen() {
 
     if (item.type === 'surah') {
       const s = item.data;
+      const isDownloaded = useAudioCacheStore.getState().downloadedSurahIds.includes(s.id);
       return (
         <Pressable
           onPress={() => handleSurahPress(s)}
@@ -186,7 +188,7 @@ export function SearchScreen() {
                   {s.nameTr}
                 </StyledText>
                 <StyledText variant="caption" color="mut">
-                  {s.period === 'medine' ? 'Medine' : 'Mekke'} · {s.verseCount} ayet · Nüzul {s.revelationOrder}
+                  {s.period === 'medine' ? 'Medine' : 'Mekke'} · {s.verseCount} ayet{isDownloaded ? ' · ✓ Çevrimdışı' : ''} · Nüzul {s.revelationOrder}
                 </StyledText>
               </View>
             </View>

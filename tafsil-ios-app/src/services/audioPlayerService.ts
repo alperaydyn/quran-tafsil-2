@@ -7,6 +7,7 @@ import {
   AudioLockScreenOptions,
 } from 'expo-audio';
 import type { Word } from '../api/types';
+import { audioCacheService } from './audioCacheService';
 
 export type { AudioMetadata };
 
@@ -17,6 +18,7 @@ export interface AudioPlaybackState {
   positionMs: number;
   activeWordIndex: number | null;
   error: string | null;
+  isOffline?: boolean;
 }
 
 export type PlaybackStateListener = (state: AudioPlaybackState) => void;
@@ -43,6 +45,7 @@ class AudioPlayerService {
   private isUserPlaying: boolean = false;
   private pendingSeekMs: number = 0;
   private isTransitioningSurah: boolean = false;
+  private isOfflineSource: boolean = false;
 
   private onStateChange: PlaybackStateListener | null = null;
   private onVerseFinish: VerseFinishListener | null = null;
@@ -54,6 +57,7 @@ class AudioPlayerService {
     positionMs: 0,
     activeWordIndex: null,
     error: null,
+    isOffline: false,
   };
 
   /**
@@ -83,7 +87,7 @@ class AudioPlayerService {
   }
 
   private notify(partial: Partial<AudioPlaybackState>) {
-    this.state = { ...this.state, ...partial };
+    this.state = { ...this.state, isOffline: this.isOfflineSource, ...partial };
     this.onStateChange?.(this.state);
   }
 
@@ -260,10 +264,18 @@ class AudioPlayerService {
     words: Word[] = [],
     shouldPlay: boolean = true,
     initialPositionMs: number = 0,
-    metadata?: AudioMetadata
+    metadata?: AudioMetadata,
+    surahId?: number,
+    ayahNo?: number
   ) {
     this.isTransitioningSurah = false;
     await this.configureAudioMode();
+
+    let targetUrl = url;
+    if (surahId !== undefined && ayahNo !== undefined) {
+      targetUrl = await audioCacheService.resolveAyahAudioUri(surahId, ayahNo, url);
+    }
+    this.isOfflineSource = targetUrl.startsWith('file://');
 
     const currentLoadId = ++this.loadId;
     this.words = words;
@@ -275,7 +287,7 @@ class AudioPlayerService {
     }
 
     // Eğer aynı URL zaten yüklüyse tekrar createAudioPlayer yapma
-    if (this.player && this.currentUrl === url) {
+    if (this.player && this.currentUrl === targetUrl) {
       if (metadata) {
         this.updateMetadata(metadata);
       }
@@ -303,7 +315,7 @@ class AudioPlayerService {
     // Bu süreçte başka bir oynatma isteği geldiyse veya kullanıcı pause'a bastıysa dur
     if (currentLoadId !== this.loadId || !this.isUserPlaying) return;
 
-    this.currentUrl = url;
+    this.currentUrl = targetUrl;
     this.pendingSeekMs = initialPositionMs;
 
     let initialWordIdx = 0;
@@ -326,7 +338,7 @@ class AudioPlayerService {
     });
 
     try {
-      const player = createAudioPlayer(url, {
+      const player = createAudioPlayer(targetUrl, {
         updateInterval: 100,
         keepAudioSessionActive: true,
       });
