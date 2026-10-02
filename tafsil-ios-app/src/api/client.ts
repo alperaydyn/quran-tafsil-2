@@ -1,48 +1,26 @@
-import Constants from 'expo-constants';
 import type { ApiResponse, Surah, Verse, Word, RootDerivatives, LexiconRoot } from './types';
 import { mockSurahs } from './mock/surahs.mock';
 import { mockVersesBySurah } from './mock/verses.mock';
-
 import ayetlerSnapshot from '../data/ayetler.snapshot.json';
 import { TimestampService } from '../services/timestampService';
+import { localDbService } from '../services/localDbService';
+import {
+  API_BASE,
+  USE_MOCK,
+  CLOUDFLARE_R2_BASE_URL,
+  getAyahAudioUrl,
+  getAyahTimestampUrl,
+  getSurahTimestampUrl,
+} from './config';
 
-/**
- * Backend REST istemcisi (MOB-004).
- *
- * Canlı Fastify API uçlarına (/api/v1/sureler, /api/v1/sureler/:id/ayetler) bağlanır.
- * Ağ hatası durumunda kesintisiz kullanıcı deneyimi için yerel mock/snapshot veriye düşer (fallback).
- */
-
-const API_BASE =
-  Constants.expoConfig?.extra?.apiUrl ??
-  process.env.EXPO_PUBLIC_API_URL ??
-  'http://localhost:3001/api/v1';
-
-// USE_MOCK: false olarak ayarlandı (Canlı API aktif, ağ yoksa snapshot devrede).
-export const USE_MOCK = {
-  surahs: false,
-  verses: false,
+export {
+  API_BASE,
+  USE_MOCK,
+  CLOUDFLARE_R2_BASE_URL,
+  getAyahAudioUrl,
+  getAyahTimestampUrl,
+  getSurahTimestampUrl,
 };
-
-export const CLOUDFLARE_R2_BASE_URL =
-  Constants.expoConfig?.extra?.audioBaseUrl ??
-  process.env.EXPO_PUBLIC_AUDIO_BASE_URL ??
-  'https://audio.tafsil.net';
-
-export function getAyahAudioUrl(surahId: number, ayahNo: number): string {
-  // Cloudflare R2: audio/{surah}_{ayah}.mp3
-  return `${CLOUDFLARE_R2_BASE_URL}/audio/${surahId}_${ayahNo}.mp3`;
-}
-
-export function getAyahTimestampUrl(surahId: number, ayahNo: number): string {
-  // Cloudflare R2: timestamps/{surah}_{ayah}.json
-  return `${CLOUDFLARE_R2_BASE_URL}/timestamps/${surahId}_${ayahNo}.json`;
-}
-
-export function getSurahTimestampUrl(surahId: number): string {
-  // Cloudflare R2: timestamps/surahs/{surah}.json
-  return `${CLOUDFLARE_R2_BASE_URL}/timestamps/surahs/${surahId}.json`;
-}
 
 function getVersesFromSnapshot(surahId: number): Verse[] {
   const list = (ayetlerSnapshot as any[]).filter((a) => a.s === surahId);
@@ -132,6 +110,16 @@ export async function getSurahs(siralama: 'mushaf' | 'nuzul' = 'mushaf'): Promis
     return { success: true, data: mockSurahs, meta: { total: mockSurahs.length, cached: false } };
   }
 
+  // 1. Sıfır Gecikmeli Yerel SQLite / Snapshot Sorgusu (PBI-7.3)
+  const localList = localDbService.getSurahs(siralama);
+  if (localList && localList.length >= 114) {
+    return {
+      success: true,
+      data: localList,
+      meta: { total: localList.length, cached: true },
+    };
+  }
+
   try {
     const res = await fetch(`${API_BASE}/sureler?siralama=${siralama}`, {
       headers: { Accept: 'application/json' },
@@ -148,20 +136,48 @@ export async function getSurahs(siralama: 'mushaf' | 'nuzul' = 'mushaf'): Promis
     return json;
   } catch (err) {
     console.warn('[getSurahs] Ağ çağrısı başarısız, yerel veriye dönülüyor:', err);
-    return { success: true, data: mockSurahs, meta: { total: mockSurahs.length, cached: false } };
+    return { success: true, data: localList.length > 0 ? localList : mockSurahs, meta: { total: mockSurahs.length, cached: false } };
   }
 }
 
 export async function getVerses(surahId: number, page = 1, limit = 300): Promise<ApiResponse<Verse[]>> {
   if (USE_MOCK.verses) {
-    const snapshotData = getVersesFromSnapshot(surahId);
-    if (snapshotData.length > 0) {
-      return { success: true, data: snapshotData, meta: { total: snapshotData.length, cached: true } };
+    const localVerses = localDbService.getVerses(surahId);
+    if (localVerses.length > 0) {
+      return { success: true, data: localVerses, meta: { total: localVerses.length, cached: true } };
     }
     const data = mockVersesBySurah[surahId] ?? [];
     return { success: true, data, meta: { total: data.length, cached: false } };
   }
 
+  // 1. Sıfır Gecikmeli Yerel SQLite / Snapshot Sorgusu (PBI-7.3)
+  const localVerses = localDbService.getVerses(surahId);
+  if (localVerses && localVerses.length > 0) {
+    // Çevrimiçi ise arka planda sessizce API'den güncelleme denetimi yap
+    fetch(`${API_BASE}/sureler/${surahId}/ayetler?page=${page}&limit=${limit}`, {
+      headers: { Accept: 'application/json' },
+    })
+      .then(async (res) => {
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+            const mapped = json.data.map(mapVerseFromBackend);
+            localDbService.upsertVerses(mapped);
+          }
+        }
+      })
+      .catch(() => {
+        // Sessizce yut, çevrimdışı kullanımda kullanıcı deneyimini etkilemez
+      });
+
+    return {
+      success: true,
+      data: localVerses,
+      meta: { total: localVerses.length, cached: true },
+    };
+  }
+
+  // 2. Yerel veritabanında henüz yoksa ağ üzerinden çek
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2500);
@@ -175,9 +191,11 @@ export async function getVerses(surahId: number, page = 1, limit = 300): Promise
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+      const verses = json.data.map(mapVerseFromBackend);
+      localDbService.upsertVerses(verses);
       return {
         success: true,
-        data: json.data.map(mapVerseFromBackend),
+        data: verses,
         meta: json.meta,
       };
     }
@@ -194,14 +212,22 @@ export async function getVerses(surahId: number, page = 1, limit = 300): Promise
 }
 
 export async function getSingleVerse(surahId: number, ayetNo: number): Promise<ApiResponse<Verse>> {
+  // 1. Doğrudan yerel SQLite sorgusu (0 ms)
+  const localVerse = localDbService.getVerse(surahId, ayetNo);
+  if (localVerse) {
+    return { success: true, data: localVerse, meta: { total: 1, cached: true } };
+  }
+
   try {
     const res = await fetch(`${API_BASE}/ayetler/${surahId}/${ayetNo}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     if (json.success && json.data) {
+      const verse = mapVerseFromBackend(json.data);
+      localDbService.upsertVerses([verse]);
       return {
         success: true,
-        data: mapVerseFromBackend(json.data),
+        data: verse,
         meta: json.meta,
       };
     }
@@ -235,6 +261,18 @@ export async function getRootDerivatives(rootId: number): Promise<ApiResponse<Ro
 }
 
 export async function searchRoots(queryText: string): Promise<ApiResponse<LexiconRoot[]>> {
+  // Önce yerel SQLite sözlük tablosunda ara
+  const localLex = localDbService.getLexiconRoot(queryText);
+  if (localLex) {
+    const rootItem: LexiconRoot = {
+      id: 1,
+      kok_ar: localLex.rootAr,
+      kok_tr: localLex.rootTr,
+      kok_anlami: localLex.rootMeaning,
+    };
+    return { success: true, data: [rootItem], meta: { total: 1, cached: true } };
+  }
+
   try {
     const res = await fetch(`${API_BASE}/kokler?q=${encodeURIComponent(queryText)}`, {
       headers: { Accept: 'application/json' },

@@ -74,6 +74,7 @@ export interface Verse {
   mealTr: string;
   audioUrl: string | null;
   words?: Word[];
+  note?: string;
 }
 
 export type AuthProvider = 'apple' | 'google' | 'guest';

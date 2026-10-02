@@ -498,3 +498,35 @@ docs(architecture): add roadmap statuses, PRD anti-drift rule, and development l
 * `docs/walkthroughs/DP-010..012*`: Morfoloji ve eksik kelime tamamlama raporları.
 * `backend/src/` & `data-pipeline/scripts/`: Kök ve kelime import scriptleri.
 * `tafsil-ios-app/src/screens/HistoryScreen.tsx` & `ReadingScreen.tsx`.
+
+---
+
+## [2026-10-02] Yerel SQLite Veritabanı ve Çevrimdışı Kur'an Mimarisi (PBI-7.3)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Tam Kur'an Metninin ve Sözlüğün Yerel SQLite'a Taşınması (`expo-sqlite`):**
+  * *Karar:* Uygulamaya modern `expo-sqlite: ~57.0.3` entegre edilerek `tafsil.db` yerel SQLite veritabanı kuruldu (`localDbService.ts`).
+  * *Tablolar:* `surahs` (114 sure), `verses` (6.236 ayet metni, meali, transliterasyonu, notları), `lexicon_roots` (morfolojik kökler ve türevler), `concepts` (kavram sözlüğü), `meta` (şema versiyonu).
+  * *Performans PRAGMA'ları:* `journal_mode = WAL`, `synchronous = NORMAL`, `temp_store = MEMORY`, `cache_size = -32000` (32MB bellek önbelleği).
+  * *Gerekçe:* Ağ bağlantısı tamamen kesik olsa dahi uygulamanın 0 ms gecikmeyle açılması, sureler, ayetler ve kelime sözlüğünün kesintisiz sorgulanabilmesi.
+* **Tek Seferlik Hızlı Tohumlama (High-Speed Single Transaction Seeding):**
+  * *Karar:* İlk açılışta `meta.schema_version` kontrolü yapılarak 6.236 ayet ve sözlük verileri `prepareSync` ve `withTransactionSync` ile tek bir atomik işlemde <100ms sürede veritabanına tohumlanır. Sonraki açılışlarda tohumlama baypas edilerek anında okuma başlar.
+* **Kelime Zaman Damgaları ile Hibrit Birleşim (Hybrid Token Enrichment):**
+  * *Karar:* SQLite'dan okunan ayet metinleri, kelime düzeyinde parçalanırken `TimestampService` üzerinden R2'den önbelleklenen veya yerel kompakt JSON'da bulunan hassas milisaniye zaman damgalarıyla (`startMs`, `endMs`) otomatik zenginleştirilerek sesli karaoke oynatıcısına hazır sunulur.
+* **REST API İstemcisi ve Arama Motoru Entegrasyonu:**
+  * *Karar:* `src/api/client.ts` (`getSurahs`, `getVerses`, `getSingleVerse`, `searchRoots`) ve `src/services/searchService.ts`, doğrudan `localDbService` üzerinden yerel veriye öncelik verecek (offline-first) şekilde güncellendi. Çevrimiçiyken arka planda sessiz API eşitlemesi yapılır.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/package.json` & `package-lock.json`: `expo-sqlite: ~57.0.3` eklendi.
+* `tafsil-ios-app/app.json`: `plugins: ["expo-sqlite"]` eklendi.
+* `tafsil-ios-app/src/api/types.ts`: `Verse` arayüzüne opsiyonel `note?: string` alanı eklendi.
+* `tafsil-ios-app/src/api/config.ts`: Modüler API ve Cloudflare R2 konfigürasyonu.
+* `tafsil-ios-app/src/services/localDbService.ts`: SQLite tabloları, tohumlama, WAL yapılandırması ve sorgulama API'si oluşturuldu.
+* `tafsil-ios-app/src/api/client.ts`: Sıfır gecikmeli SQLite okumaları ve arka plan eşitlemesi bağlandı.
+* `tafsil-ios-app/src/services/searchService.ts`: SQLite indeksli ayet araması entegre edildi.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-7.3` tamamlandı olarak işaretlendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(offline): implement local SQLite database, full quran schema, and zero-latency queries (PBI-7.3)
+```

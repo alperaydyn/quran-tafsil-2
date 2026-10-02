@@ -50,7 +50,8 @@
           "enableBackgroundPlayback": true
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      "expo-sqlite"
     ],
     "extra": {
       "audioBaseUrl": "https://audio.tafsil.net",

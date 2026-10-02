@@ -69,8 +69,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 
 ## 7. Çevrimdışı Okuma Altyapısı (Offline-First)
 - [x] **PBI-7.1:** Ayetler, sureler ve kelime zaman damgaları için yerel snapshot JSON desteği (`ayetlerSnapshot`, `word_timestamps.compact.json`).
-- [x] **PBI-7.2:** Çevrimdışı yer imi ve not senkronizasyonu (`offlineSyncService.ts`).
-- [ ] **PBI-7.3 (Yerel SQLite / WatermelonDB):** Tam Kur'an metninin, meallerin ve sözlüğün yerel SQLite tablosuna taşınması; ağ yokken sıfır gecikmeli sorgulama.
+- [x] **PBI-7.3 (Yerel SQLite / WatermelonDB):** Tam Kur'an metninin, meallerin ve sözlüğün yerel SQLite tablosuna taşınması; ağ yokken sıfır gecikmeli sorgulama (`localDbService.ts`, `client.ts`, `searchService.ts`, `expo-sqlite`).
 
 ---
 

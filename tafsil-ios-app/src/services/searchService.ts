@@ -2,6 +2,7 @@ import { mockSurahs } from '../api/mock/surahs.mock';
 import ayetlerSnapshot from '../data/ayetler.snapshot.json';
 import { CONCEPTS_DICTIONARY, type ConceptDetail } from '../data/concepts.seed';
 import { CURATED_LEXICON, type WordLexiconDetail } from '../data/lexicon.seed';
+import { localDbService } from './localDbService';
 
 export interface SurahSearchResult {
   id: number;
@@ -181,9 +182,10 @@ const SPECIAL_VERSES: SpecialVerseEntry[] = [
   },
 ];
 
-// Sure ID ve isim eşleştirmesi için sözlük
+// Sure ID ve isim eşleştirmesi için sözlük (SQLite ve mock verileri)
 const surahMap = new Map<number, (typeof mockSurahs)[0]>();
-mockSurahs.forEach((s) => surahMap.set(s.id, s));
+const initialSurahs = localDbService.getSurahs();
+(initialSurahs && initialSurahs.length > 0 ? initialSurahs : mockSurahs).forEach((s) => surahMap.set(s.id, s as any));
 
 // Snapshot verisini normalize edip ram cache yapısı
 interface NormalizedSnapshotItem {
@@ -438,8 +440,29 @@ export class SearchService {
     // ========================================================
     // Sadece en az 2 karakter girildiğinde ayet taraması yapılır (performans ve doğruluk için)
     if (trimmed.length >= 2) {
-      const snapshot = getNormalizedSnapshot();
       const MAX_VERSE_RESULTS = 150; // Performans tavanı
+
+      // 5a. Yerel SQLite veritabanından doğrudan indeksli arama (PBI-7.3)
+      const sqliteResults = localDbService.searchVerses(trimmed, 60);
+      for (const res of sqliteResults) {
+        if (verses.length >= MAX_VERSE_RESULTS) break;
+        if (!verses.some((v) => v.surahId === res.verse.surahId && v.ayahNo === res.verse.ayahNo)) {
+          const surah = surahMap.get(res.verse.surahId);
+          verses.push({
+            id: res.verse.id,
+            surahId: res.verse.surahId,
+            ayahNo: res.verse.ayahNo,
+            surahNameTr: surah?.nameTr ?? `${res.verse.surahId}. Sure`,
+            textAr: res.verse.textAr,
+            mealTr: res.verse.mealTr,
+            transliterationTr: res.verse.transliterationTr,
+            matchedField: res.matchedField,
+          });
+        }
+      }
+
+      // 5b. Fonetik ve harf duyarsız (normalize) tarama
+      const snapshot = getNormalizedSnapshot();
 
       for (const item of snapshot) {
         if (verses.length >= MAX_VERSE_RESULTS) break;
