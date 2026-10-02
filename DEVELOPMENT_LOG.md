@@ -7,6 +7,40 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Okuma Ekranı Tipografi, Transkript ve Görsel Ayar Çekmecesi (PBI-1.5)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Okuma & Tipografi Tercih Deposu (`useReadingPreferencesStore`):**
+  * *Karar:* Kullanıcının Arapça hat boyutu (`small`/19px, `medium`/23px, `large`/28px, `huge`/34px), Türkçe meal boyutu (`small`/14px, `medium`/16px, `large`/18px, `huge`/21px), **Latin transkript/okunuş boyutu** (`small`/11.5px, `medium`/13.5px, `large`/15.5px, `huge`/18px), **transkript yazı stili** (`italic`/eğik serif veya `regular`/düz modern sans), satır aralığı (`compact`/0.88x, `normal`/1.0x, `relaxed`/1.25x) ve görsel katman görünürlükleri (`showMeal`, `showArabic`, `showTransliteration`, `showConceptHighlights`) MMKV persist altyapısıyla bağımsız ve kalıcı bir Zustand store'a (`useReadingPreferencesStore.ts`) taşındı.
+  * *Gerekçe:* Kullanıcı okuma ekranında tercihini bir kez belirlediğinde sonraki oturumlarda ve sureler arasında ayarlarının korunması; `ReadingScreen` render maliyetinin diğer store'lardan izole edilmesi.
+* **Transkript (Okunuş) Tipografi ve Stil Ayarları:**
+  * *Karar:* Kullanıcının Kur'an telaffuz kılavuzunu kendi okuma rahatlığına göre ölçekleyebilmesi için 4 kademeli font boyutu ve editoryal "Eğik (Serif)" vs "Düz (Sans)" yazı karakteri seçicisi eklendi. Çekmece canlı önizleme kartında ve ayet kartlarında anlık olarak uygulanır.
+* **Okuma & Tipografi Ayar Çekmecesi (`ReadingAppearanceSheet`):**
+  * *Karar:* Apple Books ve Safari Reader tasarım diliyle uyumlu; üstten çekme tutacağı, canlı ayet önizleme kartı (Live Preview Card), 4 kademeli Arapça, Transkript & Meal boyutu hap butonları, 3 kademeli satır aralığı seçicisi ve Switch tabanlı görünüm katmanı toggle'larını içeren elit bir modal bottom sheet geliştirildi.
+  * *Canlı Önizleme (Live Preview):* Kullanıcı font boyutunu, satır aralığını değiştirdiğinde veya meal/transliterasyonu açıp kapattığında çekmece içindeki Besmele önizleme kartı anlık olarak tepki verir.
+* **Meal Gizleme Toggle'ı ve Tilavet Modu Entegrasyonu (PBI-1.5):**
+  * *Karar:* `showMeal` toggle'ı kapatıldığında ayet kartlarında meal blokları tamamen gizlenir; kullanıcı dikkat dağıtıcısız, saf tilavet ve mushaf odaklı okuma yapabilir. Üst durum çubuğunda ise hafif ve şık bir *"Tilavet Modu · Meal Gizli ⚙"* rozeti belirir; dokunulduğunda doğrudan ayar çekmecesi açılır.
+* **Okuma Ekranı Üst Çubuğu `Aa` Tipografi Butonu:**
+  * *Karar:* `ReadingScreen` navigation headerRight alanına `Newsreader_600SemiBold` `A` ve `Newsreader_400Regular` `a` harflerinden oluşan, platform standartlarında zarif ve erişilebilir bir buton yerleştirildi.
+* **Ayarlar Ekranı Entegrasyonu:**
+  * *Karar:* `SettingsScreen` içine "OKUMA & TİPOGRAFİ" başlığı altında çekmeceyi doğrudan açıp düzenleme seçeneği eklendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/store/useReadingPreferencesStore.ts`: Transkript boyutu (`transliterationFontSize`), stili (`transliterationStyle`) ve metrik yardımcıları eklendi.
+* `tafsil-ios-app/src/store/index.ts`: Store dışa aktarımı.
+* `tafsil-ios-app/src/components/reading/ReadingAppearanceSheet.tsx`: Transkript boyutu ve eğik/düz karakter seçicisi ile canlı önizleme entegrasyonu.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: Ayet kartlarında transkript tipografi ve stil desteği.
+* `tafsil-ios-app/src/screens/SettingsScreen.tsx`: Okuma & tipografi ayarlarına doğrudan erişim satırı.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-1.5` tamamlandı (`[x]`).
+* `DEVELOPMENT_LOG.md`: Bu oturum kaydı güncellendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): add transliteration font size and style controls to reading appearance drawer
+```
+
+---
+
 ## [2026-10-02] Editoryal User Bar ve Yüzen Alt Menü (Floating Tab Bar) Mimarisi
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

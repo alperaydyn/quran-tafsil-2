@@ -7,16 +7,25 @@ import { StyledText } from '../components/common/StyledText';
 import { WordDetailSheet } from '../components/lexicon/WordDetailSheet';
 import { AudioPlaybackBar } from '../components/reading/AudioPlaybackBar';
 import { ConceptContextCard } from '../components/reading/ConceptContextCard';
+import { ReadingAppearanceSheet } from '../components/reading/ReadingAppearanceSheet';
 import { OfflineSyncService } from '../services/offlineSyncService';
 import { audioPlayerService } from '../services/audioPlayerService';
 import { TimestampService } from '../services/timestampService';
 import { useTheme } from '../theme';
+import { fontFamily } from '../theme/typography';
 import { getVerses, getAyahAudioUrl } from '../api/client';
 import { mockSurahs } from '../api/mock/surahs.mock';
 import type { Verse, Word } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
 import { useReadingMode } from '../hooks/useReadingMode';
 import { useReadingProgressStore } from '../store/useReadingProgressStore';
+import {
+  useReadingPreferencesStore,
+  getArabicMetrics,
+  getMealMetrics,
+  getTransliterationMetrics,
+  LINE_SPACING_SCALES,
+} from '../store/useReadingPreferencesStore';
 import { getConceptDetails } from '../data/concepts.seed';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Reading'>;
@@ -77,6 +86,30 @@ const VerseCard = React.memo(function VerseCard({
 }: VerseCardProps) {
   const theme = useTheme();
   const mode = useReadingMode();
+  const {
+    arabicFontSize,
+    mealFontSize,
+    transliterationFontSize,
+    transliterationStyle,
+    lineSpacing,
+    showArabic,
+    showMeal,
+    showTransliteration,
+    showConceptHighlights,
+  } = useReadingPreferencesStore();
+
+  const arabicMetrics = useMemo(
+    () => getArabicMetrics(arabicFontSize, lineSpacing),
+    [arabicFontSize, lineSpacing]
+  );
+  const mealMetrics = useMemo(
+    () => getMealMetrics(mealFontSize, lineSpacing),
+    [mealFontSize, lineSpacing]
+  );
+  const transliterationMetrics = useMemo(
+    () => getTransliterationMetrics(transliterationFontSize, lineSpacing),
+    [transliterationFontSize, lineSpacing]
+  );
 
   const words: Word[] = useMemo(() => {
     const list: Word[] = verse.words && verse.words.length > 0
@@ -148,7 +181,8 @@ const VerseCard = React.memo(function VerseCard({
         </Pressable>
       </View>
 
-      {mode.arabicEmphasis !== 'hidden' && (
+      {/* Arapça Mushaf Metni */}
+      {showArabic && (
         <View
           style={{
             flexDirection: 'row-reverse',
@@ -178,8 +212,10 @@ const VerseCard = React.memo(function VerseCard({
                 })}
               >
                 <StyledText
-                  variant={mode.arabicEmphasis === 'hero' ? 'arabicHero' : 'arabicReading'}
                   style={{
+                    fontFamily: fontFamily.arabic,
+                    fontSize: arabicMetrics.fontSize,
+                    lineHeight: arabicMetrics.lineHeight,
                     writingDirection: 'rtl',
                     textAlign: 'right',
                     color: isWordActive ? theme.colors.acc : theme.colors.ink,
@@ -193,16 +229,26 @@ const VerseCard = React.memo(function VerseCard({
         </View>
       )}
 
-      {mode.showTransliteration && verse.transliterationTr ? (
-        <StyledText variant="footnote" color="mut" style={{ lineHeight: 20 }}>
+      {/* Transliterasyon (Okunuş) */}
+      {showTransliteration && verse.transliterationTr ? (
+        <StyledText
+          style={{
+            fontFamily: transliterationStyle === 'italic' ? fontFamily.serif : fontFamily.sans,
+            fontStyle: transliterationStyle === 'italic' ? 'italic' : 'normal',
+            fontSize: transliterationMetrics.fontSize,
+            lineHeight: transliterationMetrics.lineHeight,
+            color: theme.colors.mut,
+          }}
+        >
           {verse.transliterationTr}
         </StyledText>
       ) : null}
 
-      {mode.mealEmphasis !== 'minimal' && (
+      {/* Türkçe Meal (PBI-1.5: showMeal ile dinamik gizlenebilir) */}
+      {showMeal && (
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
           {segments.map((seg, sIdx) => {
-            if (seg.conceptSlug) {
+            if (seg.conceptSlug && showConceptHighlights) {
               return (
                 <Pressable
                   key={`seg-${sIdx}`}
@@ -217,11 +263,36 @@ const VerseCard = React.memo(function VerseCard({
                   })}
                 >
                   <StyledText
-                    variant={mode.mealEmphasis === 'primary' ? 'bodyLarge' : 'body'}
                     style={{
+                      fontFamily: fontFamily.serifSemiBold,
+                      fontSize: mealMetrics.fontSize,
+                      lineHeight: mealMetrics.lineHeight,
                       color: theme.colors.acc,
-                      fontWeight: '600',
-                      lineHeight: 24,
+                    }}
+                  >
+                    {seg.text}
+                  </StyledText>
+                </Pressable>
+              );
+            }
+            if (seg.conceptSlug && !showConceptHighlights) {
+              return (
+                <Pressable
+                  key={`seg-${sIdx}`}
+                  onPress={() => onConceptPress(seg.conceptSlug!)}
+                  hitSlop={6}
+                  style={({ pressed }) => ({
+                    backgroundColor: pressed ? theme.colors.band : 'transparent',
+                    borderRadius: 3,
+                    marginHorizontal: 1,
+                  })}
+                >
+                  <StyledText
+                    style={{
+                      fontFamily: fontFamily.serif,
+                      fontSize: mealMetrics.fontSize,
+                      lineHeight: mealMetrics.lineHeight,
+                      color: theme.colors.ink,
                     }}
                   >
                     {seg.text}
@@ -232,15 +303,25 @@ const VerseCard = React.memo(function VerseCard({
             return (
               <StyledText
                 key={`seg-${sIdx}`}
-                variant={mode.mealEmphasis === 'primary' ? 'bodyLarge' : 'body'}
-                color="ink"
-                style={{ lineHeight: 24 }}
+                style={{
+                  fontFamily: fontFamily.serif,
+                  fontSize: mealMetrics.fontSize,
+                  lineHeight: mealMetrics.lineHeight,
+                  color: theme.colors.ink,
+                }}
               >
                 {seg.text}
               </StyledText>
             );
           })}
         </View>
+      )}
+
+      {/* Her iki katman da gizlenmişse rehber metin */}
+      {!showArabic && !showMeal && (
+        <StyledText variant="footnote" color="mut" style={{ fontStyle: 'italic', paddingVertical: 4 }}>
+          Arapça ve meal gizlendi. Görünüm ayarlarından birini etkinleştirebilirsiniz.
+        </StyledText>
       )}
 
       {/* İç İçe Açılan Zincirleme Bağlam Blokları (Nested Context Cards) */}
@@ -281,7 +362,9 @@ export function ReadingScreen({ route, navigation }: Props) {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [selectedVerse, setSelectedVerse] = useState<Verse | null>(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [appearanceSheetVisible, setAppearanceSheetVisible] = useState(false);
   const [bookmarkedSet, setBookmarkedSet] = useState<Set<number>>(new Set());
+  const { showMeal } = useReadingPreferencesStore();
 
   // Audio state
   const [isPlaying, setIsPlaying] = useState(Boolean(autoPlay));
@@ -417,8 +500,50 @@ export function ReadingScreen({ route, navigation }: Props) {
         </View>
       ),
       headerTitleAlign: 'center',
+      headerRight: () => (
+        <Pressable
+          onPress={() => setAppearanceSheetVisible(true)}
+          hitSlop={10}
+          accessibilityLabel="Okuma ve Tipografi Ayarları"
+          accessibilityRole="button"
+          style={({ pressed }) => ({
+            paddingHorizontal: 10,
+            paddingVertical: 4,
+            borderRadius: 14,
+            backgroundColor: theme.colors.band,
+            borderWidth: 1,
+            borderColor: theme.colors.line,
+            flexDirection: 'row',
+            alignItems: 'baseline',
+            justifyContent: 'center',
+            gap: 2,
+            opacity: pressed ? 0.75 : 1,
+          })}
+        >
+          <StyledText
+            style={{
+              fontFamily: fontFamily.serifSemiBold,
+              fontSize: 14,
+              color: theme.colors.ink,
+              lineHeight: 16,
+            }}
+          >
+            A
+          </StyledText>
+          <StyledText
+            style={{
+              fontFamily: fontFamily.serif,
+              fontSize: 11,
+              color: theme.colors.mut,
+              lineHeight: 14,
+            }}
+          >
+            a
+          </StyledText>
+        </Pressable>
+      ),
     });
-  }, [navigation, currentSurah, totalVerses, surahId]);
+  }, [navigation, currentSurah, totalVerses, surahId, theme]);
 
   // Ayet seçimi/tıklanması veya odaklanmasında state güncellemesi ve sayaca ekleme
   const handleAyahSelect = (ayahNo: number) => {
@@ -635,6 +760,27 @@ export function ReadingScreen({ route, navigation }: Props) {
                 ? `${visibleCount} / ${verses.length} Ayet Hazır · Kademeli Yükleme`
                 : `${verses.length} Ayet · Çevrimdışı Hazır`}
             </StyledText>
+
+            {!showMeal && (
+              <Pressable
+                onPress={() => setAppearanceSheetVisible(true)}
+                hitSlop={6}
+                style={({ pressed }) => ({
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 4,
+                  paddingHorizontal: 8,
+                  paddingVertical: 3,
+                  borderRadius: 6,
+                  backgroundColor: theme.colors.accSoft,
+                  opacity: pressed ? 0.75 : 1,
+                })}
+              >
+                <StyledText variant="caption" color="acc" style={{ fontWeight: '600', fontSize: 10 }}>
+                  Tilavet Modu · Meal Gizli ⚙
+                </StyledText>
+              </Pressable>
+            )}
           </View>
 
           <ScrollView
@@ -862,6 +1008,11 @@ export function ReadingScreen({ route, navigation }: Props) {
           />
         </>
       )}
+
+      <ReadingAppearanceSheet
+        visible={appearanceSheetVisible}
+        onClose={() => setAppearanceSheetVisible(false)}
+      />
 
       <WordDetailSheet
         word={selectedWord}

@@ -15,7 +15,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-1.2:** Varsayılan meal, transliterasyon ve Arapça Uthmani metin hiyerarşisi.
 - [x] **PBI-1.3:** Uzun ayetler için lazy load / sanallaştırılmış liste optimizasyonu (`FlashList` / `FlatList`).
 - [x] **PBI-1.4:** Ayet yer imleri (Bookmark) ve not ekleme arayüzü (`OfflineSyncService`).
-- [ ] **PBI-1.5:** Okuma ekranı tipografi ve görsel ayar çekmecesi (Font boyutu, satır aralığı, meal gizleme toggle'ı).
+- [x] **PBI-1.5:** Okuma ekranı tipografi ve görsel ayar çekmecesi (Font boyutu, satır aralığı, meal gizleme toggle'ı).
 
 ---
 

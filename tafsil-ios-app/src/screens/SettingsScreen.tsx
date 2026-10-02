@@ -15,6 +15,7 @@ import type { ReadingMode } from '../store/useUserSettingsStore';
 import { useAuthStore } from '../store/useAuthStore';
 import { useTranslation, SUPPORTED_LANGUAGES, type LanguagePreference } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
+import { ReadingAppearanceSheet } from '../components/reading/ReadingAppearanceSheet';
 
 const PROVIDER_LABEL: Record<'apple' | 'google', string> = {
   apple: 'Apple',
@@ -94,6 +95,7 @@ export function SettingsScreen() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
   const { t, language, setLanguage } = useTranslation();
+  const [appearanceSheetVisible, setAppearanceSheetVisible] = React.useState(false);
 
   const readingMode = useUserSettingsStore((s) => s.readingMode);
   const setReadingMode = useUserSettingsStore((s) => s.setReadingMode);
@@ -238,6 +240,14 @@ export function SettingsScreen() {
           />
         ))}
 
+        <SectionLabel>OKUMA & TİPOGRAFİ</SectionLabel>
+        <OptionRow
+          label="Metin & Görünüm Ayarları"
+          description="Arapça ve meal yazı boyutları, satır aralıkları ve görünüm katmanları"
+          selected={false}
+          onPress={() => setAppearanceSheetVisible(true)}
+        />
+
         <SectionLabel>ÖNİZLEME</SectionLabel>
         <OptionRow
           label="Açılış Ekranı (Loading)"
@@ -248,6 +258,11 @@ export function SettingsScreen() {
 
         <View style={{ height: theme.spacing.xxxl }} />
       </ScrollView>
+
+      <ReadingAppearanceSheet
+        visible={appearanceSheetVisible}
+        onClose={() => setAppearanceSheetVisible(false)}
+      />
     </Screen>
   );
 }
