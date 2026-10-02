@@ -19,6 +19,7 @@ export interface OfflineBookmark {
 }
 
 export interface OfflineHistoryItem {
+  id?: string;
   sure_id: number;
   ayet_no: number;
   okunma_suresi_sn: number;
@@ -26,10 +27,19 @@ export interface OfflineHistoryItem {
 }
 
 export interface OfflineConceptItem {
+  id?: string;
   kavram_slug: string;
   kavram_adi: string;
   incelenme_suresi_sn: number;
   created_at: string;
+}
+
+function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
 
 export interface OfflineMemorizationItem {
@@ -154,23 +164,41 @@ export class OfflineSyncService {
 
   static async recordReading(sureId: number, ayetNo: number, durationSeconds: number = 30): Promise<void> {
     try {
-      const today = new Date().toISOString().slice(0, 10);
-
-      // 1. Günlük ayet sayacı güncellemesi
-      const rawDaily = await mmkvStorage.getItem(DAILY_COUNTS_KEY);
-      const dailyMap: Record<string, number> = rawDaily ? JSON.parse(rawDaily) : {};
-      dailyMap[today] = (dailyMap[today] ?? 0) + 1;
-      await mmkvStorage.setItem(DAILY_COUNTS_KEY, JSON.stringify(dailyMap));
+      const now = new Date();
+      const today = now.toISOString().slice(0, 10);
 
       // 2. Ayrıntılı geçmiş listesi
       const raw = await mmkvStorage.getItem(HISTORY_KEY);
       const list: OfflineHistoryItem[] = raw ? JSON.parse(raw) : [];
-      list.push({
-        sure_id: sureId,
-        ayet_no: ayetNo,
-        okunma_suresi_sn: durationSeconds,
-        okundu_tarihi: new Date().toISOString(),
-      });
+
+      // Ardışık mükerrer kontrolü (son kayıt aynı ayet ve 30 sn içindeyse süreyi güncelle, yeni satır ekleme)
+      const lastItem = list.length > 0 ? list[list.length - 1] : null;
+      const isDuplicateRecent = Boolean(
+        lastItem &&
+        lastItem.sure_id === sureId &&
+        lastItem.ayet_no === ayetNo &&
+        lastItem.okundu_tarihi &&
+        now.getTime() - new Date(lastItem.okundu_tarihi).getTime() < 30000
+      );
+
+      if (isDuplicateRecent && lastItem) {
+        lastItem.okunma_suresi_sn = Math.max(lastItem.okunma_suresi_sn || 0, durationSeconds);
+      } else {
+        // 1. Günlük ayet sayacı güncellemesi (sadece yeni/farklı bir okumada artır)
+        const rawDaily = await mmkvStorage.getItem(DAILY_COUNTS_KEY);
+        const dailyMap: Record<string, number> = rawDaily ? JSON.parse(rawDaily) : {};
+        dailyMap[today] = (dailyMap[today] ?? 0) + 1;
+        await mmkvStorage.setItem(DAILY_COUNTS_KEY, JSON.stringify(dailyMap));
+
+        list.push({
+          id: generateUUID(),
+          sure_id: sureId,
+          ayet_no: ayetNo,
+          okunma_suresi_sn: durationSeconds,
+          okundu_tarihi: now.toISOString(),
+        });
+      }
+
       await mmkvStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(-500)));
 
       // 3. Yerel SQLite ilişkisel log tablosuna da kaydet
@@ -199,14 +227,31 @@ export class OfflineSyncService {
 
   static async recordConceptStudy(slug: string, name: string, durationSeconds: number = 60): Promise<void> {
     try {
+      const now = new Date();
       const raw = await mmkvStorage.getItem(CONCEPT_HISTORY_KEY);
       const list: OfflineConceptItem[] = raw ? JSON.parse(raw) : [];
-      list.push({
-        kavram_slug: slug,
-        kavram_adi: name,
-        incelenme_suresi_sn: durationSeconds,
-        created_at: new Date().toISOString(),
-      });
+
+      // Ardışık mükerrer kontrolü
+      const lastConcept = list.length > 0 ? list[list.length - 1] : null;
+      const isDuplicateRecent = Boolean(
+        lastConcept &&
+        lastConcept.kavram_slug === slug &&
+        lastConcept.created_at &&
+        now.getTime() - new Date(lastConcept.created_at).getTime() < 30000
+      );
+
+      if (isDuplicateRecent && lastConcept) {
+        lastConcept.incelenme_suresi_sn = Math.max(lastConcept.incelenme_suresi_sn || 0, durationSeconds);
+      } else {
+        list.push({
+          id: generateUUID(),
+          kavram_slug: slug,
+          kavram_adi: name,
+          incelenme_suresi_sn: durationSeconds,
+          created_at: now.toISOString(),
+        });
+      }
+
       await mmkvStorage.setItem(CONCEPT_HISTORY_KEY, JSON.stringify(list.slice(-200)));
     } catch {
       // ignore

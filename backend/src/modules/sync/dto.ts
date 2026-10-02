@@ -10,6 +10,7 @@ export const BookmarkSyncItemSchema = z.object({
 });
 
 export const ReadingHistorySyncItemSchema = z.object({
+  id: z.string().optional(),
   sure_id: z.number().int().min(1).max(114),
   ayet_no: z.number().int().min(1),
   okunma_suresi_sn: z.number().int().min(0).default(0),

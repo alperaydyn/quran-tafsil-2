@@ -445,8 +445,10 @@ export function ReadingScreen({ route, navigation }: Props) {
   const hasScrolledToInitialRef = useRef(false);
   const isUserScrollingRef = useRef(false);
   const scrollSettleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastRecordedVerseRef = useRef<string | null>(null);
 
   useEffect(() => {
+    lastRecordedVerseRef.current = null;
     const initialTarget = initialAyahNo ? Math.max(CHUNK_SIZE, initialAyahNo + 5) : CHUNK_SIZE;
     setVisibleCount(initialTarget);
     if (initialAyahNo) {
@@ -513,14 +515,18 @@ export function ReadingScreen({ route, navigation }: Props) {
   // Ayet aktif olduğunda veya odaklandığında okuma kaydını oluştur
   useEffect(() => {
     if (activeAyah && verses.length > 0) {
-      const today = new Date().toISOString().slice(0, 10);
-      setLastRead(surahId, activeAyah, new Date().toISOString());
-      markVerseRead(surahId, activeAyah, today);
-      OfflineSyncService.recordReading(surahId, activeAyah, 20);
+      const verseKey = `${surahId}:${activeAyah}`;
+      if (lastRecordedVerseRef.current !== verseKey) {
+        lastRecordedVerseRef.current = verseKey;
+        const today = new Date().toISOString().slice(0, 10);
+        setLastRead(surahId, activeAyah, new Date().toISOString());
+        markVerseRead(surahId, activeAyah, today);
+        OfflineSyncService.recordReading(surahId, activeAyah, 20);
 
-      // Surenin son ayetine ulaşıldığında surenin Okundu olarak işaretlenmesi (PBI-6.4)
-      if (activeAyah === verses.length) {
-        markSurahCompleted(surahId, verses.length);
+        // Surenin son ayetine ulaşıldığında surenin Okundu olarak işaretlenmesi (PBI-6.4)
+        if (activeAyah === verses.length) {
+          markSurahCompleted(surahId, verses.length);
+        }
       }
     }
   }, [activeAyah, surahId, verses.length, markVerseRead, setLastRead, markSurahCompleted]);
@@ -614,14 +620,10 @@ export function ReadingScreen({ route, navigation }: Props) {
     });
   }, [navigation, currentSurah, totalVerses, surahId, theme]);
 
-  // Ayet seçimi/tıklanması veya odaklanmasında state güncellemesi ve sayaca ekleme
+  // Ayet seçimi/tıklanması veya odaklanmasında state güncellemesi
   const handleAyahSelect = (ayahNo: number) => {
     setActiveAyah(ayahNo);
     setSelectedAyahNo(ayahNo);
-    const today = new Date().toISOString().slice(0, 10);
-    setLastRead(surahId, ayahNo, new Date().toISOString());
-    markVerseRead(surahId, ayahNo, today);
-    OfflineSyncService.recordReading(surahId, ayahNo, 20);
   };
 
   const visibleVerses = useMemo(() => {

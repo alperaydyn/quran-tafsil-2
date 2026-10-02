@@ -60,12 +60,37 @@ export class OfflineSyncManager {
     try {
       const existing = localStorage.getItem(LOCAL_STORAGE_HISTORY);
       const history: any[] = existing ? JSON.parse(existing) : [];
-      history.push({
-        sure_id: sureId,
-        ayet_no: ayetNo,
-        okunma_suresi_sn: durationSeconds,
-        okundu_tarihi: new Date().toISOString()
-      });
+      const now = new Date();
+
+      const lastItem = history.length > 0 ? history[history.length - 1] : null;
+      const isDuplicateRecent = Boolean(
+        lastItem &&
+        lastItem.sure_id === sureId &&
+        lastItem.ayet_no === ayetNo &&
+        lastItem.okundu_tarihi &&
+        now.getTime() - new Date(lastItem.okundu_tarihi).getTime() < 30000
+      );
+
+      if (isDuplicateRecent && lastItem) {
+        lastItem.okunma_suresi_sn = Math.max(lastItem.okunma_suresi_sn || 0, durationSeconds);
+      } else {
+        const id = typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+              const r = (Math.random() * 16) | 0;
+              const v = c === "x" ? r : (r & 0x3) | 0x8;
+              return v.toString(16);
+            });
+
+        history.push({
+          id,
+          sure_id: sureId,
+          ayet_no: ayetNo,
+          okunma_suresi_sn: durationSeconds,
+          okundu_tarihi: now.toISOString()
+        });
+      }
+
       // Keep last 50
       localStorage.setItem(LOCAL_STORAGE_HISTORY, JSON.stringify(history.slice(-50)));
       this.syncToServer();

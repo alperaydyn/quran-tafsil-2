@@ -62,24 +62,30 @@ export class SyncService {
       bookmarksProcessed++;
     }
 
-    // 2. Process Reading History
+    // 2. Process Reading History (Idempotent: ON CONFLICT koruması ile mükerrer kayıtları engelle)
     for (const h of data.reading_history) {
+      const isUuid = Boolean(h.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(h.id));
       await query(
-        `INSERT INTO okuma_gecmisi (kullanici_id, sure_id, ayet_no, okunma_suresi_sn, okundu_tarihi)
-         VALUES ($1, $2, $3, $4, COALESCE($5::timestamptz, NOW()))`,
-        [userId, h.sure_id, h.ayet_no, h.okunma_suresi_sn || 0, h.okundu_tarihi || null]
+        `INSERT INTO okuma_gecmisi (id, kullanici_id, sure_id, ayet_no, okunma_suresi_sn, okundu_tarihi)
+         VALUES (COALESCE($1::uuid, gen_random_uuid()), $2, $3, $4, $5, COALESCE($6::timestamptz, NOW()))
+         ON CONFLICT (kullanici_id, sure_id, ayet_no, okundu_tarihi)
+         DO UPDATE SET okunma_suresi_sn = GREATEST(okuma_gecmisi.okunma_suresi_sn, EXCLUDED.okunma_suresi_sn)`,
+        [isUuid ? h.id : null, userId, h.sure_id, h.ayet_no, h.okunma_suresi_sn || 0, h.okundu_tarihi || null]
       );
       historyProcessed++;
     }
 
-    // 3. Process Concept History
+    // 3. Process Concept History (Idempotent: ON CONFLICT koruması ile mükerrer kayıtları engelle)
     let conceptProcessed = 0;
     if (data.concept_history && data.concept_history.length > 0) {
       for (const c of data.concept_history) {
+        const isUuid = Boolean(c.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(c.id));
         await query(
-          `INSERT INTO kavram_gecmisi (kullanici_id, kavram_slug, kavram_adi, incelenme_suresi_sn, created_at)
-           VALUES ($1, $2, $3, $4, COALESCE($5::timestamptz, NOW()))`,
-          [userId, c.kavram_slug, c.kavram_adi, c.incelenme_suresi_sn || 0, c.created_at || null]
+          `INSERT INTO kavram_gecmisi (id, kullanici_id, kavram_slug, kavram_adi, incelenme_suresi_sn, created_at)
+           VALUES (COALESCE($1::uuid, gen_random_uuid()), $2, $3, $4, $5, COALESCE($6::timestamptz, NOW()))
+           ON CONFLICT (kullanici_id, kavram_slug, created_at)
+           DO UPDATE SET incelenme_suresi_sn = GREATEST(kavram_gecmisi.incelenme_suresi_sn, EXCLUDED.incelenme_suresi_sn)`,
+          [isUuid ? c.id : null, userId, c.kavram_slug, c.kavram_adi, c.incelenme_suresi_sn || 0, c.created_at || null]
         );
         conceptProcessed++;
       }

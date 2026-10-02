@@ -78,6 +78,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-6.3:** Okuma geçmişi sayfası (`HistoryScreen.tsx`).
 - [x] **PBI-6.4 (Okuma Tamamlama Mantığı):** Sure son ayetine ulaşıldığında surenin "Okundu" olarak işaretlenmesi ve yüzde hesaplaması (`useReadingProgressStore.ts`, `ReadingScreen.tsx`, `SurahGridMatrix.tsx`, `SurahListScreen.tsx`).
 - [x] **PBI-6.5 (Çoklu Cihaz İstatistik Senkronizasyonu & Tutarlılığı):** Farklı cihazlardan aynı hesapla girişte `streak` deterministik hesaplaması, `forceFullSync` mimarisi, sahte `INITIAL_SESSIONS` arındırması ve `clearAllLocalUserData()` ile profil metriklerinin eşitlenmesi (`useReadingProgressStore.ts`, `useMemorizationStore.ts`, `offlineSyncService.ts`, `useAuthStore.ts`, Fastify sync rotaları).
+- [x] **PBI-6.6 (Okuma & Kavram Geçmişi Tekilleştirme & Idempotent Senkronizasyon):** İstemcide çift tetikleme (`lastRecordedVerseRef`), ardışık dokunma throttling'i (30 sn), istemci UUID üretimi; sunucuda `ON CONFLICT` ile idempotent upsert ve PostgreSQL seviyesinde `uq_okuma_gecmisi_user_verse_date` / `uq_kavram_gecmisi_user_slug_date` unique index güvencesi (`ReadingScreen.tsx`, `offlineSyncService.ts`, `sync.ts`, `service.ts`, `dto.ts`, migration `009`).
 
 ---
 

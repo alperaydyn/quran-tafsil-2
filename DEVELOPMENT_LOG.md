@@ -7,6 +7,41 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Okuma ve Kavram Geçmişi Tekilleştirme & Idempotent Senkronizasyon (PBI-6.6)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Sorunun Tespiti:**
+  * Kullanıcı tarafından `okuma_gecmisi` tablosuna mükerrer kayıtlar basıldığı bildirildi (ör. `okundu_tarihi`: `2026-10-02 21:22:53.918000+00` için aynı ayetin 4 kopyası, diğer ayetler için 25 kopyaya varan tekrarlar).
+  * Veritabanında toplam 231 kayıt bulunurken, tekil kullanıcı-sure-ayet-tarih kombinasyonu sayısı yalnızca 47 idi (184 mükerrer kayıt).
+* **Kök Neden 1 — Fastify Backend'de Idempotency / ON CONFLICT Eksikliği:**
+  * *Sorun:* `SyncService.pushSyncData` gelen `data.reading_history` ve `data.concept_history` dizilerini doğrudan `INSERT INTO okuma_gecmisi ...` şeklinde çalıştırıyordu. `okuma_gecmisi` tablosunda `(kullanici_id, sure_id, ayet_no, okundu_tarihi)` üzerinde tekillik kısıtı bulunmadığından, istemciden her senkronizasyon tetiklendiğinde tüm geçmiş baştan yeni UUID'lerle tekrar tekrar veritabanına ekleniyordu.
+  * *Çözüm:* 
+    1. Mevcut tablodaki 184 mükerrer kayıt temizlendi (`DELETE FROM okuma_gecmisi a USING ...`).
+    2. `CREATE UNIQUE INDEX IF NOT EXISTS uq_okuma_gecmisi_user_verse_date ON okuma_gecmisi (kullanici_id, sure_id, ayet_no, okundu_tarihi)` ve kavram geçmişi için `uq_kavram_gecmisi_user_slug_date` oluşturuldu (`009_deduplicate_and_unique_reading_history.sql`).
+    3. `service.ts` içinde `INSERT ... ON CONFLICT (kullanici_id, sure_id, ayet_no, okundu_tarihi) DO UPDATE SET okunma_suresi_sn = GREATEST(okuma_gecmisi.okunma_suresi_sn, EXCLUDED.okunma_suresi_sn)` yapısına geçilerek tam idempotent sağlandı.
+* **Kök Neden 2 — Mobil `ReadingScreen` İçinde Çift Tetikleme (Double Trigger):**
+  * *Sorun:* Kullanıcı bir ayete dokunduğunda `handleAyahSelect` fonksiyonu hem doğrudan `OfflineSyncService.recordReading` çağırıyor hem de `setActiveAyah(ayahNo)` güncelliyordu. `activeAyah` değiştiği için `useEffect` de tetiklenip ikinci kez `recordReading` çağırıyordu. Ayrıca `CHUNK_SIZE` ile ayet listesi yüklendikçe `verses.length` değişimleri aynı ayet için `useEffect`'i tekrar çalıştırıyordu.
+  * *Çözüm:* `ReadingScreen.tsx` içine `lastRecordedVerseRef` eklendi. `useEffect` sadece ayet gerçekten değiştiğinde tek sefer çalışır; `handleAyahSelect` sadece aktif ayeti seçer, çift çağrı tamamen ortadan kalktı.
+* **Kök Neden 3 — İstemci Tarafında Ardışık Dokunma ve Throttling Eksikliği:**
+  * *Sorun:* Kullanıcı kısa sürede aynı ayete birkaç kez dokunduğunda veya arayüz durum değişikliklerinde yerel geçmiş dizisine ardışık mükerrer satırlar ekleniyordu.
+  * *Çözüm:* `offlineSyncService.ts` ve `sync.ts` içine 30 saniyelik ardışık okuma throttling'i eklendi (son kayıt aynı ayetse süre güncellenir, yeni satır açılmaz). Ayrıca tüm kayıtlara istemci tarafında `generateUUID()` ile benzersiz `id` üretimi eklendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/db/migrations/009_deduplicate_and_unique_reading_history.sql`: 184 mükerrer kaydın temizlenmesi ve `uq_okuma_gecmisi_user_verse_date` ile `uq_kavram_gecmisi_user_slug_date` unique index'leri.
+* `backend/src/modules/sync/dto.ts`: `ReadingHistorySyncItemSchema` içine opsiyonel `id: z.string().optional()` eklendi.
+* `backend/src/modules/sync/service.ts`: `pushSyncData` sorguları `ON CONFLICT (...) DO UPDATE` idempotent upsert ile donatıldı.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: `lastRecordedVerseRef` koruması ve `handleAyahSelect` çift tetikleme arındırması.
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: `OfflineHistoryItem` & `OfflineConceptItem` ID desteği, 30 sn ardışık okuma throttling'i ve sayaç tekilleştirmesi.
+* `tafsil-web-app/src/lib/sync.ts`: Web okuma geçmişi kaydına 30 sn throttling ve UUID ataması.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-6.6` kaydedildi ve tamamlandı (`[x]`).
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(sync): eliminate duplicate reading history, enforce DB unique indexes, and implement idempotent sync (PBI-6.6)
+```
+
+---
+
 ## [2026-10-02] Çoklu Cihaz İstatistik Senkronizasyonu & Tutarsızlıklarının Kökten Çözümü (PBI-6.5)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
