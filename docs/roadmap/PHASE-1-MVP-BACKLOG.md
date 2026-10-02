@@ -60,6 +60,11 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
     - `backend/src/modules/subscriptions/` servisi ve endpoint'leri (`/status`, `/verify`, `/sync`) ile `is_premium` değeri gerçek abonelik durumuna göre türetilen bir read-cache bayrağına dönüştürüldü.
   - [x] **PBI-4.6.4 (Şifre Sıfırlama & E-posta Yaşam Döngüsü Sözleşmesi):**
     - `sifre_sifirlama_talepleri` tablosu modellendi. Kriptografik SHA-256 token üretimi, 15 dakika TTL ve `POST /auth/forgot-password` ile `POST /auth/reset-password` uçları canlıya alındı.
+- [x] **PBI-4.7 (Çoklu Hesap / Hesap Değişimi Oturum İzolasyonu & Senkronizasyon Veri Sızıntısı Koruması):**
+  - Çıkış yapıldığında oturumun temiz sıfırlanması (`user: null`, `token: null`, `isAuthenticated: false`), `signInWithGoogle` ile `linkAccount` ayrımı.
+  - Backend `getEffectiveUserId` içindeki `created_at DESC LIMIT 1` rastgele kullanıcıya bağlanma riskinin kaldırılması.
+  - `/api/v1/auth/link` ve `linkGuestUser` içindeki UUID doğrulama hatası ve Postgres hatasının giderilmesi.
+  - Mobil modal e-posta girişinde hardcoded e-postanın kaldırılarak doğrulama eklenmesi.
 
 ---
 

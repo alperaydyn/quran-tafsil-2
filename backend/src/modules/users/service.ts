@@ -114,6 +114,15 @@ export async function linkGuestUser(
   name?: string,
   email?: string
 ): Promise<Kullanici> {
+  const isGuestUuid = Boolean(
+    guestUserId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(guestUserId)
+  );
+
+  if (!isGuestUuid) {
+    // guestUserId veritabanında yerel olmayan/UUID formatında olmayan geçici bir kimlikse doğrudan kalıcı hesaba dönüştür/bul
+    return findOrCreateUser(authProvider, authProviderId, name, email);
+  }
+
   try {
     // 1. Bu provider ve providerId ile daha önce açılmış hesap var mı?
     const existing = await query<Kullanici>(

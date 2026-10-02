@@ -42,8 +42,9 @@ export function AuthScreen() {
 
   const [appleAvailable, setAppleAvailable] = useState<boolean>(false);
   const [googleModalVisible, setGoogleModalVisible] = useState<boolean>(false);
-  const [googleEmail, setGoogleEmail] = useState<string>('alperaydyn@gmail.com');
-  const [googleName, setGoogleName] = useState<string>('Alper Aydın');
+  const [googleEmail, setGoogleEmail] = useState<string>('');
+  const [googleName, setGoogleName] = useState<string>('');
+  const [modalError, setModalError] = useState<string | null>(null);
 
   useEffect(() => {
     // Ekran açıldığında önceki oturumlardan kalan kapanma bayrağını sıfırla
@@ -66,7 +67,12 @@ export function AuthScreen() {
   }, [authStepCompleted, navigation]);
 
   const handleGoogleSubmit = async () => {
-    const emailToUse = googleEmail.trim() || 'alperaydyn@gmail.com';
+    const emailToUse = googleEmail.trim();
+    if (!emailToUse || !emailToUse.includes('@')) {
+      setModalError('Lütfen geçerli bir Google e-posta adresi girin.');
+      return;
+    }
+    setModalError(null);
     const nameToUse = googleName.trim() || emailToUse.split('@')[0];
 
     const success = await signInWithGoogle({
@@ -76,6 +82,8 @@ export function AuthScreen() {
 
     if (success) {
       setGoogleModalVisible(false);
+      setGoogleEmail('');
+      setGoogleName('');
     }
   };
 
@@ -238,6 +246,12 @@ export function AuthScreen() {
                 </View>
               </View>
 
+              {modalError ? (
+                <StyledText variant="footnote" color="acc" style={{ textAlign: 'center', marginTop: 2 }}>
+                  {modalError}
+                </StyledText>
+              ) : null}
+
               <View style={{ gap: 8, marginTop: 10 }}>
                 <Button
                   label={isLoading ? 'Bağlanıyor...' : 'Google ile Devam Et'}
@@ -250,7 +264,10 @@ export function AuthScreen() {
                   label="Vazgeç"
                   variant="ghost"
                   disabled={isLoading}
-                  onPress={() => setGoogleModalVisible(false)}
+                  onPress={() => {
+                    setGoogleModalVisible(false);
+                    setModalError(null);
+                  }}
                   style={{ height: 38 }}
                 />
               </View>

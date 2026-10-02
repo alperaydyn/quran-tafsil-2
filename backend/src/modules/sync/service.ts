@@ -28,13 +28,8 @@ export class SyncService {
       }
     }
 
-    // Güvenlik: Asla 'system' veya 'admin' rolündeki şablon kullanıcıları fallback olarak eşleştirme!
-    const res = await query(
-      "SELECT id FROM kullanicilar WHERE auth_provider NOT IN ('system', 'admin') ORDER BY created_at DESC LIMIT 1"
-    );
-    if (res.rows.length > 0) {
-      return res.rows[0].id;
-    }
+    // Güvenlik ve İzolasyon: Eğer kullanıcı belirlenemiyorsa ASLA başka bir kullanıcının hesabına (ORDER BY created_at DESC) fallback yapma!
+    // Her bilinmeyen/unauthenticated istek izole yeni bir kullanıcıya bağlanır.
     const createRes = await query(
       "INSERT INTO kullanicilar (auth_provider, auth_provider_id, tercih_modu) VALUES ('anonymous', gen_random_uuid()::text, 'kesif') RETURNING id"
     );

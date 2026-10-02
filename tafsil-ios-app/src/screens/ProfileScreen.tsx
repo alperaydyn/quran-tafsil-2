@@ -277,7 +277,7 @@ export function ProfileScreen() {
             ) : (
               <>
                 <Button
-                  label="Hesabı Bağla (Apple / Google)"
+                  label="Giriş Yap / Hesabı Bağla"
                   variant="primary"
                   onPress={() => {
                     useAuthStore.getState().resetAuthStep();

@@ -16,7 +16,7 @@ const loginSchema = z.object({
 const linkSchema = z.object({
   provider: z.enum(["apple", "google"]),
   idToken: z.string().min(10),
-  guestUserId: z.string().uuid().optional(),
+  guestUserId: z.string().optional(),
   email: z.string().email().optional(),
   name: z.string().optional(),
 });

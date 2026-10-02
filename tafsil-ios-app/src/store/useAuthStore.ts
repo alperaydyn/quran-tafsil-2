@@ -77,38 +77,6 @@ export const useAuthStore = create<AuthState>()(
             ? AppleAuthentication.formatFullName(credential.fullName) || null
             : null;
 
-          const currentUser = get().user;
-          const currentToken = get().token;
-          const isCurrentlyGuest = get().isGuest;
-
-          // Eğer kullanıcı daha önce misafir olarak devam ettiyse, verilerini Apple hesabına bağla
-          if (isCurrentlyGuest && currentUser?.id) {
-            const linkRes = await linkGuestAccount({
-              provider: 'apple',
-              idToken: credential.identityToken,
-              guestUserId: currentUser.id,
-              guestToken: currentToken ?? undefined,
-              fullName,
-              email: credential.email,
-            });
-
-            if (linkRes.success && linkRes.data) {
-              set({
-                user: linkRes.data,
-                token: linkRes.data.token ?? currentToken,
-                isAuthenticated: true,
-                isGuest: false,
-                authStepCompleted: true,
-                isLoading: false,
-                error: null,
-              });
-
-              // Yerel çevrimdışı verileri backend'e senkronize et (Tam senkronizasyon)
-              OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
-              return true;
-            }
-          }
-
           // Standart doğrudan giriş
           const res = await authenticateWithApple({
             identityToken: credential.identityToken,
@@ -147,11 +115,12 @@ export const useAuthStore = create<AuthState>()(
       signInWithGoogle: async (options?: { email?: string; name?: string }) => {
         set({ isLoading: true, error: null });
         try {
-          const currentUser = get().user;
-          const currentToken = get().token;
-          const isCurrentlyGuest = get().isGuest;
+          const chosenEmail = options?.email?.trim();
+          if (!chosenEmail) {
+            set({ isLoading: false, error: 'Lütfen geçerli bir e-posta adresi girin.' });
+            return false;
+          }
 
-          const chosenEmail = options?.email?.trim() || 'alperaydyn@gmail.com';
           const chosenName =
             options?.name?.trim() ||
             (chosenEmail.includes('@') ? chosenEmail.split('@')[0] : 'Google Kullanıcısı');
@@ -159,37 +128,12 @@ export const useAuthStore = create<AuthState>()(
           // Çoklu cihaz/emülatör senkronizasyonu için deterministik dev token
           const fakeDevToken = `google-dev-${chosenEmail.toLowerCase()}`;
 
-          if (isCurrentlyGuest && currentUser?.id) {
-            const linkRes = await linkGuestAccount({
-              provider: 'google',
-              idToken: fakeDevToken,
-              guestUserId: currentUser.id,
-              guestToken: currentToken ?? undefined,
-              fullName: chosenName,
-              email: chosenEmail,
-            });
-
-            if (linkRes.success && linkRes.data) {
-              set({
-                user: linkRes.data,
-                token: linkRes.data.token ?? currentToken,
-                isAuthenticated: true,
-                isGuest: false,
-                authStepCompleted: true,
-                isLoading: false,
-                error: null,
-              });
-
-              OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
-              return true;
-            }
-          }
-
           const res = await authenticateWithGoogle({
             idToken: fakeDevToken,
             email: chosenEmail,
             name: chosenName,
           });
+
           if (res.success && res.data) {
             set({
               user: res.data,
@@ -257,11 +201,91 @@ export const useAuthStore = create<AuthState>()(
 
       /**
        * Hesabı Bağlama (Account Linking - PBI-4.5)
+       * Misafirin okuma geçmişini, yer imlerini ve ezberlerini yeni Apple/Google hesabına aktarır.
        */
       linkAccount: async (provider: 'apple' | 'google', googleDetails?: { email?: string; name?: string }) => {
+        const currentUser = get().user;
+        const currentToken = get().token;
+        const isCurrentlyGuest = get().isGuest;
+
         if (provider === 'apple') {
-          return await get().signInWithApple();
+          if (Platform.OS !== 'ios') return false;
+          try {
+            const credential = await AppleAuthentication.signInAsync({
+              requestedScopes: [
+                AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                AppleAuthentication.AppleAuthenticationScope.EMAIL,
+              ],
+            });
+            if (!credential.identityToken) return false;
+
+            const fullName = credential.fullName
+              ? AppleAuthentication.formatFullName(credential.fullName) || null
+              : null;
+
+            if (isCurrentlyGuest && currentUser?.id) {
+              const linkRes = await linkGuestAccount({
+                provider: 'apple',
+                idToken: credential.identityToken,
+                guestUserId: currentUser.id,
+                guestToken: currentToken ?? undefined,
+                fullName,
+                email: credential.email,
+              });
+
+              if (linkRes.success && linkRes.data) {
+                set({
+                  user: linkRes.data,
+                  token: linkRes.data.token ?? currentToken,
+                  isAuthenticated: true,
+                  isGuest: false,
+                  authStepCompleted: true,
+                  isLoading: false,
+                  error: null,
+                });
+                OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
+                return true;
+              }
+            }
+            return await get().signInWithApple();
+          } catch {
+            return false;
+          }
         } else {
+          const chosenEmail = googleDetails?.email?.trim();
+          if (!chosenEmail) {
+            set({ error: 'Lütfen geçerli bir e-posta adresi girin.' });
+            return false;
+          }
+          const chosenName =
+            googleDetails?.name?.trim() ||
+            (chosenEmail.includes('@') ? chosenEmail.split('@')[0] : 'Google Kullanıcısı');
+          const fakeDevToken = `google-dev-${chosenEmail.toLowerCase()}`;
+
+          if (isCurrentlyGuest && currentUser?.id) {
+            const linkRes = await linkGuestAccount({
+              provider: 'google',
+              idToken: fakeDevToken,
+              guestUserId: currentUser.id,
+              guestToken: currentToken ?? undefined,
+              fullName: chosenName,
+              email: chosenEmail,
+            });
+
+            if (linkRes.success && linkRes.data) {
+              set({
+                user: linkRes.data,
+                token: linkRes.data.token ?? currentToken,
+                isAuthenticated: true,
+                isGuest: false,
+                authStepCompleted: true,
+                isLoading: false,
+                error: null,
+              });
+              OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
+              return true;
+            }
+          }
           return await get().signInWithGoogle(googleDetails);
         }
       },
@@ -270,19 +294,12 @@ export const useAuthStore = create<AuthState>()(
         // Çıkış yapıldığında cihazdaki eski kullanıcı verilerini sıfırla
         OfflineSyncService.clearAllLocalUserData().catch(() => {});
 
-        const guestId = `guest-${Date.now()}`;
         set({
-          user: {
-            id: guestId,
-            name: 'Misafir Okuyucu',
-            email: null,
-            provider: 'guest',
-            isGuest: true,
-          },
-          token: `local-guest-jwt-${guestId}`,
-          isAuthenticated: true,
-          isGuest: true,
-          authStepCompleted: false, // <-- Tekrar Auth ekranı açıldığında hemen kapanmaması için
+          user: null,
+          token: null,
+          isAuthenticated: false,
+          isGuest: false,
+          authStepCompleted: false,
           isLoading: false,
           error: null,
         });

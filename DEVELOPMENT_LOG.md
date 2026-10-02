@@ -7,6 +7,46 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-03] Çoklu Hesap / Hesap Değişimi Oturum İzolasyonu & Senkronizasyon Veri Sızıntısının Kökten Çözümü (PBI-4.7)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Sorunun Tespiti:**
+  * Kullanıcı `alperaydyn@gmail.com` hesabından çıkış yapıp `info@alperaydin.net` hesabı ile giriş yapmasına rağmen, yeni hesapla okunan ayetlerin (Sure 112: 1, 3, 4 ve Sure 2: 1, 2) eski hesaba (`alperaydyn@gmail.com`) yazıldığı bildirildi.
+* **Kök Neden 1 — Çıkış Yapıldığında (`signOut`) Sahte Misafir ve Oturum Karışıklığı:**
+  * *Sorun:* `useAuthStore.signOut()` fonksiyonu `user: { id: guest-${Date.now()}, isGuest: true }` ve `isAuthenticated: true` atıyordu. Çıkış yapılmasına rağmen uygulama misafir modunda kalıyordu.
+  * *Çözüm:* `signOut()` fonksiyonu temiz bir çıkış durumuna (`user: null`, `token: null`, `isAuthenticated: false`, `isGuest: false`) geçirildi.
+* **Kök Neden 2 — `signInWithGoogle` Fonksiyonunun Hesap Bağlamaya (Account Linking) Zorlanması:**
+  * *Sorun:* `isCurrentlyGuest` bayrağı doğru (`true`) olduğu için kullanıcı "Google ile Giriş Yap" butonuna bastığında normal login yerine doğrudan `linkGuestAccount` çağrılıyordu. İstemcideki geçici `guest-17...` kimliği PostgreSQL UUID formatında olmadığı için backend `/api/v1/auth/link` Zod doğrulamasında `400 Bad Request` (`Invalid uuid`) veriyordu.
+  * *Sonuç:* Mobil istemci `linkGuestAccount` başarısız olunca mock token (`mock-jwt-linked-...`) üretiyor, bu geçersiz token Fastify JWT doğrulamasını geçemiyordu.
+  * *Çözüm:* `signInWithGoogle` ve `signInWithApple` her zaman doğrudan `authenticateWithGoogle` / `authenticateWithApple` çalıştıracak şekilde ayrıştırıldı. Hesap bağlama (`linkGuestAccount`) yalnızca kullanıcı misafir modundayken bilinçli olarak "Hesabı Bağla" butonuna bastığında (`linkAccount`) tetiklenir hale getirildi. Ayrıca `linkGuestAccount` hata aldığında mock token yerine doğrudan gerçek oturum açma fonksiyonuna fallback yapacak şekilde güçlendirildi.
+* **Kök Neden 3 — Backend `SyncService.getEffectiveUserId` İçindeki Tehlikeli Fallback:**
+  * *Sorun:* Çözümlenemeyen veya token'ı doğrulanamayan senkronizasyon isteklerinde `SyncService.getEffectiveUserId` metodu veritabanındaki en son oluşturulan kullanıcıyı (`SELECT id FROM kullanicilar WHERE auth_provider NOT IN ('system', 'admin') ORDER BY created_at DESC LIMIT 1`) seçiyordu. Bu sorgu doğrudan ilk kullanıcıyı (`alperaydyn@gmail.com`) döndürdüğü için, ikinci hesabın tüm hareketleri sessizce ilk hesaba bağlanıyordu.
+  * *Çözüm:* Tehlikeli fallback tamamen kaldırıldı. Kimliği doğrulanamayan istekler kesinlikle başka bir kullanıcının veritabanı kaydına yönlendirilmez; izole anonim bir kullanıcı oluşturulur.
+* **Kök Neden 4 — Backend `/auth/link` ve `linkGuestUser` UUID Kısıtı:**
+  * *Sorun:* `linkSchema` içinde `guestUserId: z.string().uuid()` şartı vardı. Yerel istemci misafir kimlikleri (`guest-17...`) UUID olmadığı için 400 hatası veriyordu.
+  * *Çözüm:* `guestUserId: z.string().optional()` yapıldı ve `linkGuestUser` içinde `isGuestUuid` regex denetimi eklendi. UUID değilse Postgres hatası almadan doğrudan `findOrCreateUser` çağrılır.
+* **Kök Neden 5 — Mobil `AuthScreen` İçindeki Hardcoded E-Posta:**
+  * *Sorun:* `googleEmail` state'i `'alperaydyn@gmail.com'` ile başlatılıyordu.
+  * *Çözüm:* E-posta ve ad soyad alanları boş (`''`) başlatıldı, format ve boşluk doğrulaması (`modalError`) eklendi.
+* **Veri Onarımı (Data Fix):**
+  * Kullanıcının test sırasında okuduğu 5 ayet kaydı (Sure 112: 1, 3, 4 ve Sure 2: 1, 2) `alperaydyn@gmail.com` hesabından gerçek sahibi olan `info@alperaydin.net` (`cc2c3188-a288-490d-ad62-bc830e6a7093`) hesabına taşındı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/modules/auth/routes.ts`: `linkSchema` `guestUserId` esnetmesi (UUID kısıtının kaldırılması).
+* `backend/src/modules/users/service.ts`: `linkGuestUser` içine `isGuestUuid` denetimi.
+* `backend/src/modules/sync/service.ts`: `getEffectiveUserId` içindeki tehlikeli `created_at DESC LIMIT 1` fallback'inin temizlenmesi.
+* `tafsil-ios-app/src/store/useAuthStore.ts`: `signOut` temizleme, `signInWithGoogle` ve `linkAccount` ayrımı, e-posta zorunluluğu.
+* `tafsil-ios-app/src/api/auth.ts`: `linkGuestAccount` canlı hata fallback'inin gerçek login fonksiyonlarına yönlendirilmesi.
+* `tafsil-ios-app/src/screens/AuthScreen.tsx`: Hardcoded e-posta temizliği, boş/geçersiz e-posta validasyonu ve hata gösterimi.
+* `tafsil-ios-app/src/screens/ProfileScreen.tsx`: Giriş Yap / Hesabı Bağla buton etiketi güncellemesi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(auth): resolve multi-account session isolation, eliminate sync fallback hijacking, and migrate misattributed reading logs (PBI-4.7)
+```
+
+---
+
 ## [2026-10-02] Okuma ve Kavram Geçmişi Tekilleştirme & Idempotent Senkronizasyon (PBI-6.6)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

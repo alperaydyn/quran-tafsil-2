@@ -214,19 +214,20 @@ export async function linkGuestAccount(
     console.warn('[linkGuestAccount] Canlı account linking hatası, yerel hesaba dönüştürülüyor:', err);
   }
 
-  // Graceful fallback
-  return {
-    success: true,
-    data: {
-      id: `linked-${payload.provider}-${Date.now()}`,
-      name: payload.fullName ?? (payload.provider === 'apple' ? 'Apple Kullanıcısı' : 'Google Kullanıcısı'),
-      email: payload.email ?? null,
-      provider: payload.provider,
-      token: `mock-jwt-linked-${Date.now()}`,
-      isGuest: false,
-      linked: true,
-    },
-  };
+  // Graceful fallback: Eğer hesap bağlama canlıda bir nedenle tamamlanamazsa, kullanıcıyı mağdur etmeyip doğrudan gerçek sağlayıcı girişine yönlendir
+  if (payload.provider === 'google') {
+    return await authenticateWithGoogle({
+      idToken: payload.idToken,
+      email: payload.email,
+      name: payload.fullName,
+    });
+  } else {
+    return await authenticateWithApple({
+      identityToken: payload.idToken,
+      fullName: payload.fullName,
+      email: payload.email,
+    });
+  }
 }
 
 /**
