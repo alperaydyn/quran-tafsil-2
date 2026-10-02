@@ -7,6 +7,44 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Büyük Güvenlik, Veritabanı Şeması & Kimlik Sertleştirmesi (PBI-4.6)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Sabit UUID ve Yetki Bypass Açıklarının Kapatılması (PBI-4.6.1):**
+  * *Admin Güvenliği:* `DEFAULT_ADMIN_ID` (`ffffffff-...`) kaldırıldı. `backend/src/plugins/auth.ts` içine `authorizeAdmin` hook'u eklendi; veritabanında `role === 'admin'` olmayan veya JWT içermeyen tüm istekler 401/403 ile reddedilir hale getirildi.
+  * *Sistem & Misafir UUID İzolasyonu:* `community` ve `understanding` servislerindeki `00000000-...` sabit UUID'si kaldırıldı. Topluluk oturumları listelemesinde `userId` opsiyonel kılındı (`is_liked_by_user` unauth kullanıcılar için false), anlama oturumlarında ise `is_featured` bayrağı hakikat kaynağı yapıldı.
+* **Kullanıcı Profili ve İsim/E-posta Kalıcılığı (PBI-4.6.2):**
+  * `008_profile_subscriptions_security.sql` migration'ı yazılarak Hostinger PostgreSQL'deki `kullanicilar` tablosuna `name VARCHAR(128)`, `email VARCHAR(255)` ve `password_hash VARCHAR(255)` sütunları eklendi.
+  * Apple ve Google girişlerinde kullanıcının gerçek adı ve e-postası veritabanına kaydedildi; DTO'ya eklendi.
+  * Mobil `HomeScreen` üzerindeki `'Alper'` hardcoded fallback'i kaldırıldı; editoryal selamlama (`getTimeGreeting()`) ve dinamik kâri/okuyucu unvanları bağlandı.
+* **Abonelikler Tablosu ve Hakikat Kaynağı Ayrımı (PBI-4.6.3):**
+  * StoreKit 2 ve Google Play aboneliklerini takip eden ilişkisel `abonelikler` (`subscriptions`) tablosu modellendi.
+  * `backend/src/modules/subscriptions/` servisi ve rotaları eklendi (`/status`, `/verify`, `/sync`). `is_premium` sütunu doğrudan rastgele güncellenen bir alan olmaktan çıkarılıp, aktif abonelik durumuna göre otomatik türetilen denormalize bir read-cache bayrağına dönüştürüldü.
+* **Şifre Sıfırlama ve Kriptografik Token Mimarisi (PBI-4.6.4):**
+  * `sifre_sifirlama_talepleri` tablosu oluşturuldu. 32 baytlık rastgele token, SHA-256 hash'leme, 15 dakika TTL, `used_at` tek kullanımlık replay attack koruması ve `POST /auth/forgot-password` ile `POST /auth/reset-password` uçları canlıya alındı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/db/migrations/008_profile_subscriptions_security.sql`: Hostinger PostgreSQL canlı migration'ı.
+* `backend/src/plugins/auth.ts`: `authorizeAdmin` hook'u ve RBAC yetkilendirmesi.
+* `backend/src/modules/admin/routes.ts`: `DEFAULT_ADMIN_ID` temizliği ve `authorizeAdmin` hook'u.
+* `backend/src/modules/community/service.ts` & `routes.ts`: Sabit UUID temizliği ve dinamik misafir/auth ayrımı.
+* `backend/src/modules/understanding/service.ts` & `routes.ts`: `is_featured` kullanımı ve auth koruması.
+* `backend/src/modules/users/service.ts` & `dto.ts`: `name`, `email`, `role` alanları ve kalıcı kaydı.
+* `backend/src/modules/auth/routes.ts`: `name` iletimi, `/forgot-password`, `/reset-password` rotaları.
+* `backend/src/modules/auth/passwordReset.ts`: PBKDF2/SHA-512 şifreleme ve token yaşam döngüsü.
+* `backend/src/modules/subscriptions/service.ts` & `routes.ts`: `abonelikler` tablosu ve premium senkronizasyonu.
+* `backend/src/app.ts`: `subscriptionRoutes` kaydı.
+* `tafsil-ios-app/src/api/auth.ts`: İsim ve e-posta veri aktarım köprüsü.
+* `tafsil-ios-app/src/screens/HomeScreen.tsx`: Dinamik isim karşılama.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: PBI-4.6 tamamlama işaretlemesi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(security): implement PBI-4.6 major security hardening, db profile schema, subscriptions architecture, and password reset
+```
+
+---
+
 ## [2026-10-02] Google Sign-In İyileştirmesi, Çoklu Emülatör Senkronizasyonu & PostgreSQL / Redis Canlı Bağlantı Doğrulaması (PBI-4.2, PBI-4.4, PBI-4.5)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

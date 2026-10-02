@@ -11,8 +11,6 @@ import {
   createConceptRelation,
 } from "./service.js";
 
-const DEFAULT_ADMIN_ID = "ffffffff-ffff-ffff-ffff-ffffffffffff";
-
 const moderateSchema = z.object({
   is_featured: z.boolean().optional(),
   moderation_status: z.enum(["onaylandi", "beklemede", "reddedildi"]).optional(),
@@ -55,6 +53,9 @@ const createRelationSchema = z.object({
 });
 
 export async function adminRoutes(app: FastifyInstance) {
+  // Tüm admin uçları için zorunlu JWT ve role === 'admin' kontrolü
+  app.addHook("preHandler", app.authorizeAdmin);
+
   // 1. Dashboard Metrics
   app.get("/dashboard", async (request, reply) => {
     try {
@@ -88,7 +89,7 @@ export async function adminRoutes(app: FastifyInstance) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz moderasyon verisi", parsed.error.flatten()));
     }
 
-    const adminId = (request as any).user?.sub || DEFAULT_ADMIN_ID;
+    const adminId = request.user.sub;
 
     try {
       const result = await moderateCommunitySession(adminId, id, parsed.data);
@@ -105,7 +106,7 @@ export async function adminRoutes(app: FastifyInstance) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz makale verisi", parsed.error.flatten()));
     }
 
-    const adminId = (request as any).user?.sub || DEFAULT_ADMIN_ID;
+    const adminId = request.user.sub;
 
     try {
       const result = await createArticle(adminId, parsed.data);
@@ -123,7 +124,7 @@ export async function adminRoutes(app: FastifyInstance) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz güncelleme verisi", parsed.error.flatten()));
     }
 
-    const adminId = (request as any).user?.sub || DEFAULT_ADMIN_ID;
+    const adminId = request.user.sub;
 
     try {
       const result = await updateArticle(adminId, slug, parsed.data);
@@ -140,7 +141,7 @@ export async function adminRoutes(app: FastifyInstance) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz kavram verisi", parsed.error.flatten()));
     }
 
-    const adminId = (request as any).user?.sub || DEFAULT_ADMIN_ID;
+    const adminId = request.user.sub;
 
     try {
       const result = await createConcept(adminId, parsed.data);
@@ -157,7 +158,7 @@ export async function adminRoutes(app: FastifyInstance) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz ilişki verisi", parsed.error.flatten()));
     }
 
-    const adminId = (request as any).user?.sub || DEFAULT_ADMIN_ID;
+    const adminId = request.user.sub;
 
     try {
       const result = await createConceptRelation(adminId, parsed.data);

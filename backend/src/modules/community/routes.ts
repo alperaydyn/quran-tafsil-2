@@ -19,8 +19,13 @@ export const communityRoutes: FastifyPluginAsync = async (app) => {
         offset?: string;
       };
 
-      const user = (request as any).user;
-      const userId = user?.id || "00000000-0000-0000-0000-000000000001";
+      let userId: string | null = null;
+      try {
+        await request.jwtVerify();
+        userId = request.user?.sub || null;
+      } catch {
+        // Ziyaretçi kullanıcılar da topluluk çalışmalarını görüntüleyebilir
+      }
 
       const sessions = await listCommunitySessions(userId, {
         kavram: query.kavram,
@@ -36,11 +41,10 @@ export const communityRoutes: FastifyPluginAsync = async (app) => {
   });
 
   // POST /api/v1/topluluk/oturumlari/:id/begen
-  app.post("/topluluk/oturumlari/:id/begen", async (request, reply) => {
+  app.post("/topluluk/oturumlari/:id/begen", { preHandler: [app.authenticate] }, async (request, reply) => {
     try {
       const { id } = request.params as { id: string };
-      const user = (request as any).user;
-      const userId = user?.id || "00000000-0000-0000-0000-000000000001";
+      const userId = request.user.sub;
 
       const result = await toggleLike(userId, id);
       return reply.send(ok(result));
@@ -53,11 +57,10 @@ export const communityRoutes: FastifyPluginAsync = async (app) => {
   });
 
   // POST /api/v1/topluluk/oturumlari/:id/catalla
-  app.post("/topluluk/oturumlari/:id/catalla", async (request, reply) => {
+  app.post("/topluluk/oturumlari/:id/catalla", { preHandler: [app.authenticate] }, async (request, reply) => {
     try {
       const { id } = request.params as { id: string };
-      const user = (request as any).user;
-      const userId = user?.id || "00000000-0000-0000-0000-000000000001";
+      const userId = request.user.sub;
 
       const body = ForkSessionSchema.parse(request.body || {});
       const newSession = await forkSession(userId, id, body);

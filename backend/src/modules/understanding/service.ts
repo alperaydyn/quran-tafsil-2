@@ -8,8 +8,6 @@ import type {
   TimelineStepDto,
 } from "./dto.js";
 
-const SYSTEM_USER_ID = "00000000-0000-0000-0000-000000000001";
-
 function buildTimelineSteps(): TimelineStepDto[] {
   return [
     {
@@ -117,11 +115,11 @@ export async function createSession(
 
 export async function listSessions(userId: string): Promise<UnderstandingSessionDto[]> {
   const res = await query(
-    `SELECT id, kullanici_id, baslik, odak_kavramlar, sentez_ozeti, onerilen_okuma_sirasi, durum, created_at
+    `SELECT id, kullanici_id, baslik, odak_kavramlar, sentez_ozeti, onerilen_okuma_sirasi, durum, is_featured, created_at
      FROM anlama_oturumlari
-     WHERE kullanici_id = $1 OR kullanici_id = $2
+     WHERE kullanici_id = $1 OR is_featured = true
      ORDER BY created_at DESC`,
-    [userId, SYSTEM_USER_ID],
+    [userId],
   );
 
   const list: UnderstandingSessionDto[] = [];
@@ -138,7 +136,7 @@ export async function listSessions(userId: string): Promise<UnderstandingSession
       okuma_kuyrugu: queue,
       timeline_adimlari: buildTimelineSteps(),
       durum: row.durum || "tamamlandi",
-      sabitlendi: row.kullanici_id === SYSTEM_USER_ID,
+      sabitlendi: Boolean(row.is_featured),
       created_at: row.created_at,
     });
   }
@@ -151,10 +149,10 @@ export async function getSessionDetail(
   sessionId: string,
 ): Promise<UnderstandingSessionDto | null> {
   const res = await query(
-    `SELECT id, kullanici_id, baslik, odak_kavramlar, sentez_ozeti, onerilen_okuma_sirasi, durum, created_at
+    `SELECT id, kullanici_id, baslik, odak_kavramlar, sentez_ozeti, onerilen_okuma_sirasi, durum, is_featured, is_public, created_at
      FROM anlama_oturumlari
-     WHERE id = $1 AND (kullanici_id = $2 OR kullanici_id = $3)`,
-    [sessionId, userId, SYSTEM_USER_ID],
+     WHERE id = $1 AND (kullanici_id = $2 OR is_featured = true OR is_public = true)`,
+    [sessionId, userId],
   );
 
   const row = res.rows[0];
@@ -173,7 +171,7 @@ export async function getSessionDetail(
     okuma_kuyrugu: queue,
     timeline_adimlari: buildTimelineSteps(),
     durum: row.durum || "tamamlandi",
-    sabitlendi: row.kullanici_id === SYSTEM_USER_ID,
+    sabitlendi: Boolean(row.is_featured),
     created_at: row.created_at,
   };
 }

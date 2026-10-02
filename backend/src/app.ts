@@ -23,6 +23,7 @@ import { analyticsRoutes } from "./modules/analytics/routes.js";
 import { adminRoutes } from "./modules/admin/routes.js";
 import { syncRoutes } from "./modules/sync/routes.js";
 import { audioRoutes } from "./modules/audio/routes.js";
+import { subscriptionRoutes } from "./modules/subscriptions/routes.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -67,6 +68,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(editorialRoutes, { prefix: "/api/v1" });
   await app.register(analyticsRoutes, { prefix: "/api/v1" });
   await app.register(adminRoutes, { prefix: "/api/v1/admin" });
+  await app.register(subscriptionRoutes, { prefix: "/api/v1/subscriptions" });
   await app.register(syncRoutes);
   await app.register(audioRoutes);
 

@@ -8,15 +8,14 @@ import type {
   CommunityConceptDto,
 } from "./dto.js";
 
-const DEFAULT_USER_ID = "00000000-0000-0000-0000-000000000001";
-
 export async function listCommunitySessions(
-  userId: string = DEFAULT_USER_ID,
+  userId?: string | null,
   options: CommunityFilterQuery = {},
 ): Promise<CommunitySessionDto[]> {
   const { kavram, sort = "popular", limit = 20, offset = 0 } = options;
   const redis = getRedis();
-  const cacheKey = `cache:community:sessions:${kavram || "all"}:${sort}:${limit}:${offset}:${userId}`;
+  const effectiveUserId = userId || "anonymous";
+  const cacheKey = `cache:community:sessions:${kavram || "all"}:${sort}:${limit}:${offset}:${effectiveUserId}`;
 
   try {
     const cached = await redis.get(cacheKey);
@@ -34,7 +33,7 @@ export async function listCommunitySessions(
     orderBy = "o.fork_count DESC, o.like_count DESC";
   }
 
-  const values: any[] = [userId];
+  const values: any[] = [];
   let filterClause = "o.is_public = true";
 
   if (kavram) {
@@ -46,6 +45,15 @@ export async function listCommunitySessions(
   const limitIndex = values.length;
   values.push(offset);
   const offsetIndex = values.length;
+
+  let likeJoin = "";
+  let isLikedSelect = "false as is_liked_by_user";
+  if (userId) {
+    values.push(userId);
+    const userIndex = values.length;
+    likeJoin = `LEFT JOIN topluluk_begenileri b ON b.oturum_id = o.id AND b.user_id = $${userIndex}`;
+    isLikedSelect = "CASE WHEN b.user_id IS NOT NULL THEN true ELSE false END as is_liked_by_user";
+  }
 
   const sql = `
     SELECT 
@@ -60,9 +68,9 @@ export async function listCommunitySessions(
       COALESCE(o.like_count, 0) as like_count,
       COALESCE(o.fork_count, 0) as fork_count,
       o.source_session_id,
-      CASE WHEN b.user_id IS NOT NULL THEN true ELSE false END as is_liked_by_user
+      ${isLikedSelect}
     FROM anlama_oturumlari o
-    LEFT JOIN topluluk_begenileri b ON b.oturum_id = o.id AND b.user_id = $1
+    ${likeJoin}
     WHERE ${filterClause}
     ORDER BY ${orderBy}
     LIMIT $${limitIndex} OFFSET $${offsetIndex}
@@ -94,7 +102,7 @@ export async function listCommunitySessions(
 }
 
 export async function toggleLike(
-  userId: string = DEFAULT_USER_ID,
+  userId: string,
   sessionId: string,
 ): Promise<LikeResponseDto> {
   const checkSession = await query(
@@ -152,7 +160,7 @@ export async function toggleLike(
 }
 
 export async function forkSession(
-  userId: string = DEFAULT_USER_ID,
+  userId: string,
   sessionId: string,
   input: ForkSessionInput = {},
 ): Promise<CommunitySessionDto> {

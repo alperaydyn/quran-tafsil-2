@@ -33,6 +33,8 @@ export async function authenticateWithApple(
       body: JSON.stringify({
         provider: 'apple',
         idToken: payload.identityToken,
+        email: payload.email,
+        name: payload.fullName,
       }),
     });
 
@@ -43,7 +45,7 @@ export async function authenticateWithApple(
           success: true,
           data: {
             id: json.data.user.id,
-            name: payload.fullName ?? json.data.user.email?.split('@')[0] ?? null,
+            name: json.data.user.name ?? payload.fullName ?? (json.data.user.email ? json.data.user.email.split('@')[0] : null),
             email: json.data.user.email ?? payload.email ?? null,
             provider: 'apple',
             token: json.data.token,
@@ -92,7 +94,7 @@ export async function authenticateWithGoogle(
           success: true,
           data: {
             id: json.data.user.id,
-            name: payload.name ?? json.data.user.email?.split('@')[0] ?? null,
+            name: json.data.user.name ?? payload.name ?? json.data.user.email?.split('@')[0] ?? null,
             email: payload.email ?? json.data.user.email ?? null,
             provider: 'google',
             token: json.data.token,
@@ -186,6 +188,8 @@ export async function linkGuestAccount(
         provider: payload.provider,
         idToken: payload.idToken,
         guestUserId: payload.guestUserId,
+        email: payload.email,
+        name: payload.fullName,
       }),
     });
 
@@ -196,7 +200,7 @@ export async function linkGuestAccount(
           success: true,
           data: {
             id: json.data.user.id,
-            name: payload.fullName ?? json.data.user.email?.split('@')[0] ?? 'Kullanıcı',
+            name: json.data.user.name ?? payload.fullName ?? json.data.user.email?.split('@')[0] ?? 'Kâri',
             email: json.data.user.email ?? payload.email ?? null,
             provider: payload.provider,
             token: json.data.token,

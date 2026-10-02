@@ -31,7 +31,7 @@ export async function authRoutes(app: FastifyInstance) {
     if (!parsed.success) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz istek gövdesi", parsed.error.flatten()));
     }
-    const { provider, idToken, email } = parsed.data;
+    const { provider, idToken, email, name } = parsed.data;
 
     let claims: { sub: string; email?: string };
     try {
@@ -41,13 +41,11 @@ export async function authRoutes(app: FastifyInstance) {
       return reply.status(401).send(fail("AUTH_FAILED", "Kimlik doğrulama başarısız oldu"));
     }
 
-    const user = await findOrCreateUser(provider, claims.sub);
+    const effectiveEmail = claims.email || email;
+    const user = await findOrCreateUser(provider, claims.sub, name, effectiveEmail);
     const token = await reply.jwtSign({ sub: user.id, authProvider: provider });
 
-    const publicUser = toPublicUser(user);
-    if (claims.email) {
-      publicUser.email = claims.email;
-    }
+    const publicUser = toPublicUser(user, effectiveEmail);
 
     return reply.send(ok({ token, user: publicUser }));
   });
@@ -72,7 +70,7 @@ export async function authRoutes(app: FastifyInstance) {
     if (!parsed.success) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz istek gövdesi", parsed.error.flatten()));
     }
-    const { provider, idToken, guestUserId, email } = parsed.data;
+    const { provider, idToken, guestUserId, email, name } = parsed.data;
 
     // Header token'ından veya body'den misafir ID'sini belirle
     let effectiveGuestId = guestUserId;
@@ -97,13 +95,11 @@ export async function authRoutes(app: FastifyInstance) {
       return reply.status(401).send(fail("AUTH_FAILED", "Kimlik doğrulama başarısız oldu"));
     }
 
-    const user = await linkGuestUser(effectiveGuestId, provider, claims.sub);
+    const effectiveEmail = claims.email || email;
+    const user = await linkGuestUser(effectiveGuestId, provider, claims.sub, name, effectiveEmail);
     const token = await reply.jwtSign({ sub: user.id, authProvider: provider });
 
-    const publicUser = toPublicUser(user);
-    if (claims.email) {
-      publicUser.email = claims.email;
-    }
+    const publicUser = toPublicUser(user, effectiveEmail);
 
     return reply.send(ok({ token, user: publicUser, linked: true }));
   });
@@ -117,5 +113,49 @@ export async function authRoutes(app: FastifyInstance) {
       return reply.status(404).send(fail("USER_NOT_FOUND", "Kullanıcı bulunamadı"));
     }
     return reply.send(ok(toPublicUser(user)));
+  });
+
+  /**
+   * Şifre Sıfırlama Talebi (PBI-4.6.4)
+   * Kullanıcının e-posta adresine 15 dakika geçerli kriptografik sıfırlama bağlantısı üretir.
+   */
+  app.post("/forgot-password", async (request, reply) => {
+    const schema = z.object({ email: z.string().email() });
+    const parsed = schema.safeParse(request.body);
+    if (!parsed.success) {
+      return reply.status(400).send(fail("VALIDATION_ERROR", "Geçerli bir e-posta adresi giriniz"));
+    }
+
+    const { createPasswordResetRequest } = await import("./passwordReset.js");
+    const result = await createPasswordResetRequest(parsed.data.email);
+
+    return reply.send(
+      ok({
+        message: "Eğer bu e-posta adresi ile bir hesap mevcutsa, şifre sıfırlama talimatları gönderilmiştir.",
+        ...(process.env.NODE_ENV !== "production" && result ? { resetUrl: result.resetUrl } : {}),
+      })
+    );
+  });
+
+  /**
+   * Şifre Sıfırlama Tamamlama (PBI-4.6.4)
+   */
+  app.post("/reset-password", async (request, reply) => {
+    const schema = z.object({
+      token: z.string().min(20),
+      newPassword: z.string().min(8, "Şifre en az 8 karakter olmalıdır"),
+    });
+    const parsed = schema.safeParse(request.body);
+    if (!parsed.success) {
+      return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz şifre veya bağlantı", parsed.error.flatten()));
+    }
+
+    const { completePasswordReset } = await import("./passwordReset.js");
+    const result = await completePasswordReset(parsed.data.token, parsed.data.newPassword);
+    if (!result.success) {
+      return reply.status(400).send(fail("INVALID_TOKEN", result.message));
+    }
+
+    return reply.send(ok({ message: result.message }));
   });
 }

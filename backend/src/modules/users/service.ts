@@ -8,29 +8,57 @@ export interface Kullanici {
   tercih_modu: string;
   dil: string;
   is_premium: boolean;
+  role?: string;
+  name?: string;
+  email?: string;
   created_at: string;
 }
 
 const memoryUsers = new Map<string, Kullanici>();
 
-export async function findOrCreateUser(authProvider: string, authProviderId: string): Promise<Kullanici> {
+export async function findOrCreateUser(
+  authProvider: string,
+  authProviderId: string,
+  name?: string,
+  email?: string
+): Promise<Kullanici> {
   try {
     const existing = await query<Kullanici>(
       `SELECT * FROM kullanicilar WHERE auth_provider = $1 AND auth_provider_id = $2`,
       [authProvider, authProviderId]
     );
-    if (existing.rows[0]) return existing.rows[0];
+    if (existing.rows[0]) {
+      const current = existing.rows[0];
+      // Eğer yeni bir ad veya e-posta geldiyse ve DB'de boşsa güncelle
+      if ((name && !current.name) || (email && !current.email)) {
+        const updated = await query<Kullanici>(
+          `UPDATE kullanicilar 
+           SET name = COALESCE(name, $1), email = COALESCE(email, $2) 
+           WHERE id = $3 
+           RETURNING *`,
+          [name || null, email || null, current.id]
+        );
+        return updated.rows[0];
+      }
+      return current;
+    }
 
     const inserted = await query<Kullanici>(
-      `INSERT INTO kullanicilar (auth_provider, auth_provider_id) VALUES ($1, $2) RETURNING *`,
-      [authProvider, authProviderId]
+      `INSERT INTO kullanicilar (auth_provider, auth_provider_id, name, email) 
+       VALUES ($1, $2, $3, $4) 
+       RETURNING *`,
+      [authProvider, authProviderId, name || null, email || null]
     );
     return inserted.rows[0];
   } catch (err: any) {
     if (err?.code === "ECONNREFUSED" || err?.message?.includes("connect ECONNREFUSED")) {
       const key = `${authProvider}:${authProviderId}`;
       const existing = memoryUsers.get(key);
-      if (existing) return existing;
+      if (existing) {
+        if (name && !existing.name) existing.name = name;
+        if (email && !existing.email) existing.email = email;
+        return existing;
+      }
 
       const newUser: Kullanici = {
         id: crypto.randomUUID(),
@@ -39,6 +67,8 @@ export async function findOrCreateUser(authProvider: string, authProviderId: str
         tercih_modu: "ogrenme",
         dil: "tr",
         is_premium: false,
+        name: name,
+        email: email,
         created_at: new Date().toISOString(),
       };
       memoryUsers.set(key, newUser);
@@ -80,7 +110,9 @@ export async function createGuestUser(): Promise<Kullanici> {
 export async function linkGuestUser(
   guestUserId: string,
   authProvider: string,
-  authProviderId: string
+  authProviderId: string,
+  name?: string,
+  email?: string
 ): Promise<Kullanici> {
   try {
     // 1. Bu provider ve providerId ile daha önce açılmış hesap var mı?
@@ -111,16 +143,32 @@ export async function linkGuestUser(
           guestUserId,
         ]);
       }
+
+      // Varsa isim ve e-postayı mevcut hesaba tamamla
+      if (name || email) {
+        const updated = await query<Kullanici>(
+          `UPDATE kullanicilar 
+           SET name = COALESCE(name, $1), email = COALESCE(email, $2) 
+           WHERE id = $3 
+           RETURNING *`,
+          [name || null, email || null, targetUserId]
+        );
+        return updated.rows[0];
+      }
+
       return existing.rows[0];
     }
 
     // 2. Eğer henüz bu Apple/Google ID'sine bağlı hesap yoksa, misafir kaydını kalıcı hesaba dönüştür
     const updated = await query<Kullanici>(
       `UPDATE kullanicilar
-       SET auth_provider = $1, auth_provider_id = $2
-       WHERE id = $3
+       SET auth_provider = $1, 
+           auth_provider_id = $2, 
+           name = COALESCE($3, name), 
+           email = COALESCE($4, email)
+       WHERE id = $5
        RETURNING *`,
-      [authProvider, authProviderId, guestUserId]
+      [authProvider, authProviderId, name || null, email || null, guestUserId]
     );
 
     if (updated.rows[0]) {
@@ -128,17 +176,19 @@ export async function linkGuestUser(
     }
 
     // Fallback: Eğer guestUserId bulunamadıysa doğrudan yeni kullanıcı oluştur
-    return findOrCreateUser(authProvider, authProviderId);
+    return findOrCreateUser(authProvider, authProviderId, name, email);
   } catch (err: any) {
     if (err?.code === "ECONNREFUSED" || err?.message?.includes("connect ECONNREFUSED")) {
       const guestUser = memoryUsers.get(guestUserId);
       if (guestUser) {
         guestUser.auth_provider = authProvider;
         guestUser.auth_provider_id = authProviderId;
+        if (name) guestUser.name = name;
+        if (email) guestUser.email = email;
         memoryUsers.set(`${authProvider}:${authProviderId}`, guestUser);
         return guestUser;
       }
-      return findOrCreateUser(authProvider, authProviderId);
+      return findOrCreateUser(authProvider, authProviderId, name, email);
     }
     throw err;
   }
