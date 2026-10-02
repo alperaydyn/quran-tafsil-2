@@ -63,7 +63,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-6.1:** 114 surenin tamamını gösteren interaktif ızgara matrisi (`SurahGridMatrix.tsx`).
 - [x] **PBI-6.2:** Son okunan sure/ayet konumunun yerel cihazda saklanması ve kaldığı yerden devam etme kısayolu.
 - [x] **PBI-6.3:** Okuma geçmişi sayfası (`HistoryScreen.tsx`).
-- [ ] **PBI-6.4 (Okuma Tamamlama Mantığı):** Sure son ayetine ulaşıldığında surenin "Okundu" olarak işaretlenmesi ve yüzde hesaplaması.
+- [x] **PBI-6.4 (Okuma Tamamlama Mantığı):** Sure son ayetine ulaşıldığında surenin "Okundu" olarak işaretlenmesi ve yüzde hesaplaması (`useReadingProgressStore.ts`, `ReadingScreen.tsx`, `SurahGridMatrix.tsx`, `SurahListScreen.tsx`).
 
 ---
 

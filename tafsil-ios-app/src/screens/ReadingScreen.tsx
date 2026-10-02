@@ -472,6 +472,8 @@ export function ReadingScreen({ route, navigation }: Props) {
 
   const markVerseRead = useReadingProgressStore((s) => s.markVerseRead);
   const setLastRead = useReadingProgressStore((s) => s.setLastRead);
+  const markSurahCompleted = useReadingProgressStore((s) => s.markSurahCompleted);
+  const isSurahCompleted = useReadingProgressStore((s) => s.isSurahCompleted);
 
   // Yeni sureye autoPlay parametresiyle geçildiğinde oynatmayı başlat
   useEffect(() => {
@@ -515,8 +517,13 @@ export function ReadingScreen({ route, navigation }: Props) {
       setLastRead(surahId, activeAyah, new Date().toISOString());
       markVerseRead(surahId, activeAyah, today);
       OfflineSyncService.recordReading(surahId, activeAyah, 20);
+
+      // Surenin son ayetine ulaşıldığında surenin Okundu olarak işaretlenmesi (PBI-6.4)
+      if (activeAyah === verses.length) {
+        markSurahCompleted(surahId, verses.length);
+      }
     }
-  }, [activeAyah, surahId, verses.length, markVerseRead, setLastRead]);
+  }, [activeAyah, surahId, verses.length, markVerseRead, setLastRead, markSurahCompleted]);
 
   // Aktif okunan ayet değiştiğinde otomatik scroll (ekran odağı)
   // Sadece ses çalarken veya elle kaydırma modunda değilken scrollTo yapılır
@@ -1206,78 +1213,236 @@ export function ReadingScreen({ route, navigation }: Props) {
                 gap: 10,
               }}
             >
-              <Pressable
-                onPress={handleNextStep}
-                style={({ pressed }) => ({
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingVertical: 14,
-                  paddingHorizontal: 18,
-                  borderRadius: 14,
-                  backgroundColor: theme.colors.surf,
-                  borderWidth: 1.5,
-                  borderColor: pressed ? theme.colors.acc : theme.colors.line,
-                  opacity: pressed ? 0.85 : 1,
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.05,
-                  shadowRadius: 6,
-                  elevation: 2,
-                })}
-              >
-                <View style={{ flex: 1, marginRight: 12 }}>
-                  <StyledText variant="body" color="ink" style={{ fontWeight: '600', fontSize: 15 }}>
-                    {activeAyah < verses.length
-                      ? 'Sonraki Ayete Geç'
-                      : nextSurah
-                      ? 'Sıradaki Sureye Geç'
-                      : 'Sureyi Tamamladınız'}
-                  </StyledText>
-                  <StyledText variant="caption" color="faint" style={{ fontSize: 12, marginTop: 2 }}>
-                    {activeAyah < verses.length
-                      ? `${activeAyah + 1}. Ayete odaklan (${activeAyah + 1} / ${verses.length})`
-                      : nextSurah
-                      ? `${nextSurah.nameTr} (${nextSurah.nameAr} · ${nextSurah.verseCount} Ayet)`
-                      : 'Kur\'an-ı Kerim Hatmi'}
-                  </StyledText>
-                </View>
-
+              {isSurahCompleted(surahId) || (totalVerses > 0 && activeAyah === totalVerses) ? (
                 <View
                   style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: 18,
-                    backgroundColor: theme.colors.accSoft,
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    padding: 20,
+                    borderRadius: 22,
+                    backgroundColor: theme.colors.surf,
+                    borderWidth: 1.5,
+                    borderColor: theme.colors.acc,
+                    gap: 14,
+                    shadowColor: theme.colors.acc,
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.12,
+                    shadowRadius: 10,
+                    elevation: 3,
                   }}
                 >
-                  <StyledText variant="body" color="acc" style={{ fontSize: 16, fontWeight: '700' }}>
-                    {activeAyah < verses.length ? '↓' : '→'}
-                  </StyledText>
-                </View>
-              </Pressable>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 6,
+                        paddingVertical: 4,
+                        paddingHorizontal: 10,
+                        borderRadius: theme.radius.pill,
+                        backgroundColor: theme.colors.accSoft,
+                      }}
+                    >
+                      <StyledText
+                        variant="caption"
+                        color="acc"
+                        style={{ fontWeight: '700', fontSize: 11 }}
+                      >
+                        ✓ SURE TAMAMLANDI · %100
+                      </StyledText>
+                    </View>
+                    <StyledText variant="caption" color="faint">
+                      {totalVerses} / {totalVerses} Ayet
+                    </StyledText>
+                  </View>
 
-              {activeAyah < verses.length && nextSurah && (
-                <Pressable
-                  onPress={() => {
-                    isTransitioningSurahRef.current = isPlaying;
-                    audioPlayerService.setTransitioningSurah(isPlaying);
-                    navigation.replace('Reading', { surahId: surahId + 1, ayahNo: 1, autoPlay: isPlaying });
-                  }}
-                  style={({ pressed }) => ({
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    paddingVertical: 8,
-                    opacity: pressed ? 0.6 : 0.85,
-                  })}
-                >
-                  <StyledText variant="caption" color="mut" style={{ fontSize: 12 }}>
-                    Sıradaki Sureye Atla: {nextSurah.nameTr} →
-                  </StyledText>
-                </Pressable>
+                  <View style={{ gap: 4 }}>
+                    <StyledText
+                      style={{
+                        fontFamily: theme.font.serifSemiBold,
+                        fontSize: 22,
+                        color: theme.colors.ink,
+                      }}
+                    >
+                      {currentSurah ? currentSurah.nameTr : `Sure ${surahId}`} Suresi Okundu
+                    </StyledText>
+                    <StyledText variant="footnote" color="mut" style={{ lineHeight: 20 }}>
+                      Tebrikler! Sureyi başarıyla tamamladın. Okuma karnende ve Sure İlerleme Matrisinde "Tamamlandı" olarak işaretlendi.
+                    </StyledText>
+                  </View>
+
+                  {nextSurah ? (
+                    <Pressable
+                      onPress={() => {
+                        markSurahCompleted(surahId, totalVerses);
+                        isTransitioningSurahRef.current = isPlaying;
+                        audioPlayerService.setTransitioningSurah(isPlaying);
+                        navigation.replace('Reading', {
+                          surahId: surahId + 1,
+                          ayahNo: 1,
+                          autoPlay: isPlaying,
+                        });
+                      }}
+                      style={({ pressed }) => ({
+                        height: 48,
+                        borderRadius: 24,
+                        backgroundColor: theme.colors.ink,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        opacity: pressed ? 0.85 : 1,
+                      })}
+                    >
+                      <StyledText
+                        variant="callout"
+                        style={{ color: theme.colors.surf, fontWeight: '600' }}
+                      >
+                        Sıradaki Sureye Geç: {nextSurah.nameTr} ({nextSurah.nameAr}) →
+                      </StyledText>
+                    </Pressable>
+                  ) : (
+                    <View
+                      style={{
+                        paddingVertical: 12,
+                        borderRadius: 14,
+                        backgroundColor: theme.colors.accSoft,
+                        alignItems: 'center',
+                      }}
+                    >
+                      <StyledText variant="callout" color="acc" style={{ fontWeight: '700' }}>
+                        Kur'an-ı Kerim Hatmini Tamamladınız! 🤲
+                      </StyledText>
+                    </View>
+                  )}
+
+                  <View style={{ flexDirection: 'row', gap: 10 }}>
+                    <Pressable
+                      onPress={() => {
+                        handleAyahSelect(1);
+                        if (scrollViewRef.current) {
+                          scrollViewRef.current.scrollTo({ y: 0, animated: true });
+                        }
+                      }}
+                      style={({ pressed }) => ({
+                        flex: 1,
+                        paddingVertical: 10,
+                        borderRadius: 14,
+                        backgroundColor: theme.colors.band,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        opacity: pressed ? 0.7 : 1,
+                      })}
+                    >
+                      <StyledText variant="caption" color="ink" style={{ fontWeight: '600' }}>
+                        Baştan Oku (1. Ayet)
+                      </StyledText>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={() => navigation.navigate('ProgressMatrix')}
+                      style={({ pressed }) => ({
+                        flex: 1,
+                        paddingVertical: 10,
+                        borderRadius: 14,
+                        backgroundColor: theme.colors.band,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        opacity: pressed ? 0.7 : 1,
+                      })}
+                    >
+                      <StyledText variant="caption" color="acc" style={{ fontWeight: '600' }}>
+                        İlerleme Matrisi ›
+                      </StyledText>
+                    </Pressable>
+                  </View>
+                </View>
+              ) : (
+                <>
+                  <Pressable
+                    onPress={handleNextStep}
+                    style={({ pressed }) => ({
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      paddingVertical: 14,
+                      paddingHorizontal: 16,
+                      borderRadius: theme.radius.xl,
+                      backgroundColor: theme.colors.surf,
+                      borderWidth: 1.5,
+                      borderColor: pressed ? theme.colors.acc : theme.colors.line,
+                      opacity: pressed ? 0.85 : 1,
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.05,
+                      shadowRadius: 6,
+                      elevation: 2,
+                    })}
+                  >
+                    <View style={{ flex: 1, marginRight: 12 }}>
+                      <StyledText
+                        variant="body"
+                        color="ink"
+                        style={{ fontWeight: '600', fontSize: 15 }}
+                      >
+                        Sonraki Ayete Geç
+                      </StyledText>
+                      <StyledText
+                        variant="caption"
+                        color="faint"
+                        style={{ fontSize: 12, marginTop: 2 }}
+                      >
+                        {activeAyah + 1}. Ayete odaklan ({activeAyah + 1} / {verses.length})
+                      </StyledText>
+                    </View>
+
+                    <View
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 18,
+                        backgroundColor: theme.colors.accSoft,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <StyledText
+                        variant="body"
+                        color="acc"
+                        style={{ fontSize: 16, fontWeight: '700' }}
+                      >
+                        ↓
+                      </StyledText>
+                    </View>
+                  </Pressable>
+
+                  {nextSurah && (
+                    <Pressable
+                      onPress={() => {
+                        isTransitioningSurahRef.current = isPlaying;
+                        audioPlayerService.setTransitioningSurah(isPlaying);
+                        navigation.replace('Reading', {
+                          surahId: surahId + 1,
+                          ayahNo: 1,
+                          autoPlay: isPlaying,
+                        });
+                      }}
+                      style={({ pressed }) => ({
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingVertical: 8,
+                        opacity: pressed ? 0.6 : 0.85,
+                      })}
+                    >
+                      <StyledText variant="caption" color="mut" style={{ fontSize: 12 }}>
+                        Sıradaki Sureye Atla: {nextSurah.nameTr} →
+                      </StyledText>
+                    </Pressable>
+                  )}
+                </>
               )}
             </View>
           </ScrollView>

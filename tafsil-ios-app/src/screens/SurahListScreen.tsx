@@ -10,9 +10,17 @@ import { getSurahs } from '../api/client';
 import type { Surah, NuzulDonemi } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
 
+import { useReadingProgressStore } from '../store/useReadingProgressStore';
+
 function SurahRow({ surah, onPress }: { surah: Surah; onPress: () => void }) {
   const theme = useTheme();
   const { t } = useTranslation();
+  const isSurahCompleted = useReadingProgressStore((s) => s.isSurahCompleted);
+  const getSurahProgress = useReadingProgressStore((s) => s.getSurahProgress);
+
+  const isDone = isSurahCompleted(surah.id);
+  const progress = getSurahProgress(surah.id, surah.verseCount);
+  const percent = Math.round(progress * 100);
 
   const periodLabel = t(`periods.${surah.period}`);
   const verseCountLabel = t('common.verseCount', { count: surah.verseCount });
@@ -37,21 +45,51 @@ function SurahRow({ surah, onPress }: { surah: Surah; onPress: () => void }) {
           width: 32,
           height: 32,
           borderRadius: 10,
-          backgroundColor: theme.colors.band,
+          backgroundColor: isDone ? theme.colors.accSoft : theme.colors.band,
           alignItems: 'center',
           justifyContent: 'center',
           borderWidth: 1,
-          borderColor: theme.colors.line,
+          borderColor: isDone ? theme.colors.acc : theme.colors.line,
         }}
       >
-        <StyledText variant="caption" color="mut" style={{ fontWeight: '700' }}>
-          {surah.id}
+        <StyledText
+          variant="caption"
+          style={{ fontWeight: '700', color: isDone ? theme.colors.acc : theme.colors.mut }}
+        >
+          {isDone ? '✓' : surah.id}
         </StyledText>
       </View>
 
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <StyledText variant="headline">{surah.nameTr}</StyledText>
+          {isDone ? (
+            <View
+              style={{
+                paddingVertical: 1,
+                paddingHorizontal: 6,
+                borderRadius: theme.radius.pill,
+                backgroundColor: theme.colors.accSoft,
+              }}
+            >
+              <StyledText variant="caption" color="acc" style={{ fontSize: 10, fontWeight: '700' }}>
+                ✓ %100
+              </StyledText>
+            </View>
+          ) : percent > 0 ? (
+            <View
+              style={{
+                paddingVertical: 1,
+                paddingHorizontal: 6,
+                borderRadius: theme.radius.pill,
+                backgroundColor: theme.colors.band,
+              }}
+            >
+              <StyledText variant="caption" color="mut" style={{ fontSize: 10, fontWeight: '600' }}>
+                %{percent}
+              </StyledText>
+            </View>
+          ) : null}
           <StyledText variant="caption" color="faint" style={{ fontSize: 11 }}>
             (Nüzul: {surah.revelationOrder})
           </StyledText>

@@ -24,7 +24,14 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
   const [selectedSurah, setSelectedSurah] = useState<Surah | null>(null);
 
   const getReadingProgress = useReadingProgressStore((s) => s.getSurahProgress);
+  const isSurahCompleted = useReadingProgressStore((s) => s.isSurahCompleted);
+  const markSurahCompleted = useReadingProgressStore((s) => s.markSurahCompleted);
+  const unmarkSurahCompleted = useReadingProgressStore((s) => s.unmarkSurahCompleted);
+  const getOverallStats = useReadingProgressStore((s) => s.getOverallStats);
+  const getSurahReadVerseCount = useReadingProgressStore((s) => s.getSurahReadVerseCount);
   const getMemorizedProgress = useMemorizationStore((s) => s.getMemorizedSurahProgress);
+
+  const overallStats = getOverallStats();
 
   return (
     <View style={styles.container}>
@@ -67,6 +74,42 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
         </Pressable>
       </View>
 
+      {/* Genel İlerleme ve Yüzde Çubuğu (PBI-6.4) */}
+      {activeTab === 'reading' && (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingHorizontal: 16,
+            paddingVertical: 8,
+            borderRadius: 14,
+            marginHorizontal: 16,
+            marginBottom: 8,
+            backgroundColor: theme.colors.accSoft,
+            borderWidth: 1,
+            borderColor: theme.colors.line,
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <View
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: theme.colors.acc,
+              }}
+            />
+            <StyledText variant="caption" color="ink" style={{ fontWeight: '600' }}>
+              {overallStats.completedSurahsCount} / 114 Sure Okundu
+            </StyledText>
+          </View>
+          <StyledText variant="caption" color="acc" style={{ fontWeight: '700' }}>
+            %{overallStats.overallPercentage} Hatim İlerlemesi
+          </StyledText>
+        </View>
+      )}
+
       {/* Gösterge (Legend) */}
       <View style={styles.legendRow}>
         <View style={styles.legendItem}>
@@ -93,8 +136,8 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
                 : getMemorizedProgress(surah.id, surah.verseCount);
 
             const isSelected = selectedSurah?.id === surah.id;
-            const isDone = progress >= 1;
-            const isInProgress = progress > 0 && progress < 1;
+            const isDone = activeTab === 'reading' ? isSurahCompleted(surah.id) || progress >= 1 : progress >= 1;
+            const isInProgress = progress > 0 && !isDone;
 
             let cellBg = theme.colors.surf;
             if (isDone) cellBg = theme.colors.accSoft;
@@ -128,23 +171,31 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
                   styles.cell,
                   {
                     backgroundColor: cellBg,
-                    borderColor: isSelected ? theme.colors.acc : theme.colors.line,
-                    borderWidth: isSelected ? 1.5 : 1,
+                    borderColor: isSelected ? theme.colors.acc : isDone ? theme.colors.acc : theme.colors.line,
+                    borderWidth: isSelected || isDone ? 1.5 : 1,
                   },
                 ]}
               >
                 <View style={styles.cellHeader}>
-                  <StyledText
-                    variant="caption"
-                    style={{
-                      fontSize: 10,
-                      fontWeight: '600',
-                      color: isDone ? theme.colors.acc : theme.colors.ink,
-                    }}
-                    numberOfLines={1}
-                  >
-                    {surah.id}. {surah.nameTr}
-                  </StyledText>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <StyledText
+                      variant="caption"
+                      style={{
+                        fontSize: 10,
+                        fontWeight: '600',
+                        color: isDone ? theme.colors.acc : theme.colors.ink,
+                        flex: 1,
+                      }}
+                      numberOfLines={1}
+                    >
+                      {surah.id}. {surah.nameTr}
+                    </StyledText>
+                    {isDone && (
+                      <StyledText variant="caption" color="acc" style={{ fontSize: 9, fontWeight: '700' }}>
+                        ✓
+                      </StyledText>
+                    )}
+                  </View>
                 </View>
 
                 {/* Progress bar */}
@@ -153,8 +204,8 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
                     style={[
                       styles.fill,
                       {
-                        width: `${Math.round(progress * 100)}%`,
-                        backgroundColor: isDone ? theme.colors.ink : theme.colors.acc,
+                        width: isDone ? '100%' : `${Math.round(progress * 100)}%`,
+                        backgroundColor: isDone ? theme.colors.acc : theme.colors.ink,
                       },
                     ]}
                   />
@@ -180,18 +231,74 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
           ]}
         >
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <View>
+            <View style={{ flex: 1 }}>
               <StyledText variant="headline" style={{ color: theme.colors.ink }}>
                 {selectedSurah.id} · {selectedSurah.nameTr} ({selectedSurah.nameAr})
               </StyledText>
               <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
                 {selectedSurah.verseCount} ayet · Nüzul Sırası: {selectedSurah.revelationOrder}
               </StyledText>
+
+              {/* İlerleme ve Yüzde Bilgisi */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 6 }}>
+                {activeTab === 'reading' && isSurahCompleted(selectedSurah.id) ? (
+                  <View
+                    style={{
+                      paddingVertical: 2,
+                      paddingHorizontal: 8,
+                      borderRadius: theme.radius.pill,
+                      backgroundColor: theme.colors.accSoft,
+                      borderWidth: 1,
+                      borderColor: theme.colors.acc,
+                    }}
+                  >
+                    <StyledText variant="caption" color="acc" style={{ fontWeight: '700', fontSize: 10 }}>
+                      ✓ TAMAMLANDI (%100)
+                    </StyledText>
+                  </View>
+                ) : (
+                  <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
+                    {activeTab === 'reading'
+                      ? `${getSurahReadVerseCount(selectedSurah.id, selectedSurah.verseCount)} / ${selectedSurah.verseCount} Ayet (%${Math.round(getReadingProgress(selectedSurah.id, selectedSurah.verseCount) * 100)})`
+                      : `%${Math.round(getMemorizedProgress(selectedSurah.id, selectedSurah.verseCount) * 100)} Ezberlendi`}
+                  </StyledText>
+                )}
+              </View>
             </View>
             <Pressable onPress={() => setSelectedSurah(null)} hitSlop={10}>
               <StyledText variant="body" color="faint">✕</StyledText>
             </Pressable>
           </View>
+
+          {/* Okundu Olarak İşaretle / Kaldır Hızlı Aksiyonu */}
+          {activeTab === 'reading' && (
+            <Pressable
+              onPress={() => {
+                if (isSurahCompleted(selectedSurah.id)) {
+                  unmarkSurahCompleted(selectedSurah.id);
+                } else {
+                  markSurahCompleted(selectedSurah.id, selectedSurah.verseCount);
+                }
+              }}
+              style={({ pressed }) => ({
+                marginTop: 10,
+                paddingVertical: 7,
+                paddingHorizontal: 12,
+                borderRadius: 12,
+                backgroundColor: theme.colors.band,
+                borderWidth: 1,
+                borderColor: theme.colors.line,
+                alignItems: 'center',
+                opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              <StyledText variant="caption" color="mut" style={{ fontWeight: '600' }}>
+                {isSurahCompleted(selectedSurah.id)
+                  ? 'Okunmadı Olarak İşaretle'
+                  : '✓ Bu Sureyi Okundu Olarak İşaretle'}
+              </StyledText>
+            </Pressable>
+          )}
 
           <Pressable
             onPress={() => {

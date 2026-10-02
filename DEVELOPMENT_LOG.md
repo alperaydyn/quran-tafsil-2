@@ -7,6 +7,46 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Sure Okuma Tamamlama Mantığı & Yüzde Hesaplama (PBI-6.4)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Tamamlanan Sureler Sözlüğü ve İlerleme Matrisi (`useReadingProgressStore.ts`):**
+  * *Karar:* Kullanıcının bir sureyi tamamladığı bilgisi `completedSurahs: Record<number, { completedAt: string, timesCompleted: number }>` yapısında MMKV'de saklandı.
+  * *Çoklu Hatim Desteği:* Bir sure birden fazla kez bitirildiğinde `timesCompleted` sayacı artar ve son tamamlanma zamanı güncellenir.
+  * *Yüzde & İstatistik Hesaplamaları:* `getOverallStats()` fonksiyonu ile 114 sure ve 6,236 ayet üzerinden toplam okunan ayet, bitirilen sure sayısı ve genel Hatim tamamlama yüzdesi (`overallPercentage`) deterministik olarak hesaplanır.
+  * *Manuel İşaretleme İmkanı:* Kullanıcı uygulamada okumadan dışarıda okuduğu sureleri de `SurahGridMatrix` üzerinden tek dokunuşla "Okundu Olarak İşaretle" veya "Okunmadı Yap" ile güncelleyebilir (`markSurahCompleted`, `unmarkSurahCompleted`).
+* **Otomatik Tamamlama Tespiti (`ReadingScreen.tsx`):**
+  * *Ayet/Scroll/Audio Tetikleyicileri:*
+    1. Okuma sırasında son ayete tıklandığında veya odaklandığında (`activeAyah === totalVerses`).
+    2. Ekran son ayetin hizasına kaydırıldığında (`handleScrollPosition`).
+    3. Sesli tilavet son ayeti bitirdiğinde (`audioPlayerService.setListeners`).
+    4. İleri butonuna basılarak sonraki sureye geçildiğinde (`handleNextStep` ve `AudioPlaybackBar.onNextVerse`).
+  * *Otomatik İşlem:* Sure otomatik olarak tamamlandı olarak kaydedilir ve veritabanı okuma zaman çizelgesine işlenir (`OfflineSyncService.recordReading`).
+* **Editoryal Kutlama Kartı (Celebratory Completion Card):**
+  * *Tasarım:* Surenin sonuna ulaşıldığında sıradan "Sonraki Ayet" butonu yerine zengin bir kutlama kartı belirir:
+    * `✓ SURE TAMAMLANDI · %100` rozeti.
+    * `{sureAdi} Suresi Okundu` editoryal başlığı ve tebrik metni.
+    * `Sıradaki Sureye Geç: {nextSurah} →` birincil butonu.
+    * `Sureyi Baştan Oku (1. Ayet)` ve `İlerleme Matrisi ›` ikincil butonları.
+* **Görsel Rozetler ve Matris Uyumu (`SurahGridMatrix.tsx` & `SurahListScreen.tsx`):**
+  * `SurahGridMatrix.tsx`: Başlıkta `{completedSurahsCount} / 114 Sure · %{overallPercentage} Hatim İlerlemesi` özet çubuğu, tamamlanan hücrelerde `✓` onay işareti ve detay kartında okundu/okunmadı toggle butonu.
+  * `SurahListScreen.tsx`: Her sure satırında tamamlananlar için `✓ %100` vurgu rozeti, devam edenler için `%{percent}` ilerleme rozeti eklendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/store/useReadingProgressStore.ts`: `completedSurahs`, `markSurahCompleted`, `unmarkSurahCompleted`, `isSurahCompleted`, `getSurahReadVerseCount`, `getOverallStats`.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: Son ayet tespiti, otomatik tamamlama, Celebratory Completion Card ve sonraki sure akışı.
+* `tafsil-ios-app/src/components/progress/SurahGridMatrix.tsx`: Hatim ilerleme çubuğu, tamamlandı ikonları, yüzde kartı ve manuel işaretleme butonu.
+* `tafsil-ios-app/src/screens/SurahListScreen.tsx`: Sure listesinde `✓ %100` ve `%{percent}` rozetleri.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-6.4` tamamlandı (`[x]`). Bölüm 6 %100 tamamlandı.
+* `DEVELOPMENT_LOG.md`: Oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(reading): implement surah completion logic, percentage tracking, and celebratory completion card (PBI-6.4)
+```
+
+---
+
 ## [2026-10-02] İlk Açılış Onboarding Akışı & Niyet Seçimi (PBI-5.3)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
