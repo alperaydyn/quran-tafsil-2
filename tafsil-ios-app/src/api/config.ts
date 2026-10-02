@@ -1,9 +1,12 @@
 import Constants from 'expo-constants';
+import { Platform } from 'react-native';
+
+const defaultHost = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
 
 export const API_BASE =
   Constants.expoConfig?.extra?.apiUrl ??
   process.env.EXPO_PUBLIC_API_URL ??
-  'http://localhost:3001/api/v1';
+  `http://${defaultHost}:4000/api/v1`;
 
 // USE_MOCK: false olarak ayarlandı (Canlı API aktif, ağ yoksa SQLite / snapshot devrede).
 export const USE_MOCK = {

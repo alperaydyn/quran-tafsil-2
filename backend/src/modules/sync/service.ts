@@ -3,7 +3,22 @@ import type { SyncPushDto, SyncPullDto } from "./dto.js";
 
 export class SyncService {
   private async getEffectiveUserId(userId?: string): Promise<string> {
-    if (userId) return userId;
+    const isUuid = Boolean(userId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId));
+    if (isUuid) {
+      const exists = await query("SELECT id FROM kullanicilar WHERE id = $1", [userId]);
+      if (exists.rows.length > 0) {
+        return exists.rows[0].id;
+      }
+    }
+
+    if (userId) {
+      // Eğer userId UUID değilse, kullanicilar tablosunda auth_provider_id veya benzeri ile ara
+      const byAuth = await query("SELECT id FROM kullanicilar WHERE auth_provider_id = $1", [userId]);
+      if (byAuth.rows.length > 0) {
+        return byAuth.rows[0].id;
+      }
+    }
+
     const res = await query("SELECT id FROM kullanicilar ORDER BY created_at ASC LIMIT 1");
     if (res.rows.length > 0) {
       return res.rows[0].id;

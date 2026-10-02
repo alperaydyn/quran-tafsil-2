@@ -1,16 +1,5 @@
-import Constants from 'expo-constants';
+import { API_BASE } from './config';
 import type { ApiResponse, AuthUser } from './types';
-
-/**
- * Auth API istemcisi (MOB-011, PBI-4.4, PBI-4.5).
- *
- * Backend /api/v1/auth/login, /api/v1/auth/guest, /api/v1/auth/link uçlarına bağlanır.
- */
-
-const API_BASE =
-  Constants.expoConfig?.extra?.apiUrl ??
-  process.env.EXPO_PUBLIC_API_URL ??
-  'http://localhost:4000/api/v1';
 
 export interface AppleAuthPayload {
   identityToken: string;
@@ -91,6 +80,8 @@ export async function authenticateWithGoogle(
       body: JSON.stringify({
         provider: 'google',
         idToken: payload.idToken,
+        email: payload.email,
+        name: payload.name,
       }),
     });
 
@@ -102,7 +93,7 @@ export async function authenticateWithGoogle(
           data: {
             id: json.data.user.id,
             name: payload.name ?? json.data.user.email?.split('@')[0] ?? null,
-            email: json.data.user.email ?? payload.email ?? null,
+            email: payload.email ?? json.data.user.email ?? null,
             provider: 'google',
             token: json.data.token,
             isGuest: false,
@@ -111,17 +102,20 @@ export async function authenticateWithGoogle(
       }
     }
   } catch (err) {
-    console.warn('[authenticateWithGoogle] Canlı auth başarısız, mock moduna geçiliyor:', err);
+    console.warn('[authenticateWithGoogle] Canlı auth başarısız, yerel moda geçiliyor:', err);
   }
+
+  const fallbackEmail = payload.email ?? 'kullanici@gmail.com';
+  const fallbackName = payload.name ?? fallbackEmail.split('@')[0] ?? 'Google Kullanıcısı';
 
   return {
     success: true,
     data: {
-      id: `google-dev-${payload.idToken.slice(0, 12)}`,
-      name: payload.name ?? 'Google Kullanıcısı',
-      email: payload.email ?? 'user@gmail.com',
+      id: `google-${fallbackEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`,
+      name: fallbackName,
+      email: fallbackEmail,
       provider: 'google',
-      token: `mock-jwt-google-${Date.now()}`,
+      token: `jwt-google-${fallbackEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`,
       isGuest: false,
     },
   };

@@ -127,6 +127,17 @@ class LocalDbServiceImpl {
         use TEXT,
         links_json TEXT
       );
+
+      CREATE TABLE IF NOT EXISTS reading_logs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        surah_id INTEGER NOT NULL,
+        ayah_no INTEGER NOT NULL,
+        duration_seconds INTEGER DEFAULT 0,
+        user_id TEXT,
+        created_at TEXT NOT NULL
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_reading_logs_user ON reading_logs (user_id, created_at DESC);
     `);
   }
 
@@ -686,6 +697,43 @@ class LocalDbServiceImpl {
     }
 
     return results;
+  }
+
+  /**
+   * Kullanıcının ayet okuma hareketini yerel SQLite log tablosuna kaydeder.
+   */
+  public logReading(surahId: number, ayahNo: number, durationSeconds: number = 0, userId?: string) {
+    if (!this.db) return;
+    try {
+      this.db.runSync(
+        `INSERT INTO reading_logs (surah_id, ayah_no, duration_seconds, user_id, created_at)
+         VALUES (?, ?, ?, ?, ?)`,
+        [surahId, ayahNo, durationSeconds, userId || 'guest', new Date().toISOString()]
+      );
+    } catch (err) {
+      console.warn('[LocalDbService.logReading] Log yazma hatası:', err);
+    }
+  }
+
+  /**
+   * Yerel SQLite okuma loglarını çeker.
+   */
+  public getReadingLogs(userId?: string, limit: number = 50): any[] {
+    if (!this.db) return [];
+    try {
+      if (userId) {
+        return this.db.getAllSync(
+          'SELECT * FROM reading_logs WHERE user_id = ? ORDER BY created_at DESC LIMIT ?',
+          [userId, limit]
+        );
+      }
+      return this.db.getAllSync(
+        'SELECT * FROM reading_logs ORDER BY created_at DESC LIMIT ?',
+        [limit]
+      );
+    } catch {
+      return [];
+    }
   }
 }
 

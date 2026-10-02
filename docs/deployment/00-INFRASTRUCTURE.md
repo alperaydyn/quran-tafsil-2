@@ -200,7 +200,15 @@ Aynı VPS üzerinde Docker izolasyonu ile staging ve prodüksiyon ortamları yan
 
 ## 7. Yedekleme Stratejisi
 
-### 7.1 PostgreSQL Yedekleme (Günlük)
+### 7.1 PostgreSQL Yedekleme ve Dayanıklılık (WAL Arşivleme & R2)
+
+Tek bir VPS üzerinde çalışıldığında yedekleme stratejisi hayati önem taşır:
+1. **Sürekli WAL Arşivleme (Point-in-Time Recovery - PITR):**
+   - Sadece günlük `pg_dump` almak yetersizdir; ani çökme veya veri bozulmasında son güne ait veriler kaybedilebilir.
+   - **WAL-G** veya **pgBackRest** kullanılarak PostgreSQL Write-Ahead Log (WAL) segmentleri anlık olarak **Cloudflare R2** bucket'ına arşivlenir.
+   - Belirli bir dakikaya geri dönme (PITR) imkanı sağlanır.
+   - Yılda en az 1 kez staging ortamında restore tatbikatı yapılmalıdır.
+2. **Hostinger Snapshot:** Haftalık/aylık VPS seviyesinde snapshot tamamlayıcı bir güvencedir, ancak tek başına bağımsız bir yedek sayılmaz.
 
 ```bash
 # /opt/tafsil/scripts/backup-postgres.sh
@@ -210,12 +218,15 @@ DATE=$(date +%Y-%m-%d_%H%M)
 mkdir -p "$BACKUP_DIR"
 
 # Docker konteyner içinden pg_dump
-docker exec tafsil-postgres pg_dump -U tafsil -Fc tafsil_db > "$BACKUP_DIR/tafsil_$DATE.dump"
+docker exec tafsil-postgres pg_dump -U tafsil -Fc tafsil_net_db > "$BACKUP_DIR/tafsil_$DATE.dump"
 
 # 7 günden eski yedekleri sil
 find "$BACKUP_DIR" -name "*.dump" -mtime +7 -delete
 
-echo "PostgreSQL backup completed: tafsil_$DATE.dump"
+# Cloudflare R2 off-site kopyalama (rclone ile)
+rclone copy "$BACKUP_DIR/tafsil_$DATE.dump" r2:tafsil-db-backups/daily/
+
+echo "PostgreSQL backup completed and pushed to R2: tafsil_$DATE.dump"
 ```
 
 ```bash
@@ -223,16 +234,35 @@ echo "PostgreSQL backup completed: tafsil_$DATE.dump"
 echo "0 3 * * * /opt/tafsil/scripts/backup-postgres.sh >> /var/log/tafsil-backup.log 2>&1" | sudo tee -a /etc/crontab
 ```
 
-### 7.2 Redis Yedekleme
+### 7.2 Veritabanı Performans Ayarları (8 GB RAM VPS)
 
-Redis RDB snapshot'ları `docker-compose.yml` içinde hacim bağlamasıyla otomatik yedeklenir. Ek olarak günlük yedekleme script'i RDB dosyasını backup dizinine kopyalar.
+PostgreSQL parametreleri 8 GB RAM ve 4 vCPU donanıma göre optimize edilmelidir:
 
-### 7.3 Off-site Yedekleme (Opsiyonel)
+| Parametre | Tavsiye Edilen Değer | Açıklama |
+|---|---|---|
+| `shared_buffers` | `2GB` | RAM'in yaklaşık %25'i |
+| `effective_cache_size` | `6GB` | RAM'in yaklaşık %75'i (OS + DB disk cache) |
+| `work_mem` | `16MB` | Sıralama ve hash işlemleri için işlem başına RAM |
+| `maintenance_work_mem` | `512MB` | VACUUM ve index oluşturma işlemleri için |
+| `log_min_duration_statement` | `500` | 500 ms'den uzun süren yavaş sorguların tespiti |
 
-```bash
-# Yedekleri uzak sunucuya veya S3-uyumlu depolamaya gönder (opsiyonel)
-# rclone sync /opt/tafsil/backups remote:tafsil-backups
-```
+### 7.3 PgBouncer (Bağlantı Havuzlama)
+
+Mobil uygulamaların dalgalı bağlantı talepleri doğrudan PostgreSQL bağlantı limitini tüketmemesi için Fastify ile PostgreSQL arasına `PgBouncer` (transaction pooling) eklenir:
+- **Port:** `6432`
+- **Pool Modu:** `transaction`
+- **Max Client Connections:** `500`
+- **Default Pool Size:** `25`
+
+### 7.4 Güvenlik Duvarı & Port 5432 İzolasyonu
+
+- `5432` ve `6432` portları dış internete kesinlikle kapalı tutulmalıdır.
+- Sadece Docker iç ağı (`tafsil-prod`) ve VPS üzerindeki yerel Fastify API (`127.0.0.1`) erişebilmelidir.
+- UFW kuralı:
+  ```bash
+  sudo ufw deny 5432/tcp
+  sudo ufw deny 6432/tcp
+  ```
 
 ---
 

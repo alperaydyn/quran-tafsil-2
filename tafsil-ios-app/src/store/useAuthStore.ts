@@ -29,10 +29,11 @@ interface AuthState {
   error: string | null;
 
   signInWithApple: () => Promise<boolean>;
-  signInWithGoogle: () => Promise<boolean>;
+  signInWithGoogle: (options?: { email?: string; name?: string }) => Promise<boolean>;
   continueAsGuest: () => Promise<void>;
-  linkAccount: (provider: 'apple' | 'google') => Promise<boolean>;
+  linkAccount: (provider: 'apple' | 'google', googleDetails?: { email?: string; name?: string }) => Promise<boolean>;
   signOut: () => void;
+  resetAuthStep: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -45,6 +46,8 @@ export const useAuthStore = create<AuthState>()(
       authStepCompleted: false,
       isLoading: false,
       error: null,
+
+      resetAuthStep: () => set({ authStepCompleted: false }),
 
       signInWithApple: async () => {
         if (Platform.OS !== 'ios') {
@@ -141,13 +144,20 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      signInWithGoogle: async () => {
+      signInWithGoogle: async (options?: { email?: string; name?: string }) => {
         set({ isLoading: true, error: null });
         try {
-          const fakeDevToken = `google-dev-${Date.now()}`;
           const currentUser = get().user;
           const currentToken = get().token;
           const isCurrentlyGuest = get().isGuest;
+
+          const chosenEmail = options?.email?.trim() || 'alperaydyn@gmail.com';
+          const chosenName =
+            options?.name?.trim() ||
+            (chosenEmail.includes('@') ? chosenEmail.split('@')[0] : 'Google Kullanıcısı');
+
+          // Çoklu cihaz/emülatör senkronizasyonu için deterministik dev token
+          const fakeDevToken = `google-dev-${chosenEmail.toLowerCase()}`;
 
           if (isCurrentlyGuest && currentUser?.id) {
             const linkRes = await linkGuestAccount({
@@ -155,8 +165,8 @@ export const useAuthStore = create<AuthState>()(
               idToken: fakeDevToken,
               guestUserId: currentUser.id,
               guestToken: currentToken ?? undefined,
-              fullName: 'Google Kullanıcısı',
-              email: 'user@gmail.com',
+              fullName: chosenName,
+              email: chosenEmail,
             });
 
             if (linkRes.success && linkRes.data) {
@@ -175,7 +185,11 @@ export const useAuthStore = create<AuthState>()(
             }
           }
 
-          const res = await authenticateWithGoogle({ idToken: fakeDevToken });
+          const res = await authenticateWithGoogle({
+            idToken: fakeDevToken,
+            email: chosenEmail,
+            name: chosenName,
+          });
           if (res.success && res.data) {
             set({
               user: res.data,
@@ -215,6 +229,7 @@ export const useAuthStore = create<AuthState>()(
               isGuest: true,
               authStepCompleted: true,
               isLoading: false,
+              error: null,
             });
             return;
           }
@@ -236,27 +251,39 @@ export const useAuthStore = create<AuthState>()(
           isGuest: true,
           authStepCompleted: true,
           isLoading: false,
+          error: null,
         });
       },
 
       /**
        * Hesabı Bağlama (Account Linking - PBI-4.5)
        */
-      linkAccount: async (provider: 'apple' | 'google') => {
+      linkAccount: async (provider: 'apple' | 'google', googleDetails?: { email?: string; name?: string }) => {
         if (provider === 'apple') {
           return await get().signInWithApple();
         } else {
-          return await get().signInWithGoogle();
+          return await get().signInWithGoogle(googleDetails);
         }
       },
 
-      signOut: () =>
+      signOut: () => {
+        const guestId = `guest-${Date.now()}`;
         set({
-          user: null,
-          token: null,
-          isAuthenticated: false,
-          isGuest: false,
-        }),
+          user: {
+            id: guestId,
+            name: 'Misafir Okuyucu',
+            email: null,
+            provider: 'guest',
+            isGuest: true,
+          },
+          token: `local-guest-jwt-${guestId}`,
+          isAuthenticated: true,
+          isGuest: true,
+          authStepCompleted: false, // <-- Tekrar Auth ekranı açıldığında hemen kapanmaması için
+          isLoading: false,
+          error: null,
+        });
+      },
     }),
     {
       name: 'auth',

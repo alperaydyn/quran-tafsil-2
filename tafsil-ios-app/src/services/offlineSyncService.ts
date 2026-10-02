@@ -1,5 +1,7 @@
 import { mmkvStorage } from '../store/mmkvStorage';
 import { mockSurahs } from '../api/mock/surahs.mock';
+import { localDbService } from './localDbService';
+import { API_BASE } from '../api/config';
 
 const BOOKMARKS_KEY = 'tafsil_offline_bookmarks';
 const HISTORY_KEY = 'tafsil_offline_history';
@@ -170,9 +172,29 @@ export class OfflineSyncService {
         okundu_tarihi: new Date().toISOString(),
       });
       await mmkvStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(-500)));
+
+      // 3. Yerel SQLite ilişkisel log tablosuna da kaydet
+      localDbService.logReading(sureId, ayetNo, durationSeconds);
+
+      // 4. Arka planda sunucuya debounced senkronizasyon gönder (kullanıcı oturumu için)
+      this.triggerDebouncedSync();
     } catch {
       // ignore
     }
+  }
+
+  private static syncTimeout: any = null;
+
+  /**
+   * Kullanıcı okuma veya işlem yaptıkça arka planda sunucuya yığmadan (debounced) senkronize eder.
+   */
+  static triggerDebouncedSync(delayMs: number = 2500): void {
+    if (this.syncTimeout) {
+      clearTimeout(this.syncTimeout);
+    }
+    this.syncTimeout = setTimeout(() => {
+      this.syncWithServer().catch(() => {});
+    }, delayMs);
   }
 
   static async recordConceptStudy(slug: string, name: string, durationSeconds: number = 60): Promise<void> {
@@ -493,7 +515,7 @@ export class OfflineSyncService {
   }
 
   static async syncWithServer(
-    apiBaseUrl: string = 'http://localhost:4000/api/v1',
+    apiBaseUrl: string = API_BASE,
     token?: string,
     userId?: string
   ): Promise<boolean> {
@@ -510,7 +532,7 @@ export class OfflineSyncService {
     try {
       const bookmarks = await this.getBookmarks();
       const rawHistory = await mmkvStorage.getItem(HISTORY_KEY);
-      const history = rawHistory ? JSON.parse(rawHistory) : [];
+      const history: OfflineHistoryItem[] = rawHistory ? JSON.parse(rawHistory) : [];
 
       const rawConcepts = await mmkvStorage.getItem(CONCEPT_HISTORY_KEY);
       const concepts = rawConcepts ? JSON.parse(rawConcepts) : [];
@@ -523,6 +545,7 @@ export class OfflineSyncService {
         headers['Authorization'] = `Bearer ${effectiveToken}`;
       }
 
+      // 1. Yerel verileri sunucuya PUSH et
       if (bookmarks.length > 0 || history.length > 0 || concepts.length > 0 || memorization.length > 0) {
         await fetch(`${apiBaseUrl}/sync/push`, {
           method: 'POST',
@@ -537,6 +560,7 @@ export class OfflineSyncService {
         });
       }
 
+      // 2. Sunucudaki güncel kullanıcı verilerini PULL et
       const lastSync = await mmkvStorage.getItem(LAST_SYNC_KEY);
       const pullRes = await fetch(`${apiBaseUrl}/sync/pull`, {
         method: 'POST',
@@ -549,17 +573,58 @@ export class OfflineSyncService {
 
       if (pullRes.ok) {
         const pulled = await pullRes.json();
-        if (pulled?.data?.bookmarks) {
+        const data = pulled?.data;
+
+        // Yer İmleri Birleştirme
+        if (data?.bookmarks && Array.isArray(data.bookmarks)) {
           const map = new Map<string, OfflineBookmark>();
           bookmarks.forEach((b) => map.set(`${b.sure_id}:${b.ayet_no}`, b));
-          pulled.data.bookmarks.forEach((b: OfflineBookmark) => map.set(`${b.sure_id}:${b.ayet_no}`, b));
+          data.bookmarks.forEach((b: OfflineBookmark) => map.set(`${b.sure_id}:${b.ayet_no}`, b));
           await mmkvStorage.setItem(BOOKMARKS_KEY, JSON.stringify(Array.from(map.values())));
+        }
+
+        // Okuma Geçmişi ve İstatistik Birleştirme
+        if (data?.reading_history && Array.isArray(data.reading_history)) {
+          const historyMap = new Map<string, OfflineHistoryItem>();
+          history.forEach((h: OfflineHistoryItem) => historyMap.set(`${h.sure_id}:${h.ayet_no}`, h));
+          data.reading_history.forEach((h: any) => historyMap.set(`${h.sure_id}:${h.ayet_no}`, h));
+          const mergedHistory = Array.from(historyMap.values());
+          await mmkvStorage.setItem(HISTORY_KEY, JSON.stringify(mergedHistory.slice(-500)));
+
+          // useReadingProgressStore içine aktar (Diğer emülatörde okunan ayetleri ve istatistikleri senkronize et)
+          try {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { useReadingProgressStore } = require('../store/useReadingProgressStore');
+            useReadingProgressStore.getState().bulkMergeReadingHistory(mergedHistory);
+          } catch (e) {
+            console.warn('[OfflineSync] reading store merge hatası:', e);
+          }
+        }
+
+        // Ezber Oturumları Birleştirme
+        if (data?.memorization_sessions && Array.isArray(data.memorization_sessions)) {
+          try {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { useMemorizationStore } = require('../store/useMemorizationStore');
+            useMemorizationStore.getState().bulkMergeSessions(data.memorization_sessions);
+          } catch (e) {
+            console.warn('[OfflineSync] memorization store merge hatası:', e);
+          }
+        }
+
+        // Kavram Geçmişi Birleştirme
+        if (data?.concept_history && Array.isArray(data.concept_history)) {
+          const conceptMap = new Map<string, OfflineConceptItem>();
+          concepts.forEach((c: OfflineConceptItem) => conceptMap.set(c.kavram_slug, c));
+          data.concept_history.forEach((c: any) => conceptMap.set(c.kavram_slug, c));
+          await mmkvStorage.setItem(CONCEPT_HISTORY_KEY, JSON.stringify(Array.from(conceptMap.values()).slice(-200)));
         }
       }
 
       await mmkvStorage.setItem(LAST_SYNC_KEY, new Date().toISOString());
       return true;
-    } catch {
+    } catch (err) {
+      console.warn('[OfflineSyncService.syncWithServer] Senkronizasyon hatası:', err);
       return false;
     }
   }

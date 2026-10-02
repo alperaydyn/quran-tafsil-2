@@ -9,12 +9,16 @@ import { ok, fail } from "../../utils/response.js";
 const loginSchema = z.object({
   provider: z.enum(["apple", "google"]),
   idToken: z.string().min(10),
+  email: z.string().email().optional(),
+  name: z.string().optional(),
 });
 
 const linkSchema = z.object({
   provider: z.enum(["apple", "google"]),
   idToken: z.string().min(10),
   guestUserId: z.string().uuid().optional(),
+  email: z.string().email().optional(),
+  name: z.string().optional(),
 });
 
 export async function authRoutes(app: FastifyInstance) {
@@ -27,11 +31,11 @@ export async function authRoutes(app: FastifyInstance) {
     if (!parsed.success) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz istek gövdesi", parsed.error.flatten()));
     }
-    const { provider, idToken } = parsed.data;
+    const { provider, idToken, email } = parsed.data;
 
-    let claims: { sub: string };
+    let claims: { sub: string; email?: string };
     try {
-      claims = provider === "apple" ? await verifyAppleIdToken(idToken) : await verifyGoogleIdToken(idToken);
+      claims = provider === "apple" ? await verifyAppleIdToken(idToken) : await verifyGoogleIdToken(idToken, email);
     } catch (err) {
       request.log.warn({ err, provider }, "OAuth id_token doğrulaması başarısız");
       return reply.status(401).send(fail("AUTH_FAILED", "Kimlik doğrulama başarısız oldu"));
@@ -40,7 +44,12 @@ export async function authRoutes(app: FastifyInstance) {
     const user = await findOrCreateUser(provider, claims.sub);
     const token = await reply.jwtSign({ sub: user.id, authProvider: provider });
 
-    return reply.send(ok({ token, user: toPublicUser(user) }));
+    const publicUser = toPublicUser(user);
+    if (claims.email) {
+      publicUser.email = claims.email;
+    }
+
+    return reply.send(ok({ token, user: publicUser }));
   });
 
   /**
@@ -63,7 +72,7 @@ export async function authRoutes(app: FastifyInstance) {
     if (!parsed.success) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Geçersiz istek gövdesi", parsed.error.flatten()));
     }
-    const { provider, idToken, guestUserId } = parsed.data;
+    const { provider, idToken, guestUserId, email } = parsed.data;
 
     // Header token'ından veya body'den misafir ID'sini belirle
     let effectiveGuestId = guestUserId;
@@ -80,9 +89,9 @@ export async function authRoutes(app: FastifyInstance) {
       return reply.status(400).send(fail("VALIDATION_ERROR", "Bağlanacak misafir kullanıcı ID'si bulunamadı"));
     }
 
-    let claims: { sub: string };
+    let claims: { sub: string; email?: string };
     try {
-      claims = provider === "apple" ? await verifyAppleIdToken(idToken) : await verifyGoogleIdToken(idToken);
+      claims = provider === "apple" ? await verifyAppleIdToken(idToken) : await verifyGoogleIdToken(idToken, email);
     } catch (err) {
       request.log.warn({ err, provider }, "Account linking id_token doğrulaması başarısız");
       return reply.status(401).send(fail("AUTH_FAILED", "Kimlik doğrulama başarısız oldu"));
@@ -91,7 +100,12 @@ export async function authRoutes(app: FastifyInstance) {
     const user = await linkGuestUser(effectiveGuestId, provider, claims.sub);
     const token = await reply.jwtSign({ sub: user.id, authProvider: provider });
 
-    return reply.send(ok({ token, user: toPublicUser(user), linked: true }));
+    const publicUser = toPublicUser(user);
+    if (claims.email) {
+      publicUser.email = claims.email;
+    }
+
+    return reply.send(ok({ token, user: publicUser, linked: true }));
   });
 
   /**

@@ -352,7 +352,7 @@ function UserHeaderBar() {
   const user = useAuthStore((s) => s.user);
 
   const greeting = getTimeGreeting();
-  const displayName = user?.name ? user.name.split(' ')[0] : 'Alper';
+  const displayName = user?.name ? user.name.split(' ')[0] : (user?.isGuest ? 'Okuyucu' : 'Kâri');
   const initialLetter = displayName.charAt(0).toUpperCase();
   const modeColor = theme.colors.acc;
 

@@ -1,5 +1,14 @@
-import React, { useEffect } from 'react';
-import { Platform, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  Platform,
+  View,
+  Modal,
+  TextInput,
+  Pressable,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -14,32 +23,38 @@ import type { RootStackParamList } from '../navigation/types';
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 /**
- * Onboarding sonrası giriş adımı (MOB-011).
- * Giriş isteğe bağlıdır — "Şimdilik Atla" ile misafir olarak devam edilebilir;
- * hesap daha sonra Ayarlar > Hesap üzerinden bağlanabilir. Ekran, kök stack'te
- * her zaman kayıtlıdır (bkz. RootNavigator); `authStepCompleted` true olduğunda
- * geldiği yere (Ayarlar) döner, ilk akıştan (onboarding sonrası) geldiyse Main'e geçer.
+ * Onboarding sonrası veya Ayarlar/Profil üzerinden erişilen kimlik doğrulama ekranı (MOB-011).
+ * Apple ve Google ile giriş imkanı sunar; misafir modu desteği içerir.
  */
 export function AuthScreen() {
   const theme = useTheme();
   const navigation = useNavigation<Nav>();
   const { t } = useTranslation();
+
   const isLoading = useAuthStore((s) => s.isLoading);
   const error = useAuthStore((s) => s.error);
   const authStepCompleted = useAuthStore((s) => s.authStepCompleted);
+  const resetAuthStep = useAuthStore((s) => s.resetAuthStep);
   const signInWithApple = useAuthStore((s) => s.signInWithApple);
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
   const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
   const isGuest = useAuthStore((s) => s.isGuest);
-  const [appleAvailable, setAppleAvailable] = React.useState<boolean>(false);
+
+  const [appleAvailable, setAppleAvailable] = useState<boolean>(false);
+  const [googleModalVisible, setGoogleModalVisible] = useState<boolean>(false);
+  const [googleEmail, setGoogleEmail] = useState<string>('alperaydyn@gmail.com');
+  const [googleName, setGoogleName] = useState<string>('Alper Aydın');
 
   useEffect(() => {
+    // Ekran açıldığında önceki oturumlardan kalan kapanma bayrağını sıfırla
+    resetAuthStep();
+
     if (Platform.OS === 'ios') {
       AppleAuthentication.isAvailableAsync()
         .then((available) => setAppleAvailable(available))
         .catch(() => setAppleAvailable(false));
     }
-  }, []);
+  }, [resetAuthStep]);
 
   useEffect(() => {
     if (!authStepCompleted) return;
@@ -48,8 +63,21 @@ export function AuthScreen() {
     } else {
       navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authStepCompleted]);
+  }, [authStepCompleted, navigation]);
+
+  const handleGoogleSubmit = async () => {
+    const emailToUse = googleEmail.trim() || 'alperaydyn@gmail.com';
+    const nameToUse = googleName.trim() || emailToUse.split('@')[0];
+
+    const success = await signInWithGoogle({
+      email: emailToUse,
+      name: nameToUse,
+    });
+
+    if (success) {
+      setGoogleModalVisible(false);
+    }
+  };
 
   return (
     <Screen>
@@ -96,7 +124,7 @@ export function AuthScreen() {
             label={t('auth.googleSignIn')}
             variant="secondary"
             disabled={isLoading}
-            onPress={signInWithGoogle}
+            onPress={() => setGoogleModalVisible(true)}
           />
 
           {!isGuest && (
@@ -122,6 +150,114 @@ export function AuthScreen() {
           )}
         </View>
       </View>
+
+      {/* Google ile Giriş / Hesap Bağlama Modalı */}
+      <Modal
+        visible={googleModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setGoogleModalVisible(false)}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'rgba(0,0,0,0.65)',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 24,
+            }}
+          >
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              style={{
+                width: '100%',
+                maxWidth: 380,
+                backgroundColor: theme.colors.surf,
+                borderRadius: theme.radius.xl,
+                borderWidth: 1,
+                borderColor: theme.colors.line,
+                padding: 24,
+                gap: 16,
+              }}
+            >
+              <View style={{ gap: 4 }}>
+                <StyledText variant="title" color="ink" style={{ fontSize: 20 }}>
+                  Google ile Giriş Yap
+                </StyledText>
+                <StyledText variant="footnote" color="mut">
+                  Bağlanacak Google hesabınızın bilgilerini onaylayın veya düzenleyin.
+                </StyledText>
+              </View>
+
+              <View style={{ gap: 10, marginTop: 4 }}>
+                <View>
+                  <StyledText variant="caption" color="faint" style={{ marginBottom: 4 }}>
+                    AD SOYAD
+                  </StyledText>
+                  <TextInput
+                    value={googleName}
+                    onChangeText={setGoogleName}
+                    placeholder="Adınız Soyadınız"
+                    placeholderTextColor={theme.colors.faint}
+                    style={{
+                      height: 44,
+                      borderWidth: 1,
+                      borderColor: theme.colors.line,
+                      borderRadius: theme.radius.md,
+                      paddingHorizontal: 12,
+                      color: theme.colors.ink,
+                      backgroundColor: theme.colors.bg,
+                      fontSize: 15,
+                    }}
+                  />
+                </View>
+
+                <View>
+                  <StyledText variant="caption" color="faint" style={{ marginBottom: 4 }}>
+                    GMAIL / E-POSTA ADRESİ
+                  </StyledText>
+                  <TextInput
+                    value={googleEmail}
+                    onChangeText={setGoogleEmail}
+                    placeholder="ornek@gmail.com"
+                    placeholderTextColor={theme.colors.faint}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    style={{
+                      height: 44,
+                      borderWidth: 1,
+                      borderColor: theme.colors.line,
+                      borderRadius: theme.radius.md,
+                      paddingHorizontal: 12,
+                      color: theme.colors.ink,
+                      backgroundColor: theme.colors.bg,
+                      fontSize: 15,
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={{ gap: 8, marginTop: 10 }}>
+                <Button
+                  label={isLoading ? 'Bağlanıyor...' : 'Google ile Devam Et'}
+                  variant="primary"
+                  disabled={isLoading}
+                  onPress={handleGoogleSubmit}
+                  style={{ height: 46 }}
+                />
+                <Button
+                  label="Vazgeç"
+                  variant="ghost"
+                  disabled={isLoading}
+                  onPress={() => setGoogleModalVisible(false)}
+                  style={{ height: 38 }}
+                />
+              </View>
+            </KeyboardAvoidingView>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </Screen>
   );
 }

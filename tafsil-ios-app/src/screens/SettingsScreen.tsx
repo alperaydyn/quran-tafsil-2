@@ -182,12 +182,16 @@ export function SettingsScreen() {
                 color: theme.colors.acc,
               }}
             >
-              {user?.name ? user.name.charAt(0).toUpperCase() : 'A'}
+              {user?.name
+                ? user.name.charAt(0).toUpperCase()
+                : user?.isGuest
+                ? 'M'
+                : 'O'}
             </StyledText>
           </View>
           <View style={{ flex: 1 }}>
             <StyledText variant="callout" color="ink" style={{ fontWeight: '600' }}>
-              {user?.name ?? 'Alper'}
+              {user?.name ?? (user?.isGuest ? 'Misafir Okuyucu' : 'Okuyucu')}
             </StyledText>
             <StyledText variant="caption" color="mut" style={{ marginTop: 2 }}>
               Profil, manevi karne ve hesap yönetimi

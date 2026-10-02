@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Pressable, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
@@ -12,6 +12,7 @@ import { useMemorizationStore } from '../store/useMemorizationStore';
 import { useTranslation } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
 import { PrecisionSettingsIcon } from '../components/common/PrecisionSettingsIcon';
+import { OfflineSyncService } from '../services/offlineSyncService';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -135,6 +136,23 @@ export function ProfileScreen() {
   const readVersesBySurah = useReadingProgressStore((s) => s.readVersesBySurah);
   const memorizationSessions = useMemorizationStore((s) => s.sessions);
 
+  const [isSyncing, setIsSyncing] = React.useState(false);
+
+  const handleSync = React.useCallback(async () => {
+    setIsSyncing(true);
+    try {
+      await OfflineSyncService.syncWithServer();
+    } finally {
+      setIsSyncing(false);
+    }
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      handleSync();
+    }, [handleSync])
+  );
+
   // İstatistik hesaplamaları
   const totalReadVersesCount = Object.values(readVersesBySurah).reduce(
     (acc, curr) => acc + (Array.isArray(curr) ? curr.length : 0),
@@ -146,7 +164,7 @@ export function ProfileScreen() {
     0
   );
 
-  const displayName = user?.name ?? 'Alper';
+  const displayName = user?.name ?? (user?.isGuest ? 'Misafir Okuyucu' : 'Okuyucu');
   const initialLetter = displayName.charAt(0).toUpperCase();
 
   return (
@@ -168,14 +186,26 @@ export function ProfileScreen() {
             Profil ve Yolculuğum
           </StyledText>
 
-          {/* Ayarlar Kısayolu */}
-          <Pressable
-            onPress={() => navigation.navigate('Settings')}
-            hitSlop={12}
-            style={[styles.settingsBtn, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
-          >
-            <PrecisionSettingsIcon size={17} color={theme.colors.mut} bgColor={theme.colors.surf} />
-          </Pressable>
+          {/* Senkronizasyon ve Ayarlar Kısayolları */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Pressable
+              onPress={handleSync}
+              hitSlop={12}
+              style={[styles.settingsBtn, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
+            >
+              <StyledText style={{ fontSize: 15, color: isSyncing ? theme.colors.acc : theme.colors.mut }}>
+                {isSyncing ? '…' : '↻'}
+              </StyledText>
+            </Pressable>
+
+            <Pressable
+              onPress={() => navigation.navigate('Settings')}
+              hitSlop={12}
+              style={[styles.settingsBtn, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
+            >
+              <PrecisionSettingsIcon size={17} color={theme.colors.mut} bgColor={theme.colors.surf} />
+            </Pressable>
+          </View>
         </View>
 
         {/* Kimlik Kartı */}
@@ -247,9 +277,12 @@ export function ProfileScreen() {
             ) : (
               <>
                 <Button
-                  label="Hesabı Apple ile Bağla"
+                  label="Hesabı Bağla (Apple / Google)"
                   variant="primary"
-                  onPress={() => navigation.navigate('Auth')}
+                  onPress={() => {
+                    useAuthStore.getState().resetAuthStep();
+                    navigation.navigate('Auth');
+                  }}
                   style={{ height: 42 }}
                 />
                 {user?.isGuest && (

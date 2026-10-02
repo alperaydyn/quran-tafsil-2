@@ -7,6 +7,45 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-02] Google Sign-In İyileştirmesi, Çoklu Emülatör Senkronizasyonu & PostgreSQL / Redis Canlı Bağlantı Doğrulaması (PBI-4.2, PBI-4.4, PBI-4.5)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Çoklu Emülatör İstatistik Tutarsızlığının Kök Nedenleri ve Çözümü:**
+  * *Sorun 1 (Deterministik Olmayan Kimlik):* `useAuthStore.ts` içindeki dev token `Date.now()` ile üretildiği için her iki emülatörde aynı e-posta girilse bile farklı `auth_provider_id` ve farklı `user_id` oluşuyordu.
+  * *Çözüm 1:* `backend/src/modules/auth/google.ts` ve `useAuthStore.ts` içinde token ve `sub` değeri doğrudan normalize edilmiş e-postaya (`google_${email.replace(...)}`) bağlandı. Artık iki farklı cihaz/emülatör aynı e-posta ile giriş yaptığında deterministik olarak **birebir aynı kullanıcı UUID'sine** bağlanır.
+  * *Sorun 2 (Senkronizasyon PULL Eksikliği):* `OfflineSyncService.syncWithServer()` sunucudan gelen `reading_history` ve `memorization_sessions` verilerini yerel Zustand store'larına (`useReadingProgressStore` ve `useMemorizationStore`) aktarmıyordu. Sadece `bookmarks` alınıyordu.
+  * *Çözüm 2:* `useReadingProgressStore` içine `bulkMergeReadingHistory`, `useMemorizationStore` içine `bulkMergeSessions` eklendi. `syncWithServer()` sunucudan çekilen tüm okuma geçmişini ve ezberleri bu store'lara aktararak iki emülatör arasındaki istatistikleri (okunan ayetler, sure ilerlemeleri, ezberler) anında eşitledi.
+  * *Sorun 3 (Android Emülatör `localhost` Ulaşılmazlığı):* Android emülatöründe `localhost:4000` emülatörün kendisini temsil ettiğinden Mac hostuna erişemiyordu. `tafsil-ios-app/src/api/config.ts` güncellenerek Android için `10.0.2.2:4000`, iOS için `localhost:4000` dinamik olarak bağlandı.
+* **Hostinger Canlı PostgreSQL Geçişi ve Migration:**
+  * Hostinger VPS (`76.13.60.86:5432/tafsil_net_db`) veritabanına bağlanıldı.
+  * Eksik olan `007_reading_history_extensions.sql` Hostinger üzerinde çalıştırıldı ve `kavram_gecmisi` tablosu oluşturuldu.
+  * Local Docker'daki kullanıcı ve okuma geçmişi verileri Hostinger PostgreSQL'e aktarıldı.
+  * `backend/.env` ve `backend/src/config/env.ts` Hostinger bağlantı adresine (`postgres://tafsil_user_001:tafsil_user_x23@76.13.60.86:5432/tafsil_net_db`) geçirildi.
+  * Fastify API canlı olarak Hostinger DB'ye bağlandı ve `GET /health` (`postgres: true, redis: true`) ile doğrulandı.
+* **Mimari Standartların ve VPS Dayanıklılık Kılavuzunun Güncellenmesi:**
+  * `docs/deployment/00-INFRASTRUCTURE.md` dosyasına Cloudflare R2 ses/timestamp stratejisi, salt-okunur Cloudflare cache + ETag, PgBouncer transaction pooling, WAL-G / pgBackRest ile R2'ye sürekli WAL arşivleme (PITR) ve PostgreSQL bellek ayarları (`shared_buffers=2GB`, `effective_cache_size=6GB`, `log_min_duration_statement=500ms`) işlendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/store/mmkvStorage.ts`: MMKV yokken `expo-sqlite` senkron kalıcı KV tablosu fallback'i.
+* `tafsil-ios-app/src/store/useAuthStore.ts`: `resetAuthStep`, dinamik `signInWithGoogle(options)`, `signOut` sonrası temiz misafir ve resetleme.
+* `tafsil-ios-app/src/screens/AuthScreen.tsx`: Google giriş modalı, dinamik form ve `resetAuthStep` entegrasyonu.
+* `tafsil-ios-app/src/screens/ProfileScreen.tsx`: "Hesabı Bağla (Apple / Google)" butonu, `resetAuthStep` navigasyonu, dinamik `displayName`.
+* `tafsil-ios-app/src/screens/SettingsScreen.tsx`: Profil kartında misafir moduna duyarlı avatar ve isim gösterimi.
+* `tafsil-ios-app/src/api/auth.ts`: `authenticateWithGoogle` dinamik email ve isim iletimi.
+* `tafsil-ios-app/src/services/localDbService.ts`: SQLite `reading_logs` tablosu, `logReading` ve `getReadingLogs` metotları.
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: `recordReading` içinde SQLite ilişkisel loglama çağrısı.
+* `backend/src/modules/auth/google.ts`: `verifyGoogleIdToken` içinde `providedEmail` desteği.
+* `backend/src/modules/auth/routes.ts`: `login` ve `link` uçlarında dinamik `email` ve `name` doğrulama/kayıt.
+* `backend/src/modules/users/dto.ts`: `PublicUser` arayüzüne `email?: string` alanı.
+* `DEVELOPMENT_LOG.md`: Oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(auth): resolve google sign-in mock, fix sign-out account linking screen dismiss, and add sqlite persistence for guest sessions
+```
+
+---
+
 ## [2026-10-02] Sure Okuma Tamamlama Mantığı & Yüzde Hesaplama (PBI-6.4)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

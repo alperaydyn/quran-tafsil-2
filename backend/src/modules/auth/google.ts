@@ -9,13 +9,16 @@ export interface GoogleIdTokenClaims {
   emailVerified?: boolean;
 }
 
-export async function verifyGoogleIdToken(idToken: string): Promise<GoogleIdTokenClaims> {
+export async function verifyGoogleIdToken(idToken: string, providedEmail?: string): Promise<GoogleIdTokenClaims> {
   // Geliştirme, simülatör veya test ortamı için graceful mock kontrolü
   if (idToken.startsWith("google-dev-") || idToken.startsWith("mock-")) {
-    const rawSub = idToken.replace(/^(google-dev-|mock-)/, "") || "dev_google_user";
+    const rawSub = idToken.replace(/^(google-dev-|mock-)/, "");
+    const email = providedEmail || (rawSub.includes("@") ? rawSub : `${rawSub}@gmail.com`);
+    // Aynı e-posta ile giriş yapan tüm emülatörlerin aynı kullanıcı kimliğine bağlanması için deterministik sub
+    const normalizedSub = email.toLowerCase().replace(/[^a-z0-9_]/g, "_");
     return {
-      sub: `google_${rawSub}`,
-      email: `${rawSub}@gmail.com`,
+      sub: `google_${normalizedSub}`,
+      email,
       emailVerified: true,
     };
   }

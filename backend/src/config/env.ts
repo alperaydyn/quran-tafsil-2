@@ -12,13 +12,12 @@ export const config = {
 
   // PostgreSQL Connections
   db: {
-    // PgBouncer pool connection URL (used for runtime application queries)
-    url: process.env.DATABASE_URL || "postgres://tafsil_user_001:tafsil_user_x23@localhost:5432/tafsil_net_db",
-    // Direct connection URL (used for migrations and seeds)
-    directUrl: process.env.DATABASE_URL_DIRECT || "postgres://tafsil_user_001:tafsil_user_x23@localhost:5432/tafsil_net_db",
-    user: process.env.POSTGRES_USER || "tafsil_user_001",
-    password: process.env.POSTGRES_PASSWORD || "tafsil_user_x23",
-    database: process.env.POSTGRES_DB || "tafsil_net_db",
+    host: process.env.POSTGRES_HOST || "localhost",
+    url: process.env.DATABASE_URL || "postgres://tafsil:tafsil_dev_secret@localhost:5432/tafsil_db",
+    directUrl: process.env.DATABASE_URL_DIRECT || process.env.DATABASE_URL || "postgres://tafsil:tafsil_dev_secret@localhost:5432/tafsil_db",
+    user: process.env.POSTGRES_USER || "tafsil",
+    password: process.env.POSTGRES_PASSWORD || "tafsil_dev_secret",
+    database: process.env.POSTGRES_DB || "tafsil_db",
     port: parseInt(process.env.POSTGRES_PORT || "5432", 10),
   },
 

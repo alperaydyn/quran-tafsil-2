@@ -45,6 +45,7 @@ interface ReadingProgressState {
   getSurahProgress: (surahId: number, totalAyahs: number) => number;
   getSurahReadVerseCount: (surahId: number, totalAyahs?: number) => number;
   getOverallStats: (allSurahs?: { id: number; verseCount: number }[]) => OverallReadingStats;
+  bulkMergeReadingHistory: (historyItems: Array<{ sure_id: number; ayet_no: number; okundu_tarihi?: string }>) => void;
 }
 
 export const useReadingProgressStore = create<ReadingProgressState>()(
@@ -54,6 +55,47 @@ export const useReadingProgressStore = create<ReadingProgressState>()(
       readVersesBySurah: {},
       completedSurahs: {},
       streak: { current: 0, longest: 0, lastActiveDate: null },
+
+      bulkMergeReadingHistory: (historyItems) =>
+        set((state) => {
+          if (!historyItems || historyItems.length === 0) return state;
+
+          const updatedReadVerses: Record<number, number[]> = { ...state.readVersesBySurah };
+          let latestItem: { surahId: number; ayahNo: number; date: string } | null = null;
+
+          for (const item of historyItems) {
+            const sid = Number(item.sure_id);
+            const aid = Number(item.ayet_no);
+            if (!sid || !aid) continue;
+
+            const existing = updatedReadVerses[sid] ?? [];
+            if (!existing.includes(aid)) {
+              updatedReadVerses[sid] = [...existing, aid];
+            }
+
+            if (item.okundu_tarihi) {
+              if (!latestItem || new Date(item.okundu_tarihi) > new Date(latestItem.date)) {
+                latestItem = { surahId: sid, ayahNo: aid, date: item.okundu_tarihi };
+              }
+            }
+          }
+
+          let lastRead = state.lastRead;
+          if (latestItem) {
+            if (!lastRead || new Date(latestItem.date) > new Date(lastRead.updatedAt)) {
+              lastRead = {
+                surahId: latestItem.surahId,
+                ayahNo: latestItem.ayahNo,
+                updatedAt: latestItem.date,
+              };
+            }
+          }
+
+          return {
+            readVersesBySurah: updatedReadVerses,
+            lastRead,
+          };
+        }),
 
       setLastRead: (surahId, ayahNo, updatedAt) =>
         set({ lastRead: { surahId, ayahNo, updatedAt } }),

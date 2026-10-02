@@ -39,6 +39,7 @@ interface MemorizationState {
   getDueSessions: () => LocalMemorizationSession[];
   getSessionsForSurah: (surahId: number) => LocalMemorizationSession[];
   getMemorizedSurahProgress: (surahId: number, totalAyahs: number) => number;
+  bulkMergeSessions: (serverSessions: any[]) => void;
 }
 
 // Tafsil.dc.html ekran #3a için başlangıç örnek oturumları
@@ -200,6 +201,36 @@ export const useMemorizationStore = create<MemorizationState>()(
         }
         return Math.min(1, memorizedAyahs / totalAyahs);
       },
+
+      bulkMergeSessions: (serverSessions) =>
+        set((state) => {
+          if (!serverSessions || !Array.isArray(serverSessions) || serverSessions.length === 0) return state;
+
+          const sessionMap = new Map<string, LocalMemorizationSession>();
+          // Önce yerel oturumları koy
+          state.sessions.forEach((s) => sessionMap.set(s.id, s));
+
+          // Sunucu oturumlarını merge et
+          for (const s of serverSessions) {
+            const id = s.id || `session-${s.sure_id}-${s.baslangic_ayet}`;
+            sessionMap.set(id, {
+              id,
+              surahId: Number(s.sure_id || s.surahId),
+              surahNameTr: s.surahNameTr || `Sure ${s.sure_id || s.surahId}`,
+              startAyah: Number(s.baslangic_ayet || s.startAyah),
+              endAyah: Number(s.bitis_ayet || s.endAyah),
+              theme: s.baslik || s.theme || '',
+              status: s.durum || s.status || 'ogreniliyor',
+              repetitionNumber: Number(s.repetition_number ?? s.repetitionNumber ?? 0),
+              intervalDays: Number(s.interval_days ?? s.intervalDays ?? 1),
+              easeFactor: Number(s.ease_factor ?? s.easeFactor ?? 2.5),
+              nextReviewAt: s.next_review_at || s.nextReviewAt || new Date().toISOString(),
+              createdAt: s.created_at || s.createdAt || new Date().toISOString(),
+            });
+          }
+
+          return { sessions: Array.from(sessionMap.values()) };
+        }),
     }),
     {
       name: 'memorization-store',

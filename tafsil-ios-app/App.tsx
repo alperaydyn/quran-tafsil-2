@@ -8,6 +8,8 @@ import { ThemeProvider, useAppFonts, useTheme } from './src/theme';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { LoadingScreen } from './src/screens/LoadingScreen';
 
+import { OfflineSyncService } from './src/services/offlineSyncService';
+
 SplashScreen.preventAutoHideAsync().catch(() => {
   /* zaten gizliyse yut */
 });
@@ -15,6 +17,11 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 function AppShell() {
   const theme = useTheme();
   const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    // Uygulama açılışında diğer cihazlardan gelen verileri sessizce eşitle
+    OfflineSyncService.syncWithServer().catch(() => {});
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.bg }}>
