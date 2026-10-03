@@ -67,6 +67,7 @@ function mapSurahFromBackend(row: any): Surah {
 function mapVerseFromBackend(row: any): Verse {
   const surahId = row.sure_id ?? row.surahId;
   const ayahNo = row.ayet_no ?? row.ayahNo;
+  const deterministicId = surahId * 1000 + ayahNo;
   let words: Word[] = Array.isArray(row.kelimeler)
     ? row.kelimeler.map((k: any, idx: number) => ({
         id: k.id ?? idx + 1,
@@ -90,7 +91,7 @@ function mapVerseFromBackend(row: any): Verse {
   }
 
   return {
-    id: row.id,
+    id: deterministicId,
     surahId,
     ayahNo,
     juzNo: row.cuz_no ?? row.juzNo ?? 1,

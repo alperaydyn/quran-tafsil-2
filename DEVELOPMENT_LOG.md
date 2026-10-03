@@ -5,6 +5,33 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-03] Yerel SQLite Ayet Çiftlenmesi (Duplicate Verses) ve ID Determinizmi Onarımı
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Sorunun Tespiti:**
+  * Farklı kullanıcılardan birinde (örn. `alperaydyn@gmail.com`) Bakara suresi normal görünüyorken, diğeri (`info@alperaydin.net`) ile oturum açıldığında Bakara suresindeki ayetlerin ekranda ikişer defa (çift) listelendiği bildirildi.
+* **Kök Neden 1 — Deterministik ID ve Backend Serial ID Uyuşmazlığı:**
+  * Yerel SQLite tohumlamasında ayet ID'si `surahId * 1000 + ayahNo` (örn. Bakara 1 için `2001`, Bakara 2 için `2002`) kullanılırken; canlı API çağrısından (`GET /sureler/2/ayetler`) dönen nesneler `row.id` (Postgres serial ID: `8, 9, 10...`) ile haritalanıyordu (`mapVerseFromBackend`).
+  * `localDbService.upsertVerses` fonksiyonu `INSERT OR REPLACE` yaptığında, PK olan `id` değerleri uyuşmadığı için SQLite eski tohumu (`2001`) silmeyip yanına `8` numaralı satırı ekliyordu.
+* **Kök Neden 2 — SQLite `verses` Tablosunda Bileşik Unique Kısıtı Eksikliği:**
+  * `verses` tablosunda `(surah_id, ayah_no)` üzerinde `UNIQUE` kısıtı bulunmadığı için aynı sure ve ayet numarasına sahip birden fazla kayıt tablolarda birikebiliyordu.
+* **Uygulanan Çözüm Adımları:**
+  1. **Deterministik ID Standardı:** `tafsil-ios-app/src/api/client.ts` içindeki `mapVerseFromBackend` fonksiyonu, her zaman `id: surahId * 1000 + ayahNo` atayacak şekilde standartlaştırıldı.
+  2. **SQLite UNIQUE Constraint & ON CONFLICT:** `tafsil-ios-app/src/services/localDbService.ts` içinde `verses` tablosuna `UNIQUE(surah_id, ayah_no)` kısıtı eklendi. `upsertVerses` fonksiyonu `INSERT INTO verses ... ON CONFLICT(surah_id, ayah_no) DO UPDATE SET ...` sözdizimine geçirildi ve deterministik ID garantilendi.
+  3. **Şema Sürümü Artırımı (`1.0.1`):** Eski sürüm (`1.0.0`) tespit edildiğinde tohumlama öncesinde bozuk/çiftlenmiş `verses` tablosu `DELETE FROM verses;` ile otomatik sıfırlanıp 6.236 ayet temiz şekilde yeniden tohumlanacak hale getirildi.
+  4. **Savunmacı Deduplication (In-Memory Map):** `localDbService.getVerses` okuma fonksiyonunda, ne olursa olsun aynı ayet numarasının birden fazla kez dönmesini engelleyen `Map<ayahNo, Verse>` tekilleştirme filtresi eklendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/api/client.ts`: `mapVerseFromBackend` fonksiyonunda deterministik ID (`surahId * 1000 + ayahNo`) garantisi.
+* `tafsil-ios-app/src/services/localDbService.ts`: SQLite `SCHEMA_VERSION = '1.0.1'`, `UNIQUE(surah_id, ayah_no)` kısıtı, versiyon yükseltme temizliği, `ON CONFLICT` ile güvenli `upsertVerses` ve `getVerses` savunmacı tekilleştirme.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(sqlite): enforce deterministic verse IDs, add unique constraint on (surah_id, ayah_no), and resolve verse duplication on API upsert
+```
+
+---
+
 ## [2026-10-03] README.md Yol Haritası (Roadmap) & docs/roadmap/ Canlı Backlog Senkronizasyonu
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

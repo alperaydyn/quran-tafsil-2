@@ -24,7 +24,7 @@ export interface LocalDbStats {
 }
 
 const DB_NAME = 'tafsil.db';
-const SCHEMA_VERSION = '1.0.0';
+const SCHEMA_VERSION = '1.0.1';
 
 class LocalDbServiceImpl {
   private db: SQLite.SQLiteDatabase | null = null;
@@ -101,7 +101,8 @@ class LocalDbServiceImpl {
         text_ar TEXT NOT NULL,
         transliteration_tr TEXT,
         meal_tr TEXT NOT NULL,
-        note TEXT
+        note TEXT,
+        UNIQUE(surah_id, ayah_no)
       );
 
       CREATE INDEX IF NOT EXISTS idx_verses_surah ON verses (surah_id, ayah_no);
@@ -158,6 +159,15 @@ class LocalDbServiceImpl {
     if (row && row.value === SCHEMA_VERSION) {
       // Zaten tohumlandı
       return;
+    }
+
+    // Şema versiyonu değiştiğinde veya tohumlama öncesinde çiftlenmiş satırları temizle
+    if (row && row.value !== SCHEMA_VERSION) {
+      try {
+        this.db.execSync('DELETE FROM verses;');
+      } catch (e) {
+        console.warn('[LocalDbService] verses tablosu sıfırlanırken hata:', e);
+      }
     }
 
     const seedStarted = Date.now();
@@ -376,7 +386,15 @@ class LocalDbServiceImpl {
           durationMs: Date.now() - started,
           detail: `${rows.length} ayet`,
         });
-        return rows.map((r) => this.mapRowToVerse(r));
+        const mapped = rows.map((r) => this.mapRowToVerse(r));
+        // Çiftlenmeyi önleyici tekilleştirme katmanı (Deduplication)
+        const uniqueVersesMap = new Map<number, Verse>();
+        for (const v of mapped) {
+          if (!uniqueVersesMap.has(v.ayahNo)) {
+            uniqueVersesMap.set(v.ayahNo, v);
+          }
+        }
+        return Array.from(uniqueVersesMap.values()).sort((a, b) => a.ayahNo - b.ayahNo);
       }
       trackFlow('L3_SQLITE', 'miss', `verses:sure=${surahId}`);
     } catch (e) {
@@ -563,15 +581,24 @@ class LocalDbServiceImpl {
       this.db.withTransactionSync(() => {
         if (!this.db) return;
         const stmt = this.db.prepareSync(`
-          INSERT OR REPLACE INTO verses (
+          INSERT INTO verses (
             id, surah_id, ayah_no, juz_no, page_no, text_ar, transliteration_tr, meal_tr, note
           )
           VALUES ($id, $surah_id, $ayah_no, $juz_no, $page_no, $text_ar, $transliteration_tr, $meal_tr, $note)
+          ON CONFLICT(surah_id, ayah_no) DO UPDATE SET
+            id = excluded.id,
+            juz_no = excluded.juz_no,
+            page_no = excluded.page_no,
+            text_ar = excluded.text_ar,
+            transliteration_tr = excluded.transliteration_tr,
+            meal_tr = excluded.meal_tr,
+            note = excluded.note
         `);
         try {
           for (const v of verses) {
+            const deterministicId = v.surahId * 1000 + v.ayahNo;
             stmt.executeSync({
-              $id: v.id,
+              $id: deterministicId,
               $surah_id: v.surahId,
               $ayah_no: v.ayahNo,
               $juz_no: v.juzNo || 1,
