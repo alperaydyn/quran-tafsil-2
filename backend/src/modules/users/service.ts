@@ -255,3 +255,41 @@ export async function updateUserPrefs(id: string, updates: UserPrefUpdate): Prom
     throw err;
   }
 }
+
+/**
+ * Kullanıcı hesabını ve tüm bağlı verilerini siler (PBI-AUTH.2 / App Store Guideline 5.1.1(v)).
+ * PostgreSQL CASCADE FK'ları ile okuma_gecmisi, kavram_gecmisi, yer_imleri, ezber_oturumlari,
+ * abonelikler vb. temizlenir. Tanılama tablolarındaki ilişkili kayıtlar da açıkça temizlenir.
+ */
+export async function deleteUserAccount(userId: string): Promise<boolean> {
+  try {
+    // 1. Tanılama tablolarında ON DELETE SET NULL olduğu için kullanıcıya ait verileri açıkça temizle
+    await query(`DELETE FROM istemci_veri_hareketleri WHERE kullanici_id = $1`, [userId]).catch(() => {});
+    await query(`DELETE FROM istemci_tanilama_raporlari WHERE kullanici_id = $1`, [userId]).catch(() => {});
+
+    // 2. Kullanıcı tablosundan sil (ON DELETE CASCADE bağlı tüm tabloları temizler)
+    const result = await query(`DELETE FROM kullanicilar WHERE id = $1 RETURNING id`, [userId]);
+
+    // 3. Hafıza tablosu (fallback modu) temizliği
+    for (const [key, val] of memoryUsers.entries()) {
+      if (val.id === userId) {
+        memoryUsers.delete(key);
+      }
+    }
+
+    return (result.rowCount ?? 0) > 0;
+  } catch (err: any) {
+    if (err?.code === "ECONNREFUSED" || err?.message?.includes("connect ECONNREFUSED")) {
+      let found = false;
+      for (const [key, val] of memoryUsers.entries()) {
+        if (val.id === userId) {
+          memoryUsers.delete(key);
+          found = true;
+        }
+      }
+      return found;
+    }
+    throw err;
+  }
+}
+

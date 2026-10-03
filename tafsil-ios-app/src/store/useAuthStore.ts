@@ -8,6 +8,7 @@ import {
   authenticateWithGoogle,
   authenticateAsGuest,
   linkGuestAccount,
+  deleteAccountOnServer,
 } from '../api/auth';
 import type { AuthUser } from '../api/types';
 import { OfflineSyncService } from '../services/offlineSyncService';
@@ -36,6 +37,7 @@ interface AuthState {
   continueAsGuest: () => Promise<void>;
   linkAccount: (provider: 'apple' | 'google', googleDetails?: { email?: string; name?: string }) => Promise<boolean>;
   signOut: () => void;
+  deleteAccount: (options?: { appleAuthCode?: string }) => Promise<{ success: boolean; error?: string }>;
   resetAuthStep: () => void;
   markSessionExpired: () => void;
 }
@@ -324,6 +326,41 @@ export const useAuthStore = create<AuthState>()(
           error: null,
           sessionExpired: false,
         });
+      },
+
+      deleteAccount: async (options?: { appleAuthCode?: string }) => {
+        set({ isLoading: true, error: null });
+        const currentToken = get().token;
+
+        try {
+          // Eğer sunucu token'ı varsa (misafir değilse veya geçerli bir JWT ise) sunucudan sil
+          if (currentToken && !get().isGuest && !currentToken.startsWith('dev-jwt-')) {
+            const res = await deleteAccountOnServer(currentToken, options?.appleAuthCode);
+            if (!res.success) {
+              set({ isLoading: false, error: res.error?.message ?? 'Hesap sunucudan silinemedi.' });
+              return { success: false, error: res.error?.message };
+            }
+          }
+
+          // Cihazdaki tüm yerel kullanıcı verilerini (SQLite, MMKV, okuma geçmişi, ezberler) sıfırla
+          await OfflineSyncService.clearAllLocalUserData().catch(() => {});
+
+          set({
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            isGuest: false,
+            authStepCompleted: false,
+            isLoading: false,
+            error: null,
+            sessionExpired: false,
+          });
+
+          return { success: true };
+        } catch (err: any) {
+          set({ isLoading: false, error: 'Hesap silinirken beklenmeyen bir hata oluştu.' });
+          return { success: false, error: err?.message || 'Beklenmeyen hata' };
+        }
       },
     }),
     {

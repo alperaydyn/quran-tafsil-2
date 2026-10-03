@@ -633,7 +633,8 @@ Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Detaylı canlı opera
 * ⏳ **Cihaz üzerinde STT ile sesli ezber (Reveal-on-Recite):** `SFSpeechRecognizer` ile konuşurken açılan kelimeler ve akıllı fısıltı koçluğu (`PBI-2.12`).
 * ⏳ **Ezber ilerleme matrisi:** 114 sure üzerinde ezber derinliği görselleştirmesi (Ezberlediklerim).
 * ⏳ **Türkçe meal seslendirmesi:** Stüdyo kalitesinde Türkçe meal seslendirmesi (TTS / profesyonel kayıt) ve kelime senkronlu karaoke oynatımı (`PBI-2.11`).
-* ⏳ **App Store Public Sürüm & Güvenlik/Uyumluluk:** Native Google Sign-In (`PBI-AUTH.1`), Apple Guideline 5.1.1(v) uyumlu Hesap Silme (`PBI-AUTH.2`), Sentry crash raporlama (`PBI-OBS.1`), Web tanılama raporu yönetim paneli & 90 günlük veri saklama (`PBI-OBS.2`).
+* ⏳ **App Store Public Sürüm & Güvenlik/Uyumluluk:** Native Google Sign-In (`PBI-AUTH.1`), Apple Guideline 5.1.1(v) uyumlu Hesap Silme ve cascade veri temizliği (🟢 `PBI-AUTH.2`), Sentry crash raporlama (`PBI-OBS.1`), Web tanılama raporu yönetim paneli & 90 günlük veri saklama (`PBI-OBS.2`).
+* ⏳ **KVKK / GDPR & Veri Gizliliği Uyumluluğu:** JSON formatında veri taşınabilirliği (`PBI-COMPL.1`), 30 günlük silinme kurtarma süresi (grace period) ve BullMQ kalıcı tasfiye worker'ı (`PBI-COMPL.2`), telemetri açık rıza yönetimi (`PBI-COMPL.3`).
 * ⏳ **Push notification:** Aralıklı tekrar zamanı gelen ayetler için akıllı hatırlatmalar.
 * ⏳ **Web App Portal (Next.js):** Masaüstü okuma, paylaşım ve topluluk portalının geliştirilmesi (`PBI-W.1`).
 * ⏳ **Dinamik önizleme kartları (Open Graph):** Paylaşılan ayet bağlantılarına dinamik OG resim ve önizleme kartı üretimi (`PBI-W.2`).

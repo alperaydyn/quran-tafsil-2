@@ -5,6 +5,54 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-03] Apple Guideline 5.1.1(v) Uyumlu Hesap Silme (Account Deletion) ve Cascade Veri Temizliği (PBI-AUTH.2)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **App Store Public Sürüm Ön Koşulu:**
+  * Apple App Store Review Guideline 5.1.1(v) gereğince, hesap oluşturmaya (Apple Sign-In / Google / vb.) izin veren her uygulama kullanıcının hesabını uygulama içerisinden doğrudan, kalıcı ve koşulsuz olarak silebilmesini sağlamalıdır.
+* **Uygulanan Çözüm ve Mimari Tasarım:**
+  1. **Backend Uç Noktası (`DELETE /api/v1/auth/me`):**
+     * Zorunlu Fastify JWT doğrulaması (`preHandler: app.authenticate`) ile korunur. Kullanıcı kimliği yalnızca token payload'ındaki `request.user.sub` üzerinden çözümlenir (IDOR korumalı).
+     * `deleteUserAccount(userId)` servisi çalıştırılır.
+  2. **Veritabanı Cascade ve Tam Veri Temizliği:**
+     * `kullanicilar` tablosundan silinen satır, PostgreSQL `ON DELETE CASCADE` yabancı anahtarları sayesinde bağlı tüm tabloları (`okuma_gecmisi`, `kavram_gecmisi`, `yer_imleri`, `ezber_oturumlari`, `abonelikler`, `sifre_sifirlama_talepleri`, `community_notlar`, `anlama_begeniler`) otomatik ve atomik olarak temizler.
+     * `ON DELETE SET NULL` ile tanımlı olan `istemci_tanilama_raporlari` ve `istemci_veri_hareketleri` tablolarındaki ilgili kayıtlar da GDPR/KVKK ve Apple yönergeleri uyarınca açıkça `DELETE` sorgusu ile silinir.
+     * Geliştirme ve bellek fallback'leri (`memoryUsers`) temizlenir.
+  3. **Apple REST API ile Yetkilendirme İptali (`revokeAppleToken`):**
+     * `backend/src/modules/auth/apple.ts` içine `revokeAppleToken` fonksiyonu eklendi.
+     * Apple'ın `https://appleid.apple.com/auth/revoke` uç noktasına ES256 imzalı JWT client secret ile token iptal bildirimi gönderilir.
+     * Apple Developer Private Key env değişkenleri henüz tanımlanmamışsa sunucu hata fırlatmaz, güvenli log basarak kullanıcının hesap silme işlemini bloke etmeden süreci tamamlar.
+  4. **Mobil API ve Zustand Durum Yönetimi (`useAuthStore`):**
+     * `tafsil-ios-app/src/api/auth.ts` içine `deleteAccountOnServer` eklendi.
+     * `useAuthStore` içine `deleteAccount` aksiyonu eklendi: Sunucudan silme tamamlandığında cihazdaki yerel SQLite, MMKV, okuma geçmişi ve ezber oturumları `OfflineSyncService.clearAllLocalUserData()` ile sıfırlanır, oturum durumu temizlenir.
+  5. **Kullanıcı Arayüzü ve Onay Akışı (`SettingsScreen` & `ProfileScreen`):**
+     * `SettingsScreen.tsx`: "HESAP & GÜVENLİK" bölümü eklendi; oturum açıksa "Oturumu Kapat" seçeneği ve kırmızı/vurgulu "Hesabımı Sil" seçeneği sunuldu.
+     * İki aşamalı native onay uyarısı (`Alert.alert`): İşlemin geri alınamaz olduğu, tüm okuma geçmişi ve notların sunucudan ve cihazdan silineceği açıkça belirtildi.
+     * Silme esnasında `ActivityIndicator` ile görsel geri bildirim ve silinme sonrası onay bildirimi eklendi.
+     * `ProfileScreen.tsx`: Oturumu kapatma ve hesap yönetimine geçiş kısayolları bağlandı.
+* **Uçtan Uca Doğrulama:**
+  * Canlı test scripti ile misafir kullanıcısı oluşturuldu, sync ile yer imi ve okuma geçmişi gönderildi, ardından `DELETE /api/v1/auth/me` çağrıldı.
+  * Sonrasında `GET /auth/me` sorgusunun 404 döndüğü ve `sync/pull` sorgusunun 401 Unauthorized vererek kullanıcının sistemden tamamen silindiği kanıtlandı.
+  * Hem backend hem mobil TypeScript derlemeleri (`npx tsc --noEmit`) 0 hata ile doğrulandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/modules/auth/apple.ts`: Apple REST API token revoke fonksiyonu (`revokeAppleToken`).
+* `backend/src/modules/users/service.ts`: `deleteUserAccount` servisi ve cascade veri silme mantığı.
+* `backend/src/modules/auth/routes.ts`: `DELETE /api/v1/auth/me` endpoint'i.
+* `tafsil-ios-app/src/api/auth.ts`: `deleteAccountOnServer` mobil API istemcisi.
+* `tafsil-ios-app/src/store/useAuthStore.ts`: `deleteAccount` Zustand aksiyonu.
+* `tafsil-ios-app/src/screens/SettingsScreen.tsx`: "HESAP & GÜVENLİK" bölümü, onaylı "Hesabımı Sil" butonu ve oturumu kapatma.
+* `tafsil-ios-app/src/screens/ProfileScreen.tsx`: Çıkış yapma ve hesap yönetimi bağlantısı.
+* `docs/roadmap/PHASE-2-BACKLOG.md`: `PBI-AUTH.2` maddesi tamamlandı olarak işaretlendi; KVKK/GDPR için veri taşınabilirliği (`PBI-COMPL.1`), 30 günlük askı süresi (`PBI-COMPL.2`) ve açık rıza yönetimi (`PBI-COMPL.3`) maddeleri eklendi.
+* `README.md`: Yol Haritası (Roadmap) bölümünde `PBI-AUTH.2` tamamlandı olarak senkronize edildi; KVKK/GDPR uyumluluk maddesi eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(auth): implement account deletion with cascade data purge and Apple token revoke (PBI-AUTH.2)
+```
+
+---
+
 ## [2026-10-03] Emülatör / Simülatör Ağ Çözümleme ve Profil Yenileme (Refresh) Senkronizasyon Onarımı
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
-import { verifyAppleIdToken } from "./apple.js";
+import { verifyAppleIdToken, revokeAppleToken } from "./apple.js";
 import { verifyGoogleIdToken } from "./google.js";
-import { findOrCreateUser, createGuestUser, linkGuestUser, getUserById } from "../users/service.js";
+import { findOrCreateUser, createGuestUser, linkGuestUser, getUserById, deleteUserAccount } from "../users/service.js";
 import { toPublicUser } from "../users/dto.js";
 import { ok, fail } from "../../utils/response.js";
 
@@ -158,4 +158,43 @@ export async function authRoutes(app: FastifyInstance) {
 
     return reply.send(ok({ message: result.message }));
   });
+
+  /**
+   * Kullanıcı Hesabını Silme (PBI-AUTH.2 / App Store Guideline 5.1.1(v))
+   * Oturumu açık olan kullanıcının tüm verilerini (okuma geçmişi, kavram geçmişi, yer imleri, ezberler)
+   * ve profilini kalıcı olarak siler. Apple kullanıcısı ise Apple token iptal çağrısını gerçekleştirir.
+   */
+  app.delete("/me", { preHandler: app.authenticate }, async (request, reply) => {
+    const userId = request.user.sub;
+    const bodySchema = z
+      .object({
+        appleAuthCode: z.string().optional(),
+      })
+      .optional();
+
+    const parsed = bodySchema?.safeParse(request.body);
+    const appleAuthCode = parsed?.success ? parsed.data?.appleAuthCode : undefined;
+
+    const user = await getUserById(userId);
+    if (!user) {
+      return reply.status(404).send(fail("USER_NOT_FOUND", "Silinecek kullanıcı bulunamadı"));
+    }
+
+    if (user.auth_provider === "apple") {
+      try {
+        await revokeAppleToken(appleAuthCode);
+      } catch (err) {
+        request.log.warn({ err, userId }, "Apple token revoke sırasında uyarı (işleme devam ediliyor)");
+      }
+    }
+
+    const deleted = await deleteUserAccount(userId);
+    if (!deleted) {
+      return reply.status(500).send(fail("DELETE_FAILED", "Kullanıcı hesabı silinemedi"));
+    }
+
+    request.log.info({ userId, provider: user.auth_provider }, "Kullanıcı hesabı ve tüm verileri silindi");
+    return reply.send(ok({ deleted: true, message: "Hesabınız ve tüm verileriniz kalıcı olarak silindi." }));
+  });
 }
+

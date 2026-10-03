@@ -1,6 +1,7 @@
 import React from 'react';
-import { Linking, Pressable, ScrollView, View } from 'react-native';
+import { Alert, ActivityIndicator, Linking, Pressable, ScrollView, View } from 'react-native';
 import Constants from 'expo-constants';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
@@ -113,8 +114,94 @@ export function SettingsScreen() {
   const setAccentVariant = useUserSettingsStore((s) => s.setAccentVariant);
   const user = useAuthStore((s) => s.user);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const isGuest = useAuthStore((s) => s.isGuest);
   const signOut = useAuthStore((s) => s.signOut);
+  const deleteAccount = useAuthStore((s) => s.deleteAccount);
+  const isAuthLoading = useAuthStore((s) => s.isLoading);
   const sessionExpired = useAuthStore((s) => s.sessionExpired);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+
+  const handleSignOut = () => {
+    Alert.alert(
+      'Çıkış Yap',
+      'Hesabınızdan çıkış yapmak istediğinize emin misiniz? Cihazınızdaki yerel veriler temizlenir ve yeniden giriş yaptığınızda hesabınızdan eşitlenir.',
+      [
+        { text: 'Vazgeç', style: 'cancel' },
+        {
+          text: 'Çıkış Yap',
+          style: 'destructive',
+          onPress: () => {
+            signOut();
+            if (navigation.canGoBack()) {
+              navigation.goBack();
+            } else {
+              navigation.navigate('Main', { screen: 'Home' });
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      'Hesabınızı Silmek İstediğinize Emin Misiniz?',
+      'Bu işlem geri alınamaz. Okuma geçmişiniz, ayet notlarınız, ezber oturumlarınız ve tüm kişisel verileriniz sunucularımızdan ve bu cihazdan kalıcı olarak silinecektir.',
+      [
+        { text: 'Vazgeç', style: 'cancel' },
+        {
+          text: 'Hesabımı Kalıcı Olarak Sil',
+          style: 'destructive',
+          onPress: async () => {
+            setIsDeleting(true);
+            try {
+              let appleAuthCode: string | undefined = undefined;
+              if (user?.provider === 'apple') {
+                try {
+                  const available = await AppleAuthentication.isAvailableAsync();
+                  if (available) {
+                    const credential = await AppleAuthentication.signInAsync({
+                      requestedScopes: [],
+                    });
+                    appleAuthCode = credential.authorizationCode || undefined;
+                  }
+                } catch {
+                  // Kullanıcı Apple penceresini iptal ettiyse doğrudan mevcut token ile silmeye devam et
+                }
+              }
+
+              const res = await deleteAccount({ appleAuthCode });
+              setIsDeleting(false);
+
+              if (res.success) {
+                Alert.alert(
+                  'Hesabınız Silindi',
+                  'Hesabınız ve tüm verileriniz kalıcı olarak silinmiştir.',
+                  [
+                    {
+                      text: 'Tamam',
+                      onPress: () => {
+                        if (navigation.canGoBack()) {
+                          navigation.goBack();
+                        } else {
+                          navigation.navigate('Main', { screen: 'Home' });
+                        }
+                      },
+                    },
+                  ]
+                );
+              } else {
+                Alert.alert('Silme Başarısız', res.error || 'Hesap silinirken bir sorun oluştu.');
+              }
+            } catch (err: any) {
+              setIsDeleting(false);
+              Alert.alert('Hata', err?.message || 'Beklenmeyen bir hata oluştu.');
+            }
+          },
+        },
+      ]
+    );
+  };
 
   const schemes: { key: ColorSchemePreference; label: string }[] = [
     { key: 'system', label: t('settings.schemes.system') },
@@ -308,6 +395,48 @@ export function SettingsScreen() {
           selected={false}
           onPress={() => navigation.navigate('Diagnostics')}
         />
+
+        <SectionLabel>HESAP & GÜVENLİK</SectionLabel>
+        {isAuthenticated && !isGuest && (
+          <OptionRow
+            label="Oturumu Kapat"
+            description={`${user?.email ?? user?.name ?? 'Kullanıcı'} oturumunu bu cihazda sonlandır`}
+            selected={false}
+            onPress={handleSignOut}
+          />
+        )}
+        <Pressable
+          onPress={handleDeleteAccount}
+          disabled={isDeleting || isAuthLoading}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: 13,
+            borderRadius: theme.radius.xxl,
+            backgroundColor: pressed ? theme.colors.band : theme.colors.surf,
+            borderWidth: 1,
+            borderColor: '#FCA5A5',
+            marginTop: 4,
+            marginBottom: 6,
+            opacity: isDeleting ? 0.6 : 1,
+          })}
+        >
+          <View style={{ flex: 1 }}>
+            <StyledText variant="callout" style={{ fontWeight: '600', color: '#DC2626' }}>
+              {isDeleting ? 'Hesap Siliniyor…' : 'Hesabımı Sil'}
+            </StyledText>
+            <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
+              Tüm okuma geçmişi, notlar ve kişisel verileri sunucudan ve bu cihazdan kalıcı olarak sil
+            </StyledText>
+          </View>
+          {isDeleting ? (
+            <ActivityIndicator size="small" color="#DC2626" />
+          ) : (
+            <StyledText variant="title" style={{ fontSize: 18, color: '#DC2626' }}>
+              ›
+            </StyledText>
+          )}
+        </Pressable>
 
         <SectionLabel>HAKKINDA</SectionLabel>
         <OptionRow

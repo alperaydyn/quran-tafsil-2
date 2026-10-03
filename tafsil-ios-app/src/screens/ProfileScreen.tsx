@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Pressable, StyleSheet } from 'react-native';
+import { View, ScrollView, Pressable, StyleSheet, Alert } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
@@ -370,6 +370,55 @@ export function ProfileScreen() {
           subtitle="Okuma modu, açık/koyu tema, renk paleti ve dil"
           onPress={() => navigation.navigate('Settings')}
         />
+
+        {/* Hesap & Güvenlik Köprüsü */}
+        <StyledText variant="eyebrow" color="faint" style={{ marginTop: 26, marginBottom: 12 }}>
+          HESAP & GÜVENLİK
+        </StyledText>
+
+        {isAuthenticated && !user?.isGuest ? (
+          <>
+            <ProfileNavRow
+              icon="🔒"
+              title="Hesap Güvenliği & Silme"
+              subtitle="Hesap bilgileri, gizlilik ve kalıcı silme seçenekleri"
+              onPress={() => navigation.navigate('Settings')}
+            />
+            <ProfileNavRow
+              icon="🚪"
+              title="Oturumu Kapat"
+              subtitle="Bu cihazdaki oturumu güvenle sonlandır"
+              onPress={() => {
+                Alert.alert(
+                  'Çıkış Yap',
+                  'Hesabınızdan çıkış yapmak istediğinize emin misiniz? Cihazınızdaki yerel veriler temizlenir ve yeniden giriş yaptığınızda eşitlenir.',
+                  [
+                    { text: 'Vazgeç', style: 'cancel' },
+                    {
+                      text: 'Çıkış Yap',
+                      style: 'destructive',
+                      onPress: () => {
+                        signOut();
+                        if (navigation.canGoBack()) {
+                          navigation.goBack();
+                        } else {
+                          navigation.navigate('Main', { screen: 'Home' });
+                        }
+                      },
+                    },
+                  ]
+                );
+              }}
+            />
+          </>
+        ) : (
+          <ProfileNavRow
+            icon="✨"
+            title="Giriş Yap / Hesap Bağla"
+            subtitle="Okuma ilerlemeni buluta yedekle ve cihazlar arası senkronize et"
+            onPress={() => navigation.navigate('Auth')}
+          />
+        )}
       </ScrollView>
     </Screen>
   );

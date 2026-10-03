@@ -19,9 +19,14 @@ Bu belge, **tafsil.net** Faz 1 (MVP) tamamlandıktan sonra Faz 2 kapsamında gel
 
 ### App Store Public Sürüm Ön Koşulları (TestFlight F&F'ten ertelendi)
 - [ ] **PBI-AUTH.1 (Native Google Sign-In):** `@react-native-google-signin/google-signin` veya eşdeğeri ile gerçek id_token akışı (iOS OAuth Client ID + URL scheme), sahte e-posta modalinin kaldırılması ve `FEATURES.googleSignIn` bayrağının açılması.
-- [ ] **PBI-AUTH.2 (Hesap Silme — Guideline 5.1.1(v)) — PUBLIC SÜRÜM İÇİN ZORUNLU:** Backend `DELETE /auth/me` (tüm kullanıcı verilerinin cascade silinmesi), Apple REST API ile Sign in with Apple token revoke, Ayarlar'da onaylı "Hesabımı Sil" akışı.
+- [x] **PBI-AUTH.2 (Hesap Silme — Guideline 5.1.1(v)) — PUBLIC SÜRÜM İÇİN ZORUNLU:** Backend `DELETE /auth/me` (tüm kullanıcı verilerinin cascade silinmesi), Apple REST API ile Sign in with Apple token revoke, Ayarlar'da onaylı "Hesabımı Sil" akışı ve `clearAllLocalUserData` yerel temizliği.
 - [ ] **PBI-OBS.1 (Crash Raporlama):** Sentry (veya eşdeğeri) entegrasyonu; F&F süresince TestFlight crash log'ları yeterli kabul edildi.
 - [ ] **PBI-OBS.2 (Tanılama Raporu Yönetim Paneli & Saklama):** Web admin panelinde `GET /api/v1/diagnostics/admin/reports` listesi, kısa kodla rapor/olay akışı görüntüleme ve durum yönetimi; 90 günden eski raporlar için BullMQ/cron saklama işi (Faz 1 PBI-10.3'ten ertelendi).
+
+### KVKK / GDPR & Veri Uyumluluğu (Data Privacy & Compliance)
+- [ ] **PBI-COMPL.1 (Veri Taşınabilirliği / Right to Data Portability):** Kullanıcının tüm okuma geçmişini, yer imlerini, ayet notlarını ve ezber verilerini standart JSON formatında tek tıkla cihazına indirebilmesi (`GET /api/v1/auth/export-data` ve Ayarlar › "Verilerimi İndir").
+- [ ] **PBI-COMPL.2 (Hesap Silme Grace Period & Kalıcı Tasfiye — Opsiyonel 30 Gün Askı):** Kullanıcı hesabını sildiğinde 30 günlük geri alma süresi (grace period) tanınması; 30 gün içinde giriş yapılmazsa BullMQ cron ile veritabanından ve loglardan kalıcı fiziksel tasfiye (`deleted_at` + otomatik purge worker'ı).
+- [ ] **PBI-COMPL.3 (Açık Rıza & Telemetri Tercihleri):** Tanılama raporu gönderimi ve hata takibi için kullanıcıya Ayarlar ekranında açık rıza (opt-in / opt-out) denetimi sunulması; KVKK aydınlatma metni ile entegrasyon.
 
 ### Mobil Uygulama — İleri Özellikler
 - [ ] **PBI-2.11 (Türkçe Meal Seslendirmesi):** Stüdyo kalitesinde Türkçe meal seslendirmesi (TTS veya profesyonel kayıt) ve kelime senkronlu karaoke.

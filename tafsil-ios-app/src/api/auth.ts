@@ -275,3 +275,49 @@ export async function fetchMe(token: string): Promise<ApiResponse<AuthUser>> {
 
   return { success: false, error: { code: 'UNAUTHORIZED', message: 'Oturum doğrulanamadı' } };
 }
+
+/**
+ * Kullanıcı hesabını ve tüm bağlı verilerini sunucudan kalıcı olarak siler (PBI-AUTH.2 / Guideline 5.1.1(v)).
+ */
+export async function deleteAccountOnServer(
+  token: string,
+  appleAuthCode?: string
+): Promise<ApiResponse<{ deleted: boolean; message: string }>> {
+  try {
+    const res = await fetch(`${API_BASE}/auth/me`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        appleAuthCode,
+      }),
+    });
+
+    const json = await res.json().catch(() => null);
+    if (res.ok && json?.success) {
+      return {
+        success: true,
+        data: json.data,
+      };
+    }
+
+    return {
+      success: false,
+      error: {
+        code: json?.error?.code || 'DELETE_FAILED',
+        message: json?.error?.message || 'Hesap silme işlemi başarısız oldu.',
+      },
+    };
+  } catch (err: any) {
+    return {
+      success: false,
+      error: {
+        code: 'NETWORK_ERROR',
+        message: 'Sunucuya ulaşılamadı. Lütfen internet bağlantınızı kontrol edin.',
+      },
+    };
+  }
+}
+
