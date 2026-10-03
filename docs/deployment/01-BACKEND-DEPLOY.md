@@ -78,35 +78,37 @@ npm run db:status
 
 ---
 
-## 4. Node.js / Fastify Dağıtımı (PM2)
+## 4. Node.js / Fastify Dağıtımı (Docker Konteyneri)
 
-Fastify API, Docker dışında host makinede PM2 ile çalışır. Bu tercih, hızlı restart, log yönetimi ve cluster mode avantajı sağlar.
+Fastify API, çok aşamalı [backend/Dockerfile](file:///Users/alperaydin/Projects/kuran-tafsil-net/backend/Dockerfile) ile derlenen `tafsil-backend:latest` Docker konteyneri içinde, non-root `tafsil` kullanıcısı ile izole olarak çalışır.
 
-### PM2 ile Başlatma
+### Docker Konteyneri ile Başlatma
 
 ```bash
 cd /opt/tafsil/backend
 
-# Bağımlılıkları yükle
-npm ci --production
+# İmajı derle
+docker build -t tafsil-backend:latest .
 
-# PM2 ile başlat (ecosystem.config.js kullanarak)
-pm2 start ecosystem.config.js --env production
+# Konteyneri başlat (Host network veya Docker Compose ile)
+docker run -d \
+  --name tafsil-api \
+  --restart unless-stopped \
+  --network host \
+  --env-file .env \
+  tafsil-backend:latest
 
-# PM2'yi sistem başlangıcına ekle
-pm2 save
-pm2 startup
+# Konteyner durumunu ve sağlık kontrolünü incele
+docker ps -f name=tafsil-api
+docker logs tafsil-api
 ```
 
-### PM2 Yapılandırması
+### Docker Compose ile Yönetim
 
-Detaylı PM2 yapılandırması: [backend/ecosystem.config.js](file:///Users/alperaydin/Projects/kuran-tafsil-net/backend/ecosystem.config.js)
+Tüm servisler (PostgreSQL, Redis, Fastify API) tek bir compose dosyasıyla yönetilebilir:
 
-```
-Cluster Mode: 2 worker (4 vCPU'nun yarısı)
-Max Memory Restart: 1 GB
-Log Rotation: 10 MB / dosya, 7 gün saklama
-Watch: Kapalı (prodüksiyonda)
+```bash
+docker compose up -d api
 ```
 
 ---

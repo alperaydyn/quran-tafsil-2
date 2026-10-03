@@ -5,6 +5,50 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-03] Backend Canlı Dağıtımı (VPS / PM2 / Nginx Reverse Proxy) (PBI-9.8)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Backend API'nin Canlı Ortama Alınması:**
+  * TestFlight Friends & Family sürümü ve mobil uygulamanın canlı veritabanı ile bulut üzerinden senkronize olabilmesi için Fastify backend API Hostinger VPS (Ubuntu 22.04, 4 vCPU, 8 GB RAM) üzerinde canlıya alındı.
+* **Uygulanan Mimari ve Yapılan İşlemler:**
+  1. **PM2 Süreç Yönetimi ve Cluster Mode:**
+     * VPS üzerine PM2 (v7.0.4) kuruldu. `backend/ecosystem.config.js` ile 2 worker (cluster mode) olarak yapılandırıldı.
+     * `backend/src/server.ts` içine PM2 graceful reload ve cluster mode için `process.send?.('ready')` bildirimi eklendi.
+     * Servis `pm2 startup systemd` ve `pm2 save` ile sunucu yeniden başlatmalarına karşı kalıcı hale getirildi.
+  2. **Üretim Ortamı Yapılandırması (`.env`):**
+     * `/opt/tafsil/backend/.env` dosyası oluşturuldu; 64-karakter kriptografik hex `JWT_SECRET` tanımlandı (`PBI-9.2` uyumlu).
+     * Doğrudan localhost üzerinden `postgres:16` (`tafsil_net_db`) ve `tafsil-redis-redis-1` servislerine bağlandı.
+     * `npm ci --omit=dev` ile yalnızca prodüksiyon bağımlılıkları yüklendi.
+  3. **Nginx Reverse Proxy & Güvenlik:**
+     * `backend/nginx/api.tafsil.net.conf` dosyası `/etc/nginx/sites-available/` altına kopyalandı ve `sites-enabled/` üzerinden aktifleştirildi.
+     * SSE (Server-Sent Events) ve LLM endpoint'leri için özel `proxy_buffering off`, rate limiting (`api_general`, `api_llm`) ve `/health` rotaları bağlandı.
+     * Geçici SSL yapılandırması `/opt/tafsil/ssl/` altında tamamlanarak Nginx sentaksı doğrulandı ve reload edildi.
+  4. **Doğrulama ve Uçtan Uca Testler:**
+     * Yerel makineden `--resolve api.tafsil.net:443:76.13.60.86` ile doğrudan VPS dış IP'sine yapılan HTTPS testlerinde:
+       - `GET /health` -> `{"success":true,"data":{"status":"ok","checks":{"postgres":true,"redis":true}}}` (HTTP 200)
+       - `GET /api/v1/sureler` -> Fâtiha ve sure listesi JSON (HTTP 200, L1 önbellek isabetiyle)
+       başarıyla doğrulandı.
+  6. **Docker Konteynerizasyon Geçişi (`tafsil-backend:latest`):**
+     * Kullanıcı tercihi doğrultusunda Fastify backend host PM2 yönetiminden bağımsız bir Docker konteynerine taşındı.
+     * `backend/Dockerfile` (3-stage build: deps, builder, runner - non-root user `tafsil`) kullanılarak VPS üzerinde `tafsil-backend:latest` imajı derlendi.
+     * PM2 `tafsil-api` servisi durdurulup silindi; konteyner `docker run -d --name tafsil-api --restart unless-stopped --network host --env-file /opt/tafsil/backend/.env tafsil-backend:latest` ile ayağa kaldırıldı.
+     * `backend/docker-compose.yml` dosyasına `api` servisi eklendi.
+     * Cloudflare üzerinden `https://api.tafsil.net/health`, `/api/v1/sureler/1/ayetler` ve `POST /api/v1/auth/guest` test edilerek Docker konteynerinin hatasız çalıştığı kanıtlandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/server.ts`: PM2 ready sinyali eklendi (`process.send('ready')`).
+* `backend/dist/server.js`: Derleme güncellendi.
+* `backend/docker-compose.yml`: `api` (Fastify) servisi tanımlandı.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: PBI-9.8 tamamlandı olarak güncellendi.
+* Hostinger VPS: `tafsil-api` Docker container'ı (`tafsil-backend:latest`), `/opt/tafsil/backend/.env`, `/etc/nginx/sites-available/api.tafsil.net.conf`.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(deploy): deploy backend api to vps with pm2 cluster and nginx reverse proxy (PBI-9.8)
+```
+
+---
+
 ## [2026-10-03] Apple Guideline 5.1.1(v) Uyumlu Hesap Silme (Account Deletion) ve Cascade Veri Temizliği (PBI-AUTH.2)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

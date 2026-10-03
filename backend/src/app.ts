@@ -56,6 +56,26 @@ export async function buildApp(): Promise<FastifyInstance> {
     reply.status(404).send(fail("NOT_FOUND", `Route bulunamadı: ${request.method} ${request.url}`));
   });
 
+  app.get("/", async () => ({
+    name: "tafsil.net API",
+    version: "1.0.0",
+    status: "online",
+    docs: "/docs",
+    health: "/health",
+  }));
+
+  app.get("/api/v1", async () => ({
+    name: "tafsil.net API (v1)",
+    version: "1.0.0",
+    status: "online",
+    endpoints: {
+      sureler: "/api/v1/sureler",
+      kavramlar: "/api/v1/kavramlar",
+      docs: "/docs",
+      health: "/health",
+    },
+  }));
+
   await app.register(healthRoutes);
   await app.register(authRoutes, { prefix: "/api/v1/auth" });
   await app.register(userRoutes, { prefix: "/api/v1/users" });

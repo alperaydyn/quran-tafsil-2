@@ -8,6 +8,9 @@ async function start() {
   try {
     await app.listen({ port: config.port, host: config.host });
     app.log.info(`tafsil.net API ${config.host}:${config.port} üzerinde çalışıyor (${config.env})`);
+    if (process.send) {
+      process.send("ready");
+    }
   } catch (err) {
     app.log.error(err);
     process.exit(1);

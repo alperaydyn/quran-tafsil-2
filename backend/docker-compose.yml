@@ -80,6 +80,29 @@ services:
           cpus: "0.25"
           memory: 128M
 
+  # ─── Fastify API (Backend Servisi) ─────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tafsil-backend:latest
+    container_name: tafsil-api
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:4000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1.5G
+
 volumes:
   postgres_data:
     driver: local
