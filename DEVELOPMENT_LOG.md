@@ -5,6 +5,42 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-03] Emülatör / Simülatör Ağ Çözümleme ve Profil Yenileme (Refresh) Senkronizasyon Onarımı
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Sorunun Tespiti:**
+  * "Profil ve Yolculuğum" sayfasında sağ üstteki yenileme (↻) butonunun fiziksel telefonda (Expo Go LAN üzerinden) çalışırken, bilgisayardaki simülatör/emülatörde çalışmadığı bildirildi.
+* **Kök Neden 1 — Emülatör Ağ Adresi Önceliği Hatası (`resolveApiHost`):**
+  * `tafsil-ios-app/src/api/config.ts` içindeki `resolveApiHost` fonksiyonunda, Metro bundler'ın LAN IP'si (`Constants.expoConfig.hostUri`, örn: `192.168.1.120:8081`) `Platform.OS === 'android'` ve simülatör kontrollerinden önce geliyordu.
+  * Android Studio Emülatörü Mac üzerindeki backend'e (`127.0.0.1:4000`) yalnızca sanal loopback IP'si olan `10.0.2.2` üzerinden erişebilir; yerel Wi-Fi IP'sine (`192.168.1.x`) erişimi sanal ağ izolasyonu / güvenlik duvarı nedeniyle engellenir.
+  * iOS Simülatörü ve Web ortamı ise aynı makinede çalıştığından doğrudan `localhost` (veya `127.0.0.1`) üzerinden en kararlı ve sıfır gecikmeli bağlantıyı kurmalıdır.
+* **Kök Neden 2 — Yerel Geliştirme Token'ı ve Sunucu Token Doğrulaması:**
+  * Simülatör ilk açılışta veya ağ kesintisinde dev modunda giriş yaptıysa, `useAuthStore` içinde fallback olarak tek parçalı `dev-jwt-*` veya `local-guest-jwt-*` saklanabiliyordu.
+  * `OfflineSyncService.hasServerToken` (3 parçalı JWT kontrolü) bu fallback token'ı geçersiz sayarak sunucu senkronizasyonunu atlıyordu.
+* **Uygulanan Çözüm Adımları:**
+  1. **Ağ Host Çözümleme Hiyerarşisi (`resolveApiHost`):**
+     * Web ortamı için `localhost`.
+     * Android Emülatörü (`!Constants.isDevice && Platform.OS === 'android'`) için `10.0.2.2`.
+     * iOS Simülatörü (`!Constants.isDevice && Platform.OS === 'ios'`) için `localhost`.
+     * Yalnızca fiziksel cihazlarda (`Constants.isDevice` veya Expo Go) LAN IP'si (`hostUri`).
+  2. **Geliştirme Ortamı Token İyileştirmesi (Auto-Upgrade):**
+     * `OfflineSyncService.syncWithServer` fonksiyonu `__DEV__` modunda tek parçalı dev token tespit ettiğinde, sunucu ayaktaysa arka planda `/api/v1/auth/login` ile geçerli bir 3-parçalı JWT alıp oturumu otomatik olarak tam yetkili sunucu oturumuna yükseltir.
+  3. **Yerel İlerleme Senkronizasyonu (`reloadLocalProgressToStore`):**
+     * `handleSync` (↻ butonu) ve `syncWithServer` tetiklendiğinde; kullanıcı ister çevrimdışı/misafir olsun ister sunucuya bağlı olsun, yerel SQLite/MMKV okuma geçmişi ve ezber oturumları her zaman `useReadingProgressStore` ile taranıp birleştirilir ve ekrandaki istatistikler anında güncellenir.
+  4. **UI Etkileşimi:** `ProfileScreen` üzerindeki ↻ butonuna işlem sırasında `disabled={isSyncing}` ve görsel opaklık/yükleniyor geri bildirimi eklendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/api/config.ts`: `resolveApiHost` fonksiyonunda platform ve simülatör/cihaz öncelik sıralaması düzeltildi.
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: `reloadLocalProgressToStore` fonksiyonu eklendi; dev token auto-upgrade ve yerel veri tazelemesi bağlandı.
+* `tafsil-ios-app/src/screens/ProfileScreen.tsx`: `handleSync` içine `reloadLocalProgressToStore` eklendi; buton `disabled` ve `opacity` durumları iyileştirildi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(mobile): resolve api host routing for emulators/simulators and enable reliable profile sync
+```
+
+---
+
 ## [2026-10-03] Yerel SQLite Ayet Çiftlenmesi (Duplicate Verses) ve ID Determinizmi Onarımı
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

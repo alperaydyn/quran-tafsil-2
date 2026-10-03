@@ -2,7 +2,22 @@ import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 function resolveApiHost(): string {
-  // 1. Expo Go veya Expo development client üzerinde çalışırken hostUri bilgisayarın yerel IP'sini içerir (örn: 192.168.1.120:8081)
+  // 1. Web ortamında doğrudan tarayıcı localhost
+  if (Platform.OS === 'web') {
+    return 'localhost';
+  }
+
+  // 2. Android Studio Emülatörü (bilgisayardaki emülatörde host 127.0.0.1'e erişmek için 10.0.2.2 zorunludur)
+  if (Platform.OS === 'android' && Constants.isDevice === false) {
+    return '10.0.2.2';
+  }
+
+  // 3. iOS Simülatörü (bilgisayardaki Mac üzerinde çalışan simülatör doğrudan localhost / 127.0.0.1 kullanmalıdır)
+  if (Platform.OS === 'ios' && Constants.isDevice === false) {
+    return 'localhost';
+  }
+
+  // 4. Gerçek cihazda (fiziksel telefon) Expo Go / Development build ile çalışırken Metro hostUri'den bilgisayarın LAN IP'si alınır
   const hostUri =
     Constants.expoConfig?.hostUri ||
     (Constants as any).manifest2?.extra?.expoGo?.debuggerHost ||
@@ -15,12 +30,11 @@ function resolveApiHost(): string {
     }
   }
 
-  // 2. Android Studio Emülatörü
+  // 5. Geriye dönük güvenli varsayılanlar
   if (Platform.OS === 'android') {
     return '10.0.2.2';
   }
 
-  // 3. iOS Simülatör veya Web
   return 'localhost';
 }
 

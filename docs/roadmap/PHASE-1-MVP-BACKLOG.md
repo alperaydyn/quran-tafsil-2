@@ -90,6 +90,10 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 ## 7. Çevrimdışı Okuma Altyapısı (Offline-First)
 - [x] **PBI-7.1:** Ayetler, sureler ve kelime zaman damgaları için yerel snapshot JSON desteği (`ayetlerSnapshot`, `word_timestamps.compact.json`).
 - [x] **PBI-7.3 (Yerel SQLite / WatermelonDB):** Tam Kur'an metninin, meallerin ve sözlüğün yerel SQLite tablosuna taşınması; ağ yokken sıfır gecikmeli sorgulama (`localDbService.ts`, `client.ts`, `searchService.ts`, `expo-sqlite`).
+- [x] **PBI-7.4 (Sistem Geneli Fallback Matrisi, Çevrimdışı Dayanıklılık Denetimi ve Dokümantasyonu):**
+  - **Veri Katmanı Fallback Zinciri:** Ayet/Sure (API → SQLite → Snapshot JSON → Boş dizi), Sözlük (API → SQLite/MMKV → Küratörlü Tohum → Algoritmik Üretim), Kavram (API → MMKV → Tohum Sözlük), Ses/Zaman Damgası (Cloudflare R2 CDN → Yerel MP3 / Snapshot JSON).
+  - **Kimlik & Ağ Çözümleme Fallback Zinciri:** `EXPO_PUBLIC_API_URL` → `extra.apiUrl` → Emülatör tespiti (Android `10.0.2.2`, iOS/Web `localhost`) → Fiziksel cihaz LAN IP (`hostUri`). Dev modunda tek parçalı token'ların sunucu geldiğinde otomatik 3 parçalı JWT'ye yükseltilmesi (Auto-Upgrade).
+  - **Senkronizasyon & Tanılama Fallback Zinciri:** Sunucu yokken veya misafir modunda yerel SQLite/MMKV ilerlemesinin taranıp anında mağazaya (`useReadingProgressStore`) aktarılması (`reloadLocalProgressToStore`); tanılama raporlarında API → e-posta eki → sistem paylaşım sayfası köprüsü.
 
 ---
 

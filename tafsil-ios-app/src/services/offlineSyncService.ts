@@ -606,6 +606,18 @@ export class OfflineSyncService {
     }
   }
 
+  static async reloadLocalProgressToStore(): Promise<void> {
+    try {
+      const rawHistory = await mmkvStorage.getItem(HISTORY_KEY);
+      const history: OfflineHistoryItem[] = rawHistory ? JSON.parse(rawHistory) : [];
+      if (history.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { useReadingProgressStore } = require('../store/useReadingProgressStore');
+        useReadingProgressStore.getState().bulkMergeReadingHistory(history);
+      }
+    } catch {}
+  }
+
   static async syncWithServer(
     apiBaseUrl: string = API_BASE,
     token?: string,
@@ -621,9 +633,46 @@ export class OfflineSyncService {
     } catch {}
     void userId; // Sunucu kimliği yalnızca JWT'den çözer (PBI-9.1)
 
-    // Geçerli bir sunucu oturumu yoksa (giriş yapılmamış / çevrimdışı misafir) ağa çıkma
+    // DEV ortamında sahte/yerel dev token varsa, sunucu çalışıyorsa arka planda gerçek sunucu tokenına yükseltmeyi dene
+    if (__DEV__ && !hasServerToken(effectiveToken)) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { useAuthStore } = require('../store/useAuthStore');
+        const auth = useAuthStore.getState();
+        if (auth.user?.email && (auth.user?.provider === 'google' || auth.user?.provider === 'apple')) {
+          const fakeDevToken = `${auth.user.provider}-dev-${auth.user.email.toLowerCase()}`;
+          const res = await fetch(`${apiBaseUrl}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              provider: auth.user.provider,
+              idToken: fakeDevToken,
+              email: auth.user.email,
+              name: auth.user.name,
+            }),
+          });
+          if (res.ok) {
+            const json = await res.json();
+            if (json.success && json.data?.token && hasServerToken(json.data.token)) {
+              effectiveToken = json.data.token;
+              useAuthStore.setState({
+                token: json.data.token,
+                user: {
+                  ...auth.user,
+                  id: json.data.user?.id || auth.user.id,
+                },
+                sessionExpired: false,
+              });
+            }
+          }
+        }
+      } catch {}
+    }
+
+    // Geçerli bir sunucu oturumu yoksa (giriş yapılmamış / çevrimdışı misafir) ağa çıkma ama yerel ilerlemeyi tazele
     const syncStarted = Date.now();
     if (!hasServerToken(effectiveToken)) {
+      await this.reloadLocalProgressToStore();
       dataFlowMonitor.setLastSync({
         at: syncStarted,
         ok: false,

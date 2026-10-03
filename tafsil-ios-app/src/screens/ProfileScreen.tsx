@@ -142,6 +142,7 @@ export function ProfileScreen() {
     setIsSyncing(true);
     try {
       await OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync });
+      await OfflineSyncService.reloadLocalProgressToStore();
     } finally {
       setIsSyncing(false);
     }
@@ -190,8 +191,16 @@ export function ProfileScreen() {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Pressable
               onPress={() => handleSync(true)}
+              disabled={isSyncing}
               hitSlop={12}
-              style={[styles.settingsBtn, { backgroundColor: theme.colors.surf, borderColor: theme.colors.line }]}
+              style={[
+                styles.settingsBtn,
+                {
+                  backgroundColor: theme.colors.surf,
+                  borderColor: theme.colors.line,
+                  opacity: isSyncing ? 0.6 : 1,
+                },
+              ]}
             >
               <StyledText style={{ fontSize: 15, color: isSyncing ? theme.colors.acc : theme.colors.mut }}>
                 {isSyncing ? '…' : '↻'}
