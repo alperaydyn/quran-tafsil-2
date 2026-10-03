@@ -604,7 +604,11 @@ Platformun büyüme, kullanım ve gelir performansını izlemek için analitik a
 
 ## Yol Haritası (Roadmap)
 
-Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Statü göstergeleri:
+Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Detaylı canlı operasyonel backlog'lar ve pre-release kontrol listeleri için bkz:
+* [docs/roadmap/PHASE-1-MVP-BACKLOG.md](docs/roadmap/PHASE-1-MVP-BACKLOG.md) — Faz 1 (MVP) Canlı Backlog & Pre-Release Gatekeeper
+* [docs/roadmap/PHASE-2-BACKLOG.md](docs/roadmap/PHASE-2-BACKLOG.md) — Faz 2 Canlı Backlog & İleri Özellikler
+
+**Statü Göstergeleri:**
 - 🟢 **Tamamlandı**: Geliştirildi, test edildi veya yayına hazır.
 - 🟡 **Devam Ediyor**: Aktif olarak üzerinde çalışılıyor veya kısmen entegre edildi.
 - ⏳ **Planlandı**: Tasarım/şartname hazır, geliştirme sırasını bekliyor.
@@ -612,36 +616,41 @@ Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Statü göstergeleri:
 ---
 
 ### Faz 1 — Temel Okuma Deneyimi (MVP)
-* 🟢 **Kur'an okuma ekranı:** Mushaf sırası, ayet blokları, varsayılan meal, fonetik transliterasyon ve akıcı okuma düzeni.
-* 🟡 **Kelime senkron sesli okuma (Orijinal Tilavet):** Arapça tilavet için kelime seviyesinde zaman damgası senkronu ve akıcı oynatma (Cloudflare R2, `audio.tafsil.net`, Mişari Raşid el-Afasi kayıtları).
-* 🟢 **Kapsamlı kelime sözlüğü:** Hızlı alt özet çekmecesi, kelime detay sayfası, morfolojik kök ve lemma eşlemeleri.
-* 🟡 **Kullanıcı kayıt ve kimlik doğrulama:** Apple Sign-In + Misafir modu ve backend JWT entegrasyonu hazır (sync uçları JWT zorunlu, prod'da dev token'ları kapalı). Native Google Sign-In ve hesap silme App Store public sürümü öncesine (Faz 2 `PBI-AUTH.1/2`) ertelendi.
-* 🟡 **Mod seçimi ile onboarding:** Keşif, Öğrenme ve Odak modları (tasarım hazır, onboarding akış entegrasyonu).
-* 🟢 **Offline okuma altyapısı:** Yerel SQLite (`expo-sqlite`) + snapshot JSON ile tam Kur'an metni, meal ve sözlüğün çevrimdışı sorgulanması (PBI-7.1, PBI-7.3).
-* 🟡 **114 sure ilerleme matrisi:** Okuma durumu takibi ve sure listesi matrisi (Okuduklarım).
+* 🟢 **Kur'an okuma ekranı:** Mushaf sırası (1-114), ayet blokları, varsayılan meal, fonetik transliterasyon, sanallaştırılmış liste optimizasyonu (`FlashList`), ayet yer imleri/notlar ve tipografi ayar çekmecesi (`PBI-1.1`–`1.5`).
+* 🟢 **Kelime senkron sesli okuma (Orijinal Tilavet):** Mişari Raşid el-Afasi 114 sure ses dosyası ve 6236 ayetin kelime zaman damgaları (Cloudflare R2 `audio.tafsil.net`), karaoke kelime vurgulama, oynatma hızı kontrolü, kelimeye dokunarak sarma (seek-on-word), iOS arka plan / kilit ekranı oynatıcı kontrolleri (`MPNowPlayingInfoCenter`), odak modu tilaveti ve tek dokunuşla çevrimdışı sure indirme önbelleği (`PBI-2.1`–`2.10`).
+* 🟢 **Kapsamlı kelime sözlüğü & morfoloji:** Hızlı alt özet çekmecesi (Word Bottom Sheet), kelime detay sayfası rotası, morfolojik kök, lemma ve vezin bilgileri, Kur'an'daki türev kullanımlarının listelenmesi (`PBI-3.1`–`3.4`).
+* 🟢 **Kullanıcı kayıt, kimlik doğrulama & güvenlik sertleştirmesi:** Apple Sign-In + Misafir modu, hesap bağlama (Account Linking), Zustand auth store, Fastify backend JWT doğrulaması, kullanıcı profili (`name`, `email`) ve abonelik DB şeması ayrımı, şifre sıfırlama akışı, sync IDOR kapatması ve prodüksiyon auth koruması (`PBI-4.1`–`4.7`, `PBI-9.1`–`9.3`). Native Google Sign-In ve hesap silme Faz 2 public sürüm backlog'unda.
+* 🟢 **Mod seçimi & onboarding:** Keşif, Öğrenme ve Odak modları (`useReadingMode`), 3 adımlı ilk açılış onboarding akışı, profil/ayarlardan anlık mod değiştirme ve editoryal açılış/yükleme (Splash / Loading) deneyimi (`PBI-5.1`–`5.5`).
+* 🟢 **Sure ilerleme matrisi & okuma takibi (Okuduklarım):** 114 sure interaktif ızgara matrisi, son okunan sure/ayet konumunu hatırlama ve devam kısayolu, okuma geçmişi sayfası, sure tamamlama mantığı, çoklu cihaz istatistik senkronu ve tekilleştirilmiş/idempotent okuma log senkronizasyonu (`PBI-6.1`–`6.6`).
+* 🟢 **Çevrimdışı okuma altyapısı (Offline-First):** Yerel SQLite (`expo-sqlite`) WAL modu + yerel snapshot JSON yedekleri ile tüm Kur'an metni, meal, sözlük ve kelime zaman damgalarının çevrimdışı sıfır gecikmeli sorgulanması (`PBI-7.1`, `PBI-7.3`).
+* 🟢 **Veri akışı izleme ve tanılama (Diagnostics):** Katman etiketli halka tampon (`dataFlowMonitor`), global ağ gözlemcisi, bağlantı durumu & senkron karşılaştırma izleyicisi, Ayarlar › Veri Akışı & Tanılama ekranı (`tafsil://tanilama`), gizlilik filtreli e-posta rapor paylaşımı (`expo-mail-composer`) ve PostgreSQL rapor saklama (`010_client_diagnostics.sql`, `/api/v1/diagnostics`) (`PBI-10.1`–`10.3`).
+* 🟡 **TestFlight Friends & Family Release Gate & Dağıtım:** Kod ve güvenlik sertleştirmesi tamamlandı (`PBI-9.1`–`9.7`); VPS canlı backend dağıtımı (`api.tafsil.net`), port güvenlik yapılandırması, EAS build ve App Store Connect test kayıtları adımları devam ediyor (`PBI-9.8`–`9.11`, `PBI-10.4`).
 
-### Faz 2 — Ezberleme ve Kişiselleştirme
+### Faz 2 — Ezberleme, Platform Genişleme & Kişiselleştirme
+* 🟢 **Dinamik ana ekran dashboard'u:** Bahçen 16 haftalık okuma ısı haritası, günün ilham kartları (ayet/dua), akıllı okumaya devam et kısayolları, editoryal kullanıcı karşılama barı ve yüzen ada menü (Floating Tab Bar).
 * ⏳ **Ezber oturumları ve ezber stüdyosu:** 3 kademeli akordeon turu (Dinle/Takip Et, Gizle/Hatırla, Serbest Oku).
 * ⏳ **Aralıklı tekrar algoritması:** SM-2 / Leitner algoritmasıyla unutma eğrisi bazlı dinamik planlama.
-* ⏳ **Cihaz üzerinde STT ile sesli ezber:** `SFSpeechRecognizer` ile konuşurken açılan kelimeler (reveal-on-recite) ve akıllı fısıltı desteği.
+* ⏳ **Cihaz üzerinde STT ile sesli ezber (Reveal-on-Recite):** `SFSpeechRecognizer` ile konuşurken açılan kelimeler ve akıllı fısıltı koçluğu (`PBI-2.12`).
 * ⏳ **Ezber ilerleme matrisi:** 114 sure üzerinde ezber derinliği görselleştirmesi (Ezberlediklerim).
-* 🟢 **Dinamik ana ekran dashboard'u:** Bahçen 16 haftalık okuma ısı haritası, günün ilham kartları (ayet/dua), akıllı okumaya devam et kısayolları, editoryal kullanıcı karşılama barı ve yüzen ada menü (Floating Tab Bar).
+* ⏳ **Türkçe meal seslendirmesi:** Stüdyo kalitesinde Türkçe meal seslendirmesi (TTS / profesyonel kayıt) ve kelime senkronlu karaoke oynatımı (`PBI-2.11`).
+* ⏳ **App Store Public Sürüm & Güvenlik/Uyumluluk:** Native Google Sign-In (`PBI-AUTH.1`), Apple Guideline 5.1.1(v) uyumlu Hesap Silme (`PBI-AUTH.2`), Sentry crash raporlama (`PBI-OBS.1`), Web tanılama raporu yönetim paneli & 90 günlük veri saklama (`PBI-OBS.2`).
 * ⏳ **Push notification:** Aralıklı tekrar zamanı gelen ayetler için akıllı hatırlatmalar.
+* ⏳ **Web App Portal (Next.js):** Masaüstü okuma, paylaşım ve topluluk portalının geliştirilmesi (`PBI-W.1`).
+* ⏳ **Dinamik önizleme kartları (Open Graph):** Paylaşılan ayet bağlantılarına dinamik OG resim ve önizleme kartı üretimi (`PBI-W.2`).
 
 ### Faz 3 — Derin Analiz ve Yapay Zeka (AI / RAG)
-* ⏳ **Kavram ağı ve interaktif DAG Explorer:** Canvas/SVG tabanlı yönlü çevrimsiz graf görselleştiricisi (zoom/pan, lazy expansion).
+* ⏳ **Kavram ağı ve interaktif DAG Explorer:** Canvas/SVG tabanlı yönlü çevrimsiz graf görselleştiricisi (zoom/pan, viewport culling, lazy expansion: seçilen + 5 komşu) (`PBI-G.1`).
 * 🟡 **Morfolojik kök analiz motoru:** Kök tablosu, türev frekans matrisi ve kök arama motoru (veri katmanı tamamlandı, UI/analiz motoru entegre ediliyor).
 * ⏳ **Kronolojik kavram evrimi:** Nüzul dönemleri (Erken Mekke, Orta Mekke, Geç Mekke, Medine) bazlı anlam genişlemesi analizi.
-* ⏳ **Anlama çalışmaları (Agentic RAG):** Kullanıcı odaklı çok adımlı anlamsal araştırma, dinamik okuma rotası ve session branching — *Pro*.
-* ⏳ **Proaktif detay oturumları:** Kullanıcı ilgi izlerine göre arka planda derlenen kişiselleştirilmiş analiz paketleri (*Free: statik, Pro: etkileşimli*).
-* ⏳ **Premium abonelik altyapısı:** RevenueCat / Apple StoreKit entegrasyonu ve paywall akışları.
+* ⏳ **Kullanıcı odaklı anlama çalışmaları (Agentic RAG):** Canlı araştırma, önerilen okuma rotası, intent denetimi ve session branching — *Pro* (`PBI-A.1`).
+* ⏳ **Proaktif detay oturumları:** Kullanıcı ilgi izlerine göre arka planda derlenen kişiselleştirilmiş analiz paketleri (*Free: statik, Pro: etkileşimli*) (`PBI-A.2`).
+* ⏳ **Premium abonelik altyapısı:** RevenueCat / Apple StoreKit 2 entegrasyonu ve paywall akışları (DB şeması ve Fastify abonelik modülü hazırlandı, istemci StoreKit entegrasyonu).
 
-### Faz 4 — Topluluk, Web ve Sosyal Büyüme
+### Faz 4 — Topluluk, Çoklu Dil ve Sosyal Büyüme
 * ⏳ **Topluluk kavram havuzu:** Kullanıcıların kavram ağlarını ve tefekkür notlarını paylaşması, beğenmesi, kendi profiline çatallaması (fork).
-* ⏳ **Dinamik önizleme ve paylaşım kartları:** Open Graph sosyal paylaşım kartları ve Story Generator.
-* ⏳ **Derin bağlantılar (Deep Linking):** Sure, ayet ve kavram bağlantılarının web ve mobil arasında kesintisiz açılması.
+* ⏳ **Derin bağlantılar (Deep Linking):** Sure, ayet ve kavram bağlantılarının web ve mobil arasında kesintisiz açılması (`tafsil://` & Universal Links).
 * ⏳ **Makale yayınlama ve referans doğrulama:** Editoryal içerikler ve Kur'an referans doğrulama algoritması.
-* ⏳ **Admin paneli ve içerik yönetimi:** Cümle segmentasyonu, kavram moderasyonu ve sistem izleme paneli.
+* ⏳ **Admin paneli ve içerik yönetimi:** Cümle segmentasyonu, kavram moderasyonu, tanılama paneli ve sistem izleme.
 * ⏳ **Platform analitiği ve A/B test altyapısı:** Kullanıcı dönüşüm ve okuma metrikleri.
-* ⏳ **Türkçe ve çoklu dilde stüdyo meal seslendirmesi:** Türkçe meal ve diğer dillerdeki çevirilerin stüdyo kalitesinde TTS (ElevenLabs vb.) ile üretilmesi, kelime zaman damgalarının çıkarılması ve çift dilli senkron okuma entegrasyonu.
+* ⏳ **Çoklu dilde stüdyo meal seslendirmesi:** Diğer dillerdeki çevirilerin stüdyo kalitesinde TTS (ElevenLabs vb.) ile üretilmesi, kelime zaman damgalarının çıkarılması ve çift dilli senkron okuma entegrasyonu.
 * ⏳ **Çoklu dil desteği genişletme:** Yeni meal ve çeviriler, global TTS pipeline'ı.

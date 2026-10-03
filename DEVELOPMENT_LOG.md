@@ -5,6 +5,28 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-03] README.md Yol Haritası (Roadmap) & docs/roadmap/ Canlı Backlog Senkronizasyonu
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **PRD / Roadmap Güncelliği & Anti-Drift:** `README.md` sonundaki Yol Haritası bölümü, `docs/roadmap/PHASE-1-MVP-BACKLOG.md` ve `docs/roadmap/PHASE-2-BACKLOG.md` dosyalarındaki güncel durumlarla tam senkronize edildi.
+* **Faz 1 Statü Düzeltmeleri:**
+  * Kelime senkron sesli okuma (Mişari 114 sure ses + 6236 ayet kelime zaman damgası, Cloudflare R2, karaoke vurgulama, seek-on-word, kilit ekranı oynatıcısı, odak modu tilaveti, çevrimdışı indirme) 🟢 Tamamlandı olarak güncellendi.
+  * Mod seçimi ve 3 adımlı ilk açılış onboarding akışı ile editoryal loading ekranı 🟢 Tamamlandı olarak işaretlendi.
+  * 114 sure ızgara matrisi, okuma tamamlama, tekilleştirilmiş/idempotent senkronizasyon 🟢 Tamamlandı olarak işaretlendi.
+  * Apple Sign-In + Misafir modu, hesap bağlama, Zustand store, JWT/RBAC yetkilendirmesi ve profil/abonelik şema ayrımı 🟢 Tamamlandı olarak güncellendi; Native Google Sign-In ve hesap silmenin Faz 2 App Store public sürümüne aktarıldığı belirtildi.
+  * Yeni eklenen Veri Akışı İzleme ve Tanılama (Diagnostics — `PBI-10.1`–`10.3`) maddesi Faz 1 🟢 Tamamlandı olarak eklendi.
+  * TestFlight Friends & Family Release Gate ve VPS canlı dağıtım adımları (`PBI-9.8`–`9.11`, `PBI-10.4`) kullanıcı aksiyonları olarak 🟡 Devam Ediyor statüsüyle dahil edildi.
+* **Faz 2–4 Senkronizasyonu:** `PHASE-2-BACKLOG.md` içindeki deferral maddeleri (Native Google Sign-In `PBI-AUTH.1`, Hesap Silme `PBI-AUTH.2`, Sentry `PBI-OBS.1`, Web tanılama paneli `PBI-OBS.2`, Türkçe meal seslendirmesi `PBI-2.11`, Reveal-on-recite STT `PBI-2.12`, Web App Portal `PBI-W.1`, OG Cards `PBI-W.2`) ve Faz 3/4 kodlarıyla çapraz referanslandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `README.md`: Yol Haritası (Roadmap) bölümü güncellendi, canlı backlog dosyalarına doğrudan bağlantılar eklendi.
+* `DEVELOPMENT_LOG.md`: Oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+docs(roadmap): align README.md roadmap section with live phase backlogs
+```
+
 ---
 
 ## [2026-10-03] Veri Akışı İzleme & Tanılama Ekranı + Sunucu Karşılığı (PBI-10.1 — PBI-10.3)
