@@ -11,6 +11,7 @@ import {
 } from '../api/auth';
 import type { AuthUser } from '../api/types';
 import { OfflineSyncService } from '../services/offlineSyncService';
+import { FEATURES } from '../api/config';
 
 /**
  * Kimlik doğrulama durumu (MOB-011, PBI-4.4, PBI-4.5).
@@ -27,6 +28,8 @@ interface AuthState {
   authStepCompleted: boolean;
   isLoading: boolean;
   error: string | null;
+  /** Sunucu 401 döndüğünde true olur; yerel veri korunur, kullanıcıya yeniden giriş önerilir (PBI-9.6). */
+  sessionExpired: boolean;
 
   signInWithApple: () => Promise<boolean>;
   signInWithGoogle: (options?: { email?: string; name?: string }) => Promise<boolean>;
@@ -34,6 +37,7 @@ interface AuthState {
   linkAccount: (provider: 'apple' | 'google', googleDetails?: { email?: string; name?: string }) => Promise<boolean>;
   signOut: () => void;
   resetAuthStep: () => void;
+  markSessionExpired: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -46,8 +50,13 @@ export const useAuthStore = create<AuthState>()(
       authStepCompleted: false,
       isLoading: false,
       error: null,
+      sessionExpired: false,
 
       resetAuthStep: () => set({ authStepCompleted: false }),
+
+      markSessionExpired: () => {
+        if (!get().sessionExpired) set({ sessionExpired: true });
+      },
 
       signInWithApple: async () => {
         if (Platform.OS !== 'ios') {
@@ -94,6 +103,7 @@ export const useAuthStore = create<AuthState>()(
               authStepCompleted: true,
               isLoading: false,
               error: null,
+              sessionExpired: false,
             });
 
             OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
@@ -113,6 +123,11 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signInWithGoogle: async (options?: { email?: string; name?: string }) => {
+        // PBI-9.3: Native Google Sign-In (Faz 2) tamamlanana kadar yalnızca geliştirme build'lerinde çalışır.
+        if (!FEATURES.googleSignIn) {
+          set({ error: 'Google ile giriş bu sürümde henüz kullanılamıyor.' });
+          return false;
+        }
         set({ isLoading: true, error: null });
         try {
           const chosenEmail = options?.email?.trim();
@@ -143,6 +158,7 @@ export const useAuthStore = create<AuthState>()(
               authStepCompleted: true,
               isLoading: false,
               error: null,
+              sessionExpired: false,
             });
 
             OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
@@ -174,6 +190,7 @@ export const useAuthStore = create<AuthState>()(
               authStepCompleted: true,
               isLoading: false,
               error: null,
+              sessionExpired: false,
             });
             return;
           }
@@ -242,6 +259,7 @@ export const useAuthStore = create<AuthState>()(
                   authStepCompleted: true,
                   isLoading: false,
                   error: null,
+                  sessionExpired: false,
                 });
                 OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
                 return true;
@@ -252,6 +270,7 @@ export const useAuthStore = create<AuthState>()(
             return false;
           }
         } else {
+          if (!FEATURES.googleSignIn) return false;
           const chosenEmail = googleDetails?.email?.trim();
           if (!chosenEmail) {
             set({ error: 'Lütfen geçerli bir e-posta adresi girin.' });
@@ -281,6 +300,7 @@ export const useAuthStore = create<AuthState>()(
                 authStepCompleted: true,
                 isLoading: false,
                 error: null,
+                sessionExpired: false,
               });
               OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
               return true;
@@ -302,6 +322,7 @@ export const useAuthStore = create<AuthState>()(
           authStepCompleted: false,
           isLoading: false,
           error: null,
+          sessionExpired: false,
         });
       },
     }),
@@ -314,6 +335,7 @@ export const useAuthStore = create<AuthState>()(
         isAuthenticated: state.isAuthenticated,
         isGuest: state.isGuest,
         authStepCompleted: state.authStepCompleted,
+        sessionExpired: state.sessionExpired,
       }),
     }
   )

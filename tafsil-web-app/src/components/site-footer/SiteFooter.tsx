@@ -8,6 +8,7 @@ export default function SiteFooter() {
         <span className={styles.brand}>tafsil.net</span>
         <nav className={styles.links}>
           <Link href="/topluluk">Topluluk</Link>
+          <Link href="/gizlilik">Gizlilik</Link>
           <a href="mailto:merhaba@tafsil.net">İletişim</a>
         </nav>
         <span className={styles.copy}>© {new Date().getFullYear()}</span>

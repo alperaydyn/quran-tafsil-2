@@ -516,9 +516,9 @@ Tüm özellikler aşağıdaki fazlarla önceliklendirilir. Statü göstergeleri:
 * 🟢 **Kur'an okuma ekranı:** Mushaf sırası, ayet blokları, varsayılan meal, fonetik transliterasyon ve akıcı okuma düzeni.
 * 🟡 **Kelime senkron sesli okuma (Orijinal Tilavet):** Arapça tilavet için kelime seviyesinde zaman damgası senkronu ve akıcı oynatma (Cloudflare R2, `audio.tafsil.net`, Mişari Raşid el-Afasi kayıtları).
 * 🟢 **Kapsamlı kelime sözlüğü:** Hızlı alt özet çekmecesi, kelime detay sayfası, morfolojik kök ve lemma eşlemeleri.
-* 🟡 **Kullanıcı kayıt ve kimlik doğrulama:** Apple Sign-In & Google Sign-In istemci katmanı ve backend JWT entegrasyonu.
+* 🟡 **Kullanıcı kayıt ve kimlik doğrulama:** Apple Sign-In + Misafir modu ve backend JWT entegrasyonu hazır (sync uçları JWT zorunlu, prod'da dev token'ları kapalı). Native Google Sign-In ve hesap silme App Store public sürümü öncesine (Faz 2 `PBI-AUTH.1/2`) ertelendi.
 * 🟡 **Mod seçimi ile onboarding:** Keşif, Öğrenme ve Odak modları (tasarım hazır, onboarding akış entegrasyonu).
-* ⏳ **Offline okuma altyapısı:** Yerel SQLite / WatermelonDB çevrimdışı senkronizasyonu.
+* 🟢 **Offline okuma altyapısı:** Yerel SQLite (`expo-sqlite`) + snapshot JSON ile tam Kur'an metni, meal ve sözlüğün çevrimdışı sorgulanması (PBI-7.1, PBI-7.3).
 * 🟡 **114 sure ilerleme matrisi:** Okuma durumu takibi ve sure listesi matrisi (Okuduklarım).
 
 ### Faz 2 — Ezberleme ve Kişiselleştirme

@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyledText } from '../common/StyledText';
 import { useTheme } from '../../theme';
-import { mockSurahs } from '../../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../../data/surahs.seed';
 import type { Surah } from '../../api/types';
 import type { RootStackParamList } from '../../navigation/types';
 import { useReadingProgressStore } from '../../store/useReadingProgressStore';
@@ -129,7 +129,7 @@ export function SurahGridMatrix({ initialTab = 'reading', onStartMemorization }:
       {/* 114 Sure 4-Sütunlu Grid */}
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.gridContent}>
         <View style={styles.grid}>
-          {mockSurahs.map((surah) => {
+          {SURAH_SEED_DATA.map((surah) => {
             const progress =
               activeTab === 'reading'
                 ? getReadingProgress(surah.id, surah.verseCount)

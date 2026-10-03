@@ -96,15 +96,44 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 ## 8. Faz 1 Pre-Release Kontrol & Arındırma (Release Gatekeeper)
 *Bu bölüm, Faz 1 tamamlandı denilip mağazaya (App Store TestFlight) veya kullanıcı testine çıkmadan önce zorunlu olarak çalıştırılacak denetim PBI'larıdır.*
 
-- [ ] **PBI-8.1 (Mock / Dummy Veri Arındırması):**
-  - `src/api/mock/verses.mock.ts` ve `surahs.mock.ts` bağımlılıklarının canlı API / yerel SQLite veritabanına bağlanması.
-  - `useAuthStore` veya `auth.ts` içindeki sahte token (`mock_jwt_token_123`) ve test kullanıcılarının prodüksiyon kodundan temizlenmesi veya sadece `__DEV__` guard'ına alınması.
-- [ ] **PBI-8.2 (Geçici Yerel Referans & URL Denetimi):**
-  - Kod genelinde `localhost`, `127.0.0.1`, `http://10.0.2.2` veya geçici IP referanslarının taranması; tüm ağ isteklerinin `.env` ve `app.json` üzerindeki `EXPO_PUBLIC_API_URL` ve `https://audio.tafsil.net` standartlarına bağlanması.
-- [ ] **PBI-8.3 (Konfigürasyon & EAS Temizliği):**
-  - `app.json` ve `eas.json` içindeki `REPLACE_WITH_EAS_PROJECT_ID` placeholder'ının gerçek Expo Project ID ile güncellenmesi.
-  - Bundle ID (`net.tafsil.app`), App Store Category ve kamera/mikrofon izin metinlerinin (`Info.plist` strings) App Store standartlarına getirilmesi.
-- [ ] **PBI-8.4 (Kırık Bağlantı & Ucu Açık Bileşenler):**
-  - Faz 1 ekranlarında (Ana Sayfa, Okuma, Sure Listesi, Arama, Ayarlar) tıklanıp hiçbir şey yapmayan veya çöken "dummy" butonların taranması (ör. Henüz hazır olmayan Faz 2/3 özellikleri için zarif "Çok Yakında" bilgilendirmesi eklenmesi).
-- [ ] **PBI-8.5 (Sonraki Faza Aktarım / Deferral Protocol):**
-  - Faz 1 için planlanıp bilinçli olarak Faz 2'ye ertelenen herhangi bir mock veya özellik varsa; bunların gerekçesiyle birlikte `docs/roadmap/PHASE-2-BACKLOG.md` (veya `DEVELOPMENT_LOG.md`) kontrol listesine **yeni PBI olarak eklenmesi** ve Faz 1 listesinden düşülmesi.
+- [x] **PBI-8.1 (Mock / Dummy Veri Arındırması):**
+  - `src/api/mock/surahs.mock.ts` → `src/data/surahs.seed.ts` olarak taşındı, `mockSurahs` → `SURAH_SEED_DATA` yeniden adlandırıldı.
+  - `src/api/mock/verses.mock.ts` bağımlılıkları kaldırıldı, tüm fallback'ler SQLite → snapshot → `[]` zinciri olarak standardize edildi.
+  - `useAuthStore` ve `auth.ts` içindeki sahte token fallback'leri `__DEV__` guard'ına alındı; prodüksiyonda `{ success: false }` döner.
+- [x] **PBI-8.2 (Geçici Yerel Referans & URL Denetimi):**
+  - `lexiconEnrichmentService.ts`, `lexiconCacheService.ts` ve `HomeScreen.tsx` içindeki hardcoded `localhost:3001` referansları merkezi `API_BASE` import'u ile değiştirildi.
+- [x] **PBI-8.3 (Konfigürasyon & EAS Temizliği):**
+  - `app.json` içine `apiUrl` (`https://api.tafsil.net/api/v1`) ve `NSMicrophoneUsageDescription` eklendi.
+  - `REPLACE_WITH_EAS_PROJECT_ID` ve `eas.json` submit placeholder'ları Faz 2 backlog'una (`PBI-D.1`, `PBI-D.2`) aktarıldı (Apple Developer hesap bilgileri gerekli).
+- [x] **PBI-8.4 (Kırık Bağlantı & Ucu Açık Bileşenler):**
+  - Faz 1 ekranlarında boş `onPress` handler, "Coming Soon" kalıntısı ve TODO bulunamadı — temiz.
+- [x] **PBI-8.5 (Sonraki Faza Aktarım / Deferral Protocol):**
+  - Faz 1'den bilinçli olarak ertelenen maddeler (EAS Project ID, Apple submit bilgileri, mock dosya tam silimi, Türkçe meal seslendirmesi, Reveal-on-Recite STT, Web App Portal, Agentic RAG, DAG görselleştirme) `docs/roadmap/PHASE-2-BACKLOG.md` dosyasına aktarıldı.
+
+---
+
+## 9. TestFlight Friends & Family Release Gate
+*2026-10-03 tarihli uçtan uca pre-release denetiminde (uygulama + backend + canlı altyapı) tespit edilen, TestFlight harici test gönderimini bloke eden maddeler. Kararlar: Google girişi F&F build'inde gizlenir (gerçek entegrasyon Faz 2), hesap silme App Store public sürümüne ertelenir.*
+
+### 9A. Kod Düzeltmeleri (Ajan)
+- [x] **PBI-9.1 (Sync IDOR Kapatma):** `/sync/*` uçları zorunlu JWT (`app.authenticate`) arkasına alınır; body/query `user_id` ve e-posta ile kullanıcı çözümleme kaldırılır, yalnızca `request.user.sub` kullanılır.
+  - `sync/routes.ts` 5 uç `preHandler: authenticate`; `SyncService.getEffectiveUserId` yalnızca UUID doğrular. İstemci `user_id` göndermeyi bıraktı. Fastify inject smoke test 7/7 PASS.
+- [x] **PBI-9.2 (Prod Auth Sertleştirme):** `google-dev-*`, `apple-dev-*`, `mock-*` token bypass'ları `NODE_ENV !== 'production'` ile sınırlanır; prodüksiyonda `JWT_SECRET` tanımsız/varsayılansa sunucu başlatılmaz.
+  - `config.auth.allowDevTokens` bayrağı; `CHANGE_ME*`, varsayılan veya <32 karakter secret prod'da reddedilir. Yerel `backend/.env` `NODE_ENV=development` yapıldı.
+- [x] **PBI-9.3 (Google Girişini Gizleme):** E-posta yazdırılan sahte Google modali prod build'de gizlenir (`__DEV__` guard); F&F sürümü Apple + Misafir ile çıkar.
+  - `FEATURES.googleSignIn` (`config.ts`) — UI + store çift katmanlı guard. Gerçek entegrasyon Faz 2 `PBI-AUTH.1`.
+- [x] **PBI-9.4 (app.json App Store Uyum Ayarları):** `usesNonExemptEncryption: false`, `privacyManifests` (Required Reason API), `supportsTablet: false`, kullanılmayan mikrofon izninin kaldırılması, şema dışı `newArchEnabled` anahtarının silinmesi, Expo patch sürüm güncellemeleri.
+  - Revizyon: Mikrofon metni **korundu** ve `expo-audio` eklentisine taşındı — binary kayıt API'leri içerdiğinden kaldırılması ITMS-90683 reddine yol açar. `expo-doctor` 21/21.
+- [x] **PBI-9.5 (API URL Öncelik Zinciri):** `EXPO_PUBLIC_API_URL` → (prod'da) `extra.apiUrl` → yerel IP sırası; `eas.json` env adlarının `EXPO_PUBLIC_*` olarak düzeltilmesi.
+  - Staging DNS olmadığından `preview` profili geçici olarak prod API'ye yönlendirildi (Faz 2 `PBI-D.4`).
+- [x] **PBI-9.6 (Oturum Süresi & 401 Yönetimi):** Beta için uzun ömürlü JWT ve istemcide 401 alındığında oturumun kontrollü sonlandırılması.
+  - JWT varsayılanı 90gün; 401'de `sessionExpired` bayrağı (yerel veri silinmez) + Ayarlar'da yeniden giriş uyarısı; yerel/dev token'larla ağa çıkılmaz.
+- [x] **PBI-9.7 (Orphan Mock Temizliği & Gizlilik Linki):** `src/api/mock/*` dosyalarının silinmesi (Faz 2 PBI-D.3 öne çekildi); Ayarlar ekranına Gizlilik Politikası bağlantısı.
+  - Ayarlar > Hakkında: Gizlilik Politikası, Geri Bildirim (mailto, sürüm/build bilgili), sürüm etiketi. Önizleme (Onboarding/Loading) kısayolları `__DEV__`'e alındı.
+
+### 9B. Altyapı & Hesap İşlemleri (Kullanıcı)
+- [ ] **PBI-9.8 (Backend Canlı Dağıtım):** Backend'in VPS'e dağıtılması + Cloudflare'de `api.tafsil.net` DNS kaydı ve TLS (`docs/deployment/01-BACKEND-DEPLOY.md`).
+- [ ] **PBI-9.9 (Veritabanı Güvenliği):** VPS firewall ile 5432/6379 portlarının dışarıya kapatılması, DB parolasının rotasyonu, `DEVELOPMENT_LOG.md` içindeki parola sızıntısının temizlenmesi.
+  - ✅ Log'daki parola maskelendi (ajan). ⏳ Firewall + parola rotasyonu (kullanıcı) — parola git geçmişinde kalmaya devam ettiğinden rotasyon zorunlu.
+- [ ] **PBI-9.10 (EAS & App Store Connect):** `eas init` (Faz 2 PBI-D.1), ASC'de `net.tafsil.app` uygulama kaydı ve `eas.json` submit bilgileri (Faz 2 PBI-D.2).
+- [ ] **PBI-9.11 (ASC Test Bilgileri):** Gizlilik politikası sayfasının yayını (`tafsil.net/gizlilik`), Beta açıklaması, geri bildirim e-postası, inceleme notu (Misafir modu), App Privacy etiketleri.

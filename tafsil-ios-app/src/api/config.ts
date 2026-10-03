@@ -26,16 +26,35 @@ function resolveApiHost(): string {
 
 const defaultHost = resolveApiHost();
 
-export const API_BASE =
-  Constants.expoConfig?.extra?.apiUrl ??
+/**
+ * API taban adresi öncelik zinciri (PBI-9.5):
+ * 1. `EXPO_PUBLIC_API_URL` — EAS build profili (eas.json `env`) veya yerel `.env` ile build-time'da gömülür.
+ * 2. `app.json > extra.apiUrl` — yalnızca prodüksiyon (release) build'lerde; geliştirme sırasında
+ *    yanlışlıkla canlı API'ye gidilmesini engeller.
+ * 3. Yerel geliştirme sunucusu (`http://<metro-host-ip>:4000/api/v1`).
+ */
+export const API_BASE: string =
   process.env.EXPO_PUBLIC_API_URL ??
+  (!__DEV__ ? (Constants.expoConfig?.extra?.apiUrl as string | undefined) : undefined) ??
   `http://${defaultHost}:4000/api/v1`;
 
-// USE_MOCK: false olarak ayarlandı (Canlı API aktif, ağ yoksa SQLite / snapshot devrede).
-export const USE_MOCK = {
-  surahs: false,
-  verses: false,
-};
+/**
+ * Sürüm bazlı özellik bayrakları.
+ * - googleSignIn: Native Google Sign-In entegrasyonu tamamlanana kadar (Faz 2) yalnızca
+ *   geliştirme build'lerinde görünür. F&F / TestFlight sürümü Apple + Misafir ile çıkar (PBI-9.3).
+ */
+export const FEATURES = {
+  googleSignIn: __DEV__,
+} as const;
+
+/** Gizlilik Politikası (App Store / TestFlight harici test zorunluluğu — PBI-9.7). */
+export const PRIVACY_POLICY_URL: string =
+  (Constants.expoConfig?.extra?.privacyPolicyUrl as string | undefined) ?? 'https://tafsil.net/gizlilik';
+
+/** Geri bildirim / destek iletişim adresi. */
+export const SUPPORT_EMAIL: string =
+  (Constants.expoConfig?.extra?.supportEmail as string | undefined) ?? 'merhaba@tafsil.net';
+
 
 export const CLOUDFLARE_R2_BASE_URL =
   Constants.expoConfig?.extra?.audioBaseUrl ??

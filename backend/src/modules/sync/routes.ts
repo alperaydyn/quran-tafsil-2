@@ -2,22 +2,22 @@ import type { FastifyPluginAsync } from "fastify";
 import { SyncService } from "./service.js";
 import { SyncPushSchema, SyncPullSchema } from "./dto.js";
 
+/**
+ * Senkronizasyon uçları (PBI-9.1 — IDOR kapatma).
+ * Tüm uçlar zorunlu JWT doğrulaması arkasındadır. Kullanıcı kimliği YALNIZCA
+ * doğrulanmış token'ın `sub` alanından alınır; body/query içindeki `user_id`
+ * alanları geriye dönük uyumluluk için şemada kabul edilir ancak yok sayılır.
+ */
 export const syncRoutes: FastifyPluginAsync = async (fastify) => {
   const syncService = new SyncService();
+  const authOnly = { preHandler: fastify.authenticate };
 
-  const extractUserId = async (request: any, fallbackUserId?: string): Promise<string | undefined> => {
-    if (request.headers.authorization) {
-      try {
-        const decoded = (await request.jwtVerify()) as { sub: string; authProvider?: string } | undefined;
-        if (decoded?.sub) return decoded.sub;
-      } catch {
-        // Token çözülemezse fallback'e devam et
-      }
-    }
-    return fallbackUserId;
-  };
+  const unauthenticated = {
+    success: false,
+    error: { code: "UNAUTHENTICATED", message: "Senkronizasyon için kimlik doğrulama gereklidir." },
+  } as const;
 
-  fastify.post("/api/v1/sync/push", async (request, reply) => {
+  fastify.post("/api/v1/sync/push", authOnly, async (request, reply) => {
     const parseResult = SyncPushSchema.safeParse(request.body);
     if (!parseResult.success) {
       return reply.code(400).send({
@@ -31,11 +31,11 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
     }
 
     const data = parseResult.data;
-    data.user_id = await extractUserId(request, data.user_id);
+    data.user_id = request.user.sub;
 
     const result = await syncService.pushSyncData(data);
     if (result.error === 'UNAUTHENTICATED') {
-      return reply.code(401).send({ success: false, error: { code: 'UNAUTHENTICATED', message: 'Senkronizasyon için kimlik doğrulama gereklidir.' } });
+      return reply.code(401).send(unauthenticated);
     }
     return reply.send({
       success: true,
@@ -43,7 +43,7 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
     });
   });
 
-  fastify.post("/api/v1/sync/pull", async (request, reply) => {
+  fastify.post("/api/v1/sync/pull", authOnly, async (request, reply) => {
     const parseResult = SyncPullSchema.safeParse(request.body || {});
     if (!parseResult.success) {
       return reply.code(400).send({
@@ -57,11 +57,11 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
     }
 
     const data = parseResult.data;
-    data.user_id = await extractUserId(request, data.user_id);
+    data.user_id = request.user.sub;
 
     const result = await syncService.pullSyncData(data);
     if (!result) {
-      return reply.code(401).send({ success: false, error: { code: 'UNAUTHENTICATED', message: 'Senkronizasyon için kimlik doğrulama gereklidir.' } });
+      return reply.code(401).send(unauthenticated);
     }
     return reply.send({
       success: true,
@@ -73,12 +73,10 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
     });
   });
 
-  fastify.get("/api/v1/sync/status", async (request, reply) => {
-    const queryParams = request.query as { user_id?: string };
-    const effectiveUserId = await extractUserId(request, queryParams?.user_id);
-    const status = await syncService.getSyncStatus(effectiveUserId);
+  fastify.get("/api/v1/sync/status", authOnly, async (request, reply) => {
+    const status = await syncService.getSyncStatus(request.user.sub);
     if (!status) {
-      return reply.code(401).send({ success: false, error: { code: 'UNAUTHENTICATED', message: 'Senkronizasyon için kimlik doğrulama gereklidir.' } });
+      return reply.code(401).send(unauthenticated);
     }
     return reply.send({
       success: true,
@@ -86,21 +84,17 @@ export const syncRoutes: FastifyPluginAsync = async (fastify) => {
     });
   });
 
-  fastify.get("/api/v1/sync/timeline", async (request, reply) => {
-    const query = request.query as { user_id?: string };
-    const timeline = await syncService.getReadingTimeline(query?.user_id);
+  const timelineHandler = async (request: any, reply: any) => {
+    const timeline = await syncService.getReadingTimeline(request.user.sub);
+    if (!timeline) {
+      return reply.code(401).send(unauthenticated);
+    }
     return reply.send({
       success: true,
       data: timeline
     });
-  });
+  };
 
-  fastify.get("/api/v1/sync/reading-history", async (request, reply) => {
-    const query = request.query as { user_id?: string };
-    const timeline = await syncService.getReadingTimeline(query?.user_id);
-    return reply.send({
-      success: true,
-      data: timeline
-    });
-  });
+  fastify.get("/api/v1/sync/timeline", authOnly, timelineHandler);
+  fastify.get("/api/v1/sync/reading-history", authOnly, timelineHandler);
 };

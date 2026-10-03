@@ -1,16 +1,19 @@
-import type { Surah } from '../types';
+import type { Surah } from '../api/types';
 
 /**
- * Statik mock veri (114 sure) — MOB-005 için geliştirme amaçlı.
- * BE-004 (GET /surahs) yayınlandığında src/api/client.ts gerçek uca yönlendirilecek.
+ * Kur'an-ı Kerim Sure Referans Verisi (114 sure)
+ *
+ * Bu dosya, yerel SQLite veritabanının tohumlanması (seed), çevrimdışı
+ * fallback ve sure metadatası sorguları için kullanılan **değişmez
+ * referans verisidir**. Arapça metin veya ayet içermez — sadece sure
+ * meta bilgileri (ad, nüzul sırası, dönem, ayet sayısı, özet) barındırır.
  *
  * Kaynak: data-pipeline/scripts/surah-metadata.json anlık görüntüsü
- * (Agent-01 tarafından üretilir, sure adları/nüzul sırası/dönem/ayet sayısı
- * Tanzil meta verisiyle eşleşir). Alanlar mobil API sözleşmesine göre
- * camelCase'e çevrilmiştir — bkz. src/api/types.ts.
+ * (Agent-01 tarafından üretilir, Tanzil meta verisiyle eşleşir).
+ * Alanlar mobil API sözleşmesine göre camelCase'e çevrilmiştir — bkz. src/api/types.ts.
  */
-export const mockSurahs: Surah[] = [
-  { id: 1, nameTr: "Fâtiha", nameAr: "الفاتحة", revelationOrder: 5, period: "erken_mekke", verseCount: 7, summary: "Açılış, başlangıç, Kur’an’ın özü" },
+export const SURAH_SEED_DATA: Surah[] = [
+  { id: 1, nameTr: "Fâtiha", nameAr: "الفاتحة", revelationOrder: 5, period: "erken_mekke", verseCount: 7, summary: "Açılış, başlangıç, Kur'an'ın özü" },
   { id: 2, nameTr: "Bakara", nameAr: "البقرة", revelationOrder: 87, period: "medine", verseCount: 286, summary: "İnek, toplumsal hukuk, itikat ve şeriat esasları" },
   { id: 3, nameTr: "Âl-i İmrân", nameAr: "آل عمران", revelationOrder: 89, period: "medine", verseCount: 200, summary: "İmran ailesi, tevhid, Uhud savaşı ve sabır" },
   { id: 4, nameTr: "Nisâ", nameAr: "النساء", revelationOrder: 92, period: "medine", verseCount: 176, summary: "Kadınlar, aile hukuku, adalet ve emanet" },
@@ -123,4 +126,12 @@ export const mockSurahs: Surah[] = [
   { id: 111, nameTr: "Tebbet (Mesed)", nameAr: "المسد", revelationOrder: 6, period: "erken_mekke", verseCount: 5, summary: "Ebu Leheb'in elleri kurusun" },
   { id: 112, nameTr: "İhlâs", nameAr: "الإخلاص", revelationOrder: 22, period: "erken_mekke", verseCount: 4, summary: "Tevhidin katıksız ifadesi" },
   { id: 113, nameTr: "Felak", nameAr: "الفلق", revelationOrder: 20, period: "erken_mekke", verseCount: 5, summary: "Sabahın aydınlığına sığınma" },
-  { id: 114, nameTr: "Nâs", nameAr: "الناس", revelationOrder: 21, period: "erken_mekke", verseCount: 6, summary: "İnsanların Rabbine sığınma" },];
+  { id: 114, nameTr: "Nâs", nameAr: "الناس", revelationOrder: 21, period: "erken_mekke", verseCount: 6, summary: "İnsanların Rabbine sığınma" },
+];
+
+/**
+ * Geriye dönük uyumluluk köprüsü.
+ * Eski `mockSurahs` referanslarını kullanan bileşenler için alias.
+ * @deprecated Yeni kodda `SURAH_SEED_DATA` kullanın.
+ */
+export const mockSurahs = SURAH_SEED_DATA;

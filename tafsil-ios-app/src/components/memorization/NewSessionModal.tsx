@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { StyledText } from '../common/StyledText';
 import { useTheme } from '../../theme';
-import { mockSurahs } from '../../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../../data/surahs.seed';
 import type { Surah } from '../../api/types';
 import { useMemorizationStore } from '../../store/useMemorizationStore';
 
@@ -33,7 +33,7 @@ export function NewSessionModal({
   const [scope, setScope] = useState<'all' | 'blocks'>('blocks');
   const [selectedBlockIndex, setSelectedBlockIndex] = useState(0);
 
-  const surah = mockSurahs.find((s) => s.id === selectedSurahId) ?? mockSurahs[0];
+  const surah = SURAH_SEED_DATA.find((s) => s.id === selectedSurahId) ?? SURAH_SEED_DATA[0];
 
   // 5'er ayetlik dinamik bloklar
   const blockSize = 5;

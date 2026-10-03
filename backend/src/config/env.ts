@@ -4,8 +4,25 @@ import path from "path";
 // Load environment variables from backend/.env
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
+const nodeEnv = process.env.NODE_ENV || "development";
+const isProduction = nodeEnv === "production";
+
+const INSECURE_JWT_DEFAULT = "dev-only-insecure-secret-change-me";
+const jwtSecret = process.env.JWT_SECRET || INSECURE_JWT_DEFAULT;
+
+// PBI-9.2: Prodüksiyonda güvensiz/eksik JWT secret ile başlatmayı reddet.
+if (
+  isProduction &&
+  (jwtSecret === INSECURE_JWT_DEFAULT || jwtSecret.startsWith("CHANGE_ME") || jwtSecret.length < 32)
+) {
+  throw new Error(
+    "[config] JWT_SECRET prodüksiyonda tanımlı ve en az 32 karakter olmalıdır. Sunucu başlatılmadı."
+  );
+}
+
 export const config = {
-  env: process.env.NODE_ENV || "development",
+  env: nodeEnv,
+  isProduction,
   port: parseInt(process.env.PORT || "4000", 10),
   host: process.env.HOST || "0.0.0.0",
   logLevel: process.env.LOG_LEVEL || "info",
@@ -27,11 +44,17 @@ export const config = {
   },
 
   jwt: {
-    secret: process.env.JWT_SECRET || "dev-only-insecure-secret-change-me",
-    expiresIn: process.env.JWT_EXPIRES_IN || "7d",
+    secret: jwtSecret,
+    // Beta (TestFlight F&F) süresince refresh token olmadığından uzun ömürlü oturum (PBI-9.6).
+    expiresIn: process.env.JWT_EXPIRES_IN || "90d",
   },
 
   auth: {
+    /**
+     * `google-dev-*`, `apple-dev-*`, `mock-*` sahte id_token'ların kabul edilip edilmeyeceği.
+     * Prodüksiyonda HER ZAMAN kapalıdır (PBI-9.2); geliştirmede varsayılan açık.
+     */
+    allowDevTokens: !isProduction && process.env.ALLOW_DEV_AUTH_TOKENS !== "false",
     apple: {
       clientId: process.env.APPLE_CLIENT_ID || "net.tafsil.app",
     },

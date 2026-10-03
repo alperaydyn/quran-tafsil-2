@@ -1,7 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 import { Platform } from 'react-native';
 import type { Surah, Verse, Word, NuzulDonemi } from '../api/types';
-import { mockSurahs } from '../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import ayetlerSnapshot from '../data/ayetler.snapshot.json';
 import { CURATED_LEXICON, type WordLexiconDetail } from '../data/lexicon.seed';
 import { CONCEPTS_DICTIONARY, type ConceptDetail } from '../data/concepts.seed';
@@ -164,7 +164,7 @@ class LocalDbServiceImpl {
           VALUES ($id, $name_tr, $name_ar, $revelation_order, $period, $verse_count, $summary)
         `);
         try {
-          for (const s of mockSurahs) {
+          for (const s of SURAH_SEED_DATA) {
             surahStmt.executeSync({
               $id: s.id,
               $name_tr: s.nameTr,
@@ -277,7 +277,7 @@ class LocalDbServiceImpl {
     this.ensureInitialized();
 
     if (!this.isSqliteSupported || !this.db) {
-      return [...mockSurahs].sort((a, b) =>
+      return [...SURAH_SEED_DATA].sort((a, b) =>
         siralama === 'nuzul' ? a.revelationOrder - b.revelationOrder : a.id - b.id
       );
     }
@@ -301,7 +301,7 @@ class LocalDbServiceImpl {
       console.warn('[LocalDbService.getSurahs] SQLite sorgu hatası, mock fallback:', e);
     }
 
-    return [...mockSurahs].sort((a, b) =>
+    return [...SURAH_SEED_DATA].sort((a, b) =>
       siralama === 'nuzul' ? a.revelationOrder - b.revelationOrder : a.id - b.id
     );
   }
@@ -313,7 +313,7 @@ class LocalDbServiceImpl {
     this.ensureInitialized();
 
     if (!this.isSqliteSupported || !this.db) {
-      return mockSurahs.find((s) => s.id === surahId) || null;
+      return SURAH_SEED_DATA.find((s) => s.id === surahId) || null;
     }
 
     try {
@@ -333,7 +333,7 @@ class LocalDbServiceImpl {
       console.warn('[LocalDbService.getSurahById] Hata:', e);
     }
 
-    return mockSurahs.find((s) => s.id === surahId) || null;
+    return SURAH_SEED_DATA.find((s) => s.id === surahId) || null;
   }
 
   /**
@@ -560,7 +560,7 @@ class LocalDbServiceImpl {
   public getStats(): LocalDbStats {
     this.ensureInitialized();
 
-    let totalSurahs = mockSurahs.length;
+    let totalSurahs = SURAH_SEED_DATA.length;
     let totalVerses = (ayetlerSnapshot as any[]).length;
     let totalRoots = Object.keys(CURATED_LEXICON).length;
     let totalConcepts = Object.keys(CONCEPTS_DICTIONARY).length;

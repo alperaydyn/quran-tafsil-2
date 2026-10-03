@@ -7,15 +7,41 @@
     "icon": "./assets/icon.png",
     "scheme": "tafsilnet",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "primaryColor": "#3F5F86",
     "ios": {
       "bundleIdentifier": "net.tafsil.app",
-      "supportsTablet": true,
+      "supportsTablet": false,
       "usesAppleSignIn": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      },
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
+        ],
+        "CFBundleDevelopmentRegion": "tr",
+        "CFBundleAllowMixedLocalizations": true
+      },
+      "privacyManifests": {
+        "NSPrivacyTracking": false,
+        "NSPrivacyTrackingDomains": [],
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
+            "NSPrivacyAccessedAPITypeReasons": ["C617.1"]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryDiskSpace",
+            "NSPrivacyAccessedAPITypeReasons": ["E174.1"]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategorySystemBootTime",
+            "NSPrivacyAccessedAPITypeReasons": ["35F9.1"]
+          }
         ]
       }
     },
@@ -47,14 +73,18 @@
       [
         "expo-audio",
         {
-          "enableBackgroundPlayback": true
+          "enableBackgroundPlayback": true,
+          "microphonePermission": "Ezber Stüdyosu'nda kendi tilavetinizi sesli olarak doğrulayabilmeniz için mikrofonunuza erişim gereklidir. Ses kaydı yalnızca cihazınızda işlenir."
         }
       ],
       "expo-asset",
       "expo-sqlite"
     ],
     "extra": {
+      "apiUrl": "https://api.tafsil.net/api/v1",
       "audioBaseUrl": "https://audio.tafsil.net",
+      "privacyPolicyUrl": "https://tafsil.net/gizlilik",
+      "supportEmail": "merhaba@tafsil.net",
       "eas": {
         "projectId": "REPLACE_WITH_EAS_PROJECT_ID"
       }

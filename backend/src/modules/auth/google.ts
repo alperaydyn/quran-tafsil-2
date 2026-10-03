@@ -10,8 +10,9 @@ export interface GoogleIdTokenClaims {
 }
 
 export async function verifyGoogleIdToken(idToken: string, providedEmail?: string): Promise<GoogleIdTokenClaims> {
-  // Geliştirme, simülatör veya test ortamı için graceful mock kontrolü
-  if (idToken.startsWith("google-dev-") || idToken.startsWith("mock-")) {
+  // Geliştirme, simülatör veya test ortamı için graceful mock kontrolü.
+  // PBI-9.2: Prodüksiyonda ASLA kabul edilmez (aksi halde e-posta bilen herkes hesaba girebilir).
+  if (config.auth.allowDevTokens && (idToken.startsWith("google-dev-") || idToken.startsWith("mock-"))) {
     const rawSub = idToken.replace(/^(google-dev-|mock-)/, "");
     const email = providedEmail || (rawSub.includes("@") ? rawSub : `${rawSub}@gmail.com`);
     // Aynı e-posta ile giriş yapan tüm emülatörlerin aynı kullanıcı kimliğine bağlanması için deterministik sub

@@ -1,6 +1,7 @@
 import type { Word, Verse } from '../api/types';
 import type { WordLexiconDetail } from '../data/lexicon.seed';
 import { getCuratedLexicon } from '../data/lexicon.seed';
+import { API_BASE } from '../api/config';
 import { mmkv } from '../store/mmkvStorage';
 
 const LEXICON_CACHE_PREFIX = 'lex_v1_';
@@ -318,7 +319,7 @@ export async function enrichWordOnDemand(
   }
 
   // 2. Canlı API denemesi
-  const base = apiBase || process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+  const base = apiBase || process.env.EXPO_PUBLIC_API_URL || API_BASE;
   try {
     const res = await fetch(`${base}/kelimeler/lexicon?q=${encodeURIComponent(textAr)}`, {
       headers: { Accept: 'application/json' },

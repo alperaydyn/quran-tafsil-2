@@ -15,7 +15,7 @@ import { TimestampService } from '../services/timestampService';
 import { useTheme } from '../theme';
 import { fontFamily } from '../theme/typography';
 import { getVerses, getAyahAudioUrl } from '../api/client';
-import { mockSurahs } from '../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import type { Verse, Word } from '../api/types';
 import type { RootStackParamList } from '../navigation/types';
 import { useReadingMode } from '../hooks/useReadingMode';
@@ -543,8 +543,8 @@ export function ReadingScreen({ route, navigation }: Props) {
     }
   }, [activeAyah, isPlaying]);
 
-  const nextSurah = mockSurahs.find((s) => s.id === surahId + 1);
-  const currentSurah = mockSurahs.find((s) => s.id === surahId);
+  const nextSurah = SURAH_SEED_DATA.find((s) => s.id === surahId + 1);
+  const currentSurah = SURAH_SEED_DATA.find((s) => s.id === surahId);
   const totalVerses = currentSurah?.verseCount || verses.length;
 
   // Header'da surenin ismini ve toplam ayet sayısını göster

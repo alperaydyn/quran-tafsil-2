@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { mmkvStorage } from './mmkvStorage';
-import { mockSurahs } from '../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 
 export interface LastReadPosition {
   surahId: number;
@@ -179,7 +179,7 @@ export const useReadingProgressStore = create<ReadingProgressState>()(
           };
 
           const updatedCompletedSurahs = { ...state.completedSurahs };
-          for (const surah of mockSurahs) {
+          for (const surah of SURAH_SEED_DATA) {
             const readCount = updatedReadVerses[surah.id]?.length ?? 0;
             if (readCount >= surah.verseCount && !updatedCompletedSurahs[surah.id]) {
               updatedCompletedSurahs[surah.id] = {
@@ -298,7 +298,7 @@ export const useReadingProgressStore = create<ReadingProgressState>()(
         return totalAyahs ? Math.min(totalAyahs, count) : count;
       },
 
-      getOverallStats: (allSurahs = mockSurahs) => {
+      getOverallStats: (allSurahs = SURAH_SEED_DATA) => {
         const state = get();
         const totalQuranVerses = allSurahs.reduce((acc, s) => acc + s.verseCount, 0) || 6236;
         const completedSurahsCount = Object.keys(state.completedSurahs).length;

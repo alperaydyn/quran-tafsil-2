@@ -55,21 +55,25 @@ export async function authenticateWithApple(
       }
     }
   } catch (err) {
-    console.warn('[authenticateWithApple] Canlı auth başarısız, mock moduna geçiliyor:', err);
+    console.warn('[authenticateWithApple] Canlı auth başarısız:', err);
   }
 
-  // Geliştirme ve simülatör için graceful fallback
-  return {
-    success: true,
-    data: {
-      id: `apple-dev-${payload.identityToken.slice(0, 12)}`,
-      name: payload.fullName ?? 'Apple Kullanıcısı',
-      email: payload.email ?? 'apple.user@privaterelay.appleid.com',
-      provider: 'apple',
-      token: `mock-jwt-apple-${Date.now()}`,
-      isGuest: false,
-    },
-  };
+  // Geliştirme ortamında graceful fallback (prodüksiyonda devre dışı)
+  if (__DEV__) {
+    return {
+      success: true,
+      data: {
+        id: `apple-dev-${payload.identityToken.slice(0, 12)}`,
+        name: payload.fullName ?? 'Apple Kullanıcısı',
+        email: payload.email ?? 'apple.user@privaterelay.appleid.com',
+        provider: 'apple',
+        token: `dev-jwt-apple-${Date.now()}`,
+        isGuest: false,
+      },
+    };
+  }
+
+  return { success: false, error: { code: 'AUTH_FAILED', message: 'Apple kimlik doğrulama başarısız' } };
 }
 
 export async function authenticateWithGoogle(
@@ -104,23 +108,27 @@ export async function authenticateWithGoogle(
       }
     }
   } catch (err) {
-    console.warn('[authenticateWithGoogle] Canlı auth başarısız, yerel moda geçiliyor:', err);
+    console.warn('[authenticateWithGoogle] Canlı auth başarısız:', err);
   }
 
-  const fallbackEmail = payload.email ?? 'kullanici@gmail.com';
-  const fallbackName = payload.name ?? fallbackEmail.split('@')[0] ?? 'Google Kullanıcısı';
+  // Geliştirme ortamında graceful fallback (prodüksiyonda devre dışı)
+  if (__DEV__) {
+    const fallbackEmail = payload.email ?? 'kullanici@gmail.com';
+    const fallbackName = payload.name ?? fallbackEmail.split('@')[0] ?? 'Google Kullanıcısı';
+    return {
+      success: true,
+      data: {
+        id: `google-${fallbackEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`,
+        name: fallbackName,
+        email: fallbackEmail,
+        provider: 'google',
+        token: `dev-jwt-google-${fallbackEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`,
+        isGuest: false,
+      },
+    };
+  }
 
-  return {
-    success: true,
-    data: {
-      id: `google-${fallbackEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`,
-      name: fallbackName,
-      email: fallbackEmail,
-      provider: 'google',
-      token: `jwt-google-${fallbackEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`,
-      isGuest: false,
-    },
-  };
+  return { success: false, error: { code: 'AUTH_FAILED', message: 'Google kimlik doğrulama başarısız' } };
 }
 
 /**
@@ -151,21 +159,26 @@ export async function authenticateAsGuest(): Promise<ApiResponse<AuthUser & { to
       }
     }
   } catch (err) {
-    console.warn('[authenticateAsGuest] Canlı misafir auth başarısız, yerel moda geçiliyor:', err);
+    console.warn('[authenticateAsGuest] Canlı misafir auth başarısız:', err);
   }
 
-  const guestId = `guest-${Date.now()}`;
-  return {
-    success: true,
-    data: {
-      id: guestId,
-      name: 'Misafir Okuyucu',
-      email: null,
-      provider: 'guest',
-      token: `mock-jwt-guest-${guestId}`,
-      isGuest: true,
-    },
-  };
+  // Geliştirme ortamında yerel misafir fallback (prodüksiyonda devre dışı)
+  if (__DEV__) {
+    const guestId = `guest-${Date.now()}`;
+    return {
+      success: true,
+      data: {
+        id: guestId,
+        name: 'Misafir Okuyucu',
+        email: null,
+        provider: 'guest',
+        token: `dev-jwt-guest-${guestId}`,
+        isGuest: true,
+      },
+    };
+  }
+
+  return { success: false, error: { code: 'AUTH_FAILED', message: 'Misafir oturumu oluşturulamadı' } };
 }
 
 /**

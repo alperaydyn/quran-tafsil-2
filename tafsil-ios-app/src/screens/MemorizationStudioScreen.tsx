@@ -12,7 +12,7 @@ import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
 import { useTheme } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
-import { mockSurahs } from '../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import { getVerses } from '../api/client';
 import type { Verse } from '../api/types';
 import { useMemorizationStore } from '../store/useMemorizationStore';
@@ -32,7 +32,7 @@ export function MemorizationStudioScreen() {
   const startAyah = (route.params?.startAyah as number | undefined) ?? 1;
   const endAyah = (route.params?.endAyah as number | undefined) ?? 5;
 
-  const surah = mockSurahs.find((s) => s.id === surahId) ?? mockSurahs[0];
+  const surah = SURAH_SEED_DATA.find((s) => s.id === surahId) ?? SURAH_SEED_DATA[0];
   const updateSessionReview = useMemorizationStore((s) => s.updateSessionReview);
 
   const [loading, setLoading] = useState(true);

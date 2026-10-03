@@ -15,8 +15,9 @@ export interface AppleIdTokenClaims {
 }
 
 export async function verifyAppleIdToken(idToken: string): Promise<AppleIdTokenClaims> {
-  // Geliştirme, simülatör veya test ortamı için graceful mock kontrolü
-  if (idToken.startsWith("apple-dev-") || idToken.startsWith("mock-")) {
+  // Geliştirme, simülatör veya test ortamı için graceful mock kontrolü.
+  // PBI-9.2: Prodüksiyonda ASLA kabul edilmez.
+  if (config.auth.allowDevTokens && (idToken.startsWith("apple-dev-") || idToken.startsWith("mock-"))) {
     const rawSub = idToken.replace(/^(apple-dev-|mock-)/, "") || "dev_apple_user";
     return {
       sub: `apple_${rawSub}`,

@@ -11,8 +11,9 @@ import { useMemorizationStore } from '../store/useMemorizationStore';
 import { useAuthStore } from '../store/useAuthStore';
 import { useUserSettingsStore } from '../store/useUserSettingsStore';
 import { useTranslation } from '../i18n';
-import { mockSurahs } from '../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import { OfflineSyncService } from '../services/offlineSyncService';
+import { API_BASE } from '../api/config';
 import { PrecisionSettingsIcon } from '../components/common/PrecisionSettingsIcon';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -219,7 +220,7 @@ function ResumeCard() {
   const navigation = useNavigation<Nav>();
   const { t } = useTranslation();
   const lastRead = useReadingProgressStore((s) => s.lastRead);
-  const surah = lastRead ? mockSurahs.find((s) => s.id === lastRead.surahId) : undefined;
+  const surah = lastRead ? SURAH_SEED_DATA.find((s) => s.id === lastRead.surahId) : undefined;
 
   const handlePress = () => {
     if (lastRead) {
@@ -244,7 +245,7 @@ function ResumeCard() {
           </StyledText>
           {!lastRead && (
             <StyledText variant="footnote" style={{ color: theme.colors.faint, marginTop: 2 }}>
-              {`1 · ${mockSurahs[0]?.nameTr ?? 'Fâtiha'}`}
+              {`1 · ${SURAH_SEED_DATA[0]?.nameTr ?? 'Fâtiha'}`}
             </StyledText>
           )}
         </View>
@@ -527,7 +528,7 @@ export function HomeScreen() {
 
   useEffect(() => {
     // Canlı Fastify dashboard API'sinden günün kartlarını çek (varsa güncelle)
-    const apiUrl = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3001/api/v1';
+    const apiUrl = API_BASE;
     fetch(`${apiUrl}/dashboard/gunun-kartlari`)
       .then((res) => res.json())
       .then((json) => {

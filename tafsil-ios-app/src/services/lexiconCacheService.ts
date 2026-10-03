@@ -1,6 +1,7 @@
 import { mmkv } from '../store/mmkvStorage';
 import type { WordLexiconDetail } from '../data/lexicon.seed';
 import { getCuratedLexicon } from '../data/lexicon.seed';
+import { API_BASE } from '../api/config';
 
 /**
  * Hibrit Lexicon Önbellek Servisi
@@ -227,7 +228,7 @@ export async function refreshLexiconAsync(
 
   const base = apiBase ?? (
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3001/api/v1'
+    process.env.EXPO_PUBLIC_API_URL ?? API_BASE
   );
 
   const fromApi = await fetchLexiconFromAPI(textAr, base);
@@ -259,7 +260,7 @@ export async function prefetchLexiconForVerse(
 
   // Arka planda API'den çek (hata sessizce yutulur)
   const base = apiBase ?? (
-    process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3001/api/v1'
+    process.env.EXPO_PUBLIC_API_URL ?? API_BASE
   );
 
   await Promise.allSettled(

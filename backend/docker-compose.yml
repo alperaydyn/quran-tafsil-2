@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-tafsil}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${DB_BIND_HOST:-127.0.0.1}:${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./src/db/migrations/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
@@ -42,7 +42,7 @@ services:
       --save 900 1
       --save 300 10
     ports:
-      - "${REDIS_PORT:-6379}:6379"
+      - "${DB_BIND_HOST:-127.0.0.1}:${REDIS_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -70,7 +70,7 @@ services:
       RESERVE_POOL_SIZE: 5
       SERVER_RESET_QUERY: DISCARD ALL
     ports:
-      - "${PGBOUNCER_PORT:-6432}:6432"
+      - "${DB_BIND_HOST:-127.0.0.1}:${PGBOUNCER_PORT:-6432}:6432"
     depends_on:
       postgres:
         condition: service_healthy

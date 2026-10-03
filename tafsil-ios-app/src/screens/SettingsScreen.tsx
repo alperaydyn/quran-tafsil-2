@@ -1,5 +1,6 @@
 import React from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Linking, Pressable, ScrollView, View } from 'react-native';
+import Constants from 'expo-constants';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
@@ -16,6 +17,13 @@ import { useAuthStore } from '../store/useAuthStore';
 import { useTranslation, SUPPORTED_LANGUAGES, type LanguagePreference } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
 import { ReadingAppearanceSheet } from '../components/reading/ReadingAppearanceSheet';
+import { PRIVACY_POLICY_URL, SUPPORT_EMAIL } from '../api/config';
+
+const APP_VERSION = Constants.expoConfig?.version ?? '1.0.0';
+const BUILD_NUMBER =
+  (Constants.expoConfig?.ios?.buildNumber as string | undefined) ??
+  (Constants as any).nativeBuildVersion ??
+  '';
 
 const PROVIDER_LABEL: Record<'apple' | 'google', string> = {
   apple: 'Apple',
@@ -106,6 +114,7 @@ export function SettingsScreen() {
   const user = useAuthStore((s) => s.user);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const signOut = useAuthStore((s) => s.signOut);
+  const sessionExpired = useAuthStore((s) => s.sessionExpired);
 
   const schemes: { key: ColorSchemePreference; label: string }[] = [
     { key: 'system', label: t('settings.schemes.system') },
@@ -202,6 +211,28 @@ export function SettingsScreen() {
           </StyledText>
         </Pressable>
 
+        {/* Oturum süresi doldu uyarısı (PBI-9.6) — yerel veriler korunur */}
+        {sessionExpired && (
+          <Pressable
+            onPress={() => navigation.navigate('Auth')}
+            style={({ pressed }) => ({
+              padding: 13,
+              borderRadius: theme.radius.xxl,
+              backgroundColor: pressed ? theme.colors.band : theme.colors.accSoft,
+              borderWidth: 1,
+              borderColor: theme.colors.acc,
+              marginBottom: 6,
+            })}
+          >
+            <StyledText variant="callout" color="acc" style={{ fontWeight: '600' }}>
+              Oturumunuzun süresi doldu
+            </StyledText>
+            <StyledText variant="footnote" color="mut" style={{ marginTop: 2 }}>
+              Okuma geçmişiniz bu cihazda güvende. Senkronizasyona devam etmek için yeniden giriş yapın.
+            </StyledText>
+          </Pressable>
+        )}
+
         <SectionLabel>{t('settings.readingMode')}</SectionLabel>
         {MODES.map((mode) => (
           <OptionRow
@@ -252,19 +283,47 @@ export function SettingsScreen() {
           onPress={() => setAppearanceSheetVisible(true)}
         />
 
-        <SectionLabel>ÖNİZLEME</SectionLabel>
+        {__DEV__ && (
+          <>
+            <SectionLabel>ÖNİZLEME</SectionLabel>
+            <OptionRow
+              label="Tanıtım & Niyet Seçimi (Onboarding)"
+              description="İlk açılış deneyimini ve niyet seçimini önizle"
+              selected={false}
+              onPress={() => navigation.navigate('Onboarding')}
+            />
+            <OptionRow
+              label="Açılış Ekranı (Loading)"
+              description="Başlangıç animasyonunu ve ayet tefekkürünü önizle"
+              selected={false}
+              onPress={() => navigation.navigate('Loading')}
+            />
+          </>
+        )}
+
+        <SectionLabel>HAKKINDA</SectionLabel>
         <OptionRow
-          label="Tanıtım & Niyet Seçimi (Onboarding)"
-          description="İlk açılış deneyimini ve niyet seçimini önizle"
+          label="Gizlilik Politikası"
+          description="Hangi verilerin neden ve nasıl işlendiği"
           selected={false}
-          onPress={() => navigation.navigate('Onboarding')}
+          onPress={() => {
+            Linking.openURL(PRIVACY_POLICY_URL).catch(() => {});
+          }}
         />
         <OptionRow
-          label="Açılış Ekranı (Loading)"
-          description="Başlangıç animasyonunu ve ayet tefekkürünü önizle"
+          label="Geri Bildirim Gönder"
+          description={SUPPORT_EMAIL}
           selected={false}
-          onPress={() => navigation.navigate('Loading')}
+          onPress={() => {
+            const subject = encodeURIComponent(
+              `Tafsil geri bildirim (v${APP_VERSION}${BUILD_NUMBER ? ` / ${BUILD_NUMBER}` : ''})`
+            );
+            Linking.openURL(`mailto:${SUPPORT_EMAIL}?subject=${subject}`).catch(() => {});
+          }}
         />
+        <StyledText variant="caption" color="faint" style={{ textAlign: 'center', marginTop: 12 }}>
+          {`Tafsil v${APP_VERSION}${BUILD_NUMBER ? ` (${BUILD_NUMBER})` : ''}`}
+        </StyledText>
 
         <View style={{ height: theme.spacing.xxxl }} />
       </ScrollView>

@@ -1,4 +1,4 @@
-import { mockSurahs } from '../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import ayetlerSnapshot from '../data/ayetler.snapshot.json';
 import { CONCEPTS_DICTIONARY, type ConceptDetail } from '../data/concepts.seed';
 import { CURATED_LEXICON, type WordLexiconDetail } from '../data/lexicon.seed';
@@ -183,9 +183,9 @@ const SPECIAL_VERSES: SpecialVerseEntry[] = [
 ];
 
 // Sure ID ve isim eşleştirmesi için sözlük (SQLite ve mock verileri)
-const surahMap = new Map<number, (typeof mockSurahs)[0]>();
+const surahMap = new Map<number, (typeof SURAH_SEED_DATA)[0]>();
 const initialSurahs = localDbService.getSurahs();
-(initialSurahs && initialSurahs.length > 0 ? initialSurahs : mockSurahs).forEach((s) => surahMap.set(s.id, s as any));
+(initialSurahs && initialSurahs.length > 0 ? initialSurahs : SURAH_SEED_DATA).forEach((s) => surahMap.set(s.id, s as any));
 
 // Snapshot verisini normalize edip ram cache yapısı
 interface NormalizedSnapshotItem {
@@ -275,7 +275,7 @@ export class SearchService {
       if (nameRefMatch) {
         const namePart = normalizeTurkish(nameRefMatch[1]);
         const ayahNoPart = parseInt(nameRefMatch[2], 10);
-        const matchedSurah = mockSurahs.find((s) => normalizeTurkish(s.nameTr) === namePart);
+        const matchedSurah = SURAH_SEED_DATA.find((s) => normalizeTurkish(s.nameTr) === namePart);
         if (matchedSurah) {
           const snapshot = getNormalizedSnapshot();
           const foundVerse = snapshot.find((v) => v.s === matchedSurah.id && v.a === ayahNoPart);
@@ -323,7 +323,7 @@ export class SearchService {
     // ========================================================
     // 3. SURELER İÇERİSİNDE ARAMA
     // ========================================================
-    for (const s of mockSurahs) {
+    for (const s of SURAH_SEED_DATA) {
       const sNameNorm = normalizeTurkish(s.nameTr);
       const sArNorm = normalizeArabic(s.nameAr);
       const sSummaryNorm = normalizeTurkish(s.summary);

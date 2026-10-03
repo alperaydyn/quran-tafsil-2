@@ -1,5 +1,5 @@
 import { mmkvStorage } from '../store/mmkvStorage';
-import { mockSurahs } from '../api/mock/surahs.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import { localDbService } from './localDbService';
 import { API_BASE } from '../api/config';
 
@@ -9,6 +9,27 @@ const CONCEPT_HISTORY_KEY = 'tafsil_offline_concept_history';
 const MEMORIZATION_HISTORY_KEY = 'tafsil_offline_memorization_history';
 const LAST_SYNC_KEY = 'tafsil_last_sync_timestamp';
 const DAILY_COUNTS_KEY = 'tafsil_daily_verse_counts';
+
+/**
+ * Sunucunun imzaladığı gerçek bir JWT (header.payload.signature) olup olmadığını kontrol eder.
+ * Çevrimdışı misafir (`local-guest-jwt-*`) ve geliştirme (`dev-jwt-*`) token'ları sunucuda
+ * geçersiz olduğundan bunlarla ağ çağrısı yapılmaz (PBI-9.6).
+ */
+function hasServerToken(token?: string | null): token is string {
+  return typeof token === 'string' && token.split('.').length === 3;
+}
+
+/**
+ * Sunucu 401 döndüğünde oturumu "süresi doldu" olarak işaretler.
+ * Yerel okuma verileri silinmez; kullanıcı yeniden giriş yaptığında senkronize edilir.
+ */
+function markSessionExpired(): void {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { useAuthStore } = require('../store/useAuthStore');
+    useAuthStore.getState().markSessionExpired?.();
+  } catch {}
+}
 
 export interface OfflineBookmark {
   sure_id: number;
@@ -333,40 +354,36 @@ export class OfflineSyncService {
     userId?: string
   ): Promise<ReadingTimelineResult> {
     let effectiveToken = token;
-    let effectiveUserId = userId;
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const { useAuthStore } = require('../store/useAuthStore');
       const auth = useAuthStore.getState();
       effectiveToken = effectiveToken || auth.token;
-      effectiveUserId = effectiveUserId || auth.user?.id;
     } catch {}
+    void userId; // Sunucu kimliği yalnızca JWT'den çözer (PBI-9.1)
 
-    // 1. Backend'den çekmeyi dene
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 1500);
-      const url = effectiveUserId
-        ? `${apiBaseUrl}/sync/reading-history?user_id=${encodeURIComponent(effectiveUserId)}`
-        : `${apiBaseUrl}/sync/reading-history`;
-      const headers: Record<string, string> = {};
-      if (effectiveToken) {
-        headers['Authorization'] = `Bearer ${effectiveToken}`;
-      }
-      const res = await fetch(url, {
-        signal: controller.signal,
-        headers,
-      });
-      clearTimeout(timeoutId);
+    // 1. Backend'den çekmeyi dene (yalnızca geçerli sunucu token'ı varsa)
+    if (hasServerToken(effectiveToken)) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500);
+        const res = await fetch(`${apiBaseUrl}/sync/reading-history`, {
+          signal: controller.signal,
+          headers: { Authorization: `Bearer ${effectiveToken}` },
+        });
+        clearTimeout(timeoutId);
 
-      if (res.ok) {
-        const json = await res.json();
-        if (json?.data?.days && json.data.days.length > 0) {
-          return json.data;
+        if (res.status === 401) {
+          markSessionExpired();
+        } else if (res.ok) {
+          const json = await res.json();
+          if (json?.data?.days && json.data.days.length > 0) {
+            return json.data;
+          }
         }
+      } catch {
+        // Backend kapalı veya erişilemezse yerel hesaplamaya devam
       }
-    } catch {
-      // Backend kapalı veya erişilemezse yerel hesaplamaya devam
     }
 
     // 2. Yerel MMKV verilerini derle
@@ -421,7 +438,7 @@ export class OfflineSyncService {
       for (const h of historyList) {
         const bucket = getDayBucket(h.okundu_tarihi);
         if (!bucket.versesBySurah[h.sure_id]) {
-          const surahObj = mockSurahs.find((s) => s.id === h.sure_id);
+          const surahObj = SURAH_SEED_DATA.find((s) => s.id === h.sure_id);
           bucket.versesBySurah[h.sure_id] = {
             sure_adi: surahObj?.nameTr || `${h.sure_id}. Sure`,
             ayahs: [],
@@ -448,7 +465,7 @@ export class OfflineSyncService {
       for (const m of memorizationList) {
         const bucket = getDayBucket(m.created_at);
         const timeStr = new Date(m.created_at).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-        const surahObj = mockSurahs.find((s) => s.id === m.sure_id);
+        const surahObj = SURAH_SEED_DATA.find((s) => s.id === m.sure_id);
         const surahName = surahObj?.nameTr || `${m.sure_id}. Sure`;
         const sessionTitle = m.baslik || `${surahName} (${m.baslangic_ayet}-${m.bitis_ayet}) Ezber Oturumu`;
         bucket.memorizations.push({
@@ -595,14 +612,18 @@ export class OfflineSyncService {
     options?: { forceFullSync?: boolean }
   ): Promise<boolean> {
     let effectiveToken = token;
-    let effectiveUserId = userId;
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const { useAuthStore } = require('../store/useAuthStore');
       const auth = useAuthStore.getState();
       effectiveToken = effectiveToken || auth.token;
-      effectiveUserId = effectiveUserId || auth.user?.id;
     } catch {}
+    void userId; // Sunucu kimliği yalnızca JWT'den çözer (PBI-9.1)
+
+    // Geçerli bir sunucu oturumu yoksa (giriş yapılmamış / çevrimdışı misafir) ağa çıkma
+    if (!hasServerToken(effectiveToken)) {
+      return false;
+    }
 
     try {
       const bookmarks = await this.getBookmarks();
@@ -615,24 +636,27 @@ export class OfflineSyncService {
       const rawMemorization = await mmkvStorage.getItem(MEMORIZATION_HISTORY_KEY);
       const memorization = rawMemorization ? JSON.parse(rawMemorization) : [];
 
-      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-      if (effectiveToken) {
-        headers['Authorization'] = `Bearer ${effectiveToken}`;
-      }
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${effectiveToken}`,
+      };
 
       // 1. Yerel verileri sunucuya PUSH et
       if (bookmarks.length > 0 || history.length > 0 || concepts.length > 0 || memorization.length > 0) {
-        await fetch(`${apiBaseUrl}/sync/push`, {
+        const pushRes = await fetch(`${apiBaseUrl}/sync/push`, {
           method: 'POST',
           headers,
           body: JSON.stringify({
-            user_id: effectiveUserId || undefined,
             bookmarks,
             reading_history: history,
             concept_history: concepts,
             memorization_sessions: memorization,
           }),
         });
+        if (pushRes.status === 401) {
+          markSessionExpired();
+          return false;
+        }
       }
 
       // 2. Sunucudaki güncel kullanıcı verilerini PULL et
@@ -641,10 +665,14 @@ export class OfflineSyncService {
         method: 'POST',
         headers,
         body: JSON.stringify({
-          user_id: effectiveUserId || undefined,
           last_synced_at: lastSync || undefined,
         }),
       });
+
+      if (pullRes.status === 401) {
+        markSessionExpired();
+        return false;
+      }
 
       if (pullRes.ok) {
         const pulled = await pullRes.json();

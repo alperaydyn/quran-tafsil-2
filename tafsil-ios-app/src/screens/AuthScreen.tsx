@@ -19,12 +19,14 @@ import { useTheme } from '../theme';
 import { useAuthStore } from '../store/useAuthStore';
 import { useTranslation } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
+import { FEATURES } from '../api/config';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 /**
  * Onboarding sonrası veya Ayarlar/Profil üzerinden erişilen kimlik doğrulama ekranı (MOB-011).
  * Apple ve Google ile giriş imkanı sunar; misafir modu desteği içerir.
+ * Not: Google girişi `FEATURES.googleSignIn` bayrağına bağlıdır (prod'da Faz 2'ye kadar kapalı).
  */
 export function AuthScreen() {
   const theme = useTheme();
@@ -128,12 +130,14 @@ export function AuthScreen() {
             />
           )}
 
-          <Button
-            label={t('auth.googleSignIn')}
-            variant="secondary"
-            disabled={isLoading}
-            onPress={() => setGoogleModalVisible(true)}
-          />
+          {FEATURES.googleSignIn && (
+            <Button
+              label={t('auth.googleSignIn')}
+              variant="secondary"
+              disabled={isLoading}
+              onPress={() => setGoogleModalVisible(true)}
+            />
+          )}
 
           {!isGuest && (
             <Button

@@ -7,6 +7,96 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-03] TestFlight Friends & Family Release Gate — Güvenlik Sertleştirme & App Store Uyumu (PBI-9.1 — PBI-9.7)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Uçtan uca pre-release denetimi:** PBI-8 tamamlandıktan sonra uygulama + backend + canlı altyapı birlikte denetlendi. 6 blocker bulundu: backend canlıda yok (`api.tafsil.net` DNS kaydı yok), sahte Google girişi ile hesap ele geçirme, sync IDOR, PostgreSQL/Redis'in internete açık olması + log'da DB parolası, prod'da aktif dev token bypass'ları, EAS placeholder'ları.
+* **PBI-9.1 — Sync IDOR:** `/sync/push|pull|status|timeline|reading-history` uçları JWT yoksa body/query `user_id`'ye düşüyor, `SyncService` e-posta ile kullanıcı arıyordu; `timeline`/`reading-history` hiç auth yapmıyordu. *Karar:* Tüm uçlar `app.authenticate` arkasında; kimlik yalnızca `request.user.sub` (UUID). İstemci artık `user_id` göndermiyor.
+* **PBI-9.2 — Prod auth sertleştirme:** `google-dev-*`/`apple-dev-*`/`mock-*` token'ları her ortamda kabul ediliyordu. *Karar:* `config.auth.allowDevTokens` (prod'da daima `false`). Prod'da `JWT_SECRET` varsayılan/`CHANGE_ME*`/<32 karakter ise sunucu başlamaz (fail-fast). Yerel `backend/.env` `NODE_ENV=production` + placeholder secret içeriyordu → `NODE_ENV=development` yapıldı (mevcut token'lar geçerliliğini koruyor).
+* **PBI-9.3 — Google girişi:** Kullanıcı kararıyla F&F build'inde gizlendi (`FEATURES.googleSignIn = __DEV__`, UI + store çift guard). Gerçek native entegrasyon Faz 2 `PBI-AUTH.1`.
+* **PBI-9.4 — app.json:** `usesNonExemptEncryption: false` (export compliance), `privacyManifests` (UserDefaults/FileTimestamp/DiskSpace/SystemBootTime — ITMS-91053), `supportsTablet: false` (iPad düzeni test edilmedi), şema dışı `newArchEnabled` silindi (SDK 57 varsayılanı), Expo patch güncellemeleri (`expo-doctor` 21/21).
+  * *Revizyon:* Mikrofon izni kaldırılmak yerine `expo-audio` eklentisine (`microphonePermission`) taşındı. `expo-audio` binary'si kayıt API'leri içerdiğinden purpose string'in yokluğu ITMS-90683 ile build reddine yol açar; izin istenmediği sürece kullanıcıya prompt gösterilmez.
+* **PBI-9.5 — API URL zinciri:** `extra.apiUrl` her zaman öncelikli olduğu için yerel geliştirme de prod'a gidiyordu; `eas.json`'daki `API_URL` kod tarafından hiç okunmuyordu. *Karar:* `EXPO_PUBLIC_API_URL` → (yalnızca `!__DEV__`) `extra.apiUrl` → yerel Metro IP. `eas.json` env'leri `EXPO_PUBLIC_*` + `/api/v1`. Staging DNS olmadığından `preview` geçici olarak prod API'de (Faz 2 `PBI-D.4`).
+* **PBI-9.6 — Oturum yönetimi:** Refresh token olmadan 7 günlük JWT testçilerin sessizce senkronizasyon kaybetmesine yol açardı. *Karar:* Varsayılan `JWT_EXPIRES_IN=90d`; istemcide 401 → `sessionExpired` bayrağı (yerel veri **silinmez**) + Ayarlar'da yeniden giriş uyarısı. 3 parçalı olmayan (yerel misafir / dev) token'larla ağa çıkılmıyor.
+* **PBI-9.7 — Temizlik & uyum:** PBI-8.1'den kalan referanssız `src/api/mock/*` silindi (Faz 2 PBI-D.3 öne çekildi). Ayarlar > Hakkında: Gizlilik Politikası (`extra.privacyPolicyUrl`), Geri Bildirim (mailto, sürüm/build etiketli), sürüm bilgisi. Onboarding/Loading önizleme kısayolları `__DEV__`'e alındı.
+* **Ertelemeler (kullanıcı kararı):** Hesap silme (Guideline 5.1.1(v)) App Store public sürümüne → Faz 2 `PBI-AUTH.2` (public için zorunlu). Crash raporlama → `PBI-OBS.1`.
+* **Güvenlik notu:** `DEVELOPMENT_LOG.md` içindeki açık DB parolası maskelendi; git geçmişinde kaldığından parola rotasyonu ve 5432/6379 firewall kapatması (PBI-9.9) kullanıcı tarafından yapılmalıdır.
+
+### 2. Etkilenen Bileşenler
+* `backend/src/modules/sync/routes.ts`, `backend/src/modules/sync/service.ts`
+* `backend/src/config/env.ts`, `backend/src/modules/auth/google.ts`, `backend/src/modules/auth/apple.ts`, `backend/.env.example`
+* `tafsil-ios-app/src/api/config.ts`, `src/store/useAuthStore.ts`, `src/services/offlineSyncService.ts`
+* `tafsil-ios-app/src/screens/AuthScreen.tsx`, `src/screens/SettingsScreen.tsx`
+* `tafsil-ios-app/app.json`, `eas.json`, `package.json` (Expo patch'leri); `src/api/mock/` silindi
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md` (yeni bölüm 9), `docs/roadmap/PHASE-2-BACKLOG.md`
+
+### 3. Doğrulama
+* Backend `tsc --noEmit` ✅ · Mobil `tsc --noEmit` ✅ · `expo-doctor` 21/21 ✅
+* Fastify inject smoke test: JWT'siz / sahte JWT / bilinmeyen kullanıcı ile 5 sync ucu → 7/7 `401` ✅
+* Prod'da `google-dev-`, `apple-dev-`, `mock-` token'ları reddediliyor; dev'de kabul ediliyor ✅ · Placeholder secret ile prod başlatma reddediliyor ✅
+* `expo config --type introspect`: `ITSAppUsesNonExemptEncryption=false`, mikrofon metni, `UIBackgroundModes=[audio]`, Apple Sign-In entitlement ✅
+
+### 4. Önerilen Commit Mesajı
+```
+fix(security): close sync IDOR, gate dev auth tokens, and prep app for TestFlight F&F (PBI-9.1–9.7)
+
+- backend: require JWT on all /sync routes, resolve user only from token sub
+- backend: reject google-dev/apple-dev/mock tokens and weak JWT_SECRET in production; 90d beta sessions
+- app: hide placeholder Google sign-in in release builds, handle 401 as sessionExpired without data loss
+- app: fix API URL precedence + EXPO_PUBLIC_* EAS env, add privacy/feedback links, gate dev previews
+- config: export compliance, privacy manifest, iPhone-only, expo-audio mic string, Expo patch updates
+```
+
+---
+
+## [2026-10-03] Faz 1 Pre-Release Kontrol & Arındırma (PBI-8.1 — PBI-8.5)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **PBI-8.1 — Mock / Dummy Veri Arındırması:**
+  * *Karar 1:* `src/api/mock/surahs.mock.ts` dosyası `src/data/surahs.seed.ts` konumuna taşındı ve `mockSurahs` değişkeni `SURAH_SEED_DATA` olarak yeniden adlandırıldı. Bu dosya aslında geçerli referans verisi (114 sure meta bilgisi) olduğundan "mock" etiketinin semantik olarak yanlış olduğu tespit edildi.
+  * *Karar 2:* `verses.mock.ts` dosyasının tüm bağımlılıkları (`client.ts` fallback'leri) kaldırıldı. Veri akışı artık SQLite → `ayetler.snapshot.json` → boş dizi zinciri olarak standardize edildi.
+  * *Karar 3:* `auth.ts` içindeki Apple/Google/Guest auth fallback'lerinde üretilen `mock-jwt-apple-`, `mock-jwt-guest-` gibi sahte token'lar `__DEV__` guard'ına alındı. Prodüksiyon build'de fallback yerine `{ success: false, error: { code: 'AUTH_FAILED' } }` döndürülür.
+  * *Karar 4:* `config.ts` içindeki `USE_MOCK` flag'i (`{ surahs: false, verses: false }`) ve tüm re-export'ları (`client.ts`) kaldırıldı. Artık mock dallanma kodu yoktur.
+  * *Geriye Dönük Uyumluluk:* `surahs.seed.ts` dosyasında `export const mockSurahs = SURAH_SEED_DATA` deprecated alias'ı bırakıldı; test sırasında kırılma riski sıfıra indirildi.
+* **PBI-8.2 — Geçici Yerel Referans & URL Denetimi:**
+  * *Karar:* `lexiconEnrichmentService.ts`, `lexiconCacheService.ts` ve `HomeScreen.tsx` içindeki 4 adet hardcoded `http://localhost:3001/api/v1` referansı, merkezi `API_BASE` (`config.ts` → `resolveApiHost()` + env var zinciri) import'una bağlandı. Port uyumsuzluğu (3001 vs 4000) da bu sayede giderildi.
+  * `config.ts` içindeki `return 'localhost'` ve `return '10.0.2.2'` fallback'leri geliştirme ortamı için doğru çalışma davranışları olarak korundu (prodüksiyonda `EXPO_PUBLIC_API_URL` env var devreye girer).
+* **PBI-8.3 — Konfigürasyon & EAS Temizliği:**
+  * `app.json` içine `extra.apiUrl: "https://api.tafsil.net/api/v1"` eklendi (config.ts `Constants.expoConfig?.extra?.apiUrl` zinciri ile alır).
+  * `NSMicrophoneUsageDescription` izin metni eklendi (Ezber Stüdyosu STT için App Store zorunluluğu).
+  * `REPLACE_WITH_EAS_PROJECT_ID` ve `eas.json` submit placeholder'ları Apple Developer hesap bilgileri gerektirdiğinden Faz 2 backlog'una (`PBI-D.1`, `PBI-D.2`) aktarıldı.
+* **PBI-8.4 — Kırık Bağlantı & Ucu Açık Bileşenler:**
+  * Tüm Faz 1 ekranları tarandı. Boş `onPress` handler, "Coming Soon" kalıntısı veya TODO bulunamadı — temiz.
+* **PBI-8.5 — Sonraki Faza Aktarım:**
+  * `docs/roadmap/PHASE-2-BACKLOG.md` dosyası oluşturuldu. Ertelenen maddeler: EAS Project ID, Apple submit bilgileri, mock dosya tam silimi, Türkçe meal seslendirmesi, Reveal-on-Recite STT, Web App Portal, Agentic RAG, DAG görselleştirme.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/data/surahs.seed.ts`: **Yeni dosya** — `mockSurahs` → `SURAH_SEED_DATA` taşıması.
+* `tafsil-ios-app/src/api/client.ts`: `USE_MOCK` dallanmaları ve `verses.mock` import'u kaldırıldı.
+* `tafsil-ios-app/src/api/config.ts`: `USE_MOCK` export'u kaldırıldı.
+* `tafsil-ios-app/src/api/auth.ts`: Apple/Google/Guest fallback'leri `__DEV__` guard'ına alındı; mock token prefix'leri `dev-jwt-` olarak güncellendi.
+* `tafsil-ios-app/src/services/localDbService.ts`: Import yolu güncellendi.
+* `tafsil-ios-app/src/services/searchService.ts`: Import yolu güncellendi.
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: Import yolu güncellendi.
+* `tafsil-ios-app/src/services/lexiconEnrichmentService.ts`: Hardcoded localhost → `API_BASE`.
+* `tafsil-ios-app/src/services/lexiconCacheService.ts`: Hardcoded localhost → `API_BASE`.
+* `tafsil-ios-app/src/store/useReadingProgressStore.ts`: Import yolu güncellendi.
+* `tafsil-ios-app/src/screens/HomeScreen.tsx`: Import + hardcoded localhost → `API_BASE`.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: Import yolu güncellendi.
+* `tafsil-ios-app/src/screens/MemorizationStudioScreen.tsx`: Import yolu güncellendi.
+* `tafsil-ios-app/src/components/memorization/NewSessionModal.tsx`: Import yolu güncellendi.
+* `tafsil-ios-app/src/components/progress/SurahGridMatrix.tsx`: Import yolu güncellendi.
+* `tafsil-ios-app/app.json`: `apiUrl`, `NSMicrophoneUsageDescription` eklendi.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: PBI-8.1–8.5 tamamlandı (`[x]`).
+* `docs/roadmap/PHASE-2-BACKLOG.md`: **Yeni dosya** — ertelenen maddeler.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+chore(pre-release): complete Phase 1 release gatekeeper — mock cleanup, URL standardization, EAS config, and Phase 2 deferral (PBI-8.1–8.5)
+```
+
+---
+
 ## [2026-10-03] Anonymous Kullanıcı Birikmesi Sorunu — Kök Neden Tespiti ve Düzeltme
 
 ### 1. Sorun
@@ -206,7 +296,7 @@ feat(security): implement PBI-4.6 major security hardening, db profile schema, s
   * Hostinger VPS (`76.13.60.86:5432/tafsil_net_db`) veritabanına bağlanıldı.
   * Eksik olan `007_reading_history_extensions.sql` Hostinger üzerinde çalıştırıldı ve `kavram_gecmisi` tablosu oluşturuldu.
   * Local Docker'daki kullanıcı ve okuma geçmişi verileri Hostinger PostgreSQL'e aktarıldı.
-  * `backend/.env` ve `backend/src/config/env.ts` Hostinger bağlantı adresine (`postgres://tafsil_user_001:tafsil_user_x23@76.13.60.86:5432/tafsil_net_db`) geçirildi.
+  * `backend/.env` ve `backend/src/config/env.ts` Hostinger bağlantı adresine (`postgres://tafsil_user_001:<REDACTED>@76.13.60.86:5432/tafsil_net_db`) geçirildi. *(2026-10-03: parola güvenlik nedeniyle maskelendi — PBI-9.9)*
   * Fastify API canlı olarak Hostinger DB'ye bağlandı ve `GET /health` (`postgres: true, redis: true`) ile doğrulandı.
 * **Mimari Standartların ve VPS Dayanıklılık Kılavuzunun Güncellenmesi:**
   * `docs/deployment/00-INFRASTRUCTURE.md` dosyasına Cloudflare R2 ses/timestamp stratejisi, salt-okunur Cloudflare cache + ETag, PgBouncer transaction pooling, WAL-G / pgBackRest ile R2'ye sürekli WAL arşivleme (PITR) ve PostgreSQL bellek ayarları (`shared_buffers=2GB`, `effective_cache_size=6GB`, `log_min_duration_statement=500ms`) işlendi.

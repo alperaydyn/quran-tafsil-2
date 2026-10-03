@@ -3,40 +3,19 @@ import type { SyncPushDto, SyncPullDto } from "./dto.js";
 
 export class SyncService {
   /**
-   * Verilen userId'den (UUID, auth_provider_id veya e-posta) gerçek kullanıcı ID'sini çözer.
+   * Doğrulanmış JWT `sub` alanındaki kullanıcı UUID'sinin veritabanında var olduğunu teyit eder.
    * Kullanıcı bulunamazsa null döner — çağıran route 401 atar.
    * ASLA yeni kullanıcı oluşturulmaz; bu DB'de ghost/anonymous kayıt birikmesini önler.
+   *
+   * PBI-9.1: Önceki auth_provider_id ve e-posta ile çözümleme kaldırıldı — bu yollar
+   * kimlik doğrulaması olmadan başka kullanıcıların verisine erişime (IDOR) izin veriyordu.
    */
   private async getEffectiveUserId(userId?: string): Promise<string | null> {
     const isUuid = Boolean(userId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId));
-    if (isUuid) {
-      const exists = await query("SELECT id FROM kullanicilar WHERE id = $1", [userId]);
-      if (exists.rows.length > 0) {
-        return exists.rows[0].id;
-      }
-    }
+    if (!isUuid) return null;
 
-    if (userId) {
-      // 1. auth_provider_id ile ara
-      const byAuth = await query("SELECT id FROM kullanicilar WHERE auth_provider_id = $1", [userId]);
-      if (byAuth.rows.length > 0) {
-        return byAuth.rows[0].id;
-      }
-
-      // 2. Email formatı içeriyorsa e-posta ile ara (ör: google-dev-alperaydyn@gmail.com)
-      const emailMatch = userId.match(/[\w.-]+@[\w.-]+\.\w+/);
-      if (emailMatch) {
-        const byEmail = await query("SELECT id FROM kullanicilar WHERE email = $1", [emailMatch[0]]);
-        if (byEmail.rows.length > 0) {
-          return byEmail.rows[0].id;
-        }
-      }
-    }
-
-    // Kullanıcı tespit edilemedi → null. Çağıran 401 atar.
-    // NOT: Önceki ORDER BY created_at DESC LIMIT 1 fallback (account hijacking riski) kaldırıldı.
-    // NOT: Önceki INSERT anonymous fallback (ghost kullanıcı birikimi riski) kaldırıldı.
-    return null;
+    const exists = await query("SELECT id FROM kullanicilar WHERE id = $1", [userId]);
+    return exists.rows.length > 0 ? exists.rows[0].id : null;
   }
 
   async pushSyncData(data: SyncPushDto): Promise<{ error?: string; success?: boolean; synced_at?: string; user_id?: string; counts?: { bookmarks: number; reading_history: number; concept_history: number; memorization_sessions: number } }> {
@@ -266,6 +245,7 @@ export class SyncService {
    */
   async getReadingTimeline(userIdInput?: string) {
     const userId = await this.getEffectiveUserId(userIdInput);
+    if (!userId) return null;
 
     // 1. Okuma geçmişi (Sure adları ile birleştirilmiş)
     const historyRes = await query<{

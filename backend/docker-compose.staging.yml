@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_DB: tafsil_staging_db
     ports:
-      - "5433:5432"
+      - "127.0.0.1:5433:5432"
     volumes:
       - postgres_staging_data:/var/lib/postgresql/data
     deploy:
@@ -25,7 +25,7 @@ services:
       --maxmemory 128mb
       --maxmemory-policy allkeys-lru
     ports:
-      - "6380:6379"
+      - "127.0.0.1:6380:6379"
     volumes:
       - redis_staging_data:/data
     deploy:
@@ -41,7 +41,7 @@ services:
       MAX_CLIENT_CONN: 50
       DEFAULT_POOL_SIZE: 5
     ports:
-      - "6433:6432"
+      - "127.0.0.1:6433:6432"
     deploy:
       resources:
         limits:

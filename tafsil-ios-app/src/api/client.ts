@@ -1,12 +1,10 @@
 import type { ApiResponse, Surah, Verse, Word, RootDerivatives, LexiconRoot } from './types';
-import { mockSurahs } from './mock/surahs.mock';
-import { mockVersesBySurah } from './mock/verses.mock';
+import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import ayetlerSnapshot from '../data/ayetler.snapshot.json';
 import { TimestampService } from '../services/timestampService';
 import { localDbService } from '../services/localDbService';
 import {
   API_BASE,
-  USE_MOCK,
   CLOUDFLARE_R2_BASE_URL,
   getAyahAudioUrl,
   getAyahTimestampUrl,
@@ -15,7 +13,6 @@ import {
 
 export {
   API_BASE,
-  USE_MOCK,
   CLOUDFLARE_R2_BASE_URL,
   getAyahAudioUrl,
   getAyahTimestampUrl,
@@ -106,10 +103,6 @@ function mapVerseFromBackend(row: any): Verse {
 }
 
 export async function getSurahs(siralama: 'mushaf' | 'nuzul' = 'mushaf'): Promise<ApiResponse<Surah[]>> {
-  if (USE_MOCK.surahs) {
-    return { success: true, data: mockSurahs, meta: { total: mockSurahs.length, cached: false } };
-  }
-
   // 1. Sıfır Gecikmeli Yerel SQLite / Snapshot Sorgusu (PBI-7.3)
   const localList = localDbService.getSurahs(siralama);
   if (localList && localList.length >= 114) {
@@ -136,20 +129,11 @@ export async function getSurahs(siralama: 'mushaf' | 'nuzul' = 'mushaf'): Promis
     return json;
   } catch (err) {
     console.warn('[getSurahs] Ağ çağrısı başarısız, yerel veriye dönülüyor:', err);
-    return { success: true, data: localList.length > 0 ? localList : mockSurahs, meta: { total: mockSurahs.length, cached: false } };
+    return { success: true, data: localList.length > 0 ? localList : SURAH_SEED_DATA, meta: { total: SURAH_SEED_DATA.length, cached: false } };
   }
 }
 
 export async function getVerses(surahId: number, page = 1, limit = 300): Promise<ApiResponse<Verse[]>> {
-  if (USE_MOCK.verses) {
-    const localVerses = localDbService.getVerses(surahId);
-    if (localVerses.length > 0) {
-      return { success: true, data: localVerses, meta: { total: localVerses.length, cached: true } };
-    }
-    const data = mockVersesBySurah[surahId] ?? [];
-    return { success: true, data, meta: { total: data.length, cached: false } };
-  }
-
   // 1. Sıfır Gecikmeli Yerel SQLite / Snapshot Sorgusu (PBI-7.3)
   const localVerses = localDbService.getVerses(surahId);
   if (localVerses && localVerses.length > 0) {
@@ -206,8 +190,7 @@ export async function getVerses(surahId: number, page = 1, limit = 300): Promise
     if (snapshotData.length > 0) {
       return { success: true, data: snapshotData, meta: { total: snapshotData.length, cached: true } };
     }
-    const data = mockVersesBySurah[surahId] ?? [];
-    return { success: true, data, meta: { total: data.length, cached: false } };
+    return { success: true, data: [], meta: { total: 0, cached: false } };
   }
 }
 
