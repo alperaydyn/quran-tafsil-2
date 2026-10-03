@@ -7,6 +7,23 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-03] Mobil Senkronizasyon, Önbellekleme ve Çevrimdışı/Çevrimiçi Mimari Dokümantasyonu (README.md)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **PRD / Mimari Güncellemesi (Anti-Drift):** Mobil uygulamada (`tafsil-ios-app`) hayata geçirilmiş olan 5 katmanlı önbellek yapısı (Zustand, MMKV, SQLite WAL, JSON Snapshot, Audio Cache), `client.ts` üzerinden yürütülen Stale-While-Revalidate veri çekme stratejisi, `OfflineSyncService` içerisindeki ardışık tekilleştirme (deduplication) ve 2.5s debounced push log boru hattı ile çift taraflı birleştirme (Two-Way Merge) mimarisi `README.md` belgesinin "Çevrimdışı Strateji ve Yerel Önbellekleme" bölümüne işlendi.
+* **Sistem Tutarlılığı:** Kod tabanındaki fiili uygulama ile PRD/teknik mimari dokümanı arasındaki senkronizasyon tam hale getirildi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `README.md`: "Çevrimdışı Strateji ve Yerel Önbellekleme" bölümü 5 alt başlık altında zenginleştirildi.
+* `DEVELOPMENT_LOG.md`: Oturum kaydı eklendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+docs(readme): document mobile offline-first, caching layers and two-way sync architecture
+```
+
+---
+
 ## [2026-10-03] VPS Postgres/Redis Dış Erişim Kapatma, SSH Tüneli ve Redis Şifre Desteği
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

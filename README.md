@@ -339,42 +339,77 @@ Yeni bir kullanıcının uygulamayı ilk açtığında yaşayacağı deneyim ak�
 
 ### Çevrimdışı Strateji ve Yerel Önbellekleme
 
-Uygulama, kullanıcının internetsiz ortamda temel okuma ve ezber deneyimini kesintisiz sürdürebilmesi için **offline-first** mimarisiyle tasarlanır:
+Uygulama, kullanıcının internetsiz ortamda temel okuma ve ezber deneyimini kesintisiz sürdürebilmesi için **offline-first (önce yerel veri)** mimarisiyle tasarlanmıştır. Cihazın internet bağlantısının olup olmamasından bağımsız olarak tüm okuma akışı sıfır gecikmeyle (0 ms) çalışır; cihaz online olduğunda ise iki yönlü (Two-Way Merge) senkronizasyon devreye girer.
 
-* **Yerel Veritabanı (SQLite / WatermelonDB):**
-  Aşağıdaki veriler ilk kurulumda veya ilk oturum açıldığında cihaza senkronize edilir ve yerel SQLite veritabanında saklanır. Tüm yerel verilerin bir kopyası sunucuda anonim olarak yedeklenir (cihaz kaybı/değişikliği durumunda kurtarma).
+#### 1. Çok Katmanlı Önbellek (Caching) Mimarisi
 
-* **Çevrimdışı Tutulan Veriler (Yerel SQLite):**
+Mobil istemci (`tafsil-ios-app`), verileri 5 kademeli hibrit bir mimaride yönetir:
+
+| Katman | Teknoloji / Modül | Saklanan Veri Türü | Çalışma Mantığı |
+|---|---|---|---|
+| **L1: In-Memory / Reaktif Katman** | Zustand (`useReadingProgressStore`, `useMemorizationStore`) | Aktif streak (okuma serisi), 114 sure ısı haritası matrisi, son kalınan ayet konumu | Kullanıcı arayüzünün (UI) anında ve reaktif güncellenmesini sağlar. |
+| **L2: Yüksek Hızlı Key-Value** | MMKV (`mmkvStorage`) | Yer imleri (`bookmarks`), okuma geçmişi (`reading_history`), günlük sayaçlar (`daily_counts`), son senkronizasyon damgaları | C++ tabanlı ultra hızlı şifreli/yerel depolama; disk I/O darboğazını sıfıra indirir. |
+| **L3: İlişkisel Yerel Veritabanı** | SQLite (`localDbService`) | 114 Sure, 6236 Ayet, kelime mealleri, kök sözlüğü (`lexicon`), ilişkisel okuma oturum logları | WAL modunda (`PRAGMA journal_mode = WAL; synchronous = NORMAL`) 0 ms gecikmeyle çalışır. |
+| **L4: Yerel Snapshot Fallback** | JSON (`ayetler.snapshot.json`, `surahs.seed.ts`) | Değişmez Kur'an metin ve mealleri | SQLite başlatılamasa veya platform kısıtı olsa dahi uygulamanın çökmesini (crash) önler. |
+| **L5: Medya & Ses Önbelleği** | FileSystem (`audioCacheService`, `FileSystem`) | İndirilen MP3 ayet tilavetleri ve Türkçe meal ses dosyaları | Çevrimdışı sesli okuma ve ezber için sure bazlı veya dinamik önbellek sunar. |
+
+#### 2. Sunucudan Veri Çekme (Data Fetching / Pull)
+
+Veri çekme mekanizması değişmez ve dinamik veriler için iki farklı rota izler:
+
+* **Değişmez Metinler (Sure, Ayet, Kelimeler, Kök Sözlüğü):**
+  * `client.ts` istemcisi önce yerel SQLite (`localDbService`) katmanını sorgular; veri varsa **0 ms** ile hemen arayüze sunulur.
+  * **Stale-While-Revalidate:** Cihaz çevrimiçi ise arka planda sessizce API'ye (`/sureler/:id/ayetler`) hafif bir istek gönderilir; sunucuda yeni bir editoryal düzeltme veya zenginleştirme varsa yerel SQLite'a `upsertVerses` ile işlenir.
+  * Yerel veritabanında bulunmayan bir içerik ilk kez talep edilirse API'den çekilir ve kalıcı olarak yerel veritabanına kaydedilir.
+* **Kullanıcı Verileri (Yer İmleri, Okuma Geçmişi, Ezberler):**
+  * `OfflineSyncService.syncWithServer()` metodu üzerinden `POST /api/v1/sync/pull` çağrılır.
+  * İstemci, son senkronizasyon zaman damgasını (`last_synced_at`) iletir; sunucu (Fastify + PostgreSQL) yalnızca bu tarihten sonra diğer cihazlardan (web, tablet vb.) kaydedilmiş **delta** değişiklikleri döner.
+
+#### 3. Okuma Loglarının Takibi ve İletimi (Tracking & Push Pipeline)
+
+Kullanıcı Kur'an okurken logların oluşturulması ve sunucuya aktarılması optimize edilmiş bir boru hattıyla yürütülür:
+
+* **Ardışık Tekrar Filtresi (Deduplication):** Kullanıcı aynı ayet üzerinde okumaya devam ettiğinde veya 30 saniye içinde aynı ayeti tekrar açtığında yeni log satırı üretilmez; var olan kaydın `okunma_suresi_sn` değeri artırılır.
+* **Yerel Çift Kayıt:** Log kaydı eşzamanlı olarak hem MMKV (`tafsil_offline_history`, `tafsil_daily_verse_counts`) hem de SQLite ilişkisel okuma tablosuna yazılır.
+* **Debounced Arka Plan Senkronizasyonu:** Her ayet okumasında sunucuya ayrı ayrı istek atıp sunucuyu boğmamak adına **2.5 saniyelik debounced timer** (`triggerDebouncedSync`) işletilir. Kullanıcı okumayı duraklattığında tüm biriken loglar tek bir toplu paket (`bulk push`) olarak kuyruktan çıkar.
+* **JWT ve Misafir Modu Koruması:** Yalnızca geçerli sunucu JWT token'ı (`hasServerToken`) olan oturumlarda ağ çağrısı yapılır. Çevrimdışı misafir oturumlarında (`local-guest-jwt-*`) veya ağ yokluğunda istek yapılmaz, loglar yerelde biriktirilir.
+
+#### 4. Çevrimdışı / Çevrimiçi Geçiş (Offline/Online Switch) ve Çift Taraflı Birleştirme
+
+Uygulama, ağ kopmalarına ve oturum durumlarına karşı dirençli (resilient) çalışır:
+
+* **Sıfır Çökme ve Zaman Aşımı Koruması (Graceful Degradation):** Tüm ağ çağrıları `AbortController` (1.5 - 2.5 saniye zaman aşımı) ile korunur. İnternet koptuğunda veya sunucu yavaşladığında uygulama donmaz, sessizce yerel önbellek/snapshot verisiyle çalışmaya devam eder.
+* **Çift Taraflı Birleştirme (Two-Way Merge Conflict Resolution):** Cihaz çevrimiçi olduğunda veya kullanıcı giriş yaptığında:
+  1. Yerelde biriken yer imleri, okuma geçmişi, kavram incelemeleri ve ezberler `POST /api/v1/sync/push` ile sunucuya gönderilir (PostgreSQL tarafında `ON CONFLICT DO UPDATE` / idempotency ile işlenir).
+  2. Sunucudaki yenilikler `POST /api/v1/sync/pull` ile çekilir.
+  3. Yer imleri ve okuma geçmişi `sure_id:ayet_no` anahtarı üzerinden birleştirilir; günlük sayaçlar (`DAILY_COUNTS_KEY`) yeniden hesaplanır.
+  4. Zustand Store'larına (`bulkMergeReadingHistory`, `bulkMergeSessions`) aktarılarak arayüzdeki ısı haritası ve seriler anında güncellenir.
+* **Oturum Süresi Dolma Güvenliği (401 Handling):** Sunucu 401 Unauthorized dönerse oturum "süresi doldu" olarak işaretlenir. **Yerel okuma verileri asla silinmez;** kullanıcı tekrar giriş yaptığında biriken yerel loglar güvenle sunucuya aktarılır.
+* **Kullanıcı Çıkışı (Logout):** Kullanıcı bilinçli olarak oturumu kapattığında `clearAllLocalUserData()` ile yerel kullanıcı logları ve önbellekler temizlenir.
+
+#### 5. Çevrimdışı Tutulan Veriler ve Yetenek Matrisi
+
+* **Çevrimdışı Tutulan Veriler (Yerel Depolama):**
   * ✅ Kur'an ayetleri (Arapça metin, bölüm/blok yapısı)
   * ✅ Mealler (tüm desteklenen dillerde)
   * ✅ Transliterasyonlar
-  * ✅ Morfolojik kök verileri
-  * ✅ Kavram tanımları ve kavram ağı ilişkileri *(öncelikli değil — olmasa da temel deneyimi bozmaz)*
-  * ✅ Okuma logları ve ilerleme durumu
-  * ✅ Yer imleri (bookmark)
+  * ✅ Morfolojik kök ve vezin verileri
+  * ✅ Kavram tanımları ve kavram sözlüğü
+  * ✅ Okuma logları, süreleri ve ilerleme durumu
+  * ✅ Yer imleri (bookmark) ve kişisel ayet notları
   * ✅ Ezber oturumları ve ezber ilerleme verileri
-  * ✅ Anlama çalışması (analiz) oturumlarının özet ve sonuçları
-  * ✅ Anlama çalışması önerilen okuma listeleri ve analiz okuma sırası
-  * ✅ Sonraki/önceki ayet navigasyon verileri
-  * ✅ Günün kartları (önceden önbelleğe alınmış)
-  * ✅ Ses dosyaları *(kullanıcı tercihine göre — sure bazlı veya tam Kur'an indirilebilir)*
-
-* **Sunucu Senkronizasyonu:**
-  * Tüm kullanıcı verisinin bir kopyası sunucuda anonim olarak tutulur (cihaz kaybı/değişikliği durumunda kurtarma).
-  * Senkronizasyon pull-push modeli ile çalışır: uygulama açılışında ve periyodik olarak (arka plan fetch) delta değişiklikler alınır/gönderilir. Çakışma çözümü "son yazan kazanır" (last-write-wins) stratejisiyle, zaman damgası bazlı yönetilir.
+  * ✅ Önceden incelenmiş anlama oturumu özetleri
+  * ✅ İndirilen sure tilavet ve meal ses dosyaları
 
 * **Çevrimdışı Kullanılabilen Özellikler:**
   * ✅ Kur'an okuma (ayet, meal, transliterasyon, morfolojik bilgiler, bölüm navigasyonu)
-  * ✅ Ezber stüdyosu (cihaz üzerinde STT ile — ses paketi indirilmişse sesli okuma dahil)
-  * ✅ Okuma/ezber ilerleme takibi, yer imleri ve okuma logları
+  * ✅ Ezber stüdyosu (cihaz üzerinde yerel STT ile — ses paketi indirilmişse sesli okuma dahil)
+  * ✅ Okuma/ezber ilerleme takibi, 114 sure ısı haritası, yer imleri ve okuma logları
   * ✅ Geçmiş anlama oturumlarını ve okuma listelerini görüntüleme
-  * ✅ Kavram ağı görüntüleme (yerel veri mevcutsa)
-  * ✅ Günün kartları (önceden önbelleğe alınmış)
-  * ❌ Yeni anlama çalışması başlatma (LLM gerektirir)
-  * ❌ Detay oturumu oluşturma (sunucu tarafında hazırlanır)
+  * ✅ Kavram ve kök sözlüğü arama
+  * ❌ Yeni anlama çalışması başlatma (LLM / Agentic RAG gerektirir)
   * ❌ Topluluk paylaşımları ve sosyal etkileşimler
   * ❌ Makale akışı (yeni içerik çekme)
-  * ❌ Tüm yapay zeka destekli özellikler (Agentic RAG, kavram çıkarımı, bağlam analizi)
 
 ### Kimlik Doğrulama, Güvenlik ve Gizlilik
 
