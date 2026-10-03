@@ -7,6 +7,30 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-03] VPS Postgres/Redis Dış Erişim Kapatma, SSH Tüneli ve Redis Şifre Desteği
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Postgres (5432) ve Redis (6379) dış erişimi kapalı:**
+  * *Karar:* VPS'te şifreler yenilendi ve portlar dışarıdan filtrelendi (doğrulandı: dışarıdan zaman aşımı; tünelden giriş başarılı).
+  * *Gerekçe:* Veritabanı ve cache'in internete açık olması kritik güvenlik riskiydi.
+* **`backend/.env` adresleri `127.0.0.1`:**
+  * *Karar:* `POSTGRES_HOST`, `DATABASE_URL`, `DATABASE_URL_DIRECT` ve Redis `127.0.0.1` kullanır. Backend VPS'e taşındığında aynen çalışır; lokalde SSH tüneli ile çalışır.
+  * *Lokal kural:* Geliştirmeden önce tünel açık olmalı: `ssh -N -L 5432:127.0.0.1:5432 -L 6379:127.0.0.1:6379 root@76.13.60.86`. Yerel Docker (postgres/redis) aynı portları tutuyorsa kapatılmalı; aksi halde bağlantı sessizce yerel Docker'a gider. Tünel sağlığı yalnızca port açıklığıyla değil, Postgres girişi ve Redis `PING` ile doğrulanmalıdır.
+* **Redis şifre desteği:**
+  * *Karar:* `REDIS_PASSWORD` artık `config.redis.password` üzerinden `ioredis`'e verilir. Önceki kod bu değişkeni hiç okumuyordu (`NOAUTH` hatası verecekti).
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/config/env.ts`: `redis.password` eklendi, varsayılan URL `127.0.0.1`.
+* `backend/src/db/redis.ts`: `ioredis` istemcisine şifre aktarımı.
+* `backend/.env` (gitignore'da, commit edilmez): host'lar `127.0.0.1`.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(backend): support REDIS_PASSWORD and target VPS-local DB/Redis via SSH tunnel
+```
+
+---
+
 ## [2026-10-03] TestFlight Friends & Family Release Gate — Güvenlik Sertleştirme & App Store Uyumu (PBI-9.1 — PBI-9.7)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

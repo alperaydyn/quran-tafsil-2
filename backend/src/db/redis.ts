@@ -7,6 +7,7 @@ export function getRedis(): Redis {
   if (!_redis) {
     _redis = new Redis(config.redis.url, {
       maxRetriesPerRequest: 3,
+      ...(config.redis.password ? { password: config.redis.password } : {}),
     });
 
     _redis.on("error", (err) => {

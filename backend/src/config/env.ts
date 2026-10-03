@@ -40,7 +40,9 @@ export const config = {
 
   // Redis
   redis: {
-    url: process.env.REDIS_URL || "redis://localhost:6379",
+    url: process.env.REDIS_URL || "redis://127.0.0.1:6379",
+    // URL içinde şifre yoksa REDIS_PASSWORD kullanılır.
+    password: process.env.REDIS_PASSWORD || undefined,
   },
 
   jwt: {
