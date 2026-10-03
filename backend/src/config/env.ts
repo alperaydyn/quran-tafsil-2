@@ -54,9 +54,11 @@ export const config = {
   auth: {
     /**
      * `google-dev-*`, `apple-dev-*`, `mock-*` sahte id_token'ların kabul edilip edilmeyeceği.
-     * Prodüksiyonda HER ZAMAN kapalıdır (PBI-9.2); geliştirmede varsayılan açık.
+     * ALLOW_DEV_AUTH_TOKENS=true açıkça verilirse staging/test için prodüksiyonda da izin verilir.
      */
-    allowDevTokens: !isProduction && process.env.ALLOW_DEV_AUTH_TOKENS !== "false",
+    allowDevTokens:
+      process.env.ALLOW_DEV_AUTH_TOKENS === "true" ||
+      (!isProduction && process.env.ALLOW_DEV_AUTH_TOKENS !== "false"),
     apple: {
       clientId: process.env.APPLE_CLIENT_ID || "net.tafsil.app",
     },

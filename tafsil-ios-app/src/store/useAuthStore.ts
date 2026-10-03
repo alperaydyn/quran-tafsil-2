@@ -32,10 +32,10 @@ interface AuthState {
   /** Sunucu 401 döndüğünde true olur; yerel veri korunur, kullanıcıya yeniden giriş önerilir (PBI-9.6). */
   sessionExpired: boolean;
 
-  signInWithApple: () => Promise<boolean>;
+  signInWithApple: (options?: { email?: string; name?: string; hideEmail?: boolean }) => Promise<boolean>;
   signInWithGoogle: (options?: { email?: string; name?: string }) => Promise<boolean>;
   continueAsGuest: () => Promise<void>;
-  linkAccount: (provider: 'apple' | 'google', googleDetails?: { email?: string; name?: string }) => Promise<boolean>;
+  linkAccount: (provider: 'apple' | 'google', details?: { email?: string; name?: string; hideEmail?: boolean }) => Promise<boolean>;
   signOut: () => void;
   deleteAccount: (options?: { appleAuthCode?: string }) => Promise<{ success: boolean; error?: string }>;
   resetAuthStep: () => void;
@@ -60,25 +60,69 @@ export const useAuthStore = create<AuthState>()(
         if (!get().sessionExpired) set({ sessionExpired: true });
       },
 
-      signInWithApple: async () => {
-        if (Platform.OS !== 'ios') {
-          set({ error: 'Apple ile giriş yalnızca iOS cihazlarda kullanılabilir.' });
-          return false;
-        }
+      signInWithApple: async (options?: { email?: string; name?: string; hideEmail?: boolean }) => {
         set({ isLoading: true, error: null });
 
         try {
+          // Özel email veya geliştirici formuyla giriş (kullanıcının kendi gerçek Apple ID'si / adı)
+          if (options?.email) {
+            const chosenEmail = options.email.trim();
+            const chosenName =
+              options.name?.trim() ||
+              (chosenEmail.includes('@') ? chosenEmail.split('@')[0] : 'Apple Kullanıcısı');
+            const fakeDevToken = `apple-dev-${chosenEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`;
+
+            const res = await authenticateWithApple({
+              identityToken: fakeDevToken,
+              fullName: chosenName,
+              email: options.hideEmail
+                ? `${chosenEmail.split('@')[0]}@privaterelay.appleid.com`
+                : chosenEmail,
+            });
+
+            if (res.success && res.data) {
+              set({
+                user: res.data,
+                token: res.data.token ?? null,
+                isAuthenticated: true,
+                isGuest: false,
+                authStepCompleted: true,
+                isLoading: false,
+                error: null,
+                sessionExpired: false,
+              });
+              OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
+              return true;
+            } else {
+              set({ isLoading: false, error: res.error?.message ?? 'Giriş başarısız oldu.' });
+              return false;
+            }
+          }
+
+          if (Platform.OS !== 'ios') {
+            set({ error: 'Apple ile giriş yalnızca iOS cihazlarda kullanılabilir.' });
+            return false;
+          }
+
           const available = await AppleAuthentication.isAvailableAsync();
           if (!available) {
             set({ isLoading: false, error: 'Bu cihazda Apple ile giriş kullanılamıyor.' });
             return false;
           }
-          const credential = await AppleAuthentication.signInAsync({
-            requestedScopes: [
-              AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-              AppleAuthentication.AppleAuthenticationScope.EMAIL,
-            ],
-          });
+
+          let credential;
+          try {
+            credential = await AppleAuthentication.signInAsync({
+              requestedScopes: [
+                AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                AppleAuthentication.AppleAuthenticationScope.EMAIL,
+              ],
+            });
+          } catch (nativeErr: any) {
+            set({ isLoading: false });
+            throw nativeErr;
+          }
+
           if (!credential.identityToken) {
             set({ isLoading: false, error: 'Apple kimlik doğrulaması jeton döndürmedi.' });
             return false;
@@ -119,8 +163,8 @@ export const useAuthStore = create<AuthState>()(
             set({ isLoading: false });
             return false;
           }
-          set({ isLoading: false, error: 'Apple ile giriş sırasında bir sorun oluştu.' });
-          return false;
+          set({ isLoading: false });
+          throw err;
         }
       },
 
@@ -222,12 +266,53 @@ export const useAuthStore = create<AuthState>()(
        * Hesabı Bağlama (Account Linking - PBI-4.5)
        * Misafirin okuma geçmişini, yer imlerini ve ezberlerini yeni Apple/Google hesabına aktarır.
        */
-      linkAccount: async (provider: 'apple' | 'google', googleDetails?: { email?: string; name?: string }) => {
+      linkAccount: async (
+        provider: 'apple' | 'google',
+        details?: { email?: string; name?: string; hideEmail?: boolean }
+      ) => {
         const currentUser = get().user;
         const currentToken = get().token;
         const isCurrentlyGuest = get().isGuest;
 
         if (provider === 'apple') {
+          if (details?.email) {
+            const chosenEmail = details.email.trim();
+            const chosenName =
+              details.name?.trim() ||
+              (chosenEmail.includes('@') ? chosenEmail.split('@')[0] : 'Apple Kullanıcısı');
+            const fakeDevToken = `apple-dev-${chosenEmail.toLowerCase().replace(/[^a-z0-9_]/g, '_')}`;
+            const effectiveEmail = details.hideEmail
+              ? `${chosenEmail.split('@')[0]}@privaterelay.appleid.com`
+              : chosenEmail;
+
+            if (isCurrentlyGuest && currentUser?.id) {
+              const linkRes = await linkGuestAccount({
+                provider: 'apple',
+                idToken: fakeDevToken,
+                guestUserId: currentUser.id,
+                guestToken: currentToken ?? undefined,
+                fullName: chosenName,
+                email: effectiveEmail,
+              });
+
+              if (linkRes.success && linkRes.data) {
+                set({
+                  user: linkRes.data,
+                  token: linkRes.data.token ?? currentToken,
+                  isAuthenticated: true,
+                  isGuest: false,
+                  authStepCompleted: true,
+                  isLoading: false,
+                  error: null,
+                  sessionExpired: false,
+                });
+                OfflineSyncService.syncWithServer(undefined, undefined, undefined, { forceFullSync: true }).catch(() => {});
+                return true;
+              }
+            }
+            return await get().signInWithApple(details);
+          }
+
           if (Platform.OS !== 'ios') return false;
           try {
             const credential = await AppleAuthentication.signInAsync({
@@ -268,18 +353,18 @@ export const useAuthStore = create<AuthState>()(
               }
             }
             return await get().signInWithApple();
-          } catch {
-            return false;
+          } catch (nativeErr) {
+            throw nativeErr;
           }
         } else {
           if (!FEATURES.googleSignIn) return false;
-          const chosenEmail = googleDetails?.email?.trim();
+          const chosenEmail = details?.email?.trim();
           if (!chosenEmail) {
             set({ error: 'Lütfen geçerli bir e-posta adresi girin.' });
             return false;
           }
           const chosenName =
-            googleDetails?.name?.trim() ||
+            details?.name?.trim() ||
             (chosenEmail.includes('@') ? chosenEmail.split('@')[0] : 'Google Kullanıcısı');
           const fakeDevToken = `google-dev-${chosenEmail.toLowerCase()}`;
 
@@ -308,7 +393,7 @@ export const useAuthStore = create<AuthState>()(
               return true;
             }
           }
-          return await get().signInWithGoogle(googleDetails);
+          return await get().signInWithGoogle(details);
         }
       },
 

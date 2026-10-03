@@ -35,7 +35,7 @@ export async function authRoutes(app: FastifyInstance) {
 
     let claims: { sub: string; email?: string };
     try {
-      claims = provider === "apple" ? await verifyAppleIdToken(idToken) : await verifyGoogleIdToken(idToken, email);
+      claims = provider === "apple" ? await verifyAppleIdToken(idToken, email) : await verifyGoogleIdToken(idToken, email);
     } catch (err) {
       request.log.warn({ err, provider }, "OAuth id_token doğrulaması başarısız");
       return reply.status(401).send(fail("AUTH_FAILED", "Kimlik doğrulama başarısız oldu"));
@@ -89,7 +89,7 @@ export async function authRoutes(app: FastifyInstance) {
 
     let claims: { sub: string; email?: string };
     try {
-      claims = provider === "apple" ? await verifyAppleIdToken(idToken) : await verifyGoogleIdToken(idToken, email);
+      claims = provider === "apple" ? await verifyAppleIdToken(idToken, email) : await verifyGoogleIdToken(idToken, email);
     } catch (err) {
       request.log.warn({ err, provider }, "Account linking id_token doğrulaması başarısız");
       return reply.status(401).send(fail("AUTH_FAILED", "Kimlik doğrulama başarısız oldu"));

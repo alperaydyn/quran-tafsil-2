@@ -39,6 +39,7 @@ export function AuthScreen() {
   const resetAuthStep = useAuthStore((s) => s.resetAuthStep);
   const signInWithApple = useAuthStore((s) => s.signInWithApple);
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
+  const linkAccount = useAuthStore((s) => s.linkAccount);
   const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
   const isGuest = useAuthStore((s) => s.isGuest);
 
@@ -47,6 +48,12 @@ export function AuthScreen() {
   const [googleEmail, setGoogleEmail] = useState<string>('');
   const [googleName, setGoogleName] = useState<string>('');
   const [modalError, setModalError] = useState<string | null>(null);
+
+  const [appleModalVisible, setAppleModalVisible] = useState<boolean>(false);
+  const [appleEmail, setAppleEmail] = useState<string>('');
+  const [appleName, setAppleName] = useState<string>('');
+  const [appleHideEmail, setAppleHideEmail] = useState<boolean>(false);
+  const [appleModalError, setAppleModalError] = useState<string | null>(null);
 
   useEffect(() => {
     // Ekran açıldığında önceki oturumlardan kalan kapanma bayrağını sıfırla
@@ -68,6 +75,45 @@ export function AuthScreen() {
     }
   }, [authStepCompleted, navigation]);
 
+  const handleApplePress = async () => {
+    try {
+      if (Platform.OS === 'ios') {
+        const available = await AppleAuthentication.isAvailableAsync();
+        if (available) {
+          const success = isGuest ? await linkAccount('apple') : await signInWithApple();
+          if (success) return;
+        }
+      }
+    } catch (err: any) {
+      if (err?.code === 'ERR_REQUEST_CANCELED') return;
+      console.log('[handleApplePress] Native Apple sheet açılamadı, simülatör formu açılıyor');
+    }
+
+    // Expo Go veya simülatör kısıtında kullanıcıya kendi Apple e-posta ve adı ile giriş seçeneği sun
+    setAppleModalVisible(true);
+  };
+
+  const handleAppleSubmit = async (customOptions?: { email?: string; name?: string; hideEmail?: boolean }) => {
+    const emailToUse = (customOptions?.email ?? appleEmail).trim();
+    if (!emailToUse || !emailToUse.includes('@')) {
+      setAppleModalError('Lütfen geçerli bir Apple ID / e-posta adresi girin.');
+      return;
+    }
+    setAppleModalError(null);
+    const nameToUse = (customOptions?.name ?? appleName).trim() || emailToUse.split('@')[0];
+    const hideEmail = customOptions?.hideEmail ?? appleHideEmail;
+
+    const success = isGuest
+      ? await linkAccount('apple', { email: emailToUse, name: nameToUse, hideEmail })
+      : await signInWithApple({ email: emailToUse, name: nameToUse, hideEmail });
+
+    if (success) {
+      setAppleModalVisible(false);
+      setAppleEmail('');
+      setAppleName('');
+    }
+  };
+
   const handleGoogleSubmit = async () => {
     const emailToUse = googleEmail.trim();
     if (!emailToUse || !emailToUse.includes('@')) {
@@ -77,10 +123,12 @@ export function AuthScreen() {
     setModalError(null);
     const nameToUse = googleName.trim() || emailToUse.split('@')[0];
 
-    const success = await signInWithGoogle({
-      email: emailToUse,
-      name: nameToUse,
-    });
+    const success = isGuest
+      ? await linkAccount('google', { email: emailToUse, name: nameToUse })
+      : await signInWithGoogle({
+          email: emailToUse,
+          name: nameToUse,
+        });
 
     if (success) {
       setGoogleModalVisible(false);
@@ -119,14 +167,14 @@ export function AuthScreen() {
               }
               cornerRadius={theme.radius.pill}
               style={{ height: 48, width: '100%' }}
-              onPress={signInWithApple}
+              onPress={handleApplePress}
             />
           ) : (
             <Button
               label={` ${t('auth.appleSignIn')}`}
               variant="primary"
               disabled={isLoading}
-              onPress={signInWithApple}
+              onPress={handleApplePress}
             />
           )}
 
@@ -271,6 +319,218 @@ export function AuthScreen() {
                   onPress={() => {
                     setGoogleModalVisible(false);
                     setModalError(null);
+                  }}
+                  style={{ height: 38 }}
+                />
+              </View>
+            </KeyboardAvoidingView>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      {/* Apple ile Giriş / Hesap Bağlama Modalı (Simülatör / Expo Go) */}
+      <Modal
+        visible={appleModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setAppleModalVisible(false)}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'rgba(0,0,0,0.65)',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 24,
+            }}
+          >
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              style={{
+                width: '100%',
+                maxWidth: 380,
+                backgroundColor: theme.colors.surf,
+                borderRadius: theme.radius.xl,
+                borderWidth: 1,
+                borderColor: theme.colors.line,
+                padding: 24,
+                gap: 16,
+              }}
+            >
+              <View style={{ gap: 4 }}>
+                <StyledText variant="title" color="ink" style={{ fontSize: 20 }}>
+                   Apple ile Giriş Yap
+                </StyledText>
+                <StyledText variant="footnote" color="mut">
+                  Simülatör / Expo Go ortamında kendi Apple hesabınızla giriş yapabilir veya test hesabı kullanabilirsiniz.
+                </StyledText>
+              </View>
+
+              <View style={{ gap: 10, marginTop: 4 }}>
+                <View>
+                  <StyledText variant="caption" color="faint" style={{ marginBottom: 4 }}>
+                    AD SOYAD
+                  </StyledText>
+                  <TextInput
+                    value={appleName}
+                    onChangeText={setAppleName}
+                    placeholder="Adınız Soyadınız (örn: Alper Aydın)"
+                    placeholderTextColor={theme.colors.faint}
+                    style={{
+                      height: 44,
+                      borderWidth: 1,
+                      borderColor: theme.colors.line,
+                      borderRadius: theme.radius.md,
+                      paddingHorizontal: 12,
+                      color: theme.colors.ink,
+                      backgroundColor: theme.colors.bg,
+                      fontSize: 15,
+                    }}
+                  />
+                </View>
+
+                <View>
+                  <StyledText variant="caption" color="faint" style={{ marginBottom: 4 }}>
+                    APPLE ID / E-POSTA ADRESİ
+                  </StyledText>
+                  <TextInput
+                    value={appleEmail}
+                    onChangeText={setAppleEmail}
+                    placeholder="ornek@icloud.com"
+                    placeholderTextColor={theme.colors.faint}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    style={{
+                      height: 44,
+                      borderWidth: 1,
+                      borderColor: theme.colors.line,
+                      borderRadius: theme.radius.md,
+                      paddingHorizontal: 12,
+                      color: theme.colors.ink,
+                      backgroundColor: theme.colors.bg,
+                      fontSize: 15,
+                    }}
+                  />
+                </View>
+
+                {/* E-posta Paylaşımı / Gizleme Seçenekleri */}
+                <View style={{ gap: 6, marginTop: 4 }}>
+                  <StyledText variant="caption" color="faint">
+                    E-POSTA GİZLİLİK SEÇENEĞİ
+                  </StyledText>
+                  <Pressable
+                    onPress={() => setAppleHideEmail(false)}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: 10,
+                      borderRadius: theme.radius.md,
+                      backgroundColor: !appleHideEmail ? theme.colors.band : theme.colors.bg,
+                      borderWidth: 1,
+                      borderColor: !appleHideEmail ? theme.colors.acc : theme.colors.line,
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 16,
+                        height: 16,
+                        borderRadius: 8,
+                        borderWidth: 2,
+                        borderColor: !appleHideEmail ? theme.colors.acc : theme.colors.faint,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {!appleHideEmail && (
+                        <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: theme.colors.acc }} />
+                      )}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <StyledText variant="footnote" color="ink" style={{ fontWeight: '600' }}>
+                        E-postamı Paylaş
+                      </StyledText>
+                      <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
+                        Kendi gerçek e-posta adresiniz kullanılır.
+                      </StyledText>
+                    </View>
+                  </Pressable>
+
+                  <Pressable
+                    onPress={() => setAppleHideEmail(true)}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: 10,
+                      borderRadius: theme.radius.md,
+                      backgroundColor: appleHideEmail ? theme.colors.band : theme.colors.bg,
+                      borderWidth: 1,
+                      borderColor: appleHideEmail ? theme.colors.acc : theme.colors.line,
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 16,
+                        height: 16,
+                        borderRadius: 8,
+                        borderWidth: 2,
+                        borderColor: appleHideEmail ? theme.colors.acc : theme.colors.faint,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {appleHideEmail && (
+                        <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: theme.colors.acc }} />
+                      )}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <StyledText variant="footnote" color="ink" style={{ fontWeight: '600' }}>
+                        E-postamı Gizle
+                      </StyledText>
+                      <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
+                        @privaterelay.appleid.com maskeli adres simüle edilir.
+                      </StyledText>
+                    </View>
+                  </Pressable>
+                </View>
+              </View>
+
+              {appleModalError ? (
+                <StyledText variant="footnote" color="acc" style={{ textAlign: 'center', marginTop: 2 }}>
+                  {appleModalError}
+                </StyledText>
+              ) : null}
+
+              <View style={{ gap: 8, marginTop: 10 }}>
+                <Button
+                  label={isLoading ? 'Bağlanıyor...' : 'Apple ile Devam Et'}
+                  variant="primary"
+                  disabled={isLoading}
+                  onPress={() => handleAppleSubmit()}
+                  style={{ height: 46 }}
+                />
+                <Button
+                  label="Hızlı Test Hesabı ile Giriş"
+                  variant="secondary"
+                  disabled={isLoading}
+                  onPress={() =>
+                    handleAppleSubmit({
+                      email: 'apple.tester@privaterelay.appleid.com',
+                      name: 'Apple Test Kullanıcısı',
+                      hideEmail: true,
+                    })
+                  }
+                  style={{ height: 40 }}
+                />
+                <Button
+                  label="Vazgeç"
+                  variant="ghost"
+                  disabled={isLoading}
+                  onPress={() => {
+                    setAppleModalVisible(false);
+                    setAppleModalError(null);
                   }}
                   style={{ height: 38 }}
                 />

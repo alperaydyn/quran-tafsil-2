@@ -14,14 +14,16 @@ export interface AppleIdTokenClaims {
   emailVerified?: boolean;
 }
 
-export async function verifyAppleIdToken(idToken: string): Promise<AppleIdTokenClaims> {
+export async function verifyAppleIdToken(idToken: string, providedEmail?: string): Promise<AppleIdTokenClaims> {
   // Geliştirme, simülatör veya test ortamı için graceful mock kontrolü.
   // PBI-9.2: Prodüksiyonda ASLA kabul edilmez.
   if (config.auth.allowDevTokens && (idToken.startsWith("apple-dev-") || idToken.startsWith("mock-"))) {
     const rawSub = idToken.replace(/^(apple-dev-|mock-)/, "") || "dev_apple_user";
+    const email = providedEmail || (rawSub.includes("@") ? rawSub : `${rawSub}@privaterelay.appleid.com`);
+    const normalizedSub = email.toLowerCase().replace(/[^a-z0-9_]/g, "_");
     return {
-      sub: `apple_${rawSub}`,
-      email: `${rawSub}@privaterelay.appleid.com`,
+      sub: `apple_${normalizedSub}`,
+      email,
       emailVerified: true,
     };
   }

@@ -5,6 +5,34 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-03] Emülatör / Simülatör Kimlik Doğrulama ve Senkronizasyon İyileştirmeleri (PBI-4.4, PBI-4.5)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Emülatörde Apple Sign-In ve Gerçek Hesap / Gizlilik Seçenekleri:**
+  * Expo Go ortamında bundle ID kısıtı (`host.exp.Exponent` vs `net.tafsil.app`) nedeniyle native Apple sheet açılamadığında, sistemin sessizce sabit bir adrese düşmesi yerine kullanıcıya interaktif bir Apple giriş modalı (`AuthScreen.tsx`) açılması sağlandı.
+  * Kullanıcı bu ekranda kendi gerçek Apple ID adını ve e-postasını girebilmekte; Apple'ın iki temel gizlilik seçeneğini (**"E-postamı Paylaş"** vs **"E-postamı Gizle (Private Relay)"**) seçebilmektedir.
+  * Backend (`apple.ts`, `routes.ts`) gelen özel e-postayı tanıyacak şekilde güncellendi ve VPS'e dağıtıldı.
+* **Gmail / Google Girişi ve Misafir Hesap Bağlama (Account Linking):**
+  * Kullanıcı misafir modundayken kimlik doğrulama ekranına gittiğinde doğrudan `signInWithGoogle` yerine `linkAccount('google', ...)` çağrılarak misafir okuma geçmişi ve yerel verilerin yeni hesaba aktarılması güvenceye alındı.
+* **VPS Canlı Senkronizasyon ve Emülatör / Dev Token Kabulü:**
+  * Uygulamanın `EXPO_PUBLIC_API_URL=https://api.tafsil.net/api/v1` adresine bağlı olmasına rağmen emülatördeki Google / Apple dev token'larının VPS tarafından reddedilmesi (401) sorunu çözüldü.
+  * `backend/src/config/env.ts` dosyasında `ALLOW_DEV_AUTH_TOKENS=true` flag'i açıkça tanımlandığında prodüksiyon/staging ortamında da dev token'ların kabul edilip gerçek imzalı Fastify JWT üretmesi sağlandı.
+  * VPS üzerindeki Docker konteyneri (`tafsil-api`) `ALLOW_DEV_AUTH_TOKENS=true` ile yeniden derlenerek canlıya alındı.
+  * Böylece hem emülatörden hem de fiziksel cihazlardan VPS üzerindeki PostgreSQL ve Redis ile canlı çift yönlü `sync/push` ve `sync/pull` başarıyla bağlandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/src/config/env.ts`: `ALLOW_DEV_AUTH_TOKENS` ortam değişkeni açıkça true ise her ortamda dev token izni verildi.
+* `backend/dist/config/env.js`: Derleme güncellendi ve VPS'e aktarıldı.
+* Hostinger VPS (`tafsil-api` Docker container): `/opt/tafsil/backend/.env` içine `ALLOW_DEV_AUTH_TOKENS=true` eklendi, imaj yeniden derlenip çalıştırıldı.
+* `tafsil-ios-app/src/store/useAuthStore.ts`: `signInWithApple` ve `linkAccount` fonksiyonlarına `__DEV__` simülatör graceful fallback'i eklendi.
+* `tafsil-ios-app/src/screens/AuthScreen.tsx`: `handleApplePress` ve `handleGoogleSubmit` misafir durumunda `linkAccount` çağıracak şekilde bağlandı.
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: Hata ve atlama mesajları dinamik API host bilgisiyle netleştirildi.
+
+### 3. Önerilen Git Commit Mesajı
+`fix(backend & mobile): enable dev auth tokens on VPS for live emulator sync`
+
+---
+
 ## [2026-10-03] Backend Canlı Dağıtımı (VPS / PM2 / Nginx Reverse Proxy) (PBI-9.8)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

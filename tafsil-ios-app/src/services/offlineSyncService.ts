@@ -673,14 +673,25 @@ export class OfflineSyncService {
     const syncStarted = Date.now();
     if (!hasServerToken(effectiveToken)) {
       await this.reloadLocalProgressToStore();
+      const isDevToken = typeof (effectiveToken as unknown) === 'string' && (effectiveToken as unknown as string).startsWith('dev-jwt-');
+      let hostLabel = 'API sunucusu';
+      try {
+        hostLabel = new URL(apiBaseUrl).host;
+      } catch {}
+      const errorMsg = isDevToken
+        ? `Geliştirici yerel oturumu (${hostLabel} kapalı veya oturumu doğrulamadı)`
+        : 'Sunucu oturumu yok (misafir / giriş yapılmamış)';
       dataFlowMonitor.setLastSync({
         at: syncStarted,
         ok: false,
         phase: 'skipped',
         durationMs: 0,
-        error: 'Sunucu oturumu yok (misafir / giriş yapılmamış)',
+        error: errorMsg,
       });
-      trackFlow('SYS', 'state', 'sync', { status: 'miss', detail: 'Atlandı: sunucu tokenı yok' });
+      trackFlow('SYS', 'state', 'sync', {
+        status: 'miss',
+        detail: isDevToken ? `Atlandı: ${hostLabel} çevrimdışı (dev token)` : 'Atlandı: sunucu tokenı yok',
+      });
       return false;
     }
 
