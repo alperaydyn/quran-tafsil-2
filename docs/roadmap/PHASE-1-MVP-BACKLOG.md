@@ -137,3 +137,15 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
   - ✅ Log'daki parola maskelendi (ajan). ⏳ Firewall + parola rotasyonu (kullanıcı) — parola git geçmişinde kalmaya devam ettiğinden rotasyon zorunlu.
 - [ ] **PBI-9.10 (EAS & App Store Connect):** `eas init` (Faz 2 PBI-D.1), ASC'de `net.tafsil.app` uygulama kaydı ve `eas.json` submit bilgileri (Faz 2 PBI-D.2).
 - [ ] **PBI-9.11 (ASC Test Bilgileri):** Gizlilik politikası sayfasının yayını (`tafsil.net/gizlilik`), Beta açıklaması, geri bildirim e-postası, inceleme notu (Misafir modu), App Privacy etiketleri.
+
+---
+
+## 10. Veri Akışı İzleme & Tanılama (Diagnostics)
+*2026-10-03 — Geliştirme/test sürecinde veri hareketlerini katman bazında izlemek ve kullanıcıların sorun anında tanılama verisi paylaşabilmesi için eklendi.*
+
+- [x] **PBI-10.1 (Veri Hareketi İzleyicisi & Tanılama Ekranı):** Katman etiketli halka tampon (`dataFlowMonitor`), global `fetch` gözlemcisi, `expo-network` + `/health` bağlantı izleyicisi, L1–L5 enstrümantasyonu; Ayarlar › "Veri Akışı & Tanılama" ekranı (`tafsil://tanilama`).
+  - Bağlantı durumu, senkron sonucu + yerel↔sunucu karşılaştırması, katman haritası (isabet oranı), filtrelenebilir canlı olay akışı, yerel depolama envanteri (KV/SQLite/Snapshot/Ses + disk).
+- [x] **PBI-10.2 (Tanılama Raporu & E-posta Paylaşımı):** Gizlilik filtreli JSON rapor; `expo-mail-composer` ile ekli e-posta (Mail yoksa paylaşım sayfası).
+- [x] **PBI-10.3 (Sunucu Karşılığı):** `010_client_diagnostics.sql` (`istemci_tanilama_raporlari`, `istemci_veri_hareketleri`), `POST /api/v1/diagnostics/reports` (isteğe bağlı JWT, 6 istek/10 dk), kullanıcı listesi ve yönetici uçları. Canlı DB'ye uygulandı, inject smoke test PASS.
+- [ ] **PBI-10.4 (Yeni Native Build — Kullanıcı):** `expo-network` ve `expo-mail-composer` native modül eklediğinden mevcut dev client / TestFlight build'i yeniden alınmalı (`eas build`). ASC App Privacy etiketine "Diagnostics › Other Diagnostic Data" eklenmeli (PBI-9.11 ile birlikte).
+

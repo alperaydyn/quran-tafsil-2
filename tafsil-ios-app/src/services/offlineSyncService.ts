@@ -2,6 +2,7 @@ import { mmkvStorage } from '../store/mmkvStorage';
 import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import { localDbService } from './localDbService';
 import { API_BASE } from '../api/config';
+import { dataFlowMonitor, trackFlow } from './diagnostics/dataFlowMonitor';
 
 const BOOKMARKS_KEY = 'tafsil_offline_bookmarks';
 const HISTORY_KEY = 'tafsil_offline_history';
@@ -621,9 +622,22 @@ export class OfflineSyncService {
     void userId; // Sunucu kimliği yalnızca JWT'den çözer (PBI-9.1)
 
     // Geçerli bir sunucu oturumu yoksa (giriş yapılmamış / çevrimdışı misafir) ağa çıkma
+    const syncStarted = Date.now();
     if (!hasServerToken(effectiveToken)) {
+      dataFlowMonitor.setLastSync({
+        at: syncStarted,
+        ok: false,
+        phase: 'skipped',
+        durationMs: 0,
+        error: 'Sunucu oturumu yok (misafir / giriş yapılmamış)',
+      });
+      trackFlow('SYS', 'state', 'sync', { status: 'miss', detail: 'Atlandı: sunucu tokenı yok' });
       return false;
     }
+
+    let phase: 'push' | 'pull' = 'push';
+    const pushedCounts = { bookmarks: 0, history: 0, concepts: 0, memorization: 0 };
+    const pulledCounts = { bookmarks: 0, history: 0, concepts: 0, memorization: 0 };
 
     try {
       const bookmarks = await this.getBookmarks();
@@ -643,6 +657,10 @@ export class OfflineSyncService {
 
       // 1. Yerel verileri sunucuya PUSH et
       if (bookmarks.length > 0 || history.length > 0 || concepts.length > 0 || memorization.length > 0) {
+        pushedCounts.bookmarks = bookmarks.length;
+        pushedCounts.history = history.length;
+        pushedCounts.concepts = concepts.length;
+        pushedCounts.memorization = memorization.length;
         const pushRes = await fetch(`${apiBaseUrl}/sync/push`, {
           method: 'POST',
           headers,
@@ -653,13 +671,22 @@ export class OfflineSyncService {
             memorization_sessions: memorization,
           }),
         });
+        trackFlow('NET_API', 'push', 'sync/push', {
+          status: pushRes.ok ? 'ok' : 'error',
+          detail: `yer imi ${bookmarks.length} · geçmiş ${history.length} · kavram ${concepts.length} · ezber ${memorization.length} · HTTP ${pushRes.status}`,
+        });
         if (pushRes.status === 401) {
           markSessionExpired();
+          dataFlowMonitor.setLastSync({
+            at: syncStarted, ok: false, phase: 'push', durationMs: Date.now() - syncStarted,
+            pushed: pushedCounts, error: 'HTTP 401 — oturum süresi doldu',
+          });
           return false;
         }
       }
 
       // 2. Sunucudaki güncel kullanıcı verilerini PULL et
+      phase = 'pull';
       const lastSync = options?.forceFullSync ? null : await mmkvStorage.getItem(LAST_SYNC_KEY);
       const pullRes = await fetch(`${apiBaseUrl}/sync/pull`, {
         method: 'POST',
@@ -671,12 +698,23 @@ export class OfflineSyncService {
 
       if (pullRes.status === 401) {
         markSessionExpired();
+        dataFlowMonitor.setLastSync({
+          at: syncStarted, ok: false, phase: 'pull', durationMs: Date.now() - syncStarted,
+          pushed: pushedCounts, error: 'HTTP 401 — oturum süresi doldu',
+        });
         return false;
       }
 
       if (pullRes.ok) {
         const pulled = await pullRes.json();
         const data = pulled?.data;
+        pulledCounts.bookmarks = Array.isArray(data?.bookmarks) ? data.bookmarks.length : 0;
+        pulledCounts.history = Array.isArray(data?.reading_history) ? data.reading_history.length : 0;
+        pulledCounts.concepts = Array.isArray(data?.concept_history) ? data.concept_history.length : 0;
+        pulledCounts.memorization = Array.isArray(data?.memorization_sessions) ? data.memorization_sessions.length : 0;
+        trackFlow('NET_API', 'pull', 'sync/pull', {
+          detail: `${lastSync ? 'delta' : 'tam'} · yer imi ${pulledCounts.bookmarks} · geçmiş ${pulledCounts.history} · kavram ${pulledCounts.concepts} · ezber ${pulledCounts.memorization}`,
+        });
 
         // Yer İmleri Birleştirme
         if (data?.bookmarks && Array.isArray(data.bookmarks)) {
@@ -735,8 +773,26 @@ export class OfflineSyncService {
       }
 
       await mmkvStorage.setItem(LAST_SYNC_KEY, new Date().toISOString());
+      dataFlowMonitor.setLastSync({
+        at: syncStarted,
+        ok: pullRes.ok,
+        phase: 'done',
+        durationMs: Date.now() - syncStarted,
+        pushed: pushedCounts,
+        pulled: pulledCounts,
+        error: pullRes.ok ? undefined : `pull HTTP ${pullRes.status}`,
+      });
       return true;
     } catch (err) {
+      dataFlowMonitor.setLastSync({
+        at: syncStarted,
+        ok: false,
+        phase,
+        durationMs: Date.now() - syncStarted,
+        pushed: pushedCounts,
+        error: String((err as any)?.message ?? err).slice(0, 160),
+      });
+      trackFlow('SYS', 'state', 'sync', { status: 'error', detail: `${phase} aşamasında hata` });
       console.warn('[OfflineSyncService.syncWithServer] Senkronizasyon hatası:', err);
       return false;
     }

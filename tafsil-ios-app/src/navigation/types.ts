@@ -14,6 +14,7 @@ export type RootStackParamList = {
   Main: NavigatorScreenParams<MainTabParamList>;
   Profile: undefined;
   Settings: undefined;
+  Diagnostics: undefined;
   Search: { initialQuery?: string } | undefined;
   Reading: { surahId: number; ayahNo?: number; autoPlay?: boolean };
   MemorizationStudio: { sessionId?: string; surahId?: number; startAyah?: number; endAyah?: number };

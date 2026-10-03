@@ -20,6 +20,7 @@ import { SearchScreen } from '../screens/SearchScreen';
 import { LoadingScreen } from '../screens/LoadingScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
+import { DiagnosticsScreen } from '../screens/DiagnosticsScreen';
 import { Pressable } from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,6 +47,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       },
       Profile: 'profil',
       Settings: 'ayarlar',
+      Diagnostics: 'tanilama',
       Search: 'arama',
       Reading: 'ayet/:surahId/:ayahNo',
       UnderstandingStudio: 'oturum/:id',
@@ -134,6 +136,11 @@ export function RootNavigator() {
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Diagnostics"
+          component={DiagnosticsScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

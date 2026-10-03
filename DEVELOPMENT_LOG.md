@@ -7,6 +7,49 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 ---
 
+## [2026-10-03] Veri Akışı İzleme & Tanılama Ekranı + Sunucu Karşılığı (PBI-10.1 — PBI-10.3)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Katman etiketli tek izleyici (`dataFlowMonitor`):** README'deki 5 katmanlı önbellek isimlendirmesi (L1 Zustand · L2 MMKV/KV · L3 SQLite · L4 Snapshot · L5 Dosya) + `NET_API` / `NET_CDN` / `NET_EXT` / `SYS` etiketleri kullanıldı. 600 olaylık halka tampon; ardışık özdeş olaylar 1.5 sn içinde birleştirilir (`×N`), UI bildirimi 300 ms throttled. *Gerekçe:* Prod'da da açık kalabilecek kadar ucuz olmalı — kullanıcı sorun anında rapor paylaşabilsin. Modül hiçbir uygulama modülünü import etmez (döngüsel bağımlılık/recursion riski yok).
+* **Enstrümantasyon noktaları (chokepoint):**
+  * L2: `mmkvStorage.ts` içinde `activeStorage` sarmalandı → hem `mmkv` hem Zustand `persist` yazımları tek yerden izlenir. Kelime başına `lex_v1_*` anahtarları tek mantıksal anahtarda toplanır (tamponu boğmaması için).
+  * L3/L4: `localDbService` (hit/miss/write/seed, snapshot fallback), `client.ts` (API+SQLite başarısız → snapshot), `lexiconCacheService` (küratörlü seed / otomatik fallback).
+  * L5: `audioCacheService` (yerel mp3 hit / CDN stream miss, indirme, silme).
+  * Ağ: Global `fetch` gözlemcisi — yalnızca yöntem, yol, sorgu **anahtarları**, durum, süre, Content-Length. Token/gövde/sorgu değerleri **loglanmaz**.
+  * L1: Zustand store probları (`subscribe` ile değişen alan adları); `activeReading.positionMs/currentWordIndex` yüksek frekanslı olduğu için hariç.
+  * Senkron: `syncWithServer` her çalıştırmada `lastSync` (skipped/push/pull/done, ↑↓ sayılar, süre, hata) üretir.
+* **Bağlantı durumu iki sinyal:** `expo-network` (cihaz) + `GET /health` (API, PostgreSQL, Redis, gecikme). *Gerekçe:* "Cihaz çevrimiçi" ≠ "API erişilebilir"; `api_unreachable` ayrı durum. 503 yanıtı "erişilebilir ama bağımlılık hatası" sayılır.
+* **Tanılama ekranı herkese açık (yalnızca `__DEV__` değil):** TestFlight testçileri ve kullanıcılar sorun anında raporu paylaşabilsin diye Ayarlar › "Tanılama & Destek" altında. Ekranın kendi ölçümleri (`peekStorageValue`, doğrudan PRAGMA) olay akışını kirletmez.
+* **Paylaşım:** Rapor önce sunucuya kaydedilir (kısa kod `TD-XXXXXX`), sonra `expo-mail-composer` ile JSON ekli e-posta açılır; Mail hesabı yoksa sistem paylaşım sayfasına düşer. Rapor JWT, e-posta, yer imi notu ve okuma içeriği içermez.
+* **Sunucu karşılığı (`010_client_diagnostics.sql`):** `istemci_tanilama_raporlari` (sorgulanabilir özet kolonlar + JSONB detay, `durum`: yeni/inceleniyor/cozuldu) ve `istemci_veri_hareketleri` (olay başına satır, katman/işlem/hata indeksleri). Olaylar tek round-trip `unnest` toplu insert ile yazılır.
+  * Kimlik **yalnızca JWT'den** (PBI-9.1 ilkesi); gövdedeki `auth.user_id` saklanmaz. Geçersiz/süresi dolmuş JWT ile rapor yine kabul edilir (anonim) — 401 sorunları tam da bu raporlarla teşhis edilir. Rota bazlı rate limit: 6 istek / 10 dk.
+* **Önceki kararlarla uyum:** Offline-first bozulmadı (izleyici yalnızca gözlemler), maliyet bilinci (ek servis yok, Postgres'te iki tablo), ses saklama/R2 stratejisi değişmedi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* **Yeni (mobil):** `src/services/diagnostics/{dataFlowMonitor,networkInterceptor,connectivityMonitor,storageInspector,diagnosticReport,index}.ts`, `src/screens/DiagnosticsScreen.tsx`
+* **Güncellenen (mobil):** `App.tsx` (`installDiagnostics()`), `src/store/mmkvStorage.ts`, `src/services/{localDbService,audioCacheService,lexiconCacheService,offlineSyncService}.ts`, `src/api/client.ts`, `src/navigation/{types,RootNavigator}.tsx`, `src/screens/SettingsScreen.tsx`, `package.json` / `app.json` (`expo-network`, `expo-mail-composer` + config plugin)
+* **Yeni (backend):** `src/db/migrations/010_client_diagnostics.sql`, `src/modules/diagnostics/{dto,service,routes}.ts`; `src/app.ts` kaydı (`/api/v1/diagnostics`)
+* **Dokümantasyon:** `README.md` (Çevrimdışı Strateji › 6. Veri Akışı İzleme ve Tanılama), `docs/roadmap/PHASE-1-MVP-BACKLOG.md` (Bölüm 10), `docs/roadmap/PHASE-2-BACKLOG.md` (`PBI-OBS.2`)
+
+### 3. Doğrulama
+* Mobil `tsc --noEmit` ✅ · `expo-doctor` 21/21 ✅ · `expo export --platform ios` bundle ✅ · Backend `tsc --noEmit` ✅
+* Migration 010 canlı DB'ye (SSH tüneli) yalnızca bu dosya olarak uygulandı: 2 tablo, 9 indeks ✅
+* Fastify inject: anonim POST 201 · geçersiz JWT ile POST 201 (anonim) · hatalı gövde 400 · JWT'siz liste 401 · JWT'li POST kullanıcıya bağlandı + kendi listesinde görünür · admin olmayan admin ucu 403 · gövdedeki `user_id` saklanmadı ✅ (test kayıtları silindi)
+* ⚠️ `expo-network` / `expo-mail-composer` native modül → yeni dev client / EAS build gerekir (PBI-10.4).
+
+### 4. Önerilen Git Commit Mesajı
+```git
+feat(diagnostics): add layer-tagged data flow monitor, diagnostics screen and server-side report storage (PBI-10.1–10.3)
+
+- app: ring-buffer monitor tagging L1–L5/API/CDN/SYS events; global fetch observer (no tokens/bodies)
+- app: connectivity (expo-network + /health), storage inventory, local↔server sync comparison
+- app: Settings › Veri Akışı & Tanılama screen with live filterable event stream
+- app: privacy-safe diagnostic report shared via email attachment (expo-mail-composer)
+- backend: 010_client_diagnostics migration + /api/v1/diagnostics routes (optional JWT, rate limited, admin lookup)
+```
+
+---
+
 ## [2026-10-03] Mobil Senkronizasyon, Önbellekleme ve Çevrimdışı/Çevrimiçi Mimari Dokümantasyonu (README.md)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

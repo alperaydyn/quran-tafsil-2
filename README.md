@@ -411,6 +411,70 @@ Uygulama, ağ kopmalarına ve oturum durumlarına karşı dirençli (resilient) 
   * ❌ Topluluk paylaşımları ve sosyal etkileşimler
   * ❌ Makale akışı (yeni içerik çekme)
 
+#### 6. Veri Akışı İzleme ve Tanılama (Diagnostics)
+
+**Ayarlar › Tanılama & Destek › Veri Akışı & Tanılama** ekranı (`tafsil://tanilama`), uygulamanın "kaputunu açan" bir gözlem ve destek sayfasıdır. Offline-first mimaride veri aynı anda birden fazla katmandan (bellek, KV, SQLite, snapshot, dosya, ağ) akar; bir şey ters gittiğinde "veri nerede takıldı?" sorusunun cevabı normalde görünmezdir. Bu ekran bu akışı görünür kılar.
+
+##### Amaç
+
+| Kim | Ne için kullanır |
+|---|---|
+| **Geliştirici** | Bir ekranın veriyi hangi katmandan aldığını doğrular (ör. ayetler SQLite'tan mı, snapshot'tan mı, API'den mi geldi?), gereksiz ağ isteklerini ve önbellek ıskalarını yakalar. |
+| **Test kullanıcısı (TestFlight)** | "Okuduklarım diğer cihazda görünmüyor" gibi bir sorunda cihaz ile sunucu verisini karşılaştırır ve tek dokunuşla raporu ekibe iletir. |
+| **Destek / Ürün ekibi** | Kullanıcının gönderdiği `TD-XXXXXX` kodu ile bağlantı, senkron ve katman durumunu sunucuda inceler; tahmin yerine veriyle teşhis koyar. |
+
+> Ekran ürün özelliği değil, **gözlemlenebilirlik (observability)** aracıdır: yalnızca gözlemler, uygulamanın davranışını değiştirmez; offline-first ilkesini bozmaz.
+
+##### Ekran Bölümleri
+
+1. **Bağlantı Durumu** — Büyük durum kartı: *Çevrimiçi*, *Çevrimdışı*, *API Erişilemiyor* veya *Belirleniyor*. İki bağımsız sinyal birleştirilir: cihazın ağ durumu (`expo-network`: Wi-Fi/Hücresel/Yok) ve API sağlığı (`GET /health`: gecikme ms, PostgreSQL ✓/✕, Redis ✓/✕). "Cihaz çevrimiçi ≠ sunucu erişilebilir" ayrımı bu yüzden yapılır. Oturum boyunca yaşanan kopma sayısı gösterilir; ekran açıkken sağlık kontrolü 15 sn'de bir tekrarlanır, "Yeniden Ölç" ile elle tetiklenir.
+2. **Senkronizasyon** — Son senkron denemesinin sonucu (başarılı / başarısız / atlandı, süre, aşama: push veya pull, hata mesajı) ve ↑ gönderilen / ↓ alınan kayıt sayıları. Altında **Cihaz ↔ Sunucu karşılaştırma tablosu** (okuma geçmişi, yer imi, kavram, ezber); sayılar farklıysa `≠` ile işaretlenir. "Şimdi Eşitle" butonu senkronu elle çalıştırır. *(Cihaz son 500 okumayı tuttuğu için küçük farklar beklenen davranıştır.)*
+3. **Katman Haritası** — Her bellek katmanı için bir kart: okuma ↓ / yazma ↑ sayısı, taşınan veri miktarı, **isabet oranı** (cache hit / hit+miss) ve hata sayısı. Karta dokunmak olay akışını o katmana filtreler.
+
+   | Etiket | Katman | Teknoloji |
+   |---|---|---|
+   | **L1** | Reaktif Bellek | Zustand store'ları |
+   | **L2** | Anahtar-Değer | MMKV (yoksa SQLite-KV / localStorage / bellek) |
+   | **L3** | İlişkisel DB | SQLite (WAL) |
+   | **L4** | Paket Snapshot | `ayetler.snapshot.json`, `surahs.seed`, küratörlü sözlük |
+   | **L5** | Dosya / Ses | İndirilen MP3 önbelleği |
+   | **API / CDN / EXT** | Ağ | Fastify API · Cloudflare R2 · diğer |
+   | **SYS** | Sistem | Bağlantı geçişleri, senkron durumu |
+
+4. **Canlı Veri Hareketleri** — Zaman damgalı akış: katman rozeti, işlem (`OKU`, `YAZ`, `SİL`, `İSABET`, `ISKA`, `YEDEK`, `İSTEK`, `PUSH`, `PULL`, `İNDİR`, `DURUM`), anahtar/yol, süre (ms) ve boyut. Katmana göre veya *yalnız hatalar* olarak filtrelenebilir, duraklatılıp temizlenebilir. Ardışık özdeş olaylar `×N` olarak birleşir. **`YEDEK`** (fallback) satırları kritik sinyaldir: veri tercih edilen katmandan gelemedi, bir alt katmana düşüldü (ör. SQLite boş → snapshot).
+5. **Yerel Depolama** — Cihazdaki verinin katman bazlı dökümü ve toplam boyutu: L2 anahtar sayısı/boyutu/en büyük anahtarlar, L3 SQLite dosyaları (`.db`, `-wal`, `-shm`) ve tablo satır sayıları, L4 snapshot boyutu (uygulama paketinin parçası, toplama dahil değil), L5 sure bazlı indirilmiş ses, cihaz boş alanı ve okunan ayet / tamamlanan sure / senkron kuyruğu gibi kullanıcı verisi sayaçları.
+6. **Tanılama Verilerini Paylaş** — İsteğe bağlı kısa sorun notu ve **"E-posta ile Paylaş"** butonu (aşağıda).
+
+##### Olay Modeli ve Nasıl Toplanır
+
+* Merkezde bağımlılıksız bir **halka tampon** (`dataFlowMonitor`, son 600 olay) bulunur. Her olay `{zaman, katman, işlem, anahtar, durum(ok/miss/error), bayt, süre, tekrar, detay}` taşır.
+* Veri **tek geçiş noktalarından** toplanır, ekranlara dağınık log kodu eklenmez: `mmkvStorage` (L2), `localDbService` (L3/L4), `audioCacheService` (L5), `lexiconCacheService` ve `client.ts` (L4 yedekleri), Zustand `subscribe` probları (L1) ve **global `fetch` gözlemcisi** (API/CDN/EXT).
+* Yüksek frekanslı kaynaklar (oynatma pozisyonu, kelime başına sözlük anahtarları) tamponu boğmamak için hariç tutulur veya tek mantıksal anahtarda toplanır.
+* Maliyet ihmal edilebilir düzeydedir (bellekte sabit boyutlu tampon, UI bildirimleri 300 ms throttled); bu yüzden üretim build'lerinde de açıktır.
+
+##### Tanılama Raporu ve E-posta Paylaşımı
+
+Kullanıcı bir sorun yaşadığında **"E-posta ile Paylaş"** butonuna dokunur:
+
+1. Uygulama bir **JSON rapor** üretir: cihaz/uygulama sürümü, bağlantı durumu, son senkron sonucu, sunucu ile karşılaştırma, katman sayaçları, yerel depolama envanteri ve son ≤400 veri hareketi.
+2. Rapor çevrimiçiyse sunucuya kaydedilir ve kullanıcıya kısa bir **rapor kodu** (`TD-8S62AR`) verilir.
+3. `expo-mail-composer` ile destek adresine (`SUPPORT_EMAIL`) **JSON ekli e-posta taslağı** açılır; konuda ve gövdede kod ile özet bulunur. Cihazda Mail hesabı yoksa sistem paylaşım sayfası (Gmail, Outlook vb.) devreye girer.
+
+**Gizlilik:** Rapora oturum anahtarı (JWT), e-posta adresi, yer imi notları ve okuma içeriği **eklenmez**; ağ gözlemcisi yalnızca yöntem/yol/sorgu *anahtarı*/durum/süre/boyut kaydeder (token, gövde ve sorgu değerleri asla). Rapor yalnızca kullanıcı butona bastığında gönderilir; arka planda otomatik gönderim yoktur.
+
+##### Sunucu Karşılığı (PostgreSQL)
+
+| Tablo / Uç | Görev |
+|---|---|
+| `istemci_tanilama_raporlari` | Rapor başına tek satır: kısa kod, cihaz/sürüm, bağlantı ve senkron özeti, yerel depolama boyutları, yerel↔sunucu okuma sayısı, kullanıcı notu, durum (`yeni` → `inceleniyor` → `cozuldu`), ayrıntılar JSONB. |
+| `istemci_veri_hareketleri` | Raporun olay akışı, olay başına satır (katman / işlem / durum indeksli) — "hangi katmanda kaç hata oluştu?" gibi toplu analiz için. |
+| `POST /api/v1/diagnostics/reports` | Rapor kaydı. JWT isteğe bağlıdır; **süresi dolmuş/geçersiz oturumla da kabul edilir** (anonim kaydedilir) çünkü 401 sorunlarını teşhis etmek bu raporların amacıdır. Kimlik yalnızca JWT'den alınır, gövdedeki kullanıcı kimliğine güvenilmez. 10 dk'da 6 istek sınırı. |
+| `GET /api/v1/diagnostics/reports` | Kullanıcının kendi raporları (JWT zorunlu). |
+| `GET/PATCH /api/v1/diagnostics/admin/reports[/:kod]` | Yönetici: son raporlar, kodla rapor + olay akışı + katman özeti, durum güncelleme (`authorizeAdmin`). |
+
+> **Not:** `expo-network` ve `expo-mail-composer` native modül içerir; bu özelliği taşıyan sürüm için yeni bir development build / EAS build gerekir. Raporların 90 gün sonra silinmesi ve web yönetim paneli Faz 2'de planlanmıştır (`PBI-OBS.2`).
+
+
 ### Kimlik Doğrulama, Güvenlik ve Gizlilik
 
 * **Sosyal Oturum Açma:**

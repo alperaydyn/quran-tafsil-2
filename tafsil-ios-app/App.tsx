@@ -9,6 +9,10 @@ import { RootNavigator } from './src/navigation/RootNavigator';
 import { LoadingScreen } from './src/screens/LoadingScreen';
 
 import { OfflineSyncService } from './src/services/offlineSyncService';
+import { installDiagnostics } from './src/services/diagnostics';
+
+// Veri hareketi izleyicisi (PBI-10.1): ilk fetch'ten önce kurulmalı
+installDiagnostics();
 
 SplashScreen.preventAutoHideAsync().catch(() => {
   /* zaten gizliyse yut */

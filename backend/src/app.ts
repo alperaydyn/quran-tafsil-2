@@ -24,6 +24,7 @@ import { adminRoutes } from "./modules/admin/routes.js";
 import { syncRoutes } from "./modules/sync/routes.js";
 import { audioRoutes } from "./modules/audio/routes.js";
 import { subscriptionRoutes } from "./modules/subscriptions/routes.js";
+import { diagnosticsRoutes } from "./modules/diagnostics/routes.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -69,6 +70,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(analyticsRoutes, { prefix: "/api/v1" });
   await app.register(adminRoutes, { prefix: "/api/v1/admin" });
   await app.register(subscriptionRoutes, { prefix: "/api/v1/subscriptions" });
+  await app.register(diagnosticsRoutes, { prefix: "/api/v1/diagnostics" });
   await app.register(syncRoutes);
   await app.register(audioRoutes);
 

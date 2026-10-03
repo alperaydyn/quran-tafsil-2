@@ -301,6 +301,14 @@ export function SettingsScreen() {
           </>
         )}
 
+        <SectionLabel>TANILAMA & DESTEK</SectionLabel>
+        <OptionRow
+          label="Veri Akışı & Tanılama"
+          description="Bağlantı durumu, bellek katmanları, yerel veriler ve tanılama raporu paylaşımı"
+          selected={false}
+          onPress={() => navigation.navigate('Diagnostics')}
+        />
+
         <SectionLabel>HAKKINDA</SectionLabel>
         <OptionRow
           label="Gizlilik Politikası"

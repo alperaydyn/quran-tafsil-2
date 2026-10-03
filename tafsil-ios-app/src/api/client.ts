@@ -3,6 +3,7 @@ import { SURAH_SEED_DATA } from '../data/surahs.seed';
 import ayetlerSnapshot from '../data/ayetler.snapshot.json';
 import { TimestampService } from '../services/timestampService';
 import { localDbService } from '../services/localDbService';
+import { trackFlow } from '../services/diagnostics/dataFlowMonitor';
 import {
   API_BASE,
   CLOUDFLARE_R2_BASE_URL,
@@ -187,6 +188,9 @@ export async function getVerses(surahId: number, page = 1, limit = 300): Promise
   } catch (err) {
     console.warn(`[getVerses] Sure ${surahId} ayetleri API'den çekilemedi (${err}), yerel Kur'an anlık görüntüsüne dönülüyor.`);
     const snapshotData = getVersesFromSnapshot(surahId);
+    trackFlow('L4_SNAPSHOT', snapshotData.length > 0 ? 'fallback' : 'miss', `verses:sure=${surahId}`, {
+      detail: 'API + SQLite başarısız → snapshot',
+    });
     if (snapshotData.length > 0) {
       return { success: true, data: snapshotData, meta: { total: snapshotData.length, cached: true } };
     }
@@ -219,6 +223,7 @@ export async function getSingleVerse(surahId: number, ayetNo: number): Promise<A
     console.warn(`[getSingleVerse] ${surahId}:${ayetNo} API'den çekilemedi, yerel anlık görüntüye bakılıyor:`, err);
     const snapshotData = getVersesFromSnapshot(surahId);
     const v = snapshotData.find((item) => item.ayahNo === ayetNo);
+    trackFlow('L4_SNAPSHOT', v ? 'fallback' : 'miss', `verse:${surahId}:${ayetNo}`);
     if (v) {
       return { success: true, data: v, meta: { total: 1, cached: true } };
     }

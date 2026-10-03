@@ -1,5 +1,6 @@
 import * as FileSystem from 'expo-file-system/legacy';
 import { getAyahAudioUrl } from '../api/client';
+import { trackFlow } from './diagnostics/dataFlowMonitor';
 
 export interface SurahCacheInfo {
   isDownloaded: boolean;
@@ -79,8 +80,10 @@ class AudioCacheService {
   async resolveAyahAudioUri(surahId: number, ayahNo: number, fallbackUrl?: string): Promise<string> {
     const isCached = await this.isAyahCached(surahId, ayahNo);
     if (isCached) {
+      trackFlow('L5_FILE', 'hit', `audio:${surahId}:${ayahNo}`, { detail: 'yerel mp3' });
       return this.getLocalAyahUri(surahId, ayahNo);
     }
+    trackFlow('L5_FILE', 'miss', `audio:${surahId}:${ayahNo}`, { detail: 'CDN stream' });
     return fallbackUrl || getAyahAudioUrl(surahId, ayahNo);
   }
 
@@ -174,19 +177,23 @@ class AudioCacheService {
         const remoteUrl = getAyahAudioUrl(surahId, ayahNo);
         const targetUri = `${surahDir}${ayahNo}.mp3`;
 
+        const started = Date.now();
         try {
           const result = await FileSystem.downloadAsync(remoteUrl, targetUri);
           if (result.status === 200) {
             const fileInfo = await FileSystem.getInfoAsync(targetUri);
-            if (fileInfo.exists) {
-              totalBytes += fileInfo.size ?? 0;
-            }
+            const size = fileInfo.exists ? fileInfo.size ?? 0 : 0;
+            totalBytes += size;
             downloadedCount++;
+            trackFlow('NET_CDN', 'download', `audio:${surahId}:${ayahNo}`, { bytes: size, durationMs: Date.now() - started });
+            trackFlow('L5_FILE', 'write', `tafsil_audio/surah_${surahId}`, { bytes: size, detail: `${ayahNo}.mp3` });
             onProgress?.(downloadedCount / totalVerses, downloadedCount, totalVerses, totalBytes);
           } else {
+            trackFlow('NET_CDN', 'download', `audio:${surahId}:${ayahNo}`, { status: 'error', detail: `HTTP ${result.status}` });
             console.warn(`[AudioCacheService] Ayah ${surahId}:${ayahNo} HTTP ${result.status}`);
           }
         } catch (err: any) {
+          trackFlow('NET_CDN', 'download', `audio:${surahId}:${ayahNo}`, { status: 'error', detail: String(err?.message ?? err).slice(0, 100) });
           console.warn(`[AudioCacheService] Ayah ${surahId}:${ayahNo} indirme hatası:`, err);
           // Tekil ayet hatası tüm surenin indirilmesini tamamen kesmez, devam eder
         }
@@ -223,6 +230,7 @@ class AudioCacheService {
       const info = await FileSystem.getInfoAsync(surahDir);
       if (info.exists) {
         await FileSystem.deleteAsync(surahDir, { idempotent: true });
+        trackFlow('L5_FILE', 'delete', `tafsil_audio/surah_${surahId}`);
       }
     } catch (e) {
       console.warn(`[AudioCacheService] deleteSurahAudio(${surahId}) error:`, e);
@@ -237,10 +245,40 @@ class AudioCacheService {
       const info = await FileSystem.getInfoAsync(this.baseDir);
       if (info.exists) {
         await FileSystem.deleteAsync(this.baseDir, { idempotent: true });
+        trackFlow('L5_FILE', 'delete', 'tafsil_audio/*');
       }
     } catch (e) {
       console.warn('[AudioCacheService] clearAllCache error:', e);
     }
+  }
+
+  /**
+   * Tüm ses önbelleğinin sure bazında dosya sayısı ve boyutu (tanılama envanteri).
+   */
+  async getTotalCacheInfo(): Promise<{ totalBytes: number; fileCount: number; surahs: Array<{ surahId: number; files: number; bytes: number }> }> {
+    const result = { totalBytes: 0, fileCount: 0, surahs: [] as Array<{ surahId: number; files: number; bytes: number }> };
+    try {
+      const info = await FileSystem.getInfoAsync(this.baseDir);
+      if (!info.exists) return result;
+      const dirs = await FileSystem.readDirectoryAsync(this.baseDir);
+      for (const dir of dirs) {
+        const m = dir.match(/^surah_(\d+)$/);
+        if (!m) continue;
+        const files = await FileSystem.readDirectoryAsync(`${this.baseDir}${dir}/`);
+        let bytes = 0;
+        for (const f of files) {
+          const fi = await FileSystem.getInfoAsync(`${this.baseDir}${dir}/${f}`);
+          if (fi.exists) bytes += fi.size ?? 0;
+        }
+        result.surahs.push({ surahId: Number(m[1]), files: files.length, bytes });
+        result.totalBytes += bytes;
+        result.fileCount += files.length;
+      }
+      result.surahs.sort((a, b) => b.bytes - a.bytes);
+    } catch (e) {
+      console.warn('[AudioCacheService] getTotalCacheInfo error:', e);
+    }
+    return result;
   }
 }
 

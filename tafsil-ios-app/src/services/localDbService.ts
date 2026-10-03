@@ -7,6 +7,12 @@ import { CURATED_LEXICON, type WordLexiconDetail } from '../data/lexicon.seed';
 import { CONCEPTS_DICTIONARY, type ConceptDetail } from '../data/concepts.seed';
 import { TimestampService } from './timestampService';
 import { getAyahAudioUrl } from '../api/config';
+import { trackFlow } from './diagnostics/dataFlowMonitor';
+
+export interface LocalTableInventory {
+  table: string;
+  rows: number;
+}
 
 export interface LocalDbStats {
   isReady: boolean;
@@ -154,6 +160,8 @@ class LocalDbServiceImpl {
       return;
     }
 
+    const seedStarted = Date.now();
+    trackFlow('L4_SNAPSHOT', 'read', 'ayetler.snapshot.json → seed', { detail: 'İlk kurulum tohumlaması' });
     try {
       this.db.withTransactionSync(() => {
         if (!this.db) return;
@@ -265,7 +273,12 @@ class LocalDbServiceImpl {
           ['schema_version', SCHEMA_VERSION]
         );
       });
+      trackFlow('L3_SQLITE', 'write', 'seed:surahs+verses+lexicon+concepts', {
+        durationMs: Date.now() - seedStarted,
+        detail: `schema ${SCHEMA_VERSION}`,
+      });
     } catch (e) {
+      trackFlow('L3_SQLITE', 'write', 'seed', { status: 'error', detail: String(e).slice(0, 120) });
       console.warn('[LocalDbService] Tohumlama işlemi hatası:', e);
     }
   }
@@ -277,16 +290,19 @@ class LocalDbServiceImpl {
     this.ensureInitialized();
 
     if (!this.isSqliteSupported || !this.db) {
+      trackFlow('L4_SNAPSHOT', 'fallback', 'surahs.seed', { detail: 'SQLite yok' });
       return [...SURAH_SEED_DATA].sort((a, b) =>
         siralama === 'nuzul' ? a.revelationOrder - b.revelationOrder : a.id - b.id
       );
     }
 
     try {
+      const started = Date.now();
       const orderCol = siralama === 'nuzul' ? 'revelation_order ASC' : 'id ASC';
       const rows = this.db.getAllSync<any>(`SELECT * FROM surahs ORDER BY ${orderCol}`);
 
       if (rows && rows.length > 0) {
+        trackFlow('L3_SQLITE', 'hit', 'surahs', { durationMs: Date.now() - started, detail: `${rows.length} satır · ${siralama}` });
         return rows.map((r) => ({
           id: r.id,
           nameTr: r.name_tr,
@@ -301,6 +317,7 @@ class LocalDbServiceImpl {
       console.warn('[LocalDbService.getSurahs] SQLite sorgu hatası, mock fallback:', e);
     }
 
+    trackFlow('L4_SNAPSHOT', 'fallback', 'surahs.seed', { detail: 'SQLite boş/hatalı' });
     return [...SURAH_SEED_DATA].sort((a, b) =>
       siralama === 'nuzul' ? a.revelationOrder - b.revelationOrder : a.id - b.id
     );
@@ -343,22 +360,31 @@ class LocalDbServiceImpl {
     this.ensureInitialized();
 
     if (!this.isSqliteSupported || !this.db) {
+      trackFlow('L4_SNAPSHOT', 'fallback', `verses:sure=${surahId}`, { detail: 'SQLite yok' });
       return this.getVersesFromMemorySnapshot(surahId);
     }
 
     try {
+      const started = Date.now();
       const rows = this.db.getAllSync<any>(
         'SELECT * FROM verses WHERE surah_id = ? ORDER BY ayah_no ASC',
         [surahId]
       );
 
       if (rows && rows.length > 0) {
+        trackFlow('L3_SQLITE', 'hit', `verses:sure=${surahId}`, {
+          durationMs: Date.now() - started,
+          detail: `${rows.length} ayet`,
+        });
         return rows.map((r) => this.mapRowToVerse(r));
       }
+      trackFlow('L3_SQLITE', 'miss', `verses:sure=${surahId}`);
     } catch (e) {
+      trackFlow('L3_SQLITE', 'read', `verses:sure=${surahId}`, { status: 'error', detail: String(e).slice(0, 120) });
       console.warn(`[LocalDbService.getVerses] Sure ${surahId} SQLite hatası, snapshot kullanılıyor:`, e);
     }
 
+    trackFlow('L4_SNAPSHOT', 'fallback', `verses:sure=${surahId}`);
     return this.getVersesFromMemorySnapshot(surahId);
   }
 
@@ -379,8 +405,10 @@ class LocalDbServiceImpl {
         [surahId, ayahNo]
       );
       if (row) {
+        trackFlow('L3_SQLITE', 'hit', `verse:${surahId}:${ayahNo}`);
         return this.mapRowToVerse(row);
       }
+      trackFlow('L3_SQLITE', 'miss', `verse:${surahId}:${ayahNo}`);
     } catch (e) {
       console.warn('[LocalDbService.getVerse] Hata:', e);
     }
@@ -406,6 +434,7 @@ class LocalDbServiceImpl {
 
     try {
       const pattern = `%${cleanQuery}%`;
+      const searchStarted = Date.now();
       const rows = this.db.getAllSync<any>(
         `SELECT * FROM verses 
          WHERE meal_tr LIKE ? OR text_ar LIKE ? OR transliteration_tr LIKE ?
@@ -413,6 +442,10 @@ class LocalDbServiceImpl {
          LIMIT ?`,
         [pattern, pattern, pattern, limit]
       );
+      trackFlow('L3_SQLITE', 'read', 'verses:search', {
+        durationMs: Date.now() - searchStarted,
+        detail: `${rows.length} sonuç`,
+      });
 
       return rows.map((r) => {
         const verse = this.mapRowToVerse(r);
@@ -446,8 +479,10 @@ class LocalDbServiceImpl {
         [wordOrRoot, wordOrRoot, wordOrRoot, wordOrRoot]
       );
       if (row && row.data_json) {
+        trackFlow('L3_SQLITE', 'hit', 'lexicon_roots', { detail: wordOrRoot });
         return JSON.parse(row.data_json);
       }
+      trackFlow('L3_SQLITE', 'miss', 'lexicon_roots', { detail: wordOrRoot });
     } catch (e) {
       console.warn('[LocalDbService.getLexiconRoot] Hata:', e);
     }
@@ -468,6 +503,7 @@ class LocalDbServiceImpl {
 
     try {
       const row = this.db.getFirstSync<any>('SELECT * FROM concepts WHERE slug = ?', [slug]);
+      trackFlow('L3_SQLITE', row ? 'hit' : 'miss', 'concepts', { detail: slug });
       if (row) {
         return {
           slug: row.slug,
@@ -522,6 +558,7 @@ class LocalDbServiceImpl {
   public upsertVerses(verses: Verse[]) {
     if (!verses || verses.length === 0 || !this.db || !this.isSqliteSupported) return;
 
+    const started = Date.now();
     try {
       this.db.withTransactionSync(() => {
         if (!this.db) return;
@@ -549,9 +586,41 @@ class LocalDbServiceImpl {
           stmt.finalizeSync();
         }
       });
+      trackFlow('L3_SQLITE', 'write', `verses:sure=${verses[0]?.surahId}`, {
+        durationMs: Date.now() - started,
+        detail: `upsert ${verses.length} ayet (SWR)`,
+      });
     } catch (e) {
+      trackFlow('L3_SQLITE', 'write', 'verses:upsert', { status: 'error', detail: String(e).slice(0, 120) });
       console.warn('[LocalDbService.upsertVerses] Hata:', e);
     }
+  }
+
+  /**
+   * Tanılama ekranı için yerel tablo envanteri (satır sayıları) ve SQLite sayfa boyutu.
+   */
+  public getTableInventory(): { tables: LocalTableInventory[]; pageBytes: number | null; journalMode: string | null } {
+    this.ensureInitialized();
+    if (!this.isSqliteSupported || !this.db) return { tables: [], pageBytes: null, journalMode: null };
+    const tables: LocalTableInventory[] = [];
+    for (const table of ['surahs', 'verses', 'lexicon_roots', 'concepts', 'reading_logs', 'meta']) {
+      try {
+        const r = this.db.getFirstSync<{ c: number }>(`SELECT count(*) as c FROM ${table}`);
+        tables.push({ table, rows: r?.c ?? 0 });
+      } catch {
+        tables.push({ table, rows: -1 });
+      }
+    }
+    let pageBytes: number | null = null;
+    let journalMode: string | null = null;
+    try {
+      const pc = this.db.getFirstSync<{ page_count: number }>('PRAGMA page_count');
+      const ps = this.db.getFirstSync<{ page_size: number }>('PRAGMA page_size');
+      if (pc && ps) pageBytes = pc.page_count * ps.page_size;
+      const jm = this.db.getFirstSync<{ journal_mode: string }>('PRAGMA journal_mode');
+      journalMode = jm?.journal_mode ?? null;
+    } catch {}
+    return { tables, pageBytes, journalMode };
   }
 
   /**
@@ -710,7 +779,9 @@ class LocalDbServiceImpl {
          VALUES (?, ?, ?, ?, ?)`,
         [surahId, ayahNo, durationSeconds, userId || 'guest', new Date().toISOString()]
       );
+      trackFlow('L3_SQLITE', 'write', 'reading_logs', { detail: `${surahId}:${ayahNo}` });
     } catch (err) {
+      trackFlow('L3_SQLITE', 'write', 'reading_logs', { status: 'error', detail: String(err).slice(0, 120) });
       console.warn('[LocalDbService.logReading] Log yazma hatası:', err);
     }
   }

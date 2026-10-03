@@ -2,6 +2,7 @@ import { mmkv } from '../store/mmkvStorage';
 import type { WordLexiconDetail } from '../data/lexicon.seed';
 import { getCuratedLexicon } from '../data/lexicon.seed';
 import { API_BASE } from '../api/config';
+import { trackFlow } from './diagnostics/dataFlowMonitor';
 
 /**
  * Hibrit Lexicon Önbellek Servisi
@@ -184,6 +185,7 @@ export function getLexiconSync(
   // 1. Curated seed — her zaman öncelikli
   const curated = getCuratedLexicon(textAr);
   if (curated) {
+    trackFlow('L4_SNAPSHOT', 'hit', 'lexicon.seed (küratörlü)', { detail: textAr });
     return { data: { ...curated, tier: curated.tier ?? 'curated', verified: curated.verified ?? true }, source: 'seed' };
   }
 
@@ -193,6 +195,7 @@ export function getLexiconSync(
     return { data: cached, source: 'cache' };
   }
 
+  trackFlow('L4_SNAPSHOT', 'fallback', 'lexicon:auto-fallback', { detail: textAr });
   // 3. Fallback (kök meta bilgisinden minimal)
   if (wordMeta?.rootAr) {
     return {
