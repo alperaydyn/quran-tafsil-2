@@ -135,11 +135,15 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-9.7 (Orphan Mock Temizliği & Gizlilik Linki):** `src/api/mock/*` dosyalarının silinmesi (Faz 2 PBI-D.3 öne çekildi); Ayarlar ekranına Gizlilik Politikası bağlantısı.
   - Ayarlar > Hakkında: Gizlilik Politikası, Geri Bildirim (mailto, sürüm/build bilgili), sürüm etiketi. Önizleme (Onboarding/Loading) kısayolları `__DEV__`'e alındı.
 
+
+### 9B. Altyapı & Hesap İşlemleri
 - [x] **PBI-9.8 (Backend Canlı Dağıtım):** Backend VPS'e dağıtıldı, PM2 cluster modunda (2 worker) systemd servisi olarak ayağa kaldırıldı, Nginx reverse proxy ve rate-limiting yapılandırıldı, yerel ve dış ağ SSL health check (`{"postgres":true,"redis":true}`) ve sureler API'si doğrulandı (PASS). Cloudflare DNS A kaydı (`api.tafsil.net` → `76.13.60.86`) adımı tamamlandı.
-- [ ] **PBI-9.9 (Veritabanı Güvenliği):** VPS firewall ile 5432/6379 portlarının dışarıya kapatılması, DB parolasının rotasyonu, `DEVELOPMENT_LOG.md` içindeki parola sızıntısının temizlenmesi.
-  - ✅ Log'daki parola maskelendi (ajan). ⏳ Firewall + parola rotasyonu (kullanıcı) — parola git geçmişinde kalmaya devam ettiğinden rotasyon zorunlu.
+- [x] **PBI-9.9 (Veritabanı Güvenliği):** VPS firewall ile 5432/6379 portlarının dışarıya kapatılması, DB parolasının rotasyonu, `DEVELOPMENT_LOG.md` içindeki parola sızıntısının temizlenmesi.
+  - ✅ Log'daki parola maskelendi (ajan).
+  - ✅ UFW firewall ve loopback bind doğrulandı (VPS'te yalnızca 80, 443, 22 açık; Postgres ve Redis yalnızca `127.0.0.1` dinler, dış dünyadan erişim kapalı).
+  - ✅ PostgreSQL `tafsil_user_001` parolasının rotasyonu canlı DB üzerinde yapıldı, VPS ve yerel `.env` dosyaları güncellendi, `tafsil-api` konteyneri yeni parolayla başarıyla yeniden başlatıldı (`/health` checks: postgres=true, redis=true PASS).
 - [ ] **PBI-9.10 (EAS & App Store Connect):** `eas init` (Faz 2 PBI-D.1), ASC'de `net.tafsil.app` uygulama kaydı ve `eas.json` submit bilgileri (Faz 2 PBI-D.2).
-- [ ] **PBI-9.11 (ASC Test Bilgileri):** Gizlilik politikası sayfasının yayını (`tafsil.net/gizlilik`), Beta açıklaması, geri bildirim e-postası, inceleme notu (Misafir modu), App Privacy etiketleri.
+- [ ] **PBI-9.11 (ASC Test Bilgileri):** Gizlilik politikası sayfasının yayını (`tafsil.net/privacy`), Beta açıklaması, geri bildirim e-postası, inceleme notu (Misafir modu), App Privacy etiketleri.
 
 ---
 

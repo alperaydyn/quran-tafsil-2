@@ -4,6 +4,30 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
+## [2026-10-04] Canlı Veritabanı Güvenliği, Firewall Doğrulaması ve Parola Rotasyonu (PBI-9.9)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Firewall ve Port Erişilebilirlik Doğrulaması:**
+  * Hostinger VPS üzerinde `ufw status verbose` ile güvenlik duvarı kuralları denetlendi.
+  * Yalnızca `80`, `443` (HTTP/HTTPS) ve `22` (SSH) portlarının dış trafiğe açık olduğu; `5432` (PostgreSQL) ve `6379` (Redis) portlarının genel internete tamamen kapalı (`default: deny incoming`) olduğu ve Docker tarafında da yalnızca `127.0.0.1` loopback arayüzüne bind edildiği doğrulandı.
+  * Dış IP üzerinden yapılan port tarama testinde bağlantıların paket düşürme (DROP) ile reddedildiği teyit edildi.
+* **PostgreSQL Parola Rotasyonu:**
+  * Geliştirme sürecinin önceki aşamalarında log kayıtlarına yansıyan `tafsil_user_001` kullanıcısının parolası güvenlik sertleştirmesi kapsamında canlı veritabanında (`ALTER ROLE tafsil_user_001 WITH PASSWORD ...`) 48-karakter kriptografik hex parola ile rotate edildi.
+  * VPS'teki `/opt/tafsil/backend/.env`, `.env.production` ve yerel `backend/.env` dosyalarındaki `POSTGRES_PASSWORD`, `DATABASE_URL` ve `DATABASE_URL_DIRECT` alanları güncellendi.
+  * `tafsil-api` Docker konteyneri yeni kimlik bilgileriyle yeniden ayağa kaldırıldı.
+  * `GET https://api.tafsil.net/health` ve `GET https://api.tafsil.net/api/v1/sureler/1/ayetler` uçları çağrılarak `{"postgres":true,"redis":true}` ile canlı sistemin kesintisiz ve güvenli çalıştığı doğrulandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `backend/.env`: `POSTGRES_PASSWORD`, `DATABASE_URL` ve `DATABASE_URL_DIRECT` rotate edildi.
+* Hostinger VPS: PostgreSQL `tafsil_user_001` parolası, `/opt/tafsil/backend/.env`, `tafsil-api` Docker container'ı.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: `PBI-9.9` tamamlandı olarak güncellendi, `9B` başlığı korundu.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+fix(security): rotate postgresql credentials and verify firewall isolation (PBI-9.9)
+```
+
+---
 
 ## [2026-10-04] Web Uygulaması Landing Page, Gizlilik & Destek Sayfaları ve VPS Docker Dağıtımı
 
