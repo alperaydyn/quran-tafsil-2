@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "../theme-toggle/ThemeToggle";
+import LanguageToggle from "../language-toggle/LanguageToggle";
 import styles from "./SiteHeader.module.css";
 
 export default function SiteHeader() {
@@ -16,7 +17,10 @@ export default function SiteHeader() {
           <Link href="/#nasil-calisir">Nasıl çalışır</Link>
           <Link href="/#uygulama">Uygulamayı al</Link>
         </nav>
-        <ThemeToggle />
+        <div className={styles.actions}>
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

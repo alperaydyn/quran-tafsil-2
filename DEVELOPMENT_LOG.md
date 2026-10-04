@@ -5,6 +5,46 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-04] Web Uygulaması Landing Page, Gizlilik & Destek Sayfaları ve VPS Docker Dağıtımı
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Destek ve İletişim Sayfası (`/destek`, `/support`):**
+  * Apple App Store incelemesi ve kullanıcı iletişimi için zorunlu olan destek sayfası (`src/app/destek/page.tsx`) geliştirildi.
+  * Sayfada doğrudan iletişim e-postası (`merhaba@tafsil.net`), Sıkça Sorulan Sorular (ücretsiz/reklamsız olma, mealler, senkronizasyon, STT ses gizliliği) ve Apple kuralları gereği zorunlu olan **Hesap ve Tüm Verileri Kalıcı Silme Yönergesi** eklendi.
+  * İngilizce linkler için `next.config.ts` üzerinden `/support` ➔ `/destek` kalıcı yönlendirmesi (308 redirect) tanımlandı.
+* **Gizlilik Politikası (`/gizlilik`, `/privacy`):**
+  * Mevcut KVKK uyumlu gizlilik aydınlatma metni doğrulandı, `/privacy` ➔ `/gizlilik` kalıcı yönlendirmesi eklendi.
+  * Site altbilgisine (`SiteFooter.tsx`) doğrudan "Destek" ve "Gizlilik" linkleri eklendi.
+* **İngilizce Dil Desteği ve Apple İnceleme Hazırlığı:**
+  * Apple App Store inceleme ekibi (App Review) ve uluslararası kullanıcılar için İngilizce destek sayfaları ve arayüz geliştirildi.
+  * **İngilizce Gizlilik Politikası (`/privacy`):** [src/app/privacy/page.tsx](file:///Users/alperaydin/Projects/kuran-tafsil-net/tafsil-web-app/src/app/privacy/page.tsx) oluşturuldu; Sign in with Apple, yerel STT ses gizliliği, sıfır reklam ve hesap silme hakları İngilizce olarak belgelendi.
+  * **İngilizce Destek & SSS Sayfası (`/support`):** [src/app/support/page.tsx](file:///Users/alperaydin/Projects/kuran-tafsil-net/tafsil-web-app/src/app/support/page.tsx) oluşturuldu; doğrudan destek e-postası (`merhaba@tafsil.net`), SSS ve Apple 5.1.1(v) kuralı uyarınca zorunlu olan **Account Deletion Request** yönergeleri eklendi.
+  * **İngilizce Landing Page (`/en`):** [src/app/en/page.tsx](file:///Users/alperaydin/Projects/kuran-tafsil-net/tafsil-web-app/src/app/en/page.tsx) ile Kur'an anlama vizyonu, 3 okuma modu (Discovery, Learning, Focus) ve temel özellikler İngilizce olarak yayınlandı.
+  * **Header Dil Değiştirici (`LanguageToggle`):** [src/components/language-toggle/LanguageToggle.tsx](file:///Users/alperaydin/Projects/kuran-tafsil-net/tafsil-web-app/src/components/language-toggle/LanguageToggle.tsx) bileşeni geliştirilerek üst menüye `TR | EN` seçicisi eklendi. Bulunulan sayfaya göre (`/` ⟷ `/en`, `/gizlilik` ⟷ `/privacy`, `/destek` ⟷ `/support`) akıllı geçiş sağlandı.
+  * **Footer Bağlantıları:** Altbilgiye `Privacy (EN)` ve `Support (EN)` doğrudan erişim linkleri yerleştirildi.
+* **Landing Page ("Coming Soon / Yakında"):**
+  * Ana sayfa (`/`) Kur'an vizyonuna uygun editoryal tasarım, 3 okuma modu (Keşif, Öğrenme, Odak) ve "App Store / Google Play — Yakında" rozetleriyle hazır hale getirildi.
+* **Next.js Standalone Docker Dağıtımı:**
+  * Hafif ve hızlı konteynerizasyon için `next.config.ts` dosyasına `output: 'standalone'` eklendi.
+  * Multi-stage `Dockerfile` (Node 20 Alpine) ve `docker-compose.yml` oluşturuldu. Konteyner adı `tafsil-web`, host portu `127.0.0.1:3002` olarak bağlandı.
+* **Hostinger VPS & Nginx Reverse Proxy:**
+  * Kodlar VPS üzerindeki `/opt/tafsil/web` dizinine aktarılarak `docker compose up -d --build` ile çalıştırıldı ve sağlık kontrolünden geçti.
+  * Cloudflare Origin CA sertifikası `tafsil.net`, `*.tafsil.net`, `www.tafsil.net` ve `api.tafsil.net` alan adlarını kapsayacak şekilde güncellendi.
+  * Nginx üzerinde `/etc/nginx/sites-available/tafsil.net.conf` oluşturularak port 3002'deki Next.js konteynerine ters vekil (reverse proxy) sağlandı.
+* **Cloudflare DNS Durumu:**
+  * `tafsil.net` sorgularında eski bir Lovable projesinin 421 hatası verdiği tespit edildi. Cloudflare DNS üzerinde `@` (`tafsil.net`) ve `www` kayıtlarının VPS IPv4 adresi olan `76.13.60.86`'ya yönlendirilmesi adımı kullanıcıya sunuldu.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-web-app/src/app/destek/page.tsx` & `page.module.css`: Yeni destek & SSS sayfası.
+* `tafsil-web-app/src/components/site-footer/SiteFooter.tsx`: Destek bağlantısı eklendi.
+* `tafsil-web-app/next.config.ts`: `output: 'standalone'`, `/privacy` ve `/support` yönlendirmeleri.
+* `tafsil-web-app/Dockerfile` & `.dockerignore`: Multi-stage Docker yapısı.
+* `tafsil-web-app/docker-compose.yml`: VPS üzerinde port 3002 servisi.
+* `tafsil-web-app/nginx/tafsil.net.conf`: Nginx reverse proxy yapılandırması.
+* Hostinger VPS: `/opt/tafsil/web`, `tafsil-web` Docker container, `/opt/tafsil/ssl/origin-cert.pem`, Nginx aktif yapılandırması.
+
+---
+
 ## [2026-10-03] Emülatör / Simülatör Kimlik Doğrulama ve Senkronizasyon İyileştirmeleri (PBI-4.4, PBI-4.5)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
