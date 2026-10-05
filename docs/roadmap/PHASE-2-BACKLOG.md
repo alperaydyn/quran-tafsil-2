@@ -12,8 +12,8 @@ Bu belge, **tafsil.net** Faz 1 (MVP) tamamlandıktan sonra Faz 2 kapsamında gel
 ## Faz 1'den Ertelenen Maddeler (Deferral from Phase 1)
 
 ### Konfigürasyon & Dağıtım
-- [ ] **PBI-D.1 (EAS Project ID):** `app.json` içindeki `REPLACE_WITH_EAS_PROJECT_ID` placeholder'ının `eas init` çalıştırılarak gerçek Expo Project ID ile doldurulması. *(TestFlight F&F için zorunlu — Faz 1 `PBI-9.10` kapsamında ele alınıyor.)*
-- [ ] **PBI-D.2 (App Store Submit Konfigürasyonu):** `eas.json` içindeki `APPLE_ID_EMAIL`, `APP_STORE_CONNECT_APP_ID` ve `APPLE_TEAM_ID` placeholder'larının gerçek Apple Developer hesap bilgileriyle güncellenmesi. *(Faz 1 `PBI-9.10` kapsamında.)*
+- [x] **PBI-D.1 (EAS Project ID):** `app.json` içindeki `REPLACE_WITH_EAS_PROJECT_ID` placeholder'ının `eas init` çalıştırılarak gerçek Expo Project ID (`eac799c0-732b-48ee-9c67-80dca248690b`) ile doldurulması. *(Faz 1 `PBI-9.10` ile tamamlandı.)*
+- [x] **PBI-D.2 (App Store Submit Konfigürasyonu):** `eas.json` içindeki `APPLE_ID_EMAIL`, `APP_STORE_CONNECT_APP_ID` ve `APPLE_TEAM_ID` placeholder'larının gerçek Apple Developer hesap bilgileriyle güncellenmesi. *(Faz 1 `PBI-9.10` ile tamamlandı.)*
 - [x] **PBI-D.3 (Mock Dosya Temizliği):** `src/api/mock/surahs.mock.ts` ve `src/api/mock/verses.mock.ts` dosyalarının tamamen silinmesi. *(Faz 1 `PBI-9.7` ile öne çekilip tamamlandı.)*
 - [ ] **PBI-D.4 (Staging Ortamı):** `api-staging.tafsil.net` DNS + ayrı veritabanı; `eas.json` `preview` profilinin geçici prod API yönlendirmesinden staging'e alınması.
 

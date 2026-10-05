@@ -14,7 +14,6 @@
       "android": {
         "buildType": "apk"
       },
-      "channel": "development",
       "env": {
         "EXPO_PUBLIC_APP_ENV": "development"
       }
@@ -27,7 +26,6 @@
       "android": {
         "buildType": "apk"
       },
-      "channel": "preview",
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api.tafsil.net/api/v1",
         "EXPO_PUBLIC_APP_ENV": "staging"
@@ -42,7 +40,6 @@
         "buildType": "app-bundle",
         "autoIncrement": true
       },
-      "channel": "production",
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api.tafsil.net/api/v1",
         "EXPO_PUBLIC_APP_ENV": "production"
@@ -52,9 +49,9 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "APPLE_ID_EMAIL",
-        "ascAppId": "APP_STORE_CONNECT_APP_ID",
-        "appleTeamId": "APPLE_TEAM_ID"
+        "appleId": "alperaydyn@gmail.com",
+        "ascAppId": "6818953862",
+        "appleTeamId": "P7Y96Q6RLA"
       },
       "android": {
         "serviceAccountKeyPath": "./secrets/google-play-service-account.json",

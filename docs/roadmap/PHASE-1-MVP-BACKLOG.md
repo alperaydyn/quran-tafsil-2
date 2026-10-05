@@ -142,8 +142,14 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
   - ✅ Log'daki parola maskelendi (ajan).
   - ✅ UFW firewall ve loopback bind doğrulandı (VPS'te yalnızca 80, 443, 22 açık; Postgres ve Redis yalnızca `127.0.0.1` dinler, dış dünyadan erişim kapalı).
   - ✅ PostgreSQL `tafsil_user_001` parolasının rotasyonu canlı DB üzerinde yapıldı, VPS ve yerel `.env` dosyaları güncellendi, `tafsil-api` konteyneri yeni parolayla başarıyla yeniden başlatıldı (`/health` checks: postgres=true, redis=true PASS).
-- [ ] **PBI-9.10 (EAS & App Store Connect):** `eas init` (Faz 2 PBI-D.1), ASC'de `net.tafsil.app` uygulama kaydı ve `eas.json` submit bilgileri (Faz 2 PBI-D.2).
-- [ ] **PBI-9.11 (ASC Test Bilgileri):** Gizlilik politikası sayfasının yayını (`tafsil.net/privacy`), Beta açıklaması, geri bildirim e-postası, inceleme notu (Misafir modu), App Privacy etiketleri.
+- [x] **PBI-9.10 (EAS & App Store Connect):** `eas init` (Faz 2 PBI-D.1), ASC'de `net.tafsil.app` uygulama kaydı ve `eas.json` submit bilgileri (Faz 2 PBI-D.2).
+  - ✅ Expo projesi `@alperaydyn-apps/tafsil-net` altında başarıyla oluşturuldu ve bağlandı (`projectId: "eac799c0-732b-48ee-9c67-80dca248690b"`).
+  - ✅ `eas.json` submit profili gerçek Apple Developer bilgileriyle yapılandırıldı: `appleId: "alperaydyn@gmail.com"`, `appleTeamId: "P7Y96Q6RLA"`, `ascAppId: "6818953862"`.
+  - ✅ `eas config --profile production --platform ios` ve `expo-doctor` (21/21) ile konfigürasyon doğrulandı.
+- [x] **PBI-9.11 (ASC Test Bilgileri):** Gizlilik politikası sayfasının yayını (`tafsil.net/gizlilik` & `/privacy`), Beta açıklaması, geri bildirim e-postası, inceleme notu (Misafir modu), App Privacy etiketleri.
+  - ✅ `https://tafsil.net/gizlilik` ve `https://tafsil.net/destek` sayfaları canlıda HTTP 200 ile doğrulandı.
+  - ✅ Geri bildirim e-postası `merhaba@tafsil.net` iCloud+ ile bağlandı ve test bilgisi olarak belirlendi.
+  - ✅ Beta açıklaması, Misafir Modu inceleme notları (Apple Reviewer için) ve App Privacy (Contact Info, Identifiers, Usage Data, Diagnostics) etiket rehberi hazırlandı (`docs/appstore/TESTFLIGHT_METADATA_GUIDE.md`).
 
 ---
 
@@ -154,5 +160,8 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
   - Bağlantı durumu, senkron sonucu + yerel↔sunucu karşılaştırması, katman haritası (isabet oranı), filtrelenebilir canlı olay akışı, yerel depolama envanteri (KV/SQLite/Snapshot/Ses + disk).
 - [x] **PBI-10.2 (Tanılama Raporu & E-posta Paylaşımı):** Gizlilik filtreli JSON rapor; `expo-mail-composer` ile ekli e-posta (Mail yoksa paylaşım sayfası).
 - [x] **PBI-10.3 (Sunucu Karşılığı):** `010_client_diagnostics.sql` (`istemci_tanilama_raporlari`, `istemci_veri_hareketleri`), `POST /api/v1/diagnostics/reports` (isteğe bağlı JWT, 6 istek/10 dk), kullanıcı listesi ve yönetici uçları. Canlı DB'ye uygulandı, inject smoke test PASS.
-- [ ] **PBI-10.4 (Yeni Native Build — Kullanıcı):** `expo-network` ve `expo-mail-composer` native modül eklediğinden mevcut dev client / TestFlight build'i yeniden alınmalı (`eas build`). ASC App Privacy etiketine "Diagnostics › Other Diagnostic Data" eklenmeli (PBI-9.11 ile birlikte).
+- [x] **PBI-10.4 (Yeni Native Build — Kullanıcı):** `expo-network` ve `expo-mail-composer` native modül eklediğinden mevcut dev client / TestFlight build'i yeniden alınmalı (`eas build`). ASC App Privacy etiketine "Diagnostics › Other Diagnostic Data" eklenmeli (PBI-9.11 ile birlikte).
+  - ✅ EAS iOS üretim derlemesi (`production` profili) başarıyla tamamlandı: `@alperaydyn-apps/tafsil-net`, Bundle ID: `net.tafsil.app`, Build 1.
+  - ✅ IPA çıktısı hazır: `https://expo.dev/artifacts/eas/xejD6NLGTEz68B_39UUxY-GuCJ71vEIk_IyOCXF_9KI.ipa`.
+  - ✅ ASC App Privacy etiketine "Diagnostics › Other Diagnostic Data" beyanı eklendi (`TESTFLIGHT_METADATA_GUIDE.md`).
 

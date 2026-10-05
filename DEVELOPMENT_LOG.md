@@ -4,6 +4,42 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
+## [2026-10-05] EAS ve App Store Connect Entegrasyonu, Metadata & İlk iOS Üretim Derlemesi (PBI-9.10, PBI-9.11 & PBI-10.4)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **EAS Proje Eşleştirmesi (PBI-9.10):**
+  * EAS CLI üzerinden `alperaydyn-apps` organizasyonu hedeflenerek `@alperaydyn-apps/tafsil-net` projesi başarıyla başlatıldı ve bağlandı (`projectId: "eac799c0-732b-48ee-9c67-80dca248690b"`).
+  * `tafsil-ios-app/app.json` dosyasına gerçek `projectId` ve `"owner": "alperaydyn-apps"` otomatik olarak işlendi.
+* **App Store Connect Submit Konfigürasyonu (PBI-9.10):**
+  * `tafsil-ios-app/eas.json` içindeki placeholder değerler gerçek Apple Developer ve ASC bilgileriyle güncellendi:
+    * `appleId`: `"alperaydyn@gmail.com"`
+    * `appleTeamId`: `"P7Y96Q6RLA"`
+    * `ascAppId`: `"6818953862"`
+  * OTA güncelleme (`expo-updates`) kullanılmadığından profillerdeki `channel` anahtarları sadeleştirildi.
+* **ASC Canlı URL, E-posta ve Metadata Doğrulaması (PBI-9.11):**
+  * `https://tafsil.net/gizlilik` (ve `/privacy`) ile `https://tafsil.net/destek` (ve `/support`) canlıda test edildi; HTTP/2 200 yanıtı doğrulandı.
+  * İletişim/Geri bildirim e-postası `merhaba@tafsil.net` olarak onaylandı.
+  * ASC TestFlight Beta App Review için "Ne Test Edilmeli?" açıklaması, Apple Reviewer için "Misafir Modu ile şifresiz test" notu ve 4 kategorili App Privacy (Contact Info, Identifiers, Usage Data, Diagnostics) etiket rehberi hazırlandı (`docs/appstore/TESTFLIGHT_METADATA_GUIDE.md`).
+* **İlk iOS Üretim Derlemesi (PBI-10.4):**
+  * `eas build -p ios --profile production` komutuyla Apple Distribution Certificate ve Provisioning Profile oluşturuldu.
+  * Derleme başarıyla tamamlandı (Build 1, IPA URL: `https://expo.dev/artifacts/eas/xejD6NLGTEz68B_39UUxY-GuCJ71vEIk_IyOCXF_9KI.ipa`).
+  * Faz 1 MVP Backlog'undaki tüm maddeler eksiksiz tamamlandı (0 açık madde).
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/app.json`: `projectId` ve `owner` eklendi.
+* `tafsil-ios-app/eas.json`: `appleId`, `appleTeamId`, `ascAppId` güncellendi, `channel` temizlendi.
+* `docs/appstore/TESTFLIGHT_METADATA_GUIDE.md`: ASC TestFlight ve App Privacy rehberi oluşturuldu.
+* `docs/roadmap/PHASE-1-MVP-BACKLOG.md`: PBI-9.10, PBI-9.11 ve PBI-10.4 tamamlandı (Faz 1 kapandı).
+* `docs/roadmap/PHASE-2-BACKLOG.md`: PBI-D.1 ve PBI-D.2 tamamlandı.
+* `DEVELOPMENT_LOG.md`: Oturum günlüğe işlendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(mobile): complete EAS setup, generate production iOS build, and finalize ASC metadata (Phase 1 closure)
+```
+
+---
+
 ## [2026-10-05] Müstakil PostgreSQL Konteynerine Geçiş (`tafsil-postgres` & Port 5433)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
