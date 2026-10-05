@@ -4,6 +4,55 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
+## [2026-10-05] Müstakil PostgreSQL Konteynerine Geçiş (`tafsil-postgres` & Port 5433)
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **İzole Veritabanı ve Proje Bağımsızlığı:**
+  * Tafsil veritabanı (`tafsil_net_db`) ve kullanıcısı (`tafsil_user_001`), sunucuda çalışan diğer projelerin (mahalle_db, a3gents vb.) bulunduğu paylaşımlı `postgredb` konteynerinde yer almaktaydı.
+  * Projenin veri izolasyonunu sağlamak, Hostinger Docker Manager panelinde (`hPanel`) bağımsız bir veritabanı servisi olarak yönetebilmek ve `pgvector` versiyonunu diğer projelerden bağımsız tutabilmek amacıyla Tafsil için müstakil bir PostgreSQL servisi kuruldu.
+* **Uygulanan Değişiklikler:**
+  1. **Müstakil Konteyner Kurulumu:** `/docker/tafsil-postgres` dizini altında `pgvector/pgvector:pg16` imajı ile `tafsil-postgres` Docker Compose servisi tanımlandı.
+  2. **Port İzolasyonu:** Host üzerindeki 5432 portu paylaşımlı konteyner tarafından kullanıldığından, `tafsil-postgres` `127.0.0.1:5433:5432` port eşlemesi ile bağlandı ve UFW arkasında güvenli tutuldu.
+  3. **Veri ve Şema Migrasyonu (Sıfır Veri Kaybı):** Paylaşımlı veritabanından alınan `pg_dump` yedeği (`tafsil_net_db`) yeni `tafsil-postgres` konteynerine aktarıldı. 23 tablonun tamamı (6236 ayet, 77429 kelime, 1642 kök, 114 sure, kullanıcılar, oturumlar) ve `vector`, `uuid-ossp`, `pgcrypto` eklentileri birebir doğrulandı.
+  4. **Backend Entegrasyonu:** `/docker/tafsil-api/.env` yapılandırması `POSTGRES_PORT=5433` ve yeni `DATABASE_URL` bağlantılarıyla güncellendi; API yeniden başlatıldı.
+  5. **Doğrulama:** `https://api.tafsil.net/health` üzerinden `{"postgres":true,"redis":true}` ve sure/ayet sorguları HTTP 200 ile doğrulandı. Hostinger Docker agent listesinde `tafsil-postgres` `running(1)` olarak kaydedildi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* Hostinger VPS: `/docker/tafsil-postgres` (yeni Compose projesi ve volumü), `/docker/tafsil-api/.env` (port 5433 güncellemesi).
+* `docs/deployment/01-BACKEND-DEPLOY.md`: Yeni konteyner haritası ve SSH tüneli komutları güncellendi.
+* `DEVELOPMENT_LOG.md`: Oturum günlüğe işlendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(db): migrate tafsil_net_db to dedicated tafsil-postgres container
+```
+
+---
+
+## [2026-10-04] Backend ve Web Projelerinin Hostinger Docker Manager Paneline (`/docker`) Taşınması ve İsimlendirilmesi
+
+### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
+* **Hostinger Docker Manager Entegrasyonu & İsim Standardizasyonu:**
+  * Hostinger VPS üzerindeki Docker yönetim paneli (`hPanel`), sunucudaki Docker Compose projelerini `/docker` kök dizini üzerinden izlemekte ve proje adını compose dosyasındaki `name:` veya klasör adından almaktadır.
+  * Daha önce `tafsil-api` servisi `docker run` ile bağımsız çalıştığı için panelde hiç görünmüyordu. `web` servisi ise `/opt/tafsil/web` altında çalıştığı için panelde proje adı sadece `web` olarak listeleniyordu.
+* **Uygulanan Değişiklikler:**
+  1. **`tafsil-api` Taşıması:** Sunucu üzerinde `/docker/tafsil-api` dizini oluşturuldu; backend kaynak kodları, `.env` dosyaları ve Fastify API için `docker-compose.yml` buraya taşındı. `docker compose up -d` ile `tafsil-api` adıyla başlatıldı.
+  2. **`tafsil-web` Taşıması ve İsim Düzeltmesi:** Kodlar `/docker/tafsil-web` dizinine taşındı. `docker-compose.yml` dosyasına `name: tafsil-web` tanımlandı. Eski `web` compose projesi kapatılıp yeni `tafsil-web` projesi olarak ayağa kaldırıldı.
+  3. **Geriye Dönük Uyumluluk:** Nginx ve mevcut script yollarının kırılmaması için `/opt/tafsil/backend -> /docker/tafsil-api` ve `/opt/tafsil/web -> /docker/tafsil-web` sembolik linkleri (symlink) oluşturuldu.
+  4. **Doğrulama:** Hostinger Docker agent betiği (`/.hstgr-*.list.py`) çalıştırılarak hem `tafsil-api` hem de `tafsil-web` projelerinin ve konteynerlerinin doğru isimlerle `running(1)` olduğu teyit edildi. `https://tafsil.net` ve `https://api.tafsil.net/health` üzerinden HTTP 200 sağlandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* Hostinger VPS: `/docker/tafsil-api`, `/docker/tafsil-web`, `/opt/tafsil/backend` (symlink), `/opt/tafsil/web` (symlink).
+* `tafsil-web-app/docker-compose.yml`: `name: tafsil-web` eklendi.
+* `DEVELOPMENT_LOG.md`: Güncellendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+chore(deploy): migrate tafsil-api and tafsil-web to /docker with unified naming
+```
+
+---
+
 ## [2026-10-04] Canlı Veritabanı Güvenliği, Firewall Doğrulaması ve Parola Rotasyonu (PBI-9.9)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)

@@ -1,3 +1,5 @@
+name: tafsil-web
+
 services:
   web:
     build:

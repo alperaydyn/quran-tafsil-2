@@ -21,24 +21,21 @@ Fastify (Node.js) backend API'nin Hostinger VPS üzerinde Docker konteynerleri, 
 
 ## 2. Docker Compose Servisleri ve VPS PostgreSQL Konfigürasyonu
 
-Tüm veritabanı ve altyapı servisleri `backend/docker-compose.yml` ile yönetilir. Detaylı yapılandırma için bkz: [backend/docker-compose.yml](file:///Users/alperaydin/Projects/kuran-tafsil-net/backend/docker-compose.yml)
+Tüm veritabanı ve altyapı servisleri projenin kendi izole Docker Compose projeleriyle yönetilir.
 
 ### Servis Haritası
 
-| Servis | Konteyner Adı | Port (Host) | Açıklama |
-|---|---|---|---|
-| `postgres` | `postgres` (veya `tafsil-postgres`) | 5432 | PostgreSQL 16 + pgvector |
-| `redis` | `tafsil-redis` | 6379 | Redis 7 (AOF + RDB) |
-| `pgbouncer` | `tafsil-pgbouncer` | 6432 | Bağlantı havuzlama (Transaction Mode) |
+| Servis | Proje Dizini | Konteyner Adı | Port (Host) | Açıklama |
+|---|---|---|---|---|
+| `postgres` | `/docker/tafsil-postgres` | `tafsil-postgres` | `127.0.0.1:5433:5432` | `pgvector/pgvector:pg16` (İzole PG + pgvector) |
+| `redis` | `/docker/tafsil-redis` | `tafsil-redis-redis-1` | `127.0.0.1:6379:6379` | Redis 7 (AOF + RDB) |
+| `api` | `/docker/tafsil-api` | `tafsil-api` | `4000` (Host Network) | Fastify API (`tafsil-backend:latest`) |
+| `web` | `/docker/tafsil-web` | `tafsil-web` | `127.0.0.1:3002:3000` | Next.js Web App (`web-web`) |
 
-> [!IMPORTANT]
-> **VPS Mevcut PostgreSQL Durumu ve `pgvector` Notu:**
-> VPS üzerinde hâlihazırda çalışan bir `postgres` (PostgreSQL 16) konteyneri mevcuttur. Bu konteyner içinde `tafsil_net_db` veritabanı ve `tafsil_user_001` kullanıcısı tanımlıdır.
-> Standart PostgreSQL 16 imajında `vector` eklentisi varsayılan bulunmadığı için şu komutla kurulmalıdır:
-> ```bash
-> docker exec postgres apt-get update -qq && docker exec postgres apt-get install -y postgresql-16-pgvector
-> docker exec postgres psql -U admin@a3gents.com -d tafsil_net_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
-> ```
+> [!NOTE]
+> **Müstakil `tafsil-postgres` Konteyneri:**
+> Tafsil veritabanı (`tafsil_net_db`) ve kullanıcısı (`tafsil_user_001`), sunucudaki paylaşımlı `postgredb` (port 5432) konteynerinden ayrılarak projeye özel `/docker/tafsil-postgres` projesi altına taşınmıştır.
+> Host üzerinde port çakışmasını önlemek ve güvenlik duvarı izolasyonunu korumak amacıyla `127.0.0.1:5433:5432` port eşlemesi kullanılmaktadır.
 
 ---
 
@@ -47,10 +44,12 @@ Tüm veritabanı ve altyapı servisleri `backend/docker-compose.yml` ile yöneti
 Geliştirici yerel Mac/PC ortamında çalışırken veritabanı portlarını dış internete açmak yerine güvenli SSH tüneli kullanır:
 
 ```bash
-# Yerel terminalde tüneli açın:
-ssh -N -L 5432:localhost:5432 hostinger
+# Yerel 5432 portunu VPS'teki müstakil tafsil-postgres (5433) portuna yönlendirin:
+ssh -N -L 5432:127.0.0.1:5433 hostinger
+
+# Veya çakışma olmaması için yerel 5433 portuna bağlayın:
+ssh -N -L 5433:127.0.0.1:5433 hostinger
 ```
-*(Önemli: PgBouncer servisi VPS üzerinde henüz aktif edilmemişse `-L 6432:localhost:6432` parametresi verilmemelidir; aksi takdirde `channel X: open failed: connect failed: Connection refused` hatası döner).*
 
 ---
 
@@ -78,37 +77,23 @@ npm run db:status
 
 ---
 
-## 4. Node.js / Fastify Dağıtımı (Docker Konteyneri)
+## 4. Node.js / Fastify Dağıtımı (Docker Compose & Hostinger Docker Manager)
 
 Fastify API, çok aşamalı [backend/Dockerfile](file:///Users/alperaydin/Projects/kuran-tafsil-net/backend/Dockerfile) ile derlenen `tafsil-backend:latest` Docker konteyneri içinde, non-root `tafsil` kullanıcısı ile izole olarak çalışır.
 
-### Docker Konteyneri ile Başlatma
+Hostinger VPS üzerindeki Docker Manager panelinin (`hPanel`) projeyi tanıması için servis `/docker/tafsil-api` dizini altında Docker Compose ile yönetilir (ayrıca `/opt/tafsil/backend` sembolik linki ile geriye dönük uyumluluk sağlanmıştır).
+
+### Docker Compose ile Başlatma
 
 ```bash
-cd /opt/tafsil/backend
+cd /docker/tafsil-api
 
-# İmajı derle
-docker build -t tafsil-backend:latest .
-
-# Konteyneri başlat (Host network veya Docker Compose ile)
-docker run -d \
-  --name tafsil-api \
-  --restart unless-stopped \
-  --network host \
-  --env-file .env \
-  tafsil-backend:latest
+# İmajı derle ve konteyneri başlat
+docker compose up -d --build
 
 # Konteyner durumunu ve sağlık kontrolünü incele
-docker ps -f name=tafsil-api
-docker logs tafsil-api
-```
-
-### Docker Compose ile Yönetim
-
-Tüm servisler (PostgreSQL, Redis, Fastify API) tek bir compose dosyasıyla yönetilebilir:
-
-```bash
-docker compose up -d api
+docker compose ps
+docker compose logs -f api
 ```
 
 ---
