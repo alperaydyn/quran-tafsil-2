@@ -38,7 +38,7 @@ npx expo-doctor       # yapılandırma sağlık kontrolü
 - ✅ Tasarım token sistemi (`src/theme/`) — 3 renk teması (ceviz/lacivert/mor) × açık/koyu, Newsreader/Instrument Sans/Amiri
 - ✅ Zustand store'ları + MMKV kalıcılık (`src/store/`)
 - ✅ 3-Kademeli Mod Motoru — Keşif/Öğrenme/Odak (`src/hooks/useReadingMode.ts`)
-- ✅ Onboarding akışı (3 tanıtım + mod seçimi)
+- ✅ Onboarding akışı (cihaz dili tespiti TR>AR>EN; niyet → bağlam → yolculuk → giriş tercihi)
 - ✅ Sure listesi ve okuma ekranı — **mock veriyle** (`src/api/client.ts`), gerçek API `docs/agent-signals/agent-02.status.json`'da BE-001/BE-010/BE-004/BE-007 tamamlandığında bağlanacak
 - ⏳ Sırada: MOB-011 (Apple/Google Sign-In), ardından P1 kapsamı (offline DB, ses senkron, ezber stüdyosu, DAG)
 

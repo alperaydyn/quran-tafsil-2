@@ -74,6 +74,7 @@ Bu belge, **tafsil.net** Faz 1 (MVP) kapsamındaki tüm teknik ve fonksiyonel ge
 - [x] **PBI-5.3 (İlk Açılış Onboarding Akışı):** Uygulama ilk kez yüklendiğinde kullanıcının niyetine göre mod seçtiren 3 adımlı onboarding ekranlarının bağlanması (`OnboardingScreen.tsx`, `useUserSettingsStore.ts`, `RootNavigator.tsx`, `SettingsScreen.tsx`).
 - [x] **PBI-5.4 (Profil/Ayarlardan Mod Değiştirme):** Kullanıcının dilediği zaman ayarlar sayfasından modu değiştirebilmesi ve arayüzün anlık uyarlanması (`SettingsScreen.tsx`).
 - [x] **PBI-5.5 (Açılış ve Yükleme Ekranı — Splash / Loading):** `tafsil.` editoryal logosu, nokta matrisi (dot matrix) zemin, "لِقَوْمٍ يَعْلَمُونَ" hat metni, katmanlı kök anlamları ("BİLEN BİR TOPLULUK İÇİN...", "TANIYAN", "KAVRAYAN") ve 3'lü kare durum indikatörüyle 1a (Açık) ve 1b (Koyu) açılış deneyimi (`LoadingScreen.tsx`).
+- [x] **PBI-5.6 (Onboarding Revizyonu — Dil Tespiti, Yeni Akış, Giriş Tercihi):** (a) Cihaz dilinden ilk açılış dili tespiti TR > AR > EN fallback (`expo-localization`, `i18n/detectLanguage.ts`); (b) akış: Niyet → Bağlam → Yolculuk (okuma geçmişi / tamamlama / ezber stüdyosu tanıtımı) → Hesap tercihi; (c) son adımda "Giriş yap" (Auth modalı) veya "Giriş yapmadan devam et" (misafir oturumu), oturum açıksa adım atlanır. Onboarding metinleri i18n'e taşındı.
 
 ---
 

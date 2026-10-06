@@ -93,7 +93,8 @@
       ],
       "expo-asset",
       "expo-sqlite",
-      "expo-mail-composer"
+      "expo-mail-composer",
+      "expo-localization"
     ],
     "extra": {
       "apiUrl": "https://api.tafsil.net/api/v1",

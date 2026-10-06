@@ -191,13 +191,29 @@ export interface TranslationSchema {
         description: string;
       };
     };
-    slides: {
-      slide1Eyebrow: string;
-      slide1Title: string;
-      slide1Body: string;
-      slide2Eyebrow: string;
-      slide2Title: string;
-      slide2Body: string;
+    context: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      cardLabel: string;
+      forms: { verb: string; concept: string; subject: string; world: string };
+      footnote: string;
+    };
+    features: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      history: { title: string; desc: string; streak: string };
+      completion: { title: string; desc: string; progress: string };
+      memorization: { title: string; desc: string; hard: string; good: string; easy: string };
+    };
+    account: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      signIn: string;
+      guest: string;
+      note: string;
     };
   };
   auth: {

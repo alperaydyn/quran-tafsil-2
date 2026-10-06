@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { mmkvStorage } from './mmkvStorage';
 import type { AccentVariant, ColorScheme } from '../theme/palette';
 import type { LanguagePreference } from '../i18n/types';
+import { detectDeviceLanguage } from '../i18n/detectLanguage';
 
 /**
  * Kullanıcının okuma tercih modu — bkz. docs/agents/03-MOBILE-APP-AGENT.md §2
@@ -41,7 +42,8 @@ export const useUserSettingsStore = create<UserSettingsState>()(
       readingMode: 'ogrenme',
       colorSchemePreference: 'system',
       accentVariant: 'ceviz',
-      language: 'tr',
+      // İlk kurulumda cihaz dili (TR > AR > EN fallback); persist edilmiş tercih bunu ezer.
+      language: detectDeviceLanguage(),
 
       setReadingMode: (mode) => set({ readingMode: mode, accentVariant: MODE_TO_ACCENT[mode] }),
       setColorSchemePreference: (pref) => set({ colorSchemePreference: pref }),

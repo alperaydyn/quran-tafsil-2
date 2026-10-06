@@ -249,10 +249,11 @@ Platformun tüm okuma ekranlarında geçerli olan, çift dilli ve kelime seviyes
 Yeni bir kullanıcının uygulamayı ilk açtığında yaşayacağı deneyim akışı ve uygulamaya tutunma mekanizmaları:
 
 * **1. Karşılama ve Kayıt:**
-  * Uygulama ilk açıldığında kısa, görsel ve etkileyici bir tanıtım akışı (3-4 slayt) ile platformun temel değer önerisi sunulur.
-  * Apple Sign-In veya Google Sign-In ile tek tıkla hesap oluşturma. Kayıt öncesinde uygulamayı keşfetme seçeneği de sunulur (misafir modu).
+  * Arayüz dili ilk açılışta cihaz dilinden otomatik belirlenir (TR > AR > EN fallback; diğer diller İngilizce). Kullanıcı tanıtım ekranından veya ayarlardan değiştirebilir.
+  * Tanıtım akışı 4 adımdır: **1) Niyet (mod) → 2) Bağlam (kavramsal bağlam & kök matematiği) → 3) Yolculuk (okuma geçmişi, tamamlama, ezber stüdyosu) → 4) Hesap tercihi.**
+  * Son adımda kullanıcıya giriş tercihi sorulur: Apple Sign-In ile giriş / hesap oluşturma veya giriş yapmadan devam (misafir modu; veriler sonradan hesaba bağlanabilir).
 
-* **2. Mod Seçimi (Onboarding):**
+* **2. Mod Seçimi (Onboarding'in ilk adımı):**
   * Kullanıcıya 3 mod kısaca tanıtılır ve hangisinin kendisine uygun olduğunu seçmesi istenir:
     * **Keşif Modu** — *"Kur'an'ı merak ediyor, modern bir perspektifle okumak istiyorum"*
     * **Öğrenme Modu** — *"Kur'an'ı anlamak, kavramlarını öğrenmek ve düzenli okuma alışkanlığı kazanmak istiyorum"*

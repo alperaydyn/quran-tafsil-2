@@ -4,6 +4,26 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
+## [2026-10-06] Onboarding Yeniden Tasarımı: Cihaz Dili Tespiti, Yeni Akış ve Giriş Tercihi Adımı
+
+### 1. Alınan Kararlar ve Gerekçeleri
+* **Cihaz dili tespiti (TR > AR > EN):** `expo-localization` eklendi; `src/i18n/detectLanguage.ts` cihazın tercih listesini öncelik sırasıyla tarar, ilk desteklenen dili (tr/ar/en) seçer, hiçbiri yoksa `en`. `useUserSettingsStore.language` varsayılanı artık bu fonksiyondur → yalnızca ilk kurulumda etkili; persist edilmiş (kullanıcının seçtiği) dil her zaman önceliklidir. Header'daki dil çipi artık tüm adımlarda görünür.
+* **Yeni akış:** 1) Niyet → 2) Bağlam → 3) Yolculuk (okuma geçmişi, tamamlama, ezber stüdyosu vitrini; eski Reveal-on-Recite sayfasının yerine) → 4) Hesap tercihi.
+* **Hesap adımı:** Tanıtım sonunda “Giriş yap / Hesap oluştur” (Main üstüne `Auth` modalı; iptalde Main'e düşer) veya “Giriş yapmadan devam et” (`continueAsGuest` → misafir oturumu; böylece ana sayfada “Kâri” yerine misafir oturumu ile karşılanır, veri senkronu/Account Linking çalışır). Oturum zaten açıksa (Ayarlar'dan tanıtım tekrarı) adım gösterilmez.
+* Onboarding içindeki sabit Türkçe metinler i18n şemasına taşındı (`context`, `features`, `account`; `slides` kaldırıldı).
+
+### 2. Etkilenen Bileşenler
+`OnboardingScreen.tsx`, `useUserSettingsStore.ts`, `i18n/detectLanguage.ts` (yeni), `i18n/{types,tr,en,ar}.ts`, `package.json`/`app.json` (expo-localization).
+
+> Not: `expo-localization` yerel modüldür → EAS/dev client yeniden derlenmelidir (Expo Go'da hazır gelir).
+
+### 3. Önerilen Git Commit Mesajı
+```git
+feat(onboarding): device language detection, intent/context/journey flow and login choice step
+```
+
+---
+
 ## [2026-10-05] EAS ve App Store Connect Entegrasyonu, Metadata & İlk iOS Üretim Derlemesi (PBI-9.10, PBI-9.11 & PBI-10.4)
 
 ### 1. Alınan Kararlar ve Gerekçeleri (Neden Yapıldı?)
