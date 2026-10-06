@@ -31,11 +31,11 @@ dist/
 build/
 *.orig.*
 
-# iOS / Android native outputs
-ios/Pods/
-ios/build/
-android/app/build/
-android/.gradle/
+# iOS / Android native outputs (Expo Continuous Native Generation)
+tafsil-ios-app/ios/
+tafsil-ios-app/android/
+ios/
+android/
 *.ipa
 *.apk
 *.aab

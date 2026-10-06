@@ -5,6 +5,25 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-06] Expo Managed Workflow (CNG) Yapılandırması ve Yerel Native Klasörlerin İzolasyonu
+
+### 1. Karşılaşılan Durum ve Gerekçe
+* **Durum:** Simülatörde yerel derleme testi (`npx expo run:ios`) çalıştırıldığında Expo Prebuild mekanizması otomatik olarak `tafsil-ios-app/ios/` dizinini ve altındaki Xcode/CocoaPods projelerini oluşturdu; `package.json` içindeki `ios` ve `android` scriptlerini `expo run:*` olarak güncelledi.
+* **Mimari Karar:** Proje **Expo Managed Workflow (Continuous Native Generation - CNG)** ve EAS Cloud Build ilkeleri doğrultusunda geliştirildiği için yerel `ios/` ve `android/` klasörlerinin repoda tutulmamasına; dinamik olarak `app.json` ve plugin konfigürasyonlarından üretilmeye devam etmesine karar verildi.
+* **Çözüm:** Root `.gitignore` güncellenerek `tafsil-ios-app/ios/` ve `tafsil-ios-app/android/` yerel üretim klasörleri Git takibinden hariç tutuldu. `package.json` script güncellemeleri korunarak çalışma alanı temizlendi.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `.gitignore`: `tafsil-ios-app/ios/` ve `tafsil-ios-app/android/` hariç tutuldu.
+* `tafsil-ios-app/package.json`: `ios` ve `android` scriptleri güncellendi.
+* `DEVELOPMENT_LOG.md`: Karar ve süreç günlüğe işlendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+chore(mobile): ignore generated native directories and update expo run scripts
+```
+
+---
+
 ## [2026-10-06] Okuma Ekranı Yüzen Oynatma Paneli (Audio Playback Dock) Kontrast, Simetri ve Çevrimdışı İkon Düzenlemesi
 
 ### 1. Karşılaşılan Sorun ve Kullanıcı Talepleri
