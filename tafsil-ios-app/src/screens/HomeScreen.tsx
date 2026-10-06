@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, ScrollView, View, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screen } from '../components/common/Screen';
 import { StyledText } from '../components/common/StyledText';
@@ -69,23 +69,25 @@ function BahcenCard() {
   const [wateredWeeks, setWateredWeeks] = useState<number>(0);
   const [dailyCounts, setDailyCounts] = useState<Record<string, number>>({});
 
-  useEffect(() => {
-    let mounted = true;
-    Promise.all([
-      OfflineSyncService.getDailyCounts(),
-      OfflineSyncService.getWateredWeeksCount(),
-      OfflineSyncService.getTodayReadCount(),
-    ]).then(([counts, weeks, todayCnt]) => {
-      if (mounted) {
-        setDailyCounts(counts);
-        setWateredWeeks(weeks);
-        setTodayAyahCount(todayCnt);
-      }
-    });
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      let mounted = true;
+      Promise.all([
+        OfflineSyncService.getDailyCounts(),
+        OfflineSyncService.getWateredWeeksCount(),
+        OfflineSyncService.getTodayReadCount(),
+      ]).then(([counts, weeks, todayCnt]) => {
+        if (mounted) {
+          setDailyCounts(counts);
+          setWateredWeeks(weeks);
+          setTodayAyahCount(todayCnt);
+        }
+      });
+      return () => {
+        mounted = false;
+      };
+    }, [])
+  );
 
   const totalWatered = wateredWeeks > 0 ? wateredWeeks : (streak.current > 0 ? Math.max(1, Math.ceil(streak.current / 7)) : 0);
   const statusLabel = totalWatered > 0 ? t('home.gardenWateredWeeks', { count: totalWatered }) : t('home.gardenWaiting');
@@ -105,13 +107,19 @@ function BahcenCard() {
       return theme.colors.line;
     }
     const targetDate = new Date(Date.now() - daysDiff * 86400000);
-    const dateKey = targetDate.toISOString().slice(0, 10);
-    const count = dailyCounts[dateKey] ?? 0;
+    const dateKeyUtc = targetDate.toISOString().slice(0, 10);
+
+    // Saat dilimi ve gece yarısı kaymalarına karşı yerel takvim tarihi anahtarı
+    const targetLocal = new Date();
+    targetLocal.setDate(targetLocal.getDate() - daysDiff);
+    const dateKeyLocal = `${targetLocal.getFullYear()}-${String(targetLocal.getMonth() + 1).padStart(2, '0')}-${String(targetLocal.getDate()).padStart(2, '0')}`;
+
+    const count = dailyCounts[dateKeyUtc] ?? dailyCounts[dateKeyLocal] ?? 0;
 
     if (count === 0) return theme.colors.line;
-    if (count < 5) return theme.colors.band;
-    if (count < 10) return theme.colors.accSoft;
-    return theme.colors.acc;
+    if (count < 3) return `${theme.colors.acc}40`; // 1-2 ayet (zarif şeffaf vurgu tonu)
+    if (count < 8) return `${theme.colors.acc}85`; // 3-7 ayet (orta belirgin vurgu)
+    return theme.colors.acc; // 8+ ayet (tam dolu canlı vurgu)
   };
 
   return (

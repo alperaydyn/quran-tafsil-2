@@ -4,7 +4,40 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
-## [2026-10-06] Onboarding Yeniden Tasarımı: Cihaz Dili Tespiti, Yeni Akış ve Giriş Tercihi Adımı
+
+## [2026-10-06] Ana Sayfa Okuma Bahçesi Isı Haritası (Heatmap) ve Geçmiş Senkronizasyonu Düzeltmesi
+
+### 1. Karşılaşılan Sorun ve Kök Neden Analizi
+* **Sorun:** Ana sayfadaki okuma geçmişi paneline tıklandığında detay sayfasında (`ReadingHistoryScreen`) okuma geçmişi ve ayetler görünmesine rağmen, ana sayfadaki "Bahçen" 16 haftalık takvim ısı haritasında renklendirme görünmüyordu (tüm hücreler soluk çizgi renginde kalıyordu).
+* **Kök Nedenler:**
+  1. **`OfflineSyncService.getDailyCounts()` Mantık Hatası:** Fonksiyonda `HISTORY_KEY` taranırken `if (!dailyMap[d]) dailyMap[d] = 0;` şeklinde hatalı bir satır bulunuyordu. `DAILY_COUNTS_KEY` içinde henüz anahtar yoksa geçmişteki okuma sayısını saymak yerine `0` atıyor ve sıfır olarak bırakıyordu.
+  2. **`ReadingTimeline` ile `DAILY_COUNTS_KEY` Senkronizasyonu Eksikliği:** Kullanıcı okuma geçmişini detay ekranında açtığında backend'den (`/sync/reading-history`) çekilen günler ekranda gösteriliyor fakat `DAILY_COUNTS_KEY` içine kaydedilmiyordu. Dolayısıyla yerel sayaç boş kalıyordu.
+  3. **`HomeScreen` Yaşam Döngüsü (`useEffect` vs `useFocusEffect`):** `BahcenCard` bileşeni verileri yalnızca ilk mount anında `useEffect(..., [])` ile çekiyordu. Kullanıcı okuma geçmişi veya okuma ekranından ana sayfaya geri döndüğünde `HomeScreen` unmount olmadığı için veriler yeniden okunmuyordu.
+  4. **Tema Rengi Çakışması ve Kontrast Eksikliği:** Ceviz temasında `theme.colors.band` (`#E6E1D4`) ile `theme.colors.line` (`#E6E1D4`) renk kodları tamamen aynıydı. `count < 5` olduğunda `band` rengi döndürüldüğü için 1-4 ayet okunan günler boş/okunmamış (`line`) hücrelerle farksız görünüyordu.
+  5. **Saat Dilimi / UTC vs Yerel Tarih Farkı:** Hücrelerin `dateKey` hesabı `toISOString().slice(0, 10)` ile UTC bazlı yapılırken haftanın günü yerel zamana göre alınıyordu; bu da özellikle gece saatlerinde veya pozitif UTC dilimlerinde 1 günlük kaymaya yol açabiliyordu.
+
+### 2. Yapılan Değişiklikler ve Çözüm
+1. **`OfflineSyncService.getDailyCounts` Düzeltildi:**
+   * `HISTORY_KEY` taranarak her gün için gerçek okunan ayet sayıları hesaplandı ve `dailyMap` ile birleştirildi (`Math.max`).
+   * Eğer harita hala boşsa `getReadingTimeline()` çağrılarak sunucu veya yerel zaman çizelgesindeki okuma günleri otomatik olarak çekilip `DAILY_COUNTS_KEY` içine kaydedildi.
+2. **`OfflineSyncService.getReadingTimeline` İki Yönlü Önbellekleme:**
+   * Backend'den dönen günlerin ayet sayıları doğrudan `DAILY_COUNTS_KEY` haritasına işlendi.
+   * Yerel derlenen okuma günleri de `DAILY_COUNTS_KEY` içine kalıcı olarak yazıldı.
+3. **`HomeScreen.tsx` — `useFocusEffect` ve Dinamik Renklendirme:**
+   * `BahcenCard` bileşeninde `useEffect` yerine `useFocusEffect` entegre edildi; ekran her odaklandığında sayaçlar anında güncellenir.
+   * `getCellTone` fonksiyonunda `dateKeyUtc` ve `dateKeyLocal` ikili kontrolü eklendi.
+   * Renk tonlaması `acc` (tema vurgu rengi) alfa kanallarına (`${acc}40`, `${acc}85`, `acc`) bağlanarak 1 ayet dahi okunsa hücrenin canlı ve belirgin şekilde renklendirilmesi sağlandı.
+
+### 3. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/services/offlineSyncService.ts`: `getDailyCounts`, `getTodayReadCount`, `getReadingTimeline` fonksiyonları güncellendi.
+* `tafsil-ios-app/src/screens/HomeScreen.tsx`: `useFocusEffect` eklendi, `getCellTone` renk eşlemesi ve çift tarih kontrolü iyileştirildi.
+
+### 4. Önerilen Git Commit Mesajı
+```git
+fix(mobile): resolve garden heatmap coloring and sync reading history with daily counts
+```
+
+---
 
 ### 1. Alınan Kararlar ve Gerekçeleri
 * **Cihaz dili tespiti (TR > AR > EN):** `expo-localization` eklendi; `src/i18n/detectLanguage.ts` cihazın tercih listesini öncelik sırasıyla tarar, ilk desteklenen dili (tr/ar/en) seçer, hiçbiri yoksa `en`. `useUserSettingsStore.language` varsayılanı artık bu fonksiyondur → yalnızca ilk kurulumda etkili; persist edilmiş (kullanıcının seçtiği) dil her zaman önceliklidir. Header'daki dil çipi artık tüm adımlarda görünür.

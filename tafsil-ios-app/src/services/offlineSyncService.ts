@@ -301,15 +301,39 @@ export class OfflineSyncService {
       const rawDaily = await mmkvStorage.getItem(DAILY_COUNTS_KEY);
       const dailyMap: Record<string, number> = rawDaily ? JSON.parse(rawDaily) : {};
 
-      // HISTORY_KEY ile birleştir
-      const raw = await mmkvStorage.getItem(HISTORY_KEY);
-      const list: OfflineHistoryItem[] = raw ? JSON.parse(raw) : [];
-      list.forEach((item) => {
+      // 1. HISTORY_KEY ile birleştir ve günlük okunan ayet sayısını doğru hesapla
+      const rawHistory = await mmkvStorage.getItem(HISTORY_KEY);
+      const historyList: OfflineHistoryItem[] = rawHistory ? JSON.parse(rawHistory) : [];
+      const historyCounts: Record<string, number> = {};
+      historyList.forEach((item) => {
         if (item.okundu_tarihi) {
           const d = item.okundu_tarihi.slice(0, 10);
-          if (!dailyMap[d]) dailyMap[d] = 0;
+          historyCounts[d] = (historyCounts[d] ?? 0) + 1;
         }
       });
+      Object.entries(historyCounts).forEach(([d, count]) => {
+        dailyMap[d] = Math.max(dailyMap[d] ?? 0, count);
+      });
+
+      // 2. Eğer sayaç haritası hala boşsa getReadingTimeline üzerinden veriyi çek ve kaydet
+      if (Object.keys(dailyMap).length === 0) {
+        try {
+          const timeline = await this.getReadingTimeline();
+          if (timeline?.days && timeline.days.length > 0) {
+            timeline.days.forEach((day) => {
+              const verseCount =
+                day.surah_readings?.reduce((sum, s) => sum + (s.toplam_ayet || 0), 0) ||
+                day.total_items ||
+                0;
+              if (verseCount > 0) {
+                dailyMap[day.date] = Math.max(dailyMap[day.date] ?? 0, verseCount);
+              }
+            });
+            await mmkvStorage.setItem(DAILY_COUNTS_KEY, JSON.stringify(dailyMap));
+          }
+        } catch {}
+      }
+
       return dailyMap;
     } catch {
       return {};
@@ -338,8 +362,10 @@ export class OfflineSyncService {
   static async getTodayReadCount(): Promise<number> {
     try {
       const dailyCounts = await this.getDailyCounts();
-      const todayPrefix = new Date().toISOString().slice(0, 10);
-      return dailyCounts[todayPrefix] ?? 0;
+      const todayUtc = new Date().toISOString().slice(0, 10);
+      const now = new Date();
+      const todayLocal = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      return dailyCounts[todayUtc] ?? dailyCounts[todayLocal] ?? 0;
     } catch {
       return 0;
     }
@@ -379,6 +405,20 @@ export class OfflineSyncService {
         } else if (res.ok) {
           const json = await res.json();
           if (json?.data?.days && json.data.days.length > 0) {
+            try {
+              const rawDaily = await mmkvStorage.getItem(DAILY_COUNTS_KEY);
+              const dailyMap: Record<string, number> = rawDaily ? JSON.parse(rawDaily) : {};
+              json.data.days.forEach((day: TimelineDayGroup) => {
+                const dayVerseCount =
+                  day.surah_readings?.reduce((sum: number, s: any) => sum + (s.toplam_ayet || 0), 0) ||
+                  day.total_items ||
+                  0;
+                if (dayVerseCount > 0) {
+                  dailyMap[day.date] = Math.max(dailyMap[day.date] ?? 0, dayVerseCount);
+                }
+              });
+              await mmkvStorage.setItem(DAILY_COUNTS_KEY, JSON.stringify(dailyMap));
+            } catch {}
             return json.data;
           }
         }
@@ -543,6 +583,24 @@ export class OfflineSyncService {
         (acc, day) => acc + day.surah_readings.reduce((sAcc, s) => sAcc + s.toplam_ayet, 0),
         0
       );
+
+      // Yerel hesaplanan günleri de DAILY_COUNTS_KEY içine aktar
+      try {
+        const rawDaily = await mmkvStorage.getItem(DAILY_COUNTS_KEY);
+        const dailyMap: Record<string, number> = rawDaily ? JSON.parse(rawDaily) : {};
+        let updatedDaily = false;
+        timeline.forEach((day) => {
+          const verseCount = day.surah_readings.reduce((acc, s) => acc + s.toplam_ayet, 0);
+          const count = verseCount > 0 ? verseCount : day.total_items;
+          if (count > 0 && (!dailyMap[day.date] || dailyMap[day.date] < count)) {
+            dailyMap[day.date] = count;
+            updatedDaily = true;
+          }
+        });
+        if (updatedDaily) {
+          await mmkvStorage.setItem(DAILY_COUNTS_KEY, JSON.stringify(dailyMap));
+        }
+      } catch {}
 
       return {
         days: timeline,
