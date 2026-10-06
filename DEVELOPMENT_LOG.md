@@ -5,6 +5,48 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-06] Okuma Ekranı Yüzen Oynatma Paneli (Audio Playback Dock) Kontrast, Simetri ve Çevrimdışı İkon Düzenlemesi
+
+### 1. Karşılaşılan Sorun ve Kullanıcı Talepleri
+* **Koyu Temada Görsel Ayrışma Sorunu:** Okuma sayfasındaki floating play dock (`AudioPlaybackBar`), koyu temada arka plan (`#14130F`) ile neredeyse aynı renk koduna (`#1A1816`) ve çok soluk bir sınıra (`rgba(255,255,255,0.08)`) sahip olduğu için sayfa zemininden ayırt edilemiyordu.
+* **Simetrik Olmayan Buton Yerleşimi:** Dock'un sol tarafında sabit "TİLEVET" metni, ayet numarası sayacı (`X / Y`) ve metin rozeti yer alırken; oynatma kontrollerinin sağında odak modu toggle, hız ve kapatma butonları bulunuyordu; merkezdeki play buton grubu ortalanamıyor ve asimetrik görünüyordu.
+* **Çevrimdışı Gösterge Tasarımı:** Dock içindeki yeşil arka planlı metinsel `ÇEVRİMDIŞI` rozeti estetik durmuyordu.
+* **Hedef:** Sol taraftaki "Tilavet" yazısı ve ayet sayacını kaldırıp "Odak" butonunu sola kaydırmak; metin yerine diğer butonların formatında bir disabled wifi ikonu yerleştirmek (yalnızca çevrimdışıyken görünür şekilde); orta play grubunun solunda 2 buton, sağında 2 buton ile dock ikonlarını tam ve dengeli şekilde ortalamak.
+
+### 2. Yapılan Değişiklikler ve Mimari Çözüm
+1. **Koyu Tema Kontrastı ve Görünürlük İyileştirmesi:**
+   * `AudioPlaybackBar.tsx` ve `ReadingScreen.tsx` içindeki dock arka plan rengi koyu modda `#1A1816` yerine elevated koyu ton olan `#27241F` olarak güncellendi.
+   * Kenarlık rengi koyu modda `rgba(255, 255, 255, 0.16)` ile belirginleştirildi.
+   * `shadowOpacity` koyu temada 0.45'e yükseltildi ve buton yüzeyleri (`controlSurface`) ayrıştırıldı.
+2. **Kusursuz Simetrik 2-3-2 Yerleşim Mimarisi:**
+   * "TİLEVET" metni ve ayet no sayacı kaldırıldı. (Ayet ilerlemesi dock üst kenarındaki ince ve zarif progress track şeridi ile takip edilmeye devam ediyor).
+   * **Sol Kanat (`sideGroupLeft`, flex: 1, sol hizalı):**
+     1. [Odak / Metin Toggle Butonu] (44px)
+     2. [Çevrimdışı Wifi-Off Butonu] (32px, yalnızca `isOffline` ise görünür)
+   * **Orta Kanat (`centerControls`, merkez hizalı):**
+     1. [Önceki Ayet] (32px)
+     2. [Oynat / Duraklat] (42px)
+     3. [Sonraki Ayet] (32px)
+   * **Sağ Kanat (`sideGroupRight`, flex: 1, sağ hizalı):**
+     1. [Hız Seçici: 1.0x / 1.25x / 1.5x] (44px)
+     2. [Kapatma Butonu: ✕] (32px)
+   * Sol ve sağ kanatların `flex: 1` yapısı sayesinde orta play buton grubu her zaman ekranda mutlak merkezde kalır. Çevrimdışı modda sol kanat 2 buton, sağ kanat 2 buton ile tam 2+3+2 dengesini sağlar.
+3. **Saf React Native Geometrisiyle Minimalist `WifiOffIcon`:**
+   * Harici bağımlılık veya emoji kullanılmadan, projenin geometrik ikon prensibine uygun olarak dış yay, iç yay, merkez nokta ve arka plan maskeli 45° çapraz kesme çizgisiyle (disabled slash) pikselleri kusursuz `WifiOffIcon` bileşeni geliştirildi.
+   * Diğer butonlarla aynı formatta (`width: 32, height: 30, borderRadius: 8, backgroundColor: controlSurface`) butona gömüldü.
+
+### 3. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/components/reading/AudioPlaybackBar.tsx`: Kontrast renkleri, `WifiOffIcon`, 2+3+2 simetrik kanat yapısı ve stiller güncellendi.
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: Kapalı durumdaki mini ses butonunun koyu mod kontrast rengi (`#27241F`, border 0.16) senkronize edildi.
+* `DEVELOPMENT_LOG.md`: Oturum günlüğe işlendi.
+
+### 4. Önerilen Git Commit Mesajı
+```git
+refactor(mobile): enhance reading audio dock dark contrast, symmetrical button layout and offline wifi icon
+```
+
+---
+
 ## [2026-10-06] Ana Sayfa Okuma Bahçesi Isı Haritası (Heatmap) ve Geçmiş Senkronizasyonu Düzeltmesi
 
 ### 1. Karşılaşılan Sorun ve Kök Neden Analizi
