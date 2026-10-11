@@ -911,44 +911,6 @@ export function ReadingScreen({ route, navigation }: Props) {
         <>
           {isAudioOnly && isAudioSessionActive ? (
             <View style={{ flex: 1 }}>
-              {/* Odak Modu: Audio-Only Tilavet Sahnesi Başlığı */}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingHorizontal: theme.spacing.lg,
-                  paddingTop: theme.spacing.xs,
-                  paddingBottom: theme.spacing.md,
-                }}
-              >
-                <View>
-                  <StyledText variant="subhead" color="ink" style={{ fontWeight: '700' }}>
-                    {currentSurah ? currentSurah.nameTr : `Sure ${surahId}`}
-                  </StyledText>
-                  <StyledText variant="caption" color="mut" style={{ fontSize: 11 }}>
-                    {activeAyah}. Ayet / {verses.length} Ayet · Odak Tilaveti
-                  </StyledText>
-                </View>
-                <Pressable
-                  onPress={() => setIsAudioOnly(false)}
-                  hitSlop={8}
-                  style={({ pressed }) => ({
-                    paddingHorizontal: 12,
-                    paddingVertical: 6,
-                    borderRadius: 14,
-                    backgroundColor: theme.colors.surf,
-                    borderWidth: 1,
-                    borderColor: theme.colors.line,
-                    opacity: pressed ? 0.7 : 1,
-                  })}
-                >
-                  <StyledText variant="caption" color="ink" style={{ fontWeight: '600', fontSize: 11 }}>
-                    Metne Dön ✕
-                  </StyledText>
-                </Pressable>
-              </View>
-
               {/* Sadeleştirilmiş Hero Tilavet Sahnesi */}
               <ScrollView
                 contentContainerStyle={{

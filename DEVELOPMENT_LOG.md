@@ -5,6 +5,24 @@ Bu dosya, projede gerçekleştirilen her geliştirme oturumunda **alınan mimari
 > **Ajanlar ve Geliştiriciler İçin Kural:**
 > Her yeni geliştirme adımına başlarken bu dosya mutlaka taranmalı; yeni bir özellik tasarlanırken **geçmiş kararlarla çelişki olup olmadığı** denetlenmelidir. Geliştirme tamamlandığında ise oturumun özeti ve gerekçeleri bu dosyaya yeni bir başlık olarak eklenmelidir.
 
+## [2026-10-06] Okuma Ekranı Odak Modu Panel Başlığı ve Buton Çiftlemesinin Kaldırılması
+
+### 1. Karşılaşılan Durum ve Gerekçe
+* **Gereksiz Bilgi Çoklaması:** Okuma sayfasında odak moduna (`isAudioOnly && isAudioSessionActive`) geçildiğinde, ekranın üst kısmında sure adı, ayet numarası ("X. Ayet / Y Ayet · Odak Tilaveti") ve "Metne Dön ✕" butonu içeren müstakil bir başlık paneli render ediliyordu.
+* **Görsel Kalabalık:** Aynı bilgiler zaten uygulamanın üst navigation header'ında (Sure adı, ayet sayısı) ve alt yüzen oynatma barında (`AudioPlaybackBar` sol kanattaki aktif Odak/Metin toggle butonu) eksiksiz olarak mevcuttu.
+* **Çözüm:** Odak modunun ruhuna uygun şekilde dikkat dağıtıcı tüm mükerrer öğeleri arındırmak adına panel içindeki başlık ve "Metne Dön ✕" butonu kaldırıldı. Böylece ekran dikeyde tamamen kelime odaklı Hero Tilavet Sahnesi'ne ayrılarak daha ferah ve odaklanmış bir okuma ortamı sağlandı.
+
+### 2. Etkilenen Bileşenler ve Dosyalar
+* `tafsil-ios-app/src/screens/ReadingScreen.tsx`: Odak modundaki mükerrer başlık barı kaldırıldı.
+* `DEVELOPMENT_LOG.md`: Karar ve değişiklik günlüğe işlendi.
+
+### 3. Önerilen Git Commit Mesajı
+```git
+refactor(mobile): remove redundant header and return button in focus reading mode
+```
+
+---
+
 ## [2026-10-06] Expo Managed Workflow (CNG) Yapılandırması ve Yerel Native Klasörlerin İzolasyonu
 
 ### 1. Karşılaşılan Durum ve Gerekçe
